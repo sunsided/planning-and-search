@@ -10,12 +10,13 @@ algorithm PVS(p, d, α, β)
       break
     p′ ← play(p, m)
     v ← nil
-    if s = Max and α ≠ −∞ then
-      v ← PVS(p′, d − 1, α, next-up(α))        ▷ scout: does m beat α?
-    else if s = Min and β ≠ +∞ then
-      v ← PVS(p′, d − 1, next-down(β), β)      ▷ scout: does m get below β?
+    if best ≠ nil then                         ▷ the first move gets the full window right away
+      if s = Max and α ≠ −∞ then
+        v ← PVS(p′, d − 1, α, next-up(α))      ▷ scout: does m beat α?
+      else if s = Min and β ≠ +∞ then
+        v ← PVS(p′, d − 1, next-down(β), β)    ▷ scout: does m get below β?
     if v = nil or (v is a bound and α < v < β) then
-      v ← PVS(p′, d − 1, α, β)                 ▷ no edge to scout, or the scout failed: search again
+      v ← PVS(p′, d − 1, α, β)                 ▷ first move, no edge, or a bound inside (α, β)
     if s = Max then
       α ← max(α, v)
     else

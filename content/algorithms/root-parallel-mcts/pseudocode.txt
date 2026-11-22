@@ -1,0 +1,11 @@
+algorithm Root-parallel-MCTS(p₀, k, budget)
+  input: root position p₀, number of threads k, budget per thread
+  output: the most visited root move over all trees, and each root move's summed statistics
+  for i in 1, …, k in parallel do              ▷ the trees share nothing
+    rng_i ← new generator seeded from the searcher's
+    R_i ← MCTS(p₀, budget) with rng_i
+  for each root move m do                      ▷ every tree lists the same moves in order
+    visits(m) ← Σ visits_i(m) over i
+    value(m) ← Σ value_i(m) over i
+  b ← the most visited m                       ▷ ties go to the earliest
+  return b, with the line of the tree that visited b most
