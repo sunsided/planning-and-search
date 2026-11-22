@@ -6,21 +6,26 @@
 	import '#lib/design/base.css';
 	import SiteFooter from '#lib/components/organisms/SiteFooter.svelte';
 	import SiteHeader from '#lib/components/organisms/SiteHeader.svelte';
-	import { entries } from '#lib/search.js';
 	import { goto } from '$app/navigation';
 	import { resolve } from '$app/paths';
 	import type { Snippet } from 'svelte';
 
 	let { children }: { children: Snippet } = $props();
 
-	const searchable = entries(
-		(name) => resolve('/crates/[name]', { name }),
-		(slug) => `${resolve('/')}#${slug}`
-	);
+	const loadIndex = async () => {
+		const res = await fetch(resolve('/search.json'));
+		if (!res.ok) throw new Error(`search.json: HTTP ${res.status}`);
+		return res.json();
+	};
 </script>
 
 <a class="skip" href="#main">Skip to content</a>
-<SiteHeader home={resolve('/')} entries={searchable} go={(href) => goto(href)} />
+<SiteHeader
+	home={resolve('/')}
+	algorithms={resolve('/algorithms')}
+	load={loadIndex}
+	go={(href) => goto(href)}
+/>
 <main id="main">
 	{@render children()}
 </main>

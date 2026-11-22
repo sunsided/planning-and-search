@@ -1,0 +1,13 @@
+algorithm RRT(x₀, n)
+  input: start state x₀, number of iterations n
+  output: a path to the goal region, or failure
+  T ← tree with root x₀
+  for i in 1, …, n do
+    x-rand ← sample()                          ▷ with a small goal bias
+    x-near ← nearest(T, x-rand)
+    x-new ← steer(x-near, x-rand)              ▷ at most one step long
+    if motion-valid(x-near, x-new) then
+      add(T, x-new, parent: x-near)
+  if T reaches the goal region then
+    return path-to(best goal node of T)
+  return failure

@@ -13,6 +13,9 @@
 		copy: 'M9 9h10v10H9V9Zm-4 6V5h10',
 		check: 'm5 12 5 5 9-10',
 		search: 'm20 20-4.3-4.3M17 10.5a6.5 6.5 0 1 1-13 0 6.5 6.5 0 0 1 13 0Z',
+		play: 'M7 4.5v15l12-7.5-12-7.5Z',
+		pause: 'M8 5v14M16 5v14',
+		first: 'M6 5v14m12-14-8 7 8 7',
 		enter: 'M20 5v7a3 3 0 0 1-3 3H5m4-4-4 4 4 4'
 	} as const;
 	export type IconName = keyof typeof PATHS;

@@ -1,0 +1,6 @@
+{
+	"description": "A rapidly-exploring random tree (RRT) grows a tree from the start through a continuous space. Each step draws a random sample, finds the nearest node of the tree, and adds a new node one short, collision-free step towards the sample. Large empty regions draw the most samples, so the tree spreads quickly into unexplored space. RRT finds *a* path, not the cheapest one.",
+	"papers": [],
+	"lineage": [],
+	"trace": "plane/rrt"
+}

@@ -1,13 +1,7 @@
 import { strict as assert } from 'node:assert';
 import { test } from 'node:test';
-import {
-	ALGORITHMS,
-	CATEGORIES,
-	CRATES,
-	categoryOf,
-	dependents,
-	links
-} from '../src/lib/registry.ts';
+import { ALGORITHMS } from '../src/lib/algorithms.ts';
+import { CATEGORIES, CRATES, categoryOf, dependents, links } from '../src/lib/registry.ts';
 import { lint } from '../src/lib/richtext.ts';
 
 test('every crate is in exactly one category, and every category entry is a crate', () => {

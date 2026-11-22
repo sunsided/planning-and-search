@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/sveltekit';
-import { algorithmsOf, dependents } from '#lib/registry.js';
-import { category, mapf, pddl, refs } from '../stories/fixtures.ts';
+import { dependents } from '#lib/registry.js';
+import { algorithmItems, category, mapf, pddl, refs } from '../stories/fixtures.ts';
 import CrateTemplate from './CrateTemplate.svelte';
 
 const meta = {
@@ -19,7 +19,7 @@ export const Default: Story = {
 		back: '#',
 		dependencies: refs(mapf.deps.map((d) => d.name)),
 		dependents: refs(dependents(mapf.name).map((d) => d.name)),
-		algorithms: algorithmsOf(mapf.name)
+		algorithms: algorithmItems(mapf.name)
 	}
 };
 export const WithWorkspace: Story = {
@@ -29,6 +29,6 @@ export const WithWorkspace: Story = {
 		back: '#',
 		dependencies: [],
 		dependents: [],
-		algorithms: algorithmsOf(pddl.name)
+		algorithms: algorithmItems(pddl.name)
 	}
 };

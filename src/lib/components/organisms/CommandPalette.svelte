@@ -2,14 +2,14 @@
 	import Icon from '#lib/components/atoms/Icon.svelte';
 	import Kbd from '#lib/components/atoms/Kbd.svelte';
 	import Node from '#lib/components/atoms/Node.svelte';
-	import { search, withReadmes, type Entry, type Hit } from '#lib/search.js';
+	import { search, type Entry, type Hit } from '#lib/search.js';
 	import { onMount } from 'svelte';
 
 	/**
 	 * Find anything by word: a trigger button, and a dialog that Ctrl+K (⌘K on a Mac) also
 	 * opens. The input is a combobox over a listbox of results; arrows move, Enter opens.
 	 */
-	let { entries, go }: { entries: Entry[]; go: (href: string) => void } = $props();
+	let { load, go }: { load: () => Promise<Entry[]>; go: (href: string) => void } = $props();
 
 	const id = $props.id();
 	const KIND = { crate: 'Crate', algorithm: 'Algorithm', category: 'Topic' } as const;
@@ -18,19 +18,19 @@
 	let query = $state('');
 	let active = $state(0);
 	let mac = $state(false);
-	/** Full READMEs, fetched the first time the palette opens; until then, page text only. */
-	let readmes = $state<Record<string, string>>();
-	const corpus = $derived(readmes ? withReadmes(entries, readmes) : entries);
-	const hits = $derived(search(corpus, query));
+	/** The index, fetched the first time the palette opens. */
+	let corpus = $state<Entry[]>();
+	let failed = $state(false);
+	const hits = $derived(corpus ? search(corpus, query) : []);
 
 	onMount(() => (mac = /Mac|iPhone|iPad/.test(navigator.userAgent)));
 
 	function open() {
-		readmes ??= {};
-		import('#lib/data/readmes.json').then(
-			(m) => (readmes = m.default),
-			() => {} // Offline or blocked: page text alone still works.
-		);
+		if (!corpus)
+			load().then(
+				(e) => (corpus = e),
+				() => (failed = true)
+			);
 		query = '';
 		active = 0;
 		dialog?.showModal();
@@ -138,6 +138,10 @@
 				</li>
 			{/each}
 		</ul>
+	{:else if failed}
+		<p class="empty">The search index did not load. Check the connection and try again.</p>
+	{:else if !corpus}
+		<p class="empty">Loading…</p>
 	{:else}
 		<p class="empty">Nothing matches “{query}”.</p>
 	{/if}

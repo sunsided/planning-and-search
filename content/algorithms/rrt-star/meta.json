@@ -1,0 +1,24 @@
+{
+	"description": "RRT* grows a tree like RRT, but it also improves the tree as it grows. A new node takes the parent that gives it the cheapest path among its neighbours, not only the nearest node. Then each neighbour that is cheaper to reach through the new node moves under it (*rewiring*). With enough samples, the best path converges to an optimal one (*asymptotic optimality*). The neighbourhood shrinks as the tree grows, as `γ (ln n / n)^(1/d)`.",
+	"papers": [
+		{
+			"authors": "Sertac Karaman, Emilio Frazzoli",
+			"title": "Sampling-based algorithms for optimal motion planning",
+			"year": 2011,
+			"venue": "The International Journal of Robotics Research",
+			"doi": "10.1177/0278364911406761",
+			"arxiv": "1105.1186",
+			"url": null,
+			"role": "introduces"
+		}
+	],
+	"lineage": [
+		{
+			"slug": "rrt",
+			"name": null,
+			"relation": "builds-on",
+			"source": "sampling-planning, src/trees/rrt_star.rs: \"RRT*: the asymptotically optimal RRT (Karaman and Frazzoli 2011)\""
+		}
+	],
+	"trace": "plane/rrt-star"
+}

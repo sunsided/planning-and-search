@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/sveltekit';
-import { go, searchEntries } from '../stories/fixtures.ts';
+import { go, loadSearch } from '../stories/fixtures.ts';
 import SiteHeader from './SiteHeader.svelte';
 
 const meta = {
@@ -10,4 +10,4 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-export const Default: Story = { args: { home: '#', entries: searchEntries, go } };
+export const Default: Story = { args: { home: '#', algorithms: '#', load: loadSearch, go } };

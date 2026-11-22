@@ -1,8 +1,5 @@
-// Search over everything the site shows: crates and categories. The corpus is a few dozen
+// Search over everything the site shows: crates, algorithms and categories. The corpus is a few dozen
 // entries, so it is a linear scan with substring matching and field weights; no index.
-
-import { CATEGORIES, CRATES, algorithmsOf, categoryOf } from './registry.ts';
-import type { Block } from './richtext.ts';
 
 export interface Entry {
 	kind: 'crate' | 'category' | 'algorithm';
@@ -31,68 +28,6 @@ export function plain(md: string): string {
 		.replace(/[`[\]]|\*\*/g, '')
 		.replace(/\s+/g, ' ')
 		.trim();
-}
-
-const blocksText = (blocks: Block[]) =>
-	blocks.map((b) => (b.kind === 'p' ? b.text : b.items.join(' '))).join(' ');
-
-export function entries(
-	crateHref: (name: string) => string,
-	categoryHref: (slug: string) => string
-): Entry[] {
-	const crates: Entry[] = CRATES.map((c) => {
-		const category = categoryOf(c.name)!;
-		const body = plain(blocksText(c.audience as Block[]));
-		return {
-			kind: 'crate',
-			title: c.name,
-			subtitle: plain(c.description),
-			href: crateHref(c.name),
-			hue: category.hue,
-			fields: [
-				{ text: c.name, weight: 8 },
-				{ text: c.keywords.join(' '), weight: 5 },
-				{ text: plain(c.description), weight: 4 },
-				{ text: c.siblings.map((s) => s.name).join(' '), weight: 3 },
-				{ text: category.title, weight: 2 },
-				{ text: body, weight: 1 }
-			].map((f) => ({ ...f, text: f.text.toLowerCase() })),
-			body
-		};
-	});
-	const categories: Entry[] = CATEGORIES.map((c) => ({
-		kind: 'category',
-		title: c.title,
-		subtitle: c.blurb,
-		href: categoryHref(c.slug),
-		hue: c.hue,
-		fields: [
-			{ text: c.title, weight: 6 },
-			{ text: c.blurb, weight: 3 },
-			{ text: c.crates.join(' '), weight: 2 }
-		].map((f) => ({ ...f, text: f.text.toLowerCase() })),
-		body: ''
-	}));
-	// One entry per released implementation: the hit says which crate and lands on it.
-	const algorithms: Entry[] = CRATES.flatMap((c) =>
-		algorithmsOf(c.name).map((a) => ({
-			kind: 'algorithm' as const,
-			title: a.name,
-			subtitle: `${c.name} · ${a.summary}`,
-			href: `${crateHref(c.name)}#algo-${a.slug}`,
-			hue: categoryOf(c.name)!.hue,
-			fields: [
-				{ text: a.name, weight: 8 },
-				{ text: a.aliases.join(' '), weight: 7 },
-				{ text: a.items.map((i) => i.name).join(' '), weight: 5 },
-				{ text: c.name, weight: 3 },
-				{ text: a.summary, weight: 2 },
-				{ text: a.refs.join(' '), weight: 1 }
-			].map((f) => ({ ...f, text: f.text.toLowerCase() })),
-			body: ''
-		}))
-	);
-	return [...crates, ...algorithms, ...categories];
 }
 
 /** Weight of full-README text: found there, an entry ranks below any page-text match. */

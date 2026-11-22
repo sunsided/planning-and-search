@@ -2,6 +2,8 @@
 	export interface AlgorithmItem {
 		slug: string;
 		name: string;
+		/** The algorithm's own page. */
+		href: string;
 		aliases: string[];
 		summary: string;
 		/** Public items that run it, each with its docs.rs search link. */
@@ -21,7 +23,7 @@
 	{#each algorithms as a (a.slug)}
 		<li id="algo-{a.slug}">
 			<div class="head">
-				<strong>{a.name}</strong>
+				<a class="name" href={a.href}>{a.name}</a>
 				{#if a.aliases.length}<span class="aliases">{a.aliases.join(' · ')}</span>{/if}
 				{#if a.feature}<Badge tone="accent">feature <code>{a.feature}</code></Badge>{/if}
 			</div>
@@ -61,9 +63,10 @@
 		align-items: baseline;
 		gap: var(--space-1) var(--space-3);
 	}
-	strong {
+	.name {
 		color: var(--color-text-strong);
 		font-weight: var(--weight-strong);
+		text-decoration-color: var(--accent-line);
 	}
 	.aliases {
 		color: var(--color-text-muted);

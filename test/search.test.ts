@@ -1,12 +1,14 @@
 import { strict as assert } from 'node:assert';
 import { test } from 'node:test';
 import { CRATES } from '../src/lib/registry.ts';
-import { entries, plain, search, withReadmes } from '../src/lib/search.ts';
+import { entries } from '../src/lib/search-index.ts';
+import { plain, search, withReadmes } from '../src/lib/search.ts';
 
-const all = entries(
-	(n) => `/crates/${n}/`,
-	(s) => `/#${s}`
-);
+const all = entries({
+	crate: (n) => `/crates/${n}/`,
+	category: (s) => `/#${s}`,
+	algorithm: (s) => `/algorithms/${s}/`
+});
 const top = (q: string) => search(all, q)[0]?.entry.title;
 
 test('an exact crate name comes first', () => {
@@ -61,9 +63,15 @@ test('README text finds more, ranked below page text, with a snippet', () => {
 	assert.ok(hit.score < search(extended, 'width')[0].score);
 });
 
-test('algorithms are found by name and alias, and land on their crate', () => {
+test('algorithms are found by name and alias, once each, and land on their page', () => {
 	const cbs = search(all, 'conflict-based search').find((h) => h.entry.kind === 'algorithm');
-	assert.equal(cbs?.entry.href, '/crates/mapf-search/#algo-cbs');
+	assert.equal(cbs?.entry.href, '/algorithms/cbs/');
 	const lmcut = search(all, 'lm-cut').filter((h) => h.entry.kind === 'algorithm');
-	assert.ok(lmcut.length >= 2, 'LM-cut is in more than one crate');
+	assert.equal(lmcut[0].entry.title, 'LM-cut');
+	const titles = lmcut.map((h) => h.entry.title);
+	assert.equal(new Set(titles).size, titles.length, 'one result per algorithm');
+	assert.match(
+		lmcut[0].entry.subtitle,
+		/decoupled-search.*planning-heuristics|planning-heuristics.*decoupled-search/
+	);
 });

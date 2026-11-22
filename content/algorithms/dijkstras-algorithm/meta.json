@@ -1,0 +1,17 @@
+{
+	"description": "Dijkstra's algorithm finds cheapest paths from a start state when every step has a non-negative cost. It always expands the open state with the lowest cost from the start, `g`, so each state is expanded first along its cheapest path. It uses no estimate of the remaining cost; A* adds one.",
+	"papers": [
+		{
+			"authors": "Edsger W. Dijkstra",
+			"title": "A note on two problems in connexion with graphs",
+			"year": 1959,
+			"venue": "Numerische Mathematik",
+			"doi": "10.1007/BF01386390",
+			"arxiv": null,
+			"url": null,
+			"role": "introduces"
+		}
+	],
+	"lineage": [],
+	"trace": "grid/dijkstra"
+}

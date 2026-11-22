@@ -1,0 +1,24 @@
+{
+	"description": "A* finds a cheapest path from a start state to a goal. It always expands the open state with the lowest `f = g + h`: `g` is the cost of the best path found to the state, and `h` estimates the remaining cost to the goal. If `h` never overestimates (it is *admissible*), the first path to a goal that A* expands is optimal. A better estimate means fewer expansions; with `h = 0`, A* is Dijkstra's algorithm.",
+	"papers": [
+		{
+			"authors": "Peter E. Hart, Nils J. Nilsson, Bertram Raphael",
+			"title": "A Formal Basis for the Heuristic Determination of Minimum Cost Paths",
+			"year": 1968,
+			"venue": "IEEE Transactions on Systems Science and Cybernetics",
+			"doi": "10.1109/TSSC.1968.300136",
+			"arxiv": null,
+			"url": null,
+			"role": "introduces"
+		}
+	],
+	"lineage": [
+		{
+			"slug": "dijkstras-algorithm",
+			"name": null,
+			"relation": "generalizes",
+			"source": "heuristic-search, src/best_first.rs: a_star and dijkstra run one engine; Dijkstra is the key g, A* the key g + h"
+		}
+	],
+	"trace": "grid/a-star"
+}

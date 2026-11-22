@@ -1,0 +1,22 @@
+algorithm RRT*(x₀, n, γ)
+  input: start state x₀, number of iterations n, radius constant γ
+  output: the cheapest path to the goal region found, or failure
+  T ← tree with root x₀
+  cost[x₀] ← 0
+  for i in 1, …, n do
+    x-rand ← sample()
+    x-near ← nearest(T, x-rand)
+    x-new ← steer(x-near, x-rand)
+    if motion-valid(x-near, x-new) then
+      r ← min(γ · (ln |T| / |T|)^(1/d), η)      ▷ d: dimension, η: step length
+      X-NEAR ← nodes of T within r of x-new
+      x-parent ← x-near                          ▷ choose the cheapest parent
+      for each x in X-NEAR do
+        if cost[x] + d(x, x-new) < cost[x-parent] + d(x-parent, x-new) and motion-valid(x, x-new) then
+          x-parent ← x
+      add(T, x-new, parent: x-parent)
+      cost[x-new] ← cost[x-parent] + d(x-parent, x-new)
+      for each x in X-NEAR do                    ▷ rewire through x-new
+        if cost[x-new] + d(x-new, x) < cost[x] and motion-valid(x-new, x) then
+          reparent(T, x, x-new)                  ▷ updates the costs below x
+  return path-to(cheapest goal node of T), or failure if there is none

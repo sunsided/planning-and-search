@@ -71,6 +71,27 @@
 	--color-focus: var(--accent);
 	--color-shadow: light-dark(var(--shadow-ink-light), var(--shadow-ink-dark));
 
+	/* --- Semantic: visualizations --------------------------------------------- */
+	/* One visual language for every algorithm: the same colour means the same thing in a grid
+	   search, a sampling tree or anything that comes later. Paths and current states take the
+	   page's accent; those are set with the accent, below. */
+	--viz-ground: var(--color-surface);
+	--viz-wall: light-dark(var(--paper-800), var(--slate-400));
+	--viz-mud: light-dark(
+		color-mix(in oklab, var(--paper-400) 45%, transparent),
+		color-mix(in oklab, var(--slate-600) 70%, transparent)
+	);
+	--viz-closed: light-dark(
+		color-mix(in oklab, var(--paper-600) 22%, transparent),
+		color-mix(in oklab, var(--slate-400) 28%, transparent)
+	);
+	--viz-tree: color-mix(in oklab, var(--color-text-muted) 70%, transparent);
+	--viz-rewired: light-dark(oklch(55% 0.17 30), oklch(75% 0.15 30));
+	--viz-endpoint: var(--color-text-strong);
+	--viz-stroke-thin: 1px;
+	--viz-stroke: 2px;
+	--viz-stroke-bold: 3px;
+
 	/* --- Semantic: type --------------------------------------------------------- */
 	--font-sans: 'IBM Plex Sans Variable', 'IBM Plex Sans', system-ui, sans-serif;
 	--font-mono: 'IBM Plex Mono', ui-monospace, monospace;
@@ -157,4 +178,9 @@
 	--accent-ink: light-dark(var(--white), var(--slate-950));
 	--accent-wash: color-mix(in oklab, var(--accent) 12%, transparent);
 	--accent-line: color-mix(in oklab, var(--accent) 45%, transparent);
+	/* The visualization colours that follow the accent. */
+	--viz-open: color-mix(in oklab, var(--accent) 22%, transparent);
+	--viz-open-edge: var(--accent-line);
+	--viz-current: var(--accent);
+	--viz-path: var(--accent);
 }

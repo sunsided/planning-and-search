@@ -1,0 +1,15 @@
+algorithm Dijkstra(s₀, goal)
+  input: start state s₀, goal test goal
+  output: a cheapest path to a goal state, or failure
+  g[s₀] ← 0
+  OPEN ← {s₀}                                  ▷ ordered by g
+  while OPEN ≠ ∅ do
+    s ← extract-min(OPEN)
+    if goal(s) then
+      return path-to(s)
+    for each (s′, c) in successors(s) do
+      if g[s] + c < g[s′] then                 ▷ g of an unseen state is ∞
+        g[s′] ← g[s] + c
+        parent[s′] ← s
+        insert-or-update(OPEN, s′, g[s′])
+  return failure

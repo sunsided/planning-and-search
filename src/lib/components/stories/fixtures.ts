@@ -19,8 +19,26 @@ import { createRawSnippet } from 'svelte';
 export const text = (s: string) =>
 	createRawSnippet(() => ({ render: () => `<span>${s.replace(/</g, '&lt;')}</span>` }));
 
-import { entries } from '#lib/search.js';
+import { algorithmsOf } from '#lib/algorithms.js';
+import { entries } from '#lib/search-index.js';
 
 /** The site's search entries, linking nowhere. */
-export const searchEntries = entries(href, href);
+export const searchEntries = entries({ crate: href, category: href, algorithm: href });
+export const loadSearch = async () => searchEntries;
+/** A crate's algorithms as its page lists them. */
+export const algorithmItems = (name: string) =>
+	algorithmsOf(name).map((a) => ({ ...a, href: href(a.slug) }));
 export const go = (href: string) => console.info('go', href);
+
+import aStarListing from '../../../../content/algorithms/a-star/pseudocode.txt?raw';
+import aStarMeta from '../../../../content/algorithms/a-star/meta.json';
+import { parse as parsePseudo } from '#lib/pseudo.js';
+import { TRACES } from '#lib/traces/index.js';
+
+/** The A* pilot page's content, as the server assembles it. */
+export const aStar = {
+	listing: parsePseudo(aStarListing),
+	papers: aStarMeta.papers as import('#lib/algorithm-meta.js').Paper[],
+	gridTrace: TRACES['grid/a-star'](),
+	planeTrace: TRACES['plane/rrt-star']()
+};
