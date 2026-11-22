@@ -3079,6 +3079,21 @@
 		]
 	},
 	{
+		"slug": "quiescence-search",
+		"name": "Quiescence search",
+		"aliases": ["Stand pat", "Capture search"],
+		"kind": "adversarial",
+		"refs": ["Shannon 1950", "Beal 1990"],
+		"implementations": [
+			{
+				"crate": "game-tree-search",
+				"items": ["Game::noisy_moves"],
+				"feature": null,
+				"summary": "Past the horizon, every search goes on through the moves a game marks as noisy, and the side to move may stand pat on the evaluation."
+			}
+		]
+	},
+	{
 		"slug": "rades",
 		"name": "RADES",
 		"aliases": ["Rank-based Differential Evolution with a Success archive"],

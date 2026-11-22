@@ -1,0 +1,24 @@
+algorithm Quiesce(p, α, β)
+  input: position p where the depth ran out, window (α, β) from Max's point of view
+  output: the score of p once no noisy move is left, or a bound beyond the window as in Alpha-beta
+  stand ← evaluate(p)                          ▷ stand pat: decline every noisy move
+  N ← noisy-moves(p)
+  if N = ∅ then
+    return stand                               ▷ a quiet position: the evaluation holds
+  s ← side-to-move(p)
+  if s = Max then
+    α ← max(α, stand)
+  else
+    β ← min(β, stand)
+  best ← stand
+  for each m in ordered(N) do                  ▷ closes and better as in Alpha-beta
+    if closes(s, best, α, β) or satisfices(s, best) then
+      break
+    v ← Quiesce(play(p, m), α, β)
+    if s = Max then
+      α ← max(α, v)
+    else
+      β ← min(β, v)
+    if better(s, v, best) then
+      best ← v
+  return best                                  ▷ not stored in the transposition table

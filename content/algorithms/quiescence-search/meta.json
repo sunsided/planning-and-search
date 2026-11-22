@@ -1,0 +1,34 @@
+{
+	"description": "Quiescence search keeps the search horizon from cutting a line in the middle of an exchange. Where alpha-beta runs out of depth, it does not trust the evaluation of a position that still has *noisy* moves, such as captures; it searches those moves alone, ply after ply, until none is left. At each such position the side to move may *stand pat*: decline every noisy move and keep the position's evaluation, which becomes the score to beat. A game opts in by listing its noisy moves in `Game::noisy_moves`; minimax, negamax, alpha-beta, PVS and MTD(f) then all search past the horizon, and quiescence positions stay out of the transposition table. Each noisy move must bring the game closer to a quiet position, as a capture removes a piece, or the search never ends.",
+	"papers": [
+		{
+			"authors": "Claude E. Shannon",
+			"title": "Programming a computer for playing chess",
+			"year": 1950,
+			"venue": "The London, Edinburgh, and Dublin Philosophical Magazine and Journal of Science",
+			"doi": "10.1080/14786445008521796",
+			"arxiv": null,
+			"url": null,
+			"role": "introduces"
+		},
+		{
+			"authors": "Don F. Beal",
+			"title": "A generalised quiescence search algorithm",
+			"year": 1990,
+			"venue": "Artificial Intelligence",
+			"doi": "10.1016/0004-3702(90)90072-8",
+			"arxiv": null,
+			"url": null,
+			"role": "extends"
+		}
+	],
+	"lineage": [
+		{
+			"slug": "alpha-beta-pruning",
+			"name": null,
+			"relation": "builds-on",
+			"source": "game-tree-search, src/alpha_beta.rs: \"Quiescence at the horizon position at `frame`: its evaluation, unless one of its [`Game::noisy_moves`] beats it, searched the same way below.\""
+		}
+	],
+	"trace": null
+}
