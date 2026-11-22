@@ -6,7 +6,7 @@
 	<p>
 		Crates by <a href={LINKS.author} rel="external">{AUTHOR}</a>
 		(<a href={LINKS.github} rel="external">sunsided</a>), dual-licensed MIT or Apache-2.0 unless a
-		crate says otherwise.
+		crate says otherwise. Last built <time datetime={__BUILD_DATE__}>{__BUILD_DATE__}</time>.
 	</p>
 	<nav aria-label="Site">
 		<a href={LINKS.source} rel="external">Site source</a>
