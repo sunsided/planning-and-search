@@ -1,0 +1,29 @@
+algorithm FOCBS(assigned, idle)
+  input: assigned agents with starts and goals, idle agents with starts only
+  output: a conflict-free plan with the least sum of costs that leaves room for the idle agents, or failure
+  for each assigned agent i do
+    root.paths[i] ← replan(i, ∅)               ▷ space-time A*
+    if root.paths[i] = nil then
+      return failure
+  root.constraints ← ∅
+  OPEN ← {root}                                ▷ ordered by sum of costs
+  while OPEN ≠ ∅ do
+    n ← extract-min(OPEN)
+    c ← choose-conflict(n.paths)
+    if c ≠ nil then
+      K ← split(c)                             ▷ as in CBS
+    else
+      R ← route(n.paths, idle)                 ▷ min-cost flow up to the latest arrival
+      if R ≠ nil then
+        return (n.paths, R)
+      K ← ∅
+      for each blocker b in min-cut(n.paths, idle) do
+        if time(b) > 0 then
+          K ← K ∪ {forbid(b)}                  ▷ flow-conflict branching
+    for each constraint k in K do
+      m ← copy(n)
+      m.constraints ← n.constraints ∪ {k}
+      m.paths[agent(k)] ← replan(agent(k), m.constraints)
+      if m.paths[agent(k)] ≠ nil then
+        insert(OPEN, m)
+  return failure

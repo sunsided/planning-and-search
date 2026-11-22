@@ -1,0 +1,24 @@
+{
+	"description": "PIBT*_T extends PIBT to robots that face a heading, move only forward and need a time step for each turn in place. Agents still decide one step at a time by priority, with priority inheritance and backtracking, but each picks the neighbour with the least total time, counting the turns to face it and the exact remaining time from there; an agent that does not face its choice turns towards it instead of moving. It adds rules that plain PIBT does not need: an agent waits behind an occupant that only turns, a chain of requests that closes into a cycle moves all at once, two agents in a corridor swap places, and an agent pushed twice by the same agent shuffles its choices to break livelocks. Like PIBT it is very fast, without a quality guarantee and not complete. Use it for warehouse robots and other vehicles whose turns cost time.",
+	"papers": [
+		{
+			"authors": "Zheyu Tao, Chunlong Yu, Yicheng Hu",
+			"title": "Scalable Iterative Multi-Agent Path Finding under Turn Constraints",
+			"year": 2026,
+			"venue": "arXiv preprint",
+			"doi": null,
+			"arxiv": "2611.23911",
+			"url": null,
+			"role": "introduces"
+		}
+	],
+	"lineage": [
+		{
+			"slug": "pibt",
+			"name": null,
+			"relation": "generalizes",
+			"source": "mapf-search, src/pibt_turns.rs: \"PIBT*_T keeps PIBT's priority inheritance and backtracking and adds\" turn-aware choices, cycles, swaps and the k-push escape trigger"
+		}
+	],
+	"trace": null
+}

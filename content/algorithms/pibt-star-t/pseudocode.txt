@@ -1,0 +1,38 @@
+algorithm PIBT*_T(agents, headings)
+  input: agents with starts, goals and start headings
+  output: a conflict-free plan with headings; the caller's budget may stop it first
+  for each agent i do
+    here[i] ← start_i
+  while some agent i has here[i] ≠ goal_i do
+    update-priorities(here)                  ▷ +1 away from the goal, reset at the goal
+    for each agent i do
+      next[i] ← nil
+    for each agent i by decreasing priority do
+      if next[i] = nil then
+        plan(i, nil, i)
+    for each agent i do
+      act(i, next[i])                        ▷ forward if facing next[i], else turn once
+      append(path[i], here[i])
+  return path
+function plan(i, pusher, origin)
+  C ← candidates(i)                          ▷ here[i] and its neighbours, least TC first
+  if pushed-twice(i, pusher) then
+    C ← shuffle(C)                           ▷ k-push escape trigger
+  if must-swap(i, pusher) then
+    C ← reverse(C)                           ▷ pull the other agent instead of pushing it
+  for each v in C do
+    if reserved(v) or (pusher ≠ nil and v = here[pusher]) then
+      continue
+    reserve(i, v)
+    j ← occupant(v)
+    if j = origin and j ≠ i then
+      resolve-cycle(origin)                  ▷ all move if each faces its request, else turn or wait
+      return true
+    if j ≠ nil and j ≠ i and next[j] = nil then
+      if not plan(j, i, origin) then
+        continue                             ▷ backtrack: try the next vertex
+      if next[j] = v then
+        reserve(i, here[i])                  ▷ j only turns: wait behind it
+    return true
+  reserve(i, here[i])                        ▷ stuck: stay
+  return false
