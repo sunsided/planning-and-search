@@ -7,7 +7,7 @@ name: Project sync
 # the job uses the PROJECT_SYNC_TOKEN secret (classic token with the `project` and `repo` scopes).
 on:
   schedule:
-    - cron: "17 6 * * 1" # weekly, Monday morning
+    - cron: '17 6 * * 1' # weekly, Monday morning
   workflow_dispatch:
 
 concurrency:
