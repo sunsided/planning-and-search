@@ -75,3 +75,8 @@ test('algorithms are found by name and alias, once each, and land on their page'
 		/decoupled-search.*planning-heuristics|planning-heuristics.*decoupled-search/
 	);
 });
+
+test('h^max is found as h^max, h_max and hmax', () => {
+	for (const q of ['h^max', 'h_max', 'hmax'])
+		assert.equal(search(all, q).find((h) => h.entry.kind === 'algorithm')?.entry.title, 'h^max', q);
+});

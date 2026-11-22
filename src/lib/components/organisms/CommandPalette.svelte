@@ -2,6 +2,7 @@
 	import Icon from '#lib/components/atoms/Icon.svelte';
 	import Kbd from '#lib/components/atoms/Kbd.svelte';
 	import Node from '#lib/components/atoms/Node.svelte';
+	import Notation from '#lib/components/atoms/Notation.svelte';
 	import { search, type Entry, type Hit } from '#lib/search.js';
 	import { onMount } from 'svelte';
 
@@ -129,8 +130,9 @@
 					<Node size="0.6em" hollow={hit.entry.kind === 'category'} />
 					<span class="text">
 						<span class="title">
-							{#if hit.entry.kind === 'crate'}<code>{hit.entry.title}</code>{:else}{hit.entry
-									.title}{/if}
+							{#if hit.entry.kind === 'crate'}<code>{hit.entry.title}</code>{:else}<Notation
+									text={hit.entry.title}
+								/>{/if}
 						</span>
 						<span class="sub">{hit.snippet ?? hit.entry.subtitle}</span>
 					</span>

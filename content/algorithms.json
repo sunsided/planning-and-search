@@ -2960,8 +2960,8 @@
 	},
 	{
 		"slug": "relevance-score-h-xi",
-		"name": "Relevance score h_Xi",
-		"aliases": ["h_Ξ", "relevance score"],
+		"name": "Relevance score h_Ξ",
+		"aliases": ["relevance score", "h_Xi"],
 		"kind": "heuristic",
 		"refs": ["Kim & Sridharan 2024"],
 		"implementations": [

@@ -4,13 +4,42 @@
 // links are recognised; anything else stays text.
 
 export type Part =
-	| { kind: 'text' | 'code' | 'strong' | 'em'; value: string }
+	| { kind: 'text' | 'code' | 'strong' | 'em' | 'sup' | 'sub'; value: string }
 	| { kind: 'link'; value: string; href: string; code: boolean };
 
 export type Block = { kind: 'p'; text: string } | { kind: 'ul'; items: string[] };
 
 const TOKEN =
 	/\\([\\`*_{}[\]()#+\-.!|<>])|`([^`]*)`|\[([^\]]+)\]\((https:\/\/[^)\s]+)\)|\*\*(.+?)\*\*|(?<![\w\\])\*(?!\s)((?:\\\*|[^*])+?)(?<![\s\\])\*/g;
+
+/**
+ * Scripts as the literature writes them: a single-letter base followed by `^x` or `_x` (or
+ * `^{…}`, `_{…}` for longer ones) is a superscript or subscript, so `h^max` reads as h with
+ * "max" raised and `h_Ξ` with "Ξ" lowered. A base inside a longer word (`ol_rp`) is left alone.
+ */
+const SCRIPT = /(?<![\p{L}\p{N}_])(\p{L})([\^_])(?:\{([^}]+)\}|([\p{L}\p{N}][\p{L}\p{N}+*-]*))/gu;
+
+/** Text with its super- and subscripts split out. */
+export function notation(text: string): Part[] {
+	const out: Part[] = [];
+	let at = 0;
+	for (const m of text.matchAll(SCRIPT)) {
+		const end = m.index + 1;
+		if (end > at) out.push({ kind: 'text', value: text.slice(at, end) });
+		out.push({ kind: m[2] === '^' ? 'sup' : 'sub', value: m[3] ?? m[4] });
+		at = m.index + m[0].length;
+	}
+	if (at < text.length) out.push({ kind: 'text', value: text.slice(at) });
+	return out;
+}
+
+/** The ASCII spellings people search for: `h^max`, `h_max` and `hmax` for h^max. */
+export function spellings(text: string): string[] {
+	const bare = text.replace(SCRIPT, (_, b, __, g, w) => `${b}${g ?? w}`);
+	const caret = text.replace(SCRIPT, (_, b, __, g, w) => `${b}^${g ?? w}`);
+	const under = text.replace(SCRIPT, (_, b, __, g, w) => `${b}_${g ?? w}`);
+	return [...new Set([text, bare, caret, under])];
+}
 
 const unescape = (s: string) => s.replace(/\\([\\`*_{}[\]()#+\-.!|<>])/g, '$1');
 
@@ -39,7 +68,8 @@ export function parse(text: string): Part[] {
 		at = m.index + m[0].length;
 	}
 	if (at < text.length) push('text', text.slice(at));
-	return out;
+	// Super- and subscripts only in running text: code and link targets keep their spelling.
+	return out.flatMap((p) => (p.kind === 'text' ? notation(p.value) : [p]));
 }
 
 /** Paragraphs and flat `-` lists; continuation lines join the line they continue. */

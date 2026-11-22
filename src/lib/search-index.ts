@@ -3,7 +3,7 @@
 
 import { algorithmsOf } from './algorithms.ts';
 import { CATEGORIES, CRATES, categoryOf } from './registry.ts';
-import type { Block } from './richtext.ts';
+import { spellings, type Block } from './richtext.ts';
 import { plain, type Entry } from './search.ts';
 
 const blocksText = (blocks: Block[]) =>
@@ -67,8 +67,8 @@ export function entries(href: Hrefs): Entry[] {
 			href: href.algorithm(slug),
 			hue: categoryOf(crates[0])!.hue,
 			fields: [
-				{ text: a.name, weight: 8 },
-				{ text: a.aliases.join(' '), weight: 7 },
+				{ text: spellings(a.name).join(' '), weight: 8 },
+				{ text: a.aliases.flatMap(spellings).join(' '), weight: 7 },
 				{ text: impls.flatMap((i) => i.items.map((x) => x.name)).join(' '), weight: 5 },
 				{ text: crates.join(' '), weight: 3 },
 				{ text: impls.map((i) => i.summary).join(' '), weight: 2 },

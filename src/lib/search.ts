@@ -1,6 +1,8 @@
 // Search over everything the site shows: crates, algorithms and categories. The corpus is a few dozen
 // entries, so it is a linear scan with substring matching and field weights; no index.
 
+import { spellings } from './richtext.ts';
+
 export interface Entry {
 	kind: 'crate' | 'category' | 'algorithm';
 	title: string;
@@ -91,7 +93,8 @@ export function search(all: Entry[], query: string): Hit[] {
 			score += best;
 		}
 		if (!score) continue;
-		if (entry.title.toLowerCase() === query.trim().toLowerCase()) score += 100;
+		const q = query.trim().toLowerCase();
+		if (spellings(entry.title).some((t) => t.toLowerCase() === q)) score += 100;
 		const shown = `${entry.title} ${entry.subtitle}`.toLowerCase();
 		const hidden = words.find((w) => !shown.includes(w));
 		hits.push({ entry, score, snippet: hidden ? snippet(entry.body, hidden) : null });

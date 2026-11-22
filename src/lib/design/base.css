@@ -82,6 +82,21 @@ pre {
 	font-size: 0.86em;
 }
 
+/* Scripts that do not push lines apart: h^max in running text and headings. */
+sup,
+sub {
+	position: relative;
+	font-size: 0.72em;
+	line-height: 0;
+	vertical-align: baseline;
+}
+sup {
+	inset-block-start: -0.5em;
+}
+sub {
+	inset-block-start: 0.25em;
+}
+
 img,
 svg {
 	display: block;

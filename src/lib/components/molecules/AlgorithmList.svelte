@@ -14,6 +14,7 @@
 
 <script lang="ts">
 	import Badge from '#lib/components/atoms/Badge.svelte';
+	import Notation from '#lib/components/atoms/Notation.svelte';
 
 	/** The algorithms a crate implements, each anchored as #algo-<slug> for search to land on. */
 	let { algorithms }: { algorithms: AlgorithmItem[] } = $props();
@@ -23,7 +24,7 @@
 	{#each algorithms as a (a.slug)}
 		<li id="algo-{a.slug}">
 			<div class="head">
-				<a class="name" href={a.href}>{a.name}</a>
+				<a class="name" href={a.href}><Notation text={a.name} /></a>
 				{#if a.aliases.length}<span class="aliases">{a.aliases.join(' · ')}</span>{/if}
 				{#if a.feature}<Badge tone="accent">feature <code>{a.feature}</code></Badge>{/if}
 			</div>

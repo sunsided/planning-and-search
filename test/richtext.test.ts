@@ -1,6 +1,6 @@
 import { strict as assert } from 'node:assert';
 import { test } from 'node:test';
-import { lint, parse, parseBlocks } from '../src/lib/richtext.ts';
+import { lint, notation, parse, parseBlocks, spellings } from '../src/lib/richtext.ts';
 
 test('inline: code, https links, strong, emphasis, escapes', () => {
 	assert.deepEqual(
@@ -36,4 +36,16 @@ test('blocks: paragraphs, lists, continuation lines', () => {
 test('lint flags schedule wording but not motion-planning roadmaps', () => {
 	assert.deepEqual(lint('See the roadmap. Not yet stable.'), ['roadmap', 'Not yet']);
 	assert.deepEqual(lint('a probabilistic roadmap, a roadmap\ngraph'), []);
+});
+
+test('scripts: a one-letter base with ^ or _, never inside code or longer words', () => {
+	assert.deepEqual(notation('h^max'), [
+		{ kind: 'text', value: 'h' },
+		{ kind: 'sup', value: 'max' }
+	]);
+	assert.deepEqual(notation('h^{LM-cut}')[1], { kind: 'sup', value: 'LM-cut' });
+	assert.deepEqual(notation('h_Ξ')[1], { kind: 'sub', value: 'Ξ' });
+	assert.deepEqual(notation('ol_rp'), [{ kind: 'text', value: 'ol_rp' }]);
+	assert.deepEqual(parse('`h_max`')[0], { kind: 'code', value: 'h_max' });
+	assert.deepEqual(spellings('h^FF'), ['h^FF', 'hFF', 'h_FF']);
 });

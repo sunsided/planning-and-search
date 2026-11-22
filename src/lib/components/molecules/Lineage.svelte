@@ -8,6 +8,7 @@
 
 <script lang="ts">
 	import Label from '#lib/components/atoms/Label.svelte';
+	import Notation from '#lib/components/atoms/Notation.svelte';
 
 	/** Where an algorithm comes from and what came after it, as two short lists around it. */
 	let { name, before, after }: { name: string; before: LineageItem[]; after: LineageItem[] } =
@@ -27,18 +28,22 @@
 		{#each before as b (b.name)}
 			<p>
 				<span class="rel">{RELATION[b.relation]}</span>
-				{#if b.href}<a href={b.href}>{b.name}</a>{:else}<span>{b.name}</span>{/if}
+				{#if b.href}<a href={b.href}><Notation text={b.name} /></a>{:else}<span>
+						<Notation text={b.name} />
+					</span>{/if}
 			</p>
 		{:else}
 			<p class="none">Nothing on this site.</p>
 		{/each}
 	</div>
-	<div class="this" aria-hidden="true"><span>{name}</span></div>
+	<div class="this" aria-hidden="true"><span><Notation text={name} /></span></div>
 	<div class="column">
 		<Label as="h3">Led to</Label>
 		{#each after as a (a.name)}
 			<p>
-				{#if a.href}<a href={a.href}>{a.name}</a>{:else}<span>{a.name}</span>{/if}
+				{#if a.href}<a href={a.href}><Notation text={a.name} /></a>{:else}<span>
+						<Notation text={a.name} />
+					</span>{/if}
 				<span class="rel">{RELATION[a.relation]} it</span>
 			</p>
 		{:else}

@@ -20,6 +20,7 @@
 	import Icon from '#lib/components/atoms/Icon.svelte';
 	import Label from '#lib/components/atoms/Label.svelte';
 	import Node from '#lib/components/atoms/Node.svelte';
+	import Notation from '#lib/components/atoms/Notation.svelte';
 	import RichText from '#lib/components/atoms/RichText.svelte';
 	import CrateLinks from '#lib/components/molecules/CrateLinks.svelte';
 	import InstallSnippet from '#lib/components/molecules/InstallSnippet.svelte';
@@ -63,7 +64,9 @@
 		<section aria-labelledby="read">
 			<h2 id="read">Algorithms to read first</h2>
 			<ul class="algos">
-				{#each view.algorithms as a (a.href)}<li><a href={a.href}>{a.name}</a></li>{/each}
+				{#each view.algorithms as a (a.href)}<li>
+						<a href={a.href}><Notation text={a.name} /></a>
+					</li>{/each}
 			</ul>
 		</section>
 	{/if}

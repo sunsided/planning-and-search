@@ -8,6 +8,7 @@
 
 <script lang="ts">
 	import Label from '#lib/components/atoms/Label.svelte';
+	import Notation from '#lib/components/atoms/Notation.svelte';
 
 	/** Every algorithm with a page, grouped by what kind of algorithm it is. */
 	let { groups }: { groups: { kind: string; title: string; entries: IndexEntry[] }[] } = $props();
@@ -34,7 +35,7 @@
 			<ul class="list">
 				{#each g.entries as e (e.href)}
 					<li>
-						<a href={e.href}>{e.name}</a>
+						<a href={e.href}><Notation text={e.name} /></a>
 						<span class="crates">{e.crates.join(', ')}</span>
 					</li>
 				{/each}

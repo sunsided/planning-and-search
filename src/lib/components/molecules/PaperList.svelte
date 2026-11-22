@@ -1,5 +1,6 @@
 <script lang="ts">
 	import Badge from '#lib/components/atoms/Badge.svelte';
+	import Notation from '#lib/components/atoms/Notation.svelte';
 	import type { Paper } from '#lib/algorithm-meta.js';
 
 	/** Papers and preprints in the order given; each links where its DOI, arXiv id or URL
@@ -20,7 +21,9 @@
 	{#each papers as p (p.title)}
 		<li>
 			<span class="title">
-				{#if link(p)}<a href={link(p)} rel="external">{p.title}</a>{:else}{p.title}{/if}
+				{#if link(p)}<a href={link(p)} rel="external">
+						<Notation text={p.title} />
+					</a>{:else}<Notation text={p.title} />{/if}
 			</span>
 			<span class="by">
 				{p.authors} · {p.year}{#if p.venue}

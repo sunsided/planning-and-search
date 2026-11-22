@@ -2,6 +2,7 @@
 	import Badge from '#lib/components/atoms/Badge.svelte';
 	import Icon from '#lib/components/atoms/Icon.svelte';
 	import Node from '#lib/components/atoms/Node.svelte';
+	import Notation from '#lib/components/atoms/Notation.svelte';
 	import RichText from '#lib/components/atoms/RichText.svelte';
 	import Lineage, { type LineageItem } from '#lib/components/molecules/Lineage.svelte';
 	import PaperList from '#lib/components/molecules/PaperList.svelte';
@@ -28,8 +29,12 @@
 <article class="algorithm" data-accent style:--accent-h={a.hue}>
 	<header class="hero">
 		<a class="back" href={back}><Icon name="back" /> All algorithms</a>
-		<h1><Node size="0.45em" />{a.name}</h1>
-		{#if a.aliases.length}<p class="aliases">Also known as {a.aliases.join(', ')}</p>{/if}
+		<h1><Node size="0.45em" /><span><Notation text={a.name} /></span></h1>
+		{#if a.aliases.length}<p class="aliases">
+				Also known as {#each a.aliases as alias, i (alias)}{i ? ', ' : ''}<Notation
+						text={alias}
+					/>{/each}
+			</p>{/if}
 		<p class="facts">
 			<Badge tone="accent">{a.kind}</Badge>
 			{#each a.implementations as i (i.crate)}<Badge><code>{i.crate}</code></Badge>{/each}
