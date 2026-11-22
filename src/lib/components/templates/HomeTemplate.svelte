@@ -51,11 +51,9 @@
 		gap: var(--space-4);
 	}
 	h1 {
-		max-inline-size: 18ch;
 		font-size: var(--step-4);
 	}
 	.lead {
-		max-inline-size: var(--measure);
 		font-size: var(--step-1);
 		line-height: var(--leading-snug);
 		color: var(--color-text);
