@@ -1,0 +1,9 @@
+algorithm Lazy-SMP(p, D, k, budget, TT)
+  input: root position p, maximum depth D, threads k, budget, shared transposition table TT
+  output: the main thread's result: the deepest iteration it finished
+  for h in 1, …, k − 1 in parallel do          ▷ helpers
+    d₀ ← 2 if h is odd, else 1                 ▷ every other helper starts one ply ahead
+    deepen p from depth d₀ to D with TT, until the main thread is done
+  r ← Iterative-deepening(p, D, budget) with TT   ▷ the main thread
+  signal the helpers to stop
+  return r                                     ▷ entries stay in TT for later searches
