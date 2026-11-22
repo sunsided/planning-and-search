@@ -95,13 +95,14 @@ jobs:
 
       # Save Page Now 2 with archive.org S3 keys (archive.org/account/s3.php). The home page
       # links every crate page and each crate page links its algorithms, so capturing those
-      # with their outlinks (at most 100 each) reaches every page. Authenticated users get 7
-      # captures a minute, hence the pause. Captures finish asynchronously; a failure here
-      # never fails the run.
+      # with their outlinks (at most 100 each) reaches every page. A capture with outlinks
+      # holds one of the account's few concurrent sessions for minutes, so each submission
+      # waits until /save/status/user reports a free one (and 9 s for the 7-a-minute limit).
+      # Captures finish asynchronously; a failure here never fails the run.
       - name: Wayback Machine
         if: ${{ !cancelled() }} # independent of IndexNow
         continue-on-error: true
-        timeout-minutes: 10
+        timeout-minutes: 45
         shell: bash
         env:
           ACCESS: ${{ secrets.ARCHIVE_ORG_ACCESS_KEY }}
@@ -114,6 +115,12 @@ jobs:
           { echo "$SITE_URL/"; curl -fsS --max-time 30 "$SITE_URL/sitemap.xml" |
             grep -o '<loc>[^<]*/crates/[^<]*' | sed 's/<loc>//'; } |
           while read -r url; do
+            for _ in $(seq 30); do
+              free="$(curl -sS --max-time 30 -H "Authorization: LOW $ACCESS:$SECRET" \
+                https://web.archive.org/save/status/user | jq -r '.available // 0' || echo 1)" # unreadable status: just try
+              [ "$free" -gt 0 ] 2>/dev/null && break
+              sleep 20
+            done
             curl -sS --max-time 60 -H 'Accept: application/json' \
               -H "Authorization: LOW $ACCESS:$SECRET" \
               --data-urlencode "url=$url" -d capture_outlinks=1 -d if_not_archived_within=1d \
