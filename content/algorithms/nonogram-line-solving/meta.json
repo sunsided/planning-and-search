@@ -1,0 +1,24 @@
+{
+	"description": "Line solving finds every cell value of one nonogram row or column that some placement of its runs allows. A forward pass marks the states (cell `i`, runs placed `j`) that the line can reach from its start under the current domains, and a backward pass marks the states from which the rest of the line still fits. A cell keeps the value *empty* or *filled* only if a move between a reachable state and a completable state uses it; values other than 0 and 1 are removed. The result is complete for the line and costs `O(n · k · L)` for `n` cells, `k` runs and the longest run `L`. Use one per row and column under propagation, which carries each deduction to the crossing lines.",
+	"papers": [
+		{
+			"authors": "K. J. Batenburg, W. A. Kosters",
+			"title": "Solving Nonograms by combining relaxations",
+			"year": 2009,
+			"venue": "Pattern Recognition",
+			"doi": "10.1016/j.patcog.2008.12.003",
+			"arxiv": null,
+			"url": null,
+			"role": "applies"
+		}
+	],
+	"lineage": [
+		{
+			"slug": "constraint-propagation",
+			"name": null,
+			"relation": "builds-on",
+			"source": "constraint-search, src/line.rs: \"impl<D: Domain> Propagator<D> for Line {\""
+		}
+	],
+	"trace": null
+}

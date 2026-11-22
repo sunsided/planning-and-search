@@ -1,0 +1,18 @@
+algorithm Propagate(D, Q)
+  input: domains D with a trail, queue Q of propagators
+  output: the domains at the fixpoint, or failure
+  ▷ at the root Q holds every propagator; after a search choice, the watchers of the changed variables
+  while Q ≠ ∅ do
+    p ← pop-front(Q)
+    if propagate(p, D) = failure then          ▷ p would empty a domain
+      clear(Q)
+      return failure
+    for each variable x that changed since the last wake do
+      for each propagator q in watchers(x) do
+        if q ∉ Q then
+          push-back(Q, q)                      ▷ p too, when it changed its own scope
+  return D
+procedure remove(D, x, v)
+  push(TRAIL, ⟨x, D(x)⟩)                       ▷ search pops the trail to undo a choice
+  D(x) ← D(x) ∖ {v}
+  mark x as changed

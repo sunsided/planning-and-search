@@ -1,0 +1,40 @@
+{
+	"description": "Backtracking search finds, counts or enumerates the solutions of a model. At each node it picks an unfixed variable (by default the one with the fewest values left), orders its values (ascending, descending, least constraining first, or random) and tries them in turn: it assigns the value, propagates to the fixpoint, and undoes the choice through the trail on a conflict. Propagating every constraint after each choice prunes more than the *forward checking* of Haralick and Elliott, and it keeps their *fail-first* principle as the default variable order. The walk keeps its choice points on an explicit stack, so it can pause at a solution or when the budget runs out and continue later; `count` with a limit of 2 decides whether a puzzle has a unique solution. Use it for logic puzzles, colouring and small scheduling problems; a hint value per variable makes a known solution come first.",
+	"papers": [
+		{
+			"authors": "Robert M. Haralick, Gordon L. Elliott",
+			"title": "Increasing tree search efficiency for constraint satisfaction problems",
+			"year": 1980,
+			"venue": "Artificial Intelligence",
+			"doi": "10.1016/0004-3702(80)90051-x",
+			"arxiv": null,
+			"url": null,
+			"role": "introduces"
+		},
+		{
+			"authors": "Daniel Sabin, Eugene C. Freuder",
+			"title": "Contradicting conventional wisdom in constraint satisfaction",
+			"year": 1994,
+			"venue": "Principles and Practice of Constraint Programming (PPCP 1994), Lecture Notes in Computer Science",
+			"doi": "10.1007/3-540-58601-6_86",
+			"arxiv": null,
+			"url": null,
+			"role": "extends"
+		}
+	],
+	"lineage": [
+		{
+			"slug": "dfs",
+			"name": null,
+			"relation": "builds-on",
+			"source": "constraint-search, src/search/walk.rs: \"The resumable depth-first walk: an explicit stack of choice points\""
+		},
+		{
+			"slug": "constraint-propagation",
+			"name": null,
+			"relation": "builds-on",
+			"source": "constraint-search, src/search.rs: \"Each node picks an unfixed variable, tries its values in turn and propagates after each\""
+		}
+	],
+	"trace": null
+}

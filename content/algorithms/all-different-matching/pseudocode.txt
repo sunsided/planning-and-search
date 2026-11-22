@@ -1,0 +1,17 @@
+algorithm All-Different(x₁, …, x_n, D)
+  input: variables x₁, …, x_n with domains D
+  output: D with every value that no distinct assignment uses removed, or failure
+  V ← D(x₁) ∪ … ∪ D(x_n)
+  if |V| < n then
+    return failure                             ▷ fewer values than variables
+  M ← ∅                                        ▷ a new matching on every run
+  for i in 1, …, n do
+    if not augment(x_i, M) then                ▷ one augmenting-path search per variable
+      return failure
+  G ← x → v for each (x, v) ∈ M, and v → x for each other v ∈ D(x)
+  R ← the nodes of G reachable from a value that M leaves free
+  C ← strongly-connected-components(G)         ▷ Tarjan, without recursion
+  for each x_i and each v ∈ D(x_i) do
+    if (x_i, v) ∉ M and C(x_i) ≠ C(v) and v ∉ R then
+      remove(D, x_i, v)                        ▷ no maximum matching uses the edge
+  return D

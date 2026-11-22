@@ -1,0 +1,24 @@
+{
+	"description": "Algorithm X solves *exact cover*: choose rows of a 0/1 matrix so that every primary column is covered exactly once and every secondary column at most once. At each node it picks the uncovered primary column with the fewest rows left (a column with none is a dead end), covers it, and tries each of its rows in turn, covering that row's other columns. *Dancing links* make covering cheap and exactly reversible: a cover unlinks nodes from doubly linked lists, and the uncover relinks them in reverse order. The links here are indices into flat arrays, so the structure needs no unsafe code, and secondary column headers link only to themselves, so search never branches on them. Use it for Sudoku, polyomino tilings and N-queens, with the diagonals as secondary columns.",
+	"papers": [
+		{
+			"authors": "Donald E. Knuth",
+			"title": "Dancing links",
+			"year": 2000,
+			"venue": "arXiv preprint",
+			"doi": null,
+			"arxiv": "cs/0011047",
+			"url": null,
+			"role": "introduces"
+		}
+	],
+	"lineage": [
+		{
+			"slug": "dfs",
+			"name": null,
+			"relation": "builds-on",
+			"source": "Dancing links: \"two tricks to accelerate depth-first search algorithms\""
+		}
+	],
+	"trace": null
+}

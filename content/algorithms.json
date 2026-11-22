@@ -268,7 +268,7 @@
 		"name": "Backbone and solution marginals",
 		"aliases": ["Backbone", "Solution sampling"],
 		"kind": "constraint",
-		"refs": [],
+		"refs": ["Monasson et al. 1999"],
 		"implementations": [
 			{
 				"crate": "constraint-search",
@@ -283,7 +283,7 @@
 		"name": "Backtracking search with propagation",
 		"aliases": ["MAC", "Maintaining arc consistency", "Fail-first (MRV)"],
 		"kind": "constraint",
-		"refs": ["Haralick and Elliott 1980"],
+		"refs": ["Haralick and Elliott 1980", "Sabin and Freuder 1994"],
 		"implementations": [
 			{
 				"crate": "constraint-search",

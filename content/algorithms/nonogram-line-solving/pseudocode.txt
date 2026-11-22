@@ -1,0 +1,26 @@
+algorithm Line-Solve(c₀, …, c_{n−1}, r₁, …, r_k, D)
+  input: cells c₀, …, c_{n−1}, run lengths r₁, …, r_k, domains D
+  output: D with every cell value that no placement uses removed, or failure
+  ▷ state (i, j): cells 0 to i − 1 hold runs 1 to j, and a run may start at cell i
+  ▷ moves from (i, j): leave cell i empty to (i + 1, j), or place run j + 1 from cell i
+  F ← the states reachable from (0, 0)
+  B ← the states from which (n, k) is reachable
+  if (n, k) ∉ F then
+    return failure
+  S_i ← ∅ for each cell i
+  for each (i, j) ∈ F with i < n do
+    if 0 ∈ D(c_i) and (i + 1, j) ∈ B then
+      S_i ← S_i ∪ {0}
+    if j < k then
+      e ← i + r_{j+1}
+      fits ← e ≤ n and 1 ∈ D(c_m) for each m in i, …, e − 1
+      if fits and e = n and (n, j + 1) ∈ B then
+        S_m ← S_m ∪ {1} for each m in i, …, e − 1
+      else if fits and e < n and 0 ∈ D(c_e) and (e + 1, j + 1) ∈ B then
+        S_m ← S_m ∪ {1} for each m in i, …, e − 1
+        S_e ← S_e ∪ {0}                        ▷ the gap after the run
+  for i in 0, …, n − 1 do
+    D(c_i) ← D(c_i) ∩ S_i                      ▷ also drops values other than 0 and 1
+    if D(c_i) = ∅ then
+      return failure
+  return D

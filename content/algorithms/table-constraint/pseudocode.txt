@@ -1,0 +1,13 @@
+algorithm Table(x₁, …, x_k, T, D)
+  input: variables x₁, …, x_k, allowed tuples T, domains D
+  output: D with every value outside a possible tuple removed, or failure
+  S_i ← ∅ for each i in 1, …, k
+  for each t in T do                           ▷ the full table on every run
+    if t_i ∈ D(x_i) for every i then
+      for i in 1, …, k do
+        S_i ← S_i ∪ {t_i}
+  for i in 1, …, k do
+    D(x_i) ← D(x_i) ∩ S_i
+    if D(x_i) = ∅ then
+      return failure
+  return D

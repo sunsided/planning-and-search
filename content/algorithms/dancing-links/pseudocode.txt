@@ -1,0 +1,33 @@
+algorithm Algorithm-X(M)
+  input: exact cover problem M: primary and secondary columns, rows over them
+  output: each set of rows that covers every primary column once and every secondary column at most once
+  search(⟨⟩)
+procedure search(CHOSEN)
+  if no primary column is uncovered then
+    report(CHOSEN)
+    return
+  c ← the uncovered primary column with the fewest rows   ▷ the first one on a tie
+  if size(c) = 0 then
+    return                                     ▷ a dead end
+  cover(c)
+  for each row r of c, top to bottom do
+    append(CHOSEN, r)
+    for each other node j of r, left to right do
+      cover(column(j))
+    search(CHOSEN)
+    for each other node j of r, right to left do
+      uncover(column(j))
+    remove-last(CHOSEN)
+  uncover(c)
+procedure cover(c)
+  unlink c from the header ring                ▷ a secondary header is a ring of its own
+  for each row r of c, top to bottom do
+    for each other node j of r, left to right do
+      unlink j from its column
+      size(column(j)) ← size(column(j)) − 1
+procedure uncover(c)
+  for each row r of c, bottom to top do
+    for each other node j of r, right to left do
+      size(column(j)) ← size(column(j)) + 1
+      relink j into its column
+  relink c into the header ring

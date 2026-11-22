@@ -1,0 +1,24 @@
+{
+	"description": "For a problem with many solutions, these searches tell what is certain and what is likely. To find the values each variable takes in some solution, the solver finds one solution and marks all its values; then, for each value still unmarked, it searches for a solution with that value fixed and marks all values of the solution it finds. The *backbone* is the variables left with one possible value: the facts true in every solution, such as the Minesweeper cells that are safe for sure. `marginals` enumerates solutions up to a limit and reports how often each value occurs, optionally weighted, and is exact only when no solution lies past the limit. `sample` draws a random solution by restarts in random value order, which is not exactly uniform but serves to deal hidden cards for Perfect Information Monte Carlo.",
+	"papers": [
+		{
+			"authors": "Rémi Monasson, Riccardo Zecchina, Scott Kirkpatrick, Bart Selman, Lidror Troyansky",
+			"title": "Determining computational complexity from characteristic ‘phase transitions’",
+			"year": 1999,
+			"venue": "Nature",
+			"doi": "10.1038/22055",
+			"arxiv": null,
+			"url": null,
+			"role": "introduces"
+		}
+	],
+	"lineage": [
+		{
+			"slug": "backtracking-search",
+			"name": null,
+			"relation": "builds-on",
+			"source": "constraint-search, src/search/analysis.rs: \"How often each value occurs among the solutions, enumerating up to `limit` of them.\""
+		}
+	],
+	"trace": null
+}

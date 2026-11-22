@@ -1,0 +1,17 @@
+{
+	"description": "The propagation engine removes the values that the constraints rule out, until no constraint can remove more: the *fixpoint*. Each constraint is a *propagator* that prunes the domains of its scope. At the root every propagator runs once; after that, a changed domain queues only the propagators that watch its variable, each at most once and first in, first out, and a propagator that changes its own scope runs again. A propagator that would empty a domain stops the run with a conflict, and a trail records every change so that search can undo it on backtrack. Use it under backtracking search, so that each choice prunes the other domains before the next one.",
+	"papers": [
+		{
+			"authors": "Alan K. Mackworth",
+			"title": "Consistency in networks of relations",
+			"year": 1977,
+			"venue": "Artificial Intelligence",
+			"doi": "10.1016/0004-3702(77)90007-8",
+			"arxiv": null,
+			"url": null,
+			"role": "introduces"
+		}
+	],
+	"lineage": [],
+	"trace": null
+}

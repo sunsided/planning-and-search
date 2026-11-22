@@ -1,0 +1,31 @@
+algorithm Backbone(model, D)
+  input: model with current domains D
+  output: for each variable, its value in every solution, or nil
+  P(x) ← ∅ for each variable x                 ▷ the values seen in a solution
+  w ← first-solution(D)
+  if w = nil then
+    return nil for every variable
+  P(x) ← P(x) ∪ {w(x)} for each x
+  for each variable x and each v ∈ D(x) do
+    if v ∉ P(x) then                           ▷ only unsupported values cost a search
+      w ← first-solution(D with x fixed to v)
+      if w ≠ nil then
+        P(y) ← P(y) ∪ {w(y)} for each y
+  return for each x the only value of P(x) if |P(x)| = 1, else nil
+function Marginals(model, D, limit, weight)
+  W[x, v] ← 0 for each x and v
+  total ← 0
+  n ← 0
+  for each solution s of backtracking search on D do
+    if n = limit then
+      return W / total, inexact                ▷ a solution past the limit
+    W[x, s(x)] ← W[x, s(x)] + weight(s) for each x
+    total ← total + weight(s)
+    n ← n + 1
+  return W / total, exact
+function Sample(model, D, restarts)
+  for r in 1, …, restarts do
+    s ← first-solution(D) with values in random order, under its own budget
+    if s is a solution or D has none then
+      return s
+  return exhausted

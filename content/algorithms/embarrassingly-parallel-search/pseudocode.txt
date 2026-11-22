@@ -1,0 +1,42 @@
+algorithm Embarrassingly-Parallel-Search(model, t)
+  input: shared model, t worker threads
+  output: the first solution any worker finds, or failure
+  CUBES ← split(model, 8 · t)
+  next ← 0                                     ▷ an atomic index into CUBES
+  stop ← false
+  in parallel do
+    for each worker w in 1, …, t do
+      while not stop and next < |CUBES| do
+        q ← CUBES[next]
+        next ← next + 1                        ▷ read and increment in one atomic step
+        reset the solver of w and fix the assignments of q
+        s ← backtracking search below q, checking stop at every node
+        if s is a solution then
+          record s unless a solution is recorded
+          stop ← true
+  return the recorded solution, or failure
+function split(model, target)
+  OPEN ← ⟨⟨⟩⟩                                  ▷ partial assignments, first in first out
+  LEAVES ← ⟨⟩
+  while |OPEN| + |LEAVES| < target and OPEN ≠ ∅ do
+    q ← pop-front(OPEN)
+    if propagate(model with q fixed) = failure then
+      continue                                 ▷ drop an inconsistent branch
+    x ← pick-variable(model with q fixed)      ▷ the workers' variable order
+    if x = nil then
+      append(LEAVES, q)                        ▷ q fixes every variable
+    else
+      for each v ∈ D(x) do
+        push-back(OPEN, q ∪ {x = v})
+  return OPEN followed by LEAVES
+function Portfolio(model, ORDERS)
+  input: shared model, pairs of variable order and value order
+  output: the first solution any strategy finds, or failure
+  stop ← false
+  in parallel do
+    for each (var-order, value-order) in ORDERS do
+      s ← backtracking search on the whole model with these orders, checking stop at every node
+      if s is a solution then
+        record s unless a solution is recorded
+        stop ← true
+  return the recorded solution, or failure

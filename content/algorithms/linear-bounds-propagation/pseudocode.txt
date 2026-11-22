@@ -1,0 +1,20 @@
+algorithm Linear(a, x, rel, b, D)
+  input: terms a₁·x₁, …, a_n·x_n, relation rel ∈ {≤, =, ≥}, right-hand side b, domains D
+  output: D with the values the bounds rule out removed, or failure
+  caps ← rel ∈ {≤, =}
+  floors ← rel ∈ {≥, =}
+  for i in 1, …, n do
+    lo_i ← min of a_i · v over v ∈ D(x_i)
+    hi_i ← max of a_i · v over v ∈ D(x_i)
+  L ← ∑ lo_i
+  H ← ∑ hi_i
+  if (caps and L > b) or (floors and H < b) then
+    return failure
+  for i in 1, …, n do                          ▷ one pass; the engine runs it again on its own changes
+    for each v ∈ D(x_i) do
+      c ← a_i · v
+      if (caps and c + L − lo_i > b) or (floors and c + H − hi_i < b) then
+        D(x_i) ← D(x_i) ∖ {v}
+    if D(x_i) = ∅ then
+      return failure
+  return D

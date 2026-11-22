@@ -1,0 +1,13 @@
+{
+	"description": "Linear bounds propagation prunes a weighted sum `a₁·x₁ + … + a_n·x_n` compared with a constant `b` by `≤`, `=` or `≥`. Each run computes the smallest and largest contribution of every term over the current domains, and fails when their sums cannot meet `b`. A value of one term stays only if it fits the extreme contributions of the other terms: for `≤` its contribution plus their minimum may not exceed `b`, and for `≥` its contribution plus their maximum must reach `b`. This is sound but, for `=`, not complete: a value can stay although no completion of it hits `b` exactly. Use it for Kakuro and Killer-Sudoku cages, Minesweeper counts and cryptarithms.",
+	"papers": [],
+	"lineage": [
+		{
+			"slug": "constraint-propagation",
+			"name": null,
+			"relation": "builds-on",
+			"source": "constraint-search, src/linear.rs: \"impl<D: Domain> Propagator<D> for Linear {\""
+		}
+	],
+	"trace": null
+}
