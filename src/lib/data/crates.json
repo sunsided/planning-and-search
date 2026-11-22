@@ -272,9 +272,9 @@
 	},
 	{
 		"name": "mapf-search",
-		"version": "0.2.0",
+		"version": "0.3.0",
 		"repo": "sunsided/mapf-search",
-		"description": "Multi-agent pathfinding on grids and graphs: CBS with its improvements, CBS-TA, ECBS, ICTS, PBS, PIBT, M*, EPEA*, MAPF-LNS2 and multi-objective MO-CBS",
+		"description": "Multi-agent pathfinding on grids and graphs: CBS with its improvements, CBS-TA, FOCBS, ECBS, ICTS, PBS, PIBT, PIBT*_T, M*, EPEA*, MAPF-LNS2 and multi-objective MO-CBS",
 		"license": "MIT OR Apache-2.0",
 		"msrv": "1.86",
 		"keywords": ["mapf", "multi-agent", "pathfinding", "cbs", "robotics"],
@@ -315,12 +315,14 @@
 			"disjoint-splitting",
 			"ecbs",
 			"epea-star",
+			"focbs",
 			"icts",
 			"m-star",
 			"mapf-lns2",
 			"mo-cbs",
 			"pbs",
 			"pibt",
+			"pibt-star-t",
 			"prioritizing-conflicts",
 			"space-time-a-star",
 			"wdg-heuristic"
@@ -370,12 +372,12 @@
 	},
 	{
 		"name": "miniplan",
-		"version": "0.2.0",
+		"version": "0.3.0",
 		"repo": "sunsided/miniplan",
-		"description": "A PDDL planner library built around the pddl crate, with grounding and search utilities",
+		"description": "Grounded classical PDDL planner library with breadth-first, A*, greedy best-first and bidirectional search and h^FF, h^add and h^max heuristics",
 		"license": "EUPL-1.2",
-		"msrv": null,
-		"keywords": ["pddl", "planning", "ai", "scheduling"],
+		"msrv": "1.88",
+		"keywords": ["pddl", "planning", "planner", "a-star", "classical-planning"],
 		"deps": [
 			{
 				"name": "pddl",
@@ -385,12 +387,17 @@
 		"siblings": [],
 		"audience": [
 			{
-				"kind": "p",
-				"text": "A PDDL planner library built around the [`pddl`](https://github.com/sunsided/pddl-rs) crate."
+				"kind": "ul",
+				"items": [
+					"Students and engineers learning classical planning, who want a planner small enough to read end to end, with the textbook searches and heuristics side by side.",
+					"Rust developers who need to solve small and medium PDDL tasks (puzzles, logistics, robot task sequencing) in-process, without shelling out to an external planner.",
+					"Researchers comparing forward, bidirectional and heuristic search on the same grounded task, with node counts and timings from `--stats`.",
+					"If you only need to parse, check or write PDDL, use [`pddl-rs`](https://github.com/sunsided/pddl-rs) directly. For heuristic search over your own graph rather than a PDDL task, see [`heuristic-search`](https://github.com/sunsided/heuristic-search), and for width-based search without a heuristic, [`width-search`](https://github.com/sunsided/width-search)."
+				]
 			},
 			{
 				"kind": "p",
-				"text": "**miniplan** is a grounded, classical PDDL planner focused on simplicity and performance. It targets STRIPS-level domains with support for typing, negative preconditions, and conditional effects. Use it as a library in your own projects or as a CLI (`miniplan`) for quick planning experiments."
+				"text": "Part of the [planning and search crates](https://sunsided.github.io/planning-and-search/); see also this crate's [overview page](https://sunsided.github.io/planning-and-search/crates/miniplan/)."
 			}
 		],
 		"algorithms": [
@@ -406,7 +413,7 @@
 			"h-max",
 			"nbs"
 		],
-		"about": "intro"
+		"about": "who"
 	},
 	{
 		"name": "multiobjective-search",
