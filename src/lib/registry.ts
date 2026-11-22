@@ -45,9 +45,10 @@ export const CATEGORIES: Category[] = [
 	{
 		slug: 'multi-agent',
 		title: 'Multi-agent',
-		blurb: 'Collision-free paths for many agents at once, on grids and graphs.',
+		blurb:
+			'Many agents at once: collision-free paths on grids and graphs, and who does which task, agreed without a central planner.',
 		hue: 60,
-		crates: ['mapf-search']
+		crates: ['mapf-search', 'task-allocation']
 	},
 	{
 		slug: 'uncertainty',

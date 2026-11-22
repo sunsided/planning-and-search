@@ -1,0 +1,24 @@
+{
+	"description": "Coupled-constraint CBBA (CCBBA) runs CBBA on tasks that need or exclude each other, grouped into *activities* by a dependency matrix. On a task without a mutual dependency an agent bids *pessimistically*, only once every task it depends on has a winner; on a task with one it may bid *optimistically* and wait for its partners, giving the task up after `timeout` rounds and spending one of a limited number of attempts, after which it bids pessimistically. *Mutual exclusion* lets an agent bid on a task only if it outbids every task the task excludes, and makes it give the task up once an excluded task's winner outbids it. `TimedAgent` schedules its bundle on a timed route and adds limits between the starts of coupled tasks: a task must start within the window its partners' starts impose, and on a conflict the dependent task, or of two mutual partners the one that starts earlier into its window, gives way. Use it instead of plain CBBA when tasks only pay off together; it promises no convergence in general, and the timeouts and attempt counts are the caller's choice.",
+	"papers": [
+		{
+			"authors": "Andrew K. Whitten, Han-Lim Choi, Luke B. Johnson, Jonathan P. How",
+			"title": "Decentralized task allocation with coupled constraints in complex missions",
+			"year": 2011,
+			"venue": "Proceedings of the 2011 American Control Conference",
+			"doi": "10.1109/acc.2011.5990917",
+			"arxiv": null,
+			"url": null,
+			"role": "introduces"
+		}
+	],
+	"lineage": [
+		{
+			"slug": "cbba",
+			"name": null,
+			"relation": "builds-on",
+			"source": "task-allocation, src/ccbba.rs: \"One CCBBA agent: a CBBA agent whose bids respect coupled constraints.\""
+		}
+	],
+	"trace": null
+}

@@ -1,0 +1,17 @@
+{
+	"description": "The sequential greedy assignment knows every agent's valuation and builds the assignment one task at a time. Each round it looks at every agent with room left and every unassigned task, and gives the task with the highest marginal gain, an integer `u64` score, to that agent at its best insertion; ties go to the smaller agent, then the smaller task, and tasks with gain zero stay unassigned. For submodular valuations the property tests check that it scores at least half the optimum without capacity limits and a third with them, the bounds for greedy over one and two matroids. It is the reference the decentralized algorithms are measured against: with diminishing gains and every task known from the start, CBBA agents with `Replan::Full` settle on it up to tied gains. Use it as the centralized fallback when one process sees every valuation; use the auctions when only bids reach a center, and CBBA when there is no center at all.",
+	"papers": [
+		{
+			"authors": "M. L. Fisher, G. L. Nemhauser, L. A. Wolsey",
+			"title": "An analysis of approximations for maximizing submodular set functions—II",
+			"year": 1978,
+			"venue": "Mathematical Programming Studies",
+			"doi": "10.1007/bfb0121195",
+			"arxiv": null,
+			"url": null,
+			"role": "analyses"
+		}
+	],
+	"lineage": [],
+	"trace": null
+}

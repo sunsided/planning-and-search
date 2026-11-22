@@ -1,0 +1,15 @@
+algorithm Sequential-Greedy(V, m, L)
+  input: valuations V₁, …, V_n, tasks 1, …, m, capacity L
+  output: one bundle per agent, conflict-free
+  B_a ← ⟨⟩ for every agent a
+  repeat
+    w, t, best ← nil, nil, 0
+    for each agent a with |B_a| < L do
+      for each task j not yet assigned do
+        g, p ← best-insertion(V_a, B_a, j)
+        if g > best then
+          w, t, best, pos ← a, j, g, p         ▷ strict: ties go to the smaller agent, then task
+    if w ≠ nil then
+      insert t into B_w at position pos
+  until w = nil                                ▷ no agent gains from any task left
+  return B₁, …, B_n

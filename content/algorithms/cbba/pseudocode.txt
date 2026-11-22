@@ -1,0 +1,37 @@
+algorithm CBBA(i, V, L)
+  input: agent i, its valuation V, capacity L, replanning mode (Keep, Last(k) or Full)
+  output: a bundle for agent i; the team agrees on one winner per task
+  B ← ⟨⟩                                       ▷ tasks in the order i added them, each with a path position
+  for each task j do
+    winner[j], bid[j] ← nil, 0
+  seen[k] ← 0 for every agent k                ▷ logical clocks
+  repeat
+    build-bundle()
+    seen[i] ← seen[i] + 1
+    broadcast ⟨i, winner, bid, seen⟩           ▷ the whole state
+    for each message m that arrives do
+      receive(m)
+  until the team settles
+procedure build-bundle()
+  release the tasks the replanning mode says, forgetting i's own bids on them
+  while |B| < L do
+    WIN ← {j ∉ B : g_j ← gain(V, B, j) > 0 and outbids(⟨i, g_j⟩, ⟨winner[j], bid[j]⟩)}
+    if WIN = ∅ then
+      break
+    j ← argmax over j ∈ WIN of g_j             ▷ marginal gain, an integer; ties to the first task
+    add j to B, at its best position in the path
+    winner[j], bid[j] ← i, g_j
+procedure receive(m)
+  if m.seen[m.sender] < seen[m.sender] then
+    return                                     ▷ stale: older than what i knows of the sender
+  for each task j do
+    update, reset or leave ⟨winner[j], bid[j]⟩ by the conflict table, given m and seen
+  seen[k] ← max(seen[k], m.seen[k]) for every agent k
+  if some task of B is no longer won by i then
+    n ← position of the first such task in B
+    for each task j after position n in B do
+      if winner[j] = i then
+        winner[j], bid[j] ← nil, 0             ▷ its bid assumed the lost task
+    B ← the first n − 1 tasks of B
+function outbids(⟨a, x⟩, ⟨b, y⟩)
+  return b = nil or x > y or (x = y and a < b) ▷ ties go to the smaller id
