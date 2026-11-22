@@ -16,7 +16,11 @@ export interface Audience {
 	teaser: string;
 	/** Two to four sentences: the problems this group has, and how the crates help. */
 	lead: string;
-	start: Pick & { first: string };
+	/**
+	 * Where to begin: one crate, or one per job when the readers come with different problems
+	 * (a game needs paths, an opponent or a puzzle). With several, each names its `job`.
+	 */
+	start: (Pick & { first: string; job?: string })[];
 	crates: Pick[];
 	/** Algorithm slugs worth reading first. */
 	algorithms: string[];
@@ -28,12 +32,14 @@ export const AUDIENCES: Audience[] = [
 		title: 'robotics engineers',
 		teaser: 'Paths for arms, mobile bases and fleets, safe under uncertainty.',
 		lead: 'A robot must move through a continuous space without collisions. Its model is never exact, and other robots share the floor. These crates plan the motion, prove it safe for every state the robot could be in, and coordinate many robots at once.',
-		start: {
-			crate: 'sampling-planning',
-			why: 'It plans paths for arms, mobile bases and car-like vehicles through a continuous space. You bring the collision checker.',
-			first:
-				'Start with RRT-Connect for a fast first path, then RRT* or BIT* when the path must be short.'
-		},
+		start: [
+			{
+				crate: 'sampling-planning',
+				why: 'It plans paths for arms, mobile bases and car-like vehicles through a continuous space. You bring the collision checker.',
+				first:
+					'Start with RRT-Connect for a fast first path, then RRT* or BIT* when the path must be short.'
+			}
+		],
 		crates: [
 			{
 				crate: 'robust-planning',
@@ -67,12 +73,14 @@ export const AUDIENCES: Audience[] = [
 		title: 'flight software and mission engineers',
 		teaser: 'Timelines and schedules that hold up before uplink and onboard.',
 		lead: 'A spacecraft or rover runs activities whose durations are uncertain, on limited energy, memory and communication windows. These crates check a schedule before uplink, execute it onboard without a heap, and explain a violation instead of a bare "infeasible".',
-		start: {
-			crate: 'temporal-control',
-			why: 'Checks that a plan with uncertain durations stays executable, and runs it onboard with a no_std, no-alloc dispatcher.',
-			first:
-				'Model the plan as a simple temporal network with uncertainty (STNU) and check its dynamic controllability first.'
-		},
+		start: [
+			{
+				crate: 'temporal-control',
+				why: 'Checks that a plan with uncertain durations stays executable, and runs it onboard with a no_std, no-alloc dispatcher.',
+				first:
+					'Model the plan as a simple temporal network with uncertainty (STNU) and check its dynamic controllability first.'
+			}
+		],
 		crates: [
 			{
 				crate: 'resource-timeline',
@@ -100,24 +108,33 @@ export const AUDIENCES: Audience[] = [
 		title: 'game developers',
 		teaser: 'Pathfinding, unit groups, opponents and puzzles on a frame budget.',
 		lead: 'Games need paths for characters on a grid, groups of units in tight corridors, opponents that look ahead, and puzzles with one solution. They must stay inside a frame budget. These crates give each search an explicit budget and allocation-free variants where it matters.',
-		start: {
-			crate: 'heuristic-search',
-			why: 'Finds paths for a character on a grid or any graph you describe with one small trait.',
-			first:
-				'Start with A* and a Manhattan or octile heuristic; on open 8-connected grids, try Jump Point Search.'
-		},
+		start: [
+			{
+				job: 'Characters that move',
+				crate: 'heuristic-search',
+				why: 'Finds paths for a character on a grid or any graph you describe with one small trait.',
+				first:
+					'Start with A* and a Manhattan or octile heuristic; on open 8-connected grids, try Jump Point Search.'
+			},
+			{
+				job: 'An opponent that looks ahead',
+				crate: 'game-tree-search',
+				why: 'Gives a computer opponent for board, card and turn-based games, within a node or time budget.',
+				first:
+					'Describe positions, moves and an evaluation, then deepen alpha-beta until the budget runs out.'
+			},
+			{
+				job: 'Puzzles with one solution',
+				crate: 'constraint-search',
+				why: 'Generates and checks logic puzzles, gives human-style hints, and grades a puzzle by the techniques it needs.',
+				first:
+					'Model the grid as variables with all-different groups, then count solutions with a limit of 2.'
+			}
+		],
 		crates: [
 			{
 				crate: 'mapf-search',
 				why: 'Moves groups of units through tight corridors, where independent A* per unit deadlocks or collides.'
-			},
-			{
-				crate: 'game-tree-search',
-				why: 'Gives a computer opponent for board, card and turn-based games, with alpha-beta and iterative deepening under a budget.'
-			},
-			{
-				crate: 'constraint-search',
-				why: 'Generates and checks logic puzzles, proves a puzzle has one solution, and grades it by the techniques a solve needs.'
 			},
 			{
 				crate: 'evolutionary-planning',
@@ -152,12 +169,14 @@ export const AUDIENCES: Audience[] = [
 		title: 'AI planning researchers and planner authors',
 		teaser: 'Heuristics, abstractions and searches over SAS+ and PDDL.',
 		lead: 'Classical planning needs a task model, heuristics, abstractions and a search that combines them. These crates share one SAS+ task representation and read Fast Downward output. You can compare and combine them without porting C++, and check every plan independently.',
-		start: {
-			crate: 'sas-plus',
-			why: 'Gives the SAS+ task model, transition systems and abstractions that the other planning crates build on.',
-			first:
-				'Read a Fast Downward translator file into a Task, then try a heuristic from planning-heuristics with A*.'
-		},
+		start: [
+			{
+				crate: 'sas-plus',
+				why: 'Gives the SAS+ task model, transition systems and abstractions that the other planning crates build on.',
+				first:
+					'Read a Fast Downward translator file into a Task, then try a heuristic from planning-heuristics with A*.'
+			}
+		],
 		crates: [
 			{
 				crate: 'planning-heuristics',
@@ -210,11 +229,13 @@ export const AUDIENCES: Audience[] = [
 		title: 'route planning and logistics',
 		teaser: 'Shortest paths, trade-offs between costs, and fleets on a map.',
 		lead: 'A route often has more than one cost: time, distance, price, risk. One "best" route hides the trade-off. These crates find shortest paths, compute the full set of best trade-offs (the Pareto front), and coordinate many vehicles.',
-		start: {
-			crate: 'multiobjective-search',
-			why: 'Shows the trade-off between two or more costs on road networks or grids, exactly or within a guaranteed factor.',
-			first: 'For two costs, start with BOA*; for a quick approximate front, use BOA*ε or A*pex.'
-		},
+		start: [
+			{
+				crate: 'multiobjective-search',
+				why: 'Shows the trade-off between two or more costs on road networks or grids, exactly or within a guaranteed factor.',
+				first: 'For two costs, start with BOA*; for a quick approximate front, use BOA*ε or A*pex.'
+			}
+		],
 		crates: [
 			{
 				crate: 'heuristic-search',
@@ -236,11 +257,14 @@ export const AUDIENCES: Audience[] = [
 		title: 'diagram and EDA tool builders',
 		teaser: 'Connectors that avoid boxes, bend rarely and do not overlap.',
 		lead: 'In a diagram, connectors must avoid the boxes, bend rarely, cross rarely and not lie on top of each other. They should also update when a user drags a box. One crate routes all connectors together and separates them exactly.',
-		start: {
-			crate: 'connector-routing',
-			why: 'Routes many orthogonal connectors at once with bend, length and crossing costs, then nudges them apart.',
-			first: 'Build a scene from your boxes and ports, route all connectors, then nudge the result.'
-		},
+		start: [
+			{
+				crate: 'connector-routing',
+				why: 'Routes many orthogonal connectors at once with bend, length and crossing costs, then nudges them apart.',
+				first:
+					'Build a scene from your boxes and ports, route all connectors, then nudge the result.'
+			}
+		],
 		crates: [
 			{
 				crate: 'heuristic-search',
@@ -260,12 +284,14 @@ export const AUDIENCES: Audience[] = [
 		title: 'students and the curious',
 		teaser: 'See the classic algorithms run, read them, then use them.',
 		lead: 'You want to know how a route planner or a game AI finds its way. Start with the algorithm pages: each shows the algorithm run step by step, gives its pseudocode, and names the paper that introduced it. Then use the crate that implements it.',
-		start: {
-			crate: 'heuristic-search',
-			why: 'Implements the classic graph searches behind one interface, so you can compare them on the same problem.',
-			first:
-				"Read Dijkstra's algorithm, then A*, and see how the estimate h changes the order of expansion."
-		},
+		start: [
+			{
+				crate: 'heuristic-search',
+				why: 'Implements the classic graph searches behind one interface, so you can compare them on the same problem.',
+				first:
+					"Read Dijkstra's algorithm, then A*, and see how the estimate h changes the order of expansion."
+			}
+		],
 		crates: [
 			{
 				crate: 'sampling-planning',
@@ -294,12 +320,14 @@ export const AUDIENCES: Audience[] = [
 		title: 'authors of search libraries',
 		teaser: 'Shared traits so your algorithms work with everyone else’s.',
 		lead: 'A new search crate usually defines its own heuristic, goal and budget traits. Then no heuristic works across crates. One small crate gives the shared traits and exact cost types, so a heuristic written once works with every algorithm.',
-		start: {
-			crate: 'search-core',
-			why: 'Gives the shared cost, heuristic, goal and budget traits, with exact no_std cost types.',
-			first:
-				'Accept the shared Heuristic and Goal traits in your algorithms, and a Budget for every search.'
-		},
+		start: [
+			{
+				crate: 'search-core',
+				why: 'Gives the shared cost, heuristic, goal and budget traits, with exact no_std cost types.',
+				first:
+					'Accept the shared Heuristic and Goal traits in your algorithms, and a Budget for every search.'
+			}
+		],
 		crates: [
 			{
 				crate: 'sas-plus',

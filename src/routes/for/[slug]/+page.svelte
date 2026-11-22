@@ -9,7 +9,7 @@
 	const view = $derived({
 		title: data.audience.title,
 		lead: data.audience.lead,
-		start: { ...data.start, href: crateHref(data.start.crate) },
+		start: data.start.map((s) => ({ ...s, href: crateHref(s.crate) })),
 		crates: data.crates.map((c) => ({ ...c, href: crateHref(c.crate) })),
 		algorithms: data.algorithms.map((a) => ({
 			name: a.name,

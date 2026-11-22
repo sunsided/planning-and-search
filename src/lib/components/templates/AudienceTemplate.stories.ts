@@ -25,7 +25,7 @@ export const Games: Story = {
 		view: {
 			title: a.title,
 			lead: a.lead,
-			start: { ...a.start, ...info(a.start.crate) },
+			start: a.start.map((s) => ({ ...s, ...info(s.crate) })),
 			crates: a.crates.map((p) => ({ ...p, ...info(p.crate) })),
 			algorithms: a.algorithms.map((s) => ({ name: s, href: '#' }))
 		},

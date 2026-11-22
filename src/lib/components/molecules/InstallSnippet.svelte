@@ -33,6 +33,7 @@
 <style>
 	.snippet {
 		display: flex;
+		max-inline-size: 100%;
 		align-items: center;
 		gap: var(--space-2);
 		padding: var(--space-2) var(--space-2) var(--space-2) var(--space-4);
@@ -40,8 +41,10 @@
 		border-radius: var(--radius-m);
 		background: var(--color-bg-deep);
 	}
+	/* Scrolls instead of widening the snippet past a narrow card. */
 	pre {
 		flex: 1;
+		min-inline-size: 0;
 		margin: 0;
 		overflow-x: auto;
 		color: var(--color-text-strong);

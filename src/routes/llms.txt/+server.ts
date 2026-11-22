@@ -29,7 +29,7 @@ export function GET() {
 			line(
 				`For ${a.title}`,
 				`${SITE_URL}/for/${a.slug}/`,
-				`${a.teaser} Start with ${a.start.crate}.`
+				`${a.teaser} Start with ${a.start.map((s) => (s.job ? `${s.crate} (${s.job.toLowerCase()})` : s.crate)).join(', ')}.`
 			)
 		);
 	out.push('');
