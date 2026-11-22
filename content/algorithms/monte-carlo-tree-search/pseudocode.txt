@@ -1,0 +1,25 @@
+algorithm MCTS(p₀, budget)
+  input: root position p₀, budget of simulations or nodes
+  output: the most visited root move, and each root move's visits and mean reward
+  T ← tree with the root p₀, expanded
+  while not exhausted(budget) do
+    path ← ⟨root⟩
+    n ← root
+    while n is expanded and has children do
+      if some child of n is unvisited then
+        n ← first unvisited child              ▷ in move order
+        expand(n)
+        append(path, n)
+        break
+      n ← argmax over children c of score(side(n), n, c)   ▷ ties go to the earliest
+      append(path, n)
+    if the game ends at n then
+      r ← reward(evaluate(n))                  ▷ Max's reward in [0, 1]
+    else
+      r ← evaluator(n)                         ▷ random playout, or the static value
+    for each node u in path do
+      visits(u) ← visits(u) + 1
+      value(u) ← value(u) + r                  ▷ mean backup
+  return the most visited child of the root, and every root move's visits and mean
+function score(s, n, c)                        ▷ UCT
+  return mean(c, s) + C · √(ln visits(n) / visits(c))

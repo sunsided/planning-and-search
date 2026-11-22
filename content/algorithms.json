@@ -1203,6 +1203,21 @@
 		]
 	},
 	{
+		"slug": "expectimax",
+		"name": "Expectimax",
+		"aliases": ["Expectiminimax"],
+		"kind": "adversarial",
+		"refs": ["Ballard 1983"],
+		"implementations": [
+			{
+				"crate": "game-tree-search",
+				"items": ["expectimax", "Stochastic"],
+				"feature": null,
+				"summary": "Minimax with chance positions valued at the probability-weighted mean of their outcomes, searching every line to a fixed depth."
+			}
+		]
+	},
+	{
 		"slug": "field-d-star",
 		"name": "Field D*",
 		"aliases": ["Field D star"],
@@ -2450,6 +2465,21 @@
 				"items": ["molrtdp"],
 				"feature": null,
 				"summary": "Multi-objective labeled RTDP for SSPs with cost vectors, returning the convex coverage set of deterministic proper policies."
+			}
+		]
+	},
+	{
+		"slug": "monte-carlo-tree-search",
+		"name": "Monte Carlo tree search",
+		"aliases": ["MCTS", "UCT", "Upper confidence bounds applied to trees"],
+		"kind": "adversarial",
+		"refs": ["Kocsis and Szepesvári 2006", "Coulom 2007", "Browne et al. 2012"],
+		"implementations": [
+			{
+				"crate": "game-tree-search",
+				"items": ["Mcts", "Uct", "Rollout", "StaticValue"],
+				"feature": null,
+				"summary": "MCTS under a simulation or node budget, with replaceable selection (UCT), leaf evaluation (random rollout or the static evaluation) and random source; reports visits and values per root move."
 			}
 		]
 	},

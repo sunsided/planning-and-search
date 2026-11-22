@@ -1,0 +1,24 @@
+{
+	"description": "Expectimax extends minimax to games with chance, such as dice rolls or card draws. Besides the positions where a side chooses, the tree has *chance positions*, which list their outcomes with probabilities; a chance position is worth the probability-weighted mean of its outcomes' values, and the sides still take the best and the worst child. An outcome counts as a ply, and quiescence works as in the other searches, though a chance position is never quiesced. Because a mean depends on every outcome, this version searches every line to the depth, without pruning; it suits short horizons and games with few outcomes per draw. Its principal variation follows the most likely outcome at each chance position.",
+	"papers": [
+		{
+			"authors": "Bruce W. Ballard",
+			"title": "The *-minimax search procedure for trees containing chance nodes",
+			"year": 1983,
+			"venue": "Artificial Intelligence",
+			"doi": "10.1016/s0004-3702(83)80015-0",
+			"arxiv": null,
+			"url": null,
+			"role": "extends"
+		}
+	],
+	"lineage": [
+		{
+			"slug": "minimax",
+			"name": null,
+			"relation": "generalizes",
+			"source": "game-tree-search, src/expectimax.rs: \"Like [`minimax()`](crate::minimax()), except that a chance position is worth the [`expectation`](Expectation::expectation) of its outcomes.\""
+		}
+	],
+	"trace": null
+}

@@ -14,8 +14,8 @@
 	],
 	"lineage": [
 		{
-			"slug": null,
-			"name": "UCT",
+			"slug": "monte-carlo-tree-search",
+			"name": null,
 			"relation": "builds-on",
 			"source": "stochastic-search, src/pomcp.rs: \"Partially observable Monte-Carlo planning (POMCP, Silver and Veness 2010): UCT over action-observation histories\""
 		}
