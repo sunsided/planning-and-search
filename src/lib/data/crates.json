@@ -172,7 +172,6 @@
 			"1-plus1-es",
 			"cma-es",
 			"differential-evolution",
-			"dijkstras-algorithm",
 			"es",
 			"evolutionary-programmer",
 			"ga-over-sas-plus-plans",
@@ -787,7 +786,7 @@
 				"text": "There is no search algorithm and no PDDL parser. To ground PDDL into a SAS+ task, the `sas-plus` feature of [`pddl`](https://github.com/sunsided/pddl-rs) does that."
 			}
 		],
-		"algorithms": ["pattern-database", "perfect-heuristic"],
+		"algorithms": ["pattern-database"],
 		"about": "who"
 	},
 	{

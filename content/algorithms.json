@@ -870,12 +870,6 @@
 				"summary": "Uniform-cost search returning the cheapest path, the path, outcome and expansion counters."
 			},
 			{
-				"crate": "evolutionary-planning",
-				"items": ["dijkstra"],
-				"feature": null,
-				"summary": "Shortest path on a graph or grid by Dijkstra's algorithm, the reference and baseline for the GA path planner."
-			},
-			{
 				"crate": "decoupled-search",
 				"items": ["search", "Config"],
 				"feature": null,
@@ -2779,21 +2773,6 @@
 				"items": ["check_controllability_with", "DcAlgorithm"],
 				"feature": "alloc",
 				"summary": "Morris-style backpropagation without the normal form, one propagation per kind of negative incoming edge, kept as an independent cross-check."
-			}
-		]
-	},
-	{
-		"slug": "perfect-heuristic",
-		"name": "Perfect heuristic",
-		"aliases": ["h*"],
-		"kind": "heuristic",
-		"refs": [],
-		"implementations": [
-			{
-				"crate": "sas-plus",
-				"items": ["perfect_heuristic"],
-				"feature": null,
-				"summary": "Task::perfect_heuristic() computes the exact goal distance h* on small tasks, as a test oracle for heuristics."
 			}
 		]
 	},

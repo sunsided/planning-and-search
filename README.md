@@ -32,6 +32,8 @@ reaches the site by the next morning. The snapshot is committed for offline work
 - `content/algorithms.json` is the curated algorithm list: name, aliases, kind, references,
   and per crate the public items that run it. The sync keeps an implementation only if its
   items are public in the released source, so the list can run ahead of a release.
+  It lists what a crate offers its users; test baselines and oracles (a reference
+  Dijkstra, an exact h\* for checking heuristics) stay out.
 - The rest of each README (`readmes.json`) feeds search as a weaker signal. It is loaded
   when the search palette first opens.
 
