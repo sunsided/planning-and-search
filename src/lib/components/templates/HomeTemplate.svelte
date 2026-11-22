@@ -1,15 +1,21 @@
 <script lang="ts">
 	import Label from '#lib/components/atoms/Label.svelte';
 	import Node from '#lib/components/atoms/Node.svelte';
+	import AudienceGrid, { type AudienceCard } from '#lib/components/organisms/AudienceGrid.svelte';
 	import CategorySection from '#lib/components/organisms/CategorySection.svelte';
+	import RelatedCrates, { type RelatedCrate } from '#lib/components/organisms/RelatedCrates.svelte';
 	import type { Category, Crate } from '#lib/registry.js';
 
 	let {
 		categories,
-		crateHref
+		crateHref,
+		audiences,
+		related
 	}: {
 		categories: { category: Category; crates: Crate[] }[];
 		crateHref: (name: string) => string;
+		audiences: AudienceCard[];
+		related: RelatedCrate[];
 	} = $props();
 	const count = $derived(categories.reduce((n, c) => n + c.crates.length, 0));
 </script>
@@ -35,9 +41,13 @@
 		</nav>
 	</header>
 
+	<AudienceGrid {audiences} />
+
 	{#each categories as { category, crates } (category.slug)}
 		<CategorySection {category} {crates} {crateHref} />
 	{/each}
+
+	{#if related.length}<RelatedCrates crates={related} />{/if}
 </div>
 
 <style>

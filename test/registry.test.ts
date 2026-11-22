@@ -1,7 +1,15 @@
 import { strict as assert } from 'node:assert';
 import { test } from 'node:test';
 import { ALGORITHMS } from '../src/lib/algorithms.ts';
-import { CATEGORIES, CRATES, categoryOf, dependents, links } from '../src/lib/registry.ts';
+import {
+	CATEGORIES,
+	CRATES,
+	categoryOf,
+	dependents,
+	links,
+	RELATED,
+	relatedCrates
+} from '../src/lib/registry.ts';
 import { lint } from '../src/lib/richtext.ts';
 
 test('every crate is in exactly one category, and every category entry is a crate', () => {
@@ -70,4 +78,12 @@ test('released algorithms are in the curated list, and each names its crate', ()
 		}
 	assert.equal(new Set(ALGORITHMS.map((a) => a.slug)).size, ALGORITHMS.length);
 	for (const a of ALGORITHMS) assert.match(a.slug, /^[a-z0-9]+(-[a-z0-9]+)*$/);
+});
+
+test('related crates are synced and stay out of the collection', () => {
+	for (const r of RELATED) {
+		assert.ok(!CRATES.some((c) => c.name === r.name), `${r.name} is a collection crate`);
+		assert.deepEqual(lint(r.line), [], r.name);
+	}
+	assert.equal(relatedCrates().length, RELATED.length, 'every related crate is in related.json');
 });

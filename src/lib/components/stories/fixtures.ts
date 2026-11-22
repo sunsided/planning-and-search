@@ -42,3 +42,12 @@ export const aStar = {
 	gridTrace: TRACES['grid/a-star'](),
 	planeTrace: TRACES['plane/rrt-star']()
 };
+
+import { AUDIENCES } from '#lib/audiences.js';
+
+/** The overview's audience cards, linking nowhere. */
+export const audienceCards = AUDIENCES.map((a) => ({
+	title: a.title,
+	teaser: a.teaser,
+	href: '#'
+}));

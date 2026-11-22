@@ -3,6 +3,7 @@
 // category entry with no crate behind it, fails the tests.
 
 import data from '#lib/data/crates.json' with { type: 'json' };
+import related from '#lib/data/related.json' with { type: 'json' };
 
 export type Crate = (typeof data)[number];
 export type DepKind = 'normal' | 'optional' | 'dev';
@@ -105,6 +106,21 @@ export const CATEGORIES: Category[] = [
 
 export const CRATES: Crate[] = data;
 
+/**
+ * Neighbours of the collection, not part of it: planning decides what to do, these estimate
+ * and predict the state it starts from. The overview lists them; they get no page.
+ */
+export const RELATED: { name: string; line: string }[] = [
+	{
+		name: 'minikalman',
+		line: 'State estimation for microcontrollers: a no_std Kalman filter. It estimates the state that the onboard dispatcher of temporal-control and the checks of resource-timeline act on.'
+	},
+	{
+		name: 'backshift',
+		line: 'Time-series forecasting: ARIMA models with a streaming filter that runs without a heap. Use it to forecast the energy or thermal demand that resource-timeline checks against.'
+	}
+];
+
 export function crate(name: string): Crate | undefined {
 	return CRATES.find((c) => c.name === name);
 }
@@ -125,3 +141,9 @@ export const links = (c: Pick<Crate, 'name' | 'repo'>) => ({
 	crates: `https://crates.io/crates/${c.name}`,
 	docs: `https://docs.rs/${c.name}`
 });
+
+/** The related crates with their synced repositories. */
+export const relatedCrates = () =>
+	RELATED.map((r) => ({ ...r, repo: related.find((x) => x.name === r.name)?.repo ?? '' })).filter(
+		(r) => r.repo
+	);

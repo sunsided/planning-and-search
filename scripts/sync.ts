@@ -12,6 +12,7 @@
 //                 none or says something the site does not
 //   readmes.json  the rest of each README as plain text, which search loads on demand as a
 //                 lower-confidence signal
+//   related.json  name, repository and description of the neighbouring crates in RELATED
 //
 // The crate list is the categories in src/lib/registry.ts. CI runs this before every build.
 
@@ -19,7 +20,7 @@ import { execFileSync } from 'node:child_process';
 import { existsSync, readFileSync, writeFileSync } from 'node:fs';
 import { posix, relative, resolve } from 'node:path';
 import { parse as parseToml } from 'smol-toml';
-import { CATEGORIES } from '../src/lib/registry.ts';
+import { CATEGORIES, RELATED } from '../src/lib/registry.ts';
 import { lint, parseBlocks, type Block } from '../src/lib/richtext.ts';
 import { plain } from '../src/lib/search.ts';
 
@@ -315,6 +316,22 @@ for (const name of names) {
 	});
 	console.log(`${name} ${index.vers}`);
 }
+
+// Neighbouring crates the overview mentions: metadata only, no page and no edges.
+const related = [];
+for (const { name } of RELATED) {
+	const index = await latest(name);
+	const { manifest } = await archive(name, index.vers);
+	const pkg = manifest.package ?? {};
+	related.push({
+		name,
+		version: index.vers,
+		repo: repoOf(pkg.repository, name),
+		description: String(pkg.description ?? '').trim()
+	});
+	console.log(`${name} ${index.vers} (related)`);
+}
+writeFileSync(resolve(DATA, 'related.json'), JSON.stringify(related, null, '\t') + '\n');
 
 crates.sort((a, b) => a.name.localeCompare(b.name));
 writeFileSync(resolve(DATA, 'crates.json'), JSON.stringify(crates, null, '\t') + '\n');

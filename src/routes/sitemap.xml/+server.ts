@@ -1,4 +1,5 @@
 import { RELEASED } from '#lib/server/algorithms.js';
+import { AUDIENCES } from '#lib/audiences.js';
 import { CRATES } from '#lib/registry.js';
 import { SITE_URL } from '#lib/site.js';
 
@@ -8,6 +9,7 @@ export function GET() {
 	const pages = [
 		'',
 		'algorithms/',
+		...AUDIENCES.map((a) => `for/${a.slug}/`),
 		...CRATES.map((c) => `crates/${c.name}/`),
 		...RELEASED.map((a) => `algorithms/${a.slug}/`)
 	];

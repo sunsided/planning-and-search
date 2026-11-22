@@ -1,6 +1,7 @@
 <script lang="ts">
 	import HomeTemplate from '#lib/components/templates/HomeTemplate.svelte';
-	import { CATEGORIES, crate, type Crate } from '#lib/registry.js';
+	import { AUDIENCES } from '#lib/audiences.js';
+	import { CATEGORIES, crate, relatedCrates, type Crate } from '#lib/registry.js';
 	import { SITE_NAME, SITE_URL } from '#lib/site.js';
 	import { resolve } from '$app/paths';
 
@@ -21,4 +22,13 @@
 	<meta property="og:url" content="{SITE_URL}/" />
 </svelte:head>
 
-<HomeTemplate {categories} crateHref={(name) => resolve('/crates/[name]', { name })} />
+<HomeTemplate
+	{categories}
+	crateHref={(name) => resolve('/crates/[name]', { name })}
+	audiences={AUDIENCES.map((a) => ({
+		title: a.title,
+		teaser: a.teaser,
+		href: resolve('/for/[slug]', { slug: a.slug })
+	}))}
+	related={relatedCrates()}
+/>

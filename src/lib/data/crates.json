@@ -1,7 +1,7 @@
 [
 	{
 		"name": "connector-routing",
-		"version": "0.1.0",
+		"version": "0.1.1",
 		"repo": "sunsided/connector-routing",
 		"description": "Connector routing for diagrams and schematics: many orthogonal connectors at once with bend, length and crossing costs, negotiated congestion, rip-up and reroute, and nudging",
 		"license": "MIT OR Apache-2.0",
@@ -47,13 +47,17 @@
 	},
 	{
 		"name": "cost-partition",
-		"version": "0.2.0",
+		"version": "0.3.0",
 		"repo": "sunsided/cost-partition",
-		"description": "Cost partitioning (saturated, max-over-orders) over arbitrary planning abstractions",
+		"description": "Saturated cost partitioning and its maximum over orders for admissible planning heuristics over arbitrary abstractions",
 		"license": "MIT OR Apache-2.0",
 		"msrv": "1.86",
-		"keywords": ["planning", "cost-partitioning", "heuristic", "abstraction", "fast-downward"],
+		"keywords": ["planning", "cost-partitioning", "heuristic", "abstraction", "pattern-database"],
 		"deps": [
+			{
+				"name": "merge-and-shrink",
+				"kind": "dev"
+			},
 			{
 				"name": "sas-plus",
 				"kind": "normal"
@@ -62,20 +66,25 @@
 		"siblings": [],
 		"audience": [
 			{
-				"kind": "p",
-				"text": "Cost partitioning over *any* `sas_plus::Abstraction` (projections, merge-and-shrink, ...): saturated cost partitioning for a given order, and the maximum over several orders."
+				"kind": "ul",
+				"items": [
+					"Authors of optimal classical planners who have several abstraction heuristics (pattern databases, merge-and-shrink, Cartesian or their own) and want an admissible combination that is usually stronger than taking their maximum.",
+					"Researchers comparing cost partitioning strategies: the saturated cost function of every abstraction is exposed (`cost_functions`), and any type that implements `sas_plus::Abstraction` can take part.",
+					"Teams that plan on embedded hardware, since the crate is `no_std` and has a single dependency.",
+					"For the abstractions themselves, use [sas-plus](https://github.com/sunsided/sas-plus) (projections) and [merge-and-shrink](https://github.com/sunsided/merge-and-shrink); for landmark cost partitioning, LM-cut or operator counting, [planning-heuristics](https://github.com/sunsided/planning-heuristics), which also wraps this crate's heuristics for its `Heuristic` trait."
+				]
 			},
 			{
 				"kind": "p",
-				"text": "Splitting each operator's cost among several abstractions, so that the parts sum to at most the original cost, makes the *sum* of their heuristics admissible."
+				"text": "Part of the [planning and search crates](https://sunsided.github.io/planning-and-search/); see also this crate's [overview page](https://sunsided.github.io/planning-and-search/crates/cost-partition/)."
 			}
 		],
 		"algorithms": ["saturated-cost-partitioning"],
-		"about": "intro"
+		"about": "who"
 	},
 	{
 		"name": "decoupled-search",
-		"version": "0.3.0",
+		"version": "0.3.1",
 		"repo": "sunsided/decoupled-search",
 		"description": "Decoupled (star-topology) search for factored SAS+ planning: star factorings, cost-optimal and greedy search, dominance pruning and decoupled heuristics",
 		"license": "MIT OR Apache-2.0",
@@ -137,7 +146,7 @@
 	},
 	{
 		"name": "evolutionary-planning",
-		"version": "0.1.0",
+		"version": "0.1.1",
 		"repo": "sunsided/evolutionary-planning",
 		"description": "Evolutionary planning for no_std: genetic algorithms, evolution strategies, CMA-ES and multi-objective evolutionary search over plans, paths and trajectories",
 		"license": "MIT OR Apache-2.0",
@@ -320,12 +329,12 @@
 	},
 	{
 		"name": "merge-and-shrink",
-		"version": "0.3.0",
+		"version": "0.3.1",
 		"repo": "sunsided/merge-and-shrink",
-		"description": "Merge-and-shrink abstraction heuristics for factored transition systems",
+		"description": "Merge-and-shrink abstraction heuristics for SAS+ planning, with DFP and SCC-DFP merging, label reduction and bisimulation shrinking",
 		"license": "MIT OR Apache-2.0",
 		"msrv": "1.85",
-		"keywords": ["planning", "merge-and-shrink", "heuristic", "abstraction", "fast-downward"],
+		"keywords": ["planning", "merge-and-shrink", "heuristic", "abstraction", "bisimulation"],
 		"deps": [
 			{
 				"name": "sas-plus",
@@ -335,12 +344,17 @@
 		"siblings": [],
 		"audience": [
 			{
-				"kind": "p",
-				"text": "Optimal planners such as A* need a heuristic that never overestimates the cost to the goal. Abstraction heuristics get one by mapping the huge concrete state space onto a much smaller abstract one, computing exact goal distances there, and using those distances as lower bounds. Merge-and-shrink builds such abstractions over *all* variables of a task at once, so it can capture interactions between variables that pattern databases, which project onto a few variables, cannot see."
+				"kind": "ul",
+				"items": [
+					"People building optimal planners or search algorithms in Rust who need a strong admissible heuristic; the heuristic search itself, A* and friends, lives in [`heuristic-search`](https://github.com/sunsided/heuristic-search).",
+					"Researchers and students experimenting with abstraction heuristics, merge or shrink strategies, or cost partitioning, who want a small, readable, tested implementation to change and measure.",
+					"Anyone who needs a reference h* on small tasks: with exact bisimulation and `prune: false`, the result is perfect on every state, so it can check other heuristics.",
+					"To add several abstractions up admissibly, combine them with [`cost-partition`](https://github.com/sunsided/cost-partition); for delete-relaxation, landmark or red-black heuristics, use [`planning-heuristics`](https://github.com/sunsided/planning-heuristics) instead, and for exhaustive search over decision diagrams, [`symbolic-search`](https://github.com/sunsided/symbolic-search)."
+				]
 			},
 			{
 				"kind": "p",
-				"text": "The crate turns a SAS+ task (for example Fast Downward translator output, read through `sas-plus`) into a heuristic you can query per state: `value` returns the estimated cost, or `None` when the state is a proven dead end or was pruned as unreachable from the initial state. Because the heuristic also implements `sas_plus::Abstraction`, it plugs into [`cost-partition`](https://github.com/sunsided/cost-partition), which adds up several abstraction heuristics admissibly."
+				"text": "Without a size limit, exact bisimulation can still grow exponentially on large tasks. Set `max_states` (Fast Downward uses 50000) to bound every product; the heuristic stays admissible but is no longer perfect. The implementation favors readability over speed, so for large benchmarks Fast Downward remains much faster."
 			}
 		],
 		"algorithms": [
@@ -391,7 +405,7 @@
 	},
 	{
 		"name": "multiobjective-search",
-		"version": "0.1.0",
+		"version": "0.1.1",
 		"repo": "sunsided/multiobjective-search",
 		"description": "Multi-objective shortest paths over Pareto frontiers: BOA*, BOBA*, EMOA*, NAMOA*dr, A*pex and their approximate, anytime and parallel variants",
 		"license": "MIT OR Apache-2.0",
@@ -507,7 +521,7 @@
 	},
 	{
 		"name": "planning-heuristics",
-		"version": "0.2.0",
+		"version": "0.2.1",
 		"repo": "sunsided/planning-heuristics",
 		"description": "Heuristics for classical planning: delete relaxation (h_max, h_add, h_FF), red-black, landmarks, LM-cut, operator counting and abstraction adapters",
 		"license": "MIT OR Apache-2.0",
@@ -571,7 +585,7 @@
 	},
 	{
 		"name": "polyzonotope",
-		"version": "0.4.1",
+		"version": "0.4.2",
 		"repo": "sunsided/polyzonotope",
 		"description": "Sparse polynomial zonotopes, zonotopes and interval boxes for set-based reachability analysis, no_std and optionally with outward rounding",
 		"license": "MIT OR Apache-2.0",
@@ -582,7 +596,7 @@
 		"audience": [
 			{
 				"kind": "p",
-				"text": "Say you have a drone, a robot arm or a cruise controller, and you don't know its state exactly: the sensors are a bit off, the payload is somewhere between 2 and 3 kg, and there is wind. A simulation with your best guess gives you one trajectory, but what you'd actually like to know is where the system could *possibly* end up, for every value the uncertain parts might take. If none of those places is the wall, you're fine; if one of them is, you'd rather find out on paper. That question is called reachability analysis, and the trick is to push a whole set of states through the model at once, instead of one point at a time."
+				"text": "This crate does set-based reachability analysis with sparse polynomial zonotopes: rather than simulating one state at a time, it pushes a whole set of possible states through a model, and the result always encloses every state the system can actually reach. This is useful whenever the state is not known exactly. A drone, a robot arm or a cruise controller has sensors that are slightly off, a payload somewhere between 2 and 3 kg, and wind acting on it; a simulation with the best guess yields one trajectory, while the question for safety is where the system could *possibly* end up, for every value the uncertain parts might take. If none of those states lies inside the wall, the system cannot hit it; if one does, it is better to find out on paper."
 			},
 			{
 				"kind": "p",
@@ -610,7 +624,7 @@
 	},
 	{
 		"name": "polyzonotope-reach",
-		"version": "0.1.2",
+		"version": "0.1.3",
 		"repo": "sunsided/polyzonotope",
 		"description": "Validated reachable-set over-approximation of linear and nonlinear dynamics with sparse polynomial zonotopes",
 		"license": "MIT OR Apache-2.0",
@@ -643,7 +657,7 @@
 	},
 	{
 		"name": "resource-timeline",
-		"version": "0.1.0",
+		"version": "0.1.1",
 		"repo": "sunsided/resource-timeline",
 		"description": "Resource timelines for onboard scheduling: energy, memory, thermal and communication budgets with explained violations, envelopes and allocation-free storage",
 		"license": "MIT OR Apache-2.0",
@@ -673,7 +687,7 @@
 	},
 	{
 		"name": "robust-planning",
-		"version": "0.2.0",
+		"version": "0.2.1",
 		"repo": "sunsided/robust-planning",
 		"description": "Motion planning over reachable sets under bounded uncertainty: Robust-RRT, Robust RRT* and reachability-guided A* with conservative safety proofs",
 		"license": "MIT OR Apache-2.0",
@@ -711,7 +725,7 @@
 	},
 	{
 		"name": "sampling-planning",
-		"version": "0.1.0",
+		"version": "0.1.1",
 		"repo": "sunsided/sampling-planning",
 		"description": "Sampling-based motion planning for no_std: RRT, RRT*, RRT-Connect, PRM, SPARS, FMT*, BIT*, AIT*, SST and KPIECE",
 		"license": "MIT OR Apache-2.0",
@@ -758,9 +772,9 @@
 	},
 	{
 		"name": "sas-plus",
-		"version": "0.2.1",
+		"version": "0.2.2",
 		"repo": "sunsided/sas-plus",
-		"description": "Minimal SAS+ planning task representation, labeled transition systems and abstractions",
+		"description": "SAS+ / finite-domain planning tasks compatible with Fast Downward's translator, with labeled transition systems, projections and test oracles",
 		"license": "MIT OR Apache-2.0",
 		"msrv": "1.85",
 		"keywords": ["planning", "sas", "pddl", "fast-downward", "heuristic"],
@@ -817,7 +831,7 @@
 	},
 	{
 		"name": "stochastic-search",
-		"version": "0.1.1",
+		"version": "0.1.2",
 		"repo": "sunsided/stochastic-search",
 		"description": "Planning under probabilistic outcomes for MDPs and POMDPs: LAO*, iLAO*, CG-iLAO*, RTDP, LRTDP, BRTDP, FRTDP, VPI-RTDP, POMCP, DESPOT and multi-objective MOLAO*, iMOLAO* and MOLRTDP",
 		"license": "MIT OR Apache-2.0",
@@ -863,7 +877,7 @@
 	},
 	{
 		"name": "symbolic-search",
-		"version": "0.1.0",
+		"version": "0.1.1",
 		"repo": "sunsided/symbolic-search",
 		"description": "Symbolic search for SAS+ planning with BDDs: symbolic BFS and Dijkstra, bidirectional search, BDDA*, SymBA* and symbolic abstraction heuristics",
 		"license": "MIT OR Apache-2.0",
@@ -902,7 +916,7 @@
 	},
 	{
 		"name": "temporal-control",
-		"version": "0.1.0",
+		"version": "0.1.1",
 		"repo": "sunsided/temporal-control",
 		"description": "Simple temporal networks with uncertainty: dynamic controllability checking, dispatchable networks and a no_std, no-alloc onboard dispatcher",
 		"license": "MIT OR Apache-2.0",
@@ -938,9 +952,9 @@
 	},
 	{
 		"name": "width-search",
-		"version": "0.3.0",
+		"version": "0.3.1",
 		"repo": "sunsided/width-search",
-		"description": "Width-based search: novelty tables, Iterated Width (IW), Serialized IW, Best-First Width Search (BFWS), and Rollout IW",
+		"description": "Width-based search without heuristics: novelty tables, Iterated Width (IW), Serialized IW, BFWS and Rollout IW for planning and games",
 		"license": "MIT OR Apache-2.0",
 		"msrv": "1.86",
 		"keywords": ["planning", "width-based-search", "novelty", "iterated-width", "bfws"],
@@ -953,15 +967,16 @@
 		"siblings": [],
 		"audience": [
 			{
-				"kind": "p",
-				"text": "Width-based search (Lipovetzky & Geffner): novelty tables, IW(k), iterated width, serialized IW (SIW), BFWS(⟨w_{#g}, #g⟩), BFWS with relaxed-plan counts `#r`, and Rollout IW(1)."
-			},
-			{
-				"kind": "p",
-				"text": "Anything that can enumerate successors and describe states as integer features implements `WidthProblem`: planning atoms, grid cells, RAM bytes. The `sas-plus` feature adds an adapter for `sas_plus::Task`."
+				"kind": "ul",
+				"items": [
+					"Planning and search people who want IW, SIW or BFWS in Rust, on SAS+ tasks or on their own state representation, without writing a heuristic first.",
+					"Game and tool developers who need to check that a generated level is solvable, plan for NPCs from world-state facts, or explore a simulator from its raw state bytes (more in [In games](https://github.com/sunsided/width-search#in-games)).",
+					"Researchers comparing novelty-based pruning against heuristic search, with node counts that line up with LAPKT.",
+					"For shortest paths with action costs and a good distance heuristic, A* and its variants in [`heuristic-search`](https://github.com/sunsided/heuristic-search) are the better pick. Heuristics for classical planning tasks live in [`planning-heuristics`](https://github.com/sunsided/planning-heuristics), and probabilistic outcomes are handled by [`stochastic-search`](https://github.com/sunsided/stochastic-search)."
+				]
 			}
 		],
 		"algorithms": ["bfws", "bfws-f5", "h-add", "iw", "novelty-pruning", "rollout-iw", "siw"],
-		"about": "intro"
+		"about": "who"
 	}
 ]

@@ -1,0 +1,14 @@
+[
+	{
+		"name": "minikalman",
+		"version": "0.9.0",
+		"repo": "sunsided/minikalman-rs",
+		"description": "A microcontroller targeted Kalman filter implementation"
+	},
+	{
+		"name": "backshift",
+		"version": "0.2.1",
+		"repo": "sunsided/arima-rs",
+		"description": "ARIMA models fitted by exact maximum likelihood, with a streaming filter that runs without a heap"
+	}
+]
