@@ -1,0 +1,30 @@
+algorithm VPI-RTDP(s₀, goal, h_L, h_U, ε, α, β, τ)
+  input: initial state s₀, goal test goal, lower and upper heuristics h_L ≤ V* ≤ h_U, tolerance ε, constants α, β, τ
+  output: bounds L ≤ V* ≤ U and a policy π greedy on U
+  L[s], U[s] ← h_L(s), h_U(s) for each state s when it is first reached
+  g₀ ← U[s₀] − L[s₀]
+  while U[s₀] − L[s₀] > ε do
+    TRAIL ← ⟨⟩
+    s ← s₀
+    repeat
+      append(TRAIL, s)
+      a ← back-up(s)                             ▷ backs up L and U, returns the L-greedy action
+      s ← next-state(s, a)
+    until s = nil
+    while TRAIL ≠ ⟨⟩ do
+      back-up(pop(TRAIL))
+    if U[s₀] − L[s₀] did not shrink then
+      brtdp-trial()                              ▷ the crate's guard against a stall
+  return L, U, π
+function next-state(s, a)
+  if a = nil then
+    return nil
+  w[s′] ← P(s′ | s, a) · (U[s′] − L[s′]) for each successor s′
+  if max over s′ of U[s′] − L[s′] > β · g₀ then
+    return sample a successor with weight w
+  v[s′] ← VPI(s, s′) for each successor s′      ▷ expected gain of the decision at s from knowing V[s′]
+  if ∑ v > 0 then
+    return sample a successor with weight v
+  if ∑ w ≥ (U[s₀] − L[s₀]) / τ or (random() < α and ∑ w > 0) then
+    return sample a successor with weight w
+  return nil

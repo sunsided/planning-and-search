@@ -1,0 +1,24 @@
+{
+	"description": "RUL2021 is a faster form of RUL⁻ for *dynamic controllability* of a simple temporal network with uncertainty (STNU). It processes each *upper-case edge* (the edge that stands for the longest outcome of one uncertain duration) exactly once, by recursion. Its backward search only collects distances and inserts no edges. When the search reaches the start point of an upper-case edge that is still unprocessed, it processes that edge first and then continues from where it stopped. At the end it inserts only the edges that keep the length of the paths they replace, so the worst-case bound equals that of RUL⁻ but the real work is much smaller.",
+	"papers": [
+		{
+			"authors": "Luke Hunsberger, Roberto Posenato",
+			"title": "Speeding Up the RUL⁻ Dynamic-Controllability-Checking Algorithm for Simple Temporal Networks with Uncertainty",
+			"year": 2022,
+			"venue": "AAAI 2022",
+			"doi": "10.1609/aaai.v36i9.21213",
+			"arxiv": null,
+			"url": null,
+			"role": "introduces"
+		}
+	],
+	"lineage": [
+		{
+			"slug": "rul-minus",
+			"name": null,
+			"relation": "builds-on",
+			"source": "temporal-control, src/stnu/rul/rul2021.rs: \"Same graph, potential and rules as RUL⁻, but it processes each upper-case edge E = (C, C:-y, A) once, recursively, and inserts far fewer edges\""
+		}
+	],
+	"trace": null
+}

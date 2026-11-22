@@ -1,0 +1,34 @@
+{
+	"description": "CMA-ES minimises a function of real variables by sampling λ points from a multivariate normal distribution `N(m, σ² C)`. After each generation it moves the mean `m` towards a weighted mean of the best points. It learns the covariance matrix `C` from successful steps, so the samples line up with the valleys of the function; it also adapts the global step size `σ` from the length of an averaged search path (*cumulative step-size adaptation*). The update uses only the ranks of the costs, so any strictly increasing transform of the cost gives the same run. Use it for non-convex, badly scaled or non-separable continuous problems with up to a few hundred variables; it is a local, stochastic method, and restarts with larger populations (IPOP) make it more global.",
+	"papers": [
+		{
+			"authors": "Nikolaus Hansen",
+			"title": "The CMA Evolution Strategy: A Tutorial",
+			"year": 2016,
+			"venue": null,
+			"doi": null,
+			"arxiv": "1604.00772",
+			"url": null,
+			"role": "surveys"
+		},
+		{
+			"authors": "Anne Auger, Nikolaus Hansen",
+			"title": "A Restart CMA Evolution Strategy With Increasing Population Size",
+			"year": 2005,
+			"venue": "2005 IEEE Congress on Evolutionary Computation",
+			"doi": "10.1109/cec.2005.1554902",
+			"arxiv": null,
+			"url": null,
+			"role": "extends"
+		}
+	],
+	"lineage": [
+		{
+			"slug": "es",
+			"name": null,
+			"relation": "builds-on",
+			"source": "The CMA Evolution Strategy: A Tutorial: \"This tutorial introduces the CMA Evolution Strategy (ES)\""
+		}
+	],
+	"trace": null
+}

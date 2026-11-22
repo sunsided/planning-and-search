@@ -1,0 +1,27 @@
+algorithm Beam search(s₀, goal, h, width)
+  input: start s₀, goal test goal, heuristic h, beam width width ≥ 1
+  output: some path to a goal, a cutoff, or failure
+  g[s₀] ← 0
+  SEEN ← {s₀}
+  LAYER ← ⟨s₀⟩
+  pruned ← false
+  while LAYER ≠ ∅ do
+    NEXT ← ∅
+    for each s in LAYER, in order of f = g + h do
+      if goal(s) then
+        return path-to(s)
+      for each (s′, c) in successors(s) do
+        if s′ ∉ SEEN then
+          SEEN ← SEEN ∪ {s′}
+          g[s′] ← g[s] + c
+          parent[s′] ← s
+          NEXT ← NEXT ∪ {s′}
+        else if s′ ∈ NEXT and g[s] + c < g[s′] then
+          g[s′] ← g[s] + c                     ▷ the cheaper path in a layer wins
+          parent[s′] ← s
+    if |NEXT| > width then
+      pruned ← true
+    LAYER ← the width states of NEXT with the smallest g + h
+  if pruned then
+    return cutoff                              ▷ a wider beam may find a goal
+  return failure

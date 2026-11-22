@@ -1,0 +1,26 @@
+algorithm Landmarks(s, G)
+  input: state s, goal facts G
+  output: fact landmarks with natural orderings, or failure
+  QUEUE ← ∅
+  for each f in s do
+    label[f] ← {f}
+    push(QUEUE, f)
+  for each rule (∅ → f) do
+    offer-to(f, {f})
+  while QUEUE ≠ ∅ do
+    p ← pop(QUEUE)
+    for each rule (C → f) with p ∈ C do
+      if every c ∈ C has a label then
+        offer-to(f, {f} ∪ ⋃ label[c] over c ∈ C)
+  if some g ∈ G has no label then
+    return failure                            ▷ relaxed dead end
+  LM ← G ∪ ⋃ label[g] over g ∈ G
+  ORD ← {(l, f) : f ∈ LM, l ∈ label[f], l ≠ f}   ▷ l holds no later than f
+  return LM, ORD
+procedure offer-to(f, X)
+  if f has no label then
+    label[f] ← X
+    push(QUEUE, f)
+  else if label[f] ⊄ X then
+    label[f] ← label[f] ∩ X                   ▷ labels only shrink
+    push(QUEUE, f)

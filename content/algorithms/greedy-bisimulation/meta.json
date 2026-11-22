@@ -1,0 +1,24 @@
+{
+	"description": "Greedy bisimulation is a shrink strategy for merge-and-shrink that groups more states than exact bisimulation. It runs the same signature refinement, but it only counts the transitions that start an optimal path to the goal: from `s` to `t` by label `l` with `h(s) = c(l) + h(t)`. Within the size limit, it keeps the goal distances of the factor it shrinks. After later merges, the final heuristic is admissible (it never overestimates), but no longer guaranteed perfect. Use it when exact bisimulation keeps the factors too large.",
+	"papers": [
+		{
+			"authors": "Raz Nissim, Jörg Hoffmann, Malte Helmert",
+			"title": "Computing Perfect Heuristics in Polynomial Time: On Bisimulation and Merge-and-Shrink Abstraction in Optimal Planning",
+			"year": 2011,
+			"venue": "Proceedings of the Twenty-Second International Joint Conference on Artificial Intelligence (IJCAI 2011)",
+			"doi": null,
+			"arxiv": null,
+			"url": "https://www.ijcai.org/Proceedings/11/Papers/331.pdf",
+			"role": "introduces"
+		}
+	],
+	"lineage": [
+		{
+			"slug": "bisimulation",
+			"name": null,
+			"relation": "builds-on",
+			"source": "merge-and-shrink, src/shrink.rs: \"like [`Bisimulation`], but signatures only contain transitions that start an optimal path to the goal\""
+		}
+	],
+	"trace": null
+}

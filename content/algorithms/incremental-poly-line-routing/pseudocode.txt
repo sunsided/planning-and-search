@@ -1,0 +1,28 @@
+algorithm Reroute(k)
+  input: connector k from s to t, visibility graph V over obstacle corners and connector ends
+  output: the cheapest route of k, or failure
+  ▷ states are (node, previous node), so bends and turn angles can be charged
+  ▷ without penalties, hidden-region pruning only lets a route turn around the obstacle
+  route[k] ← a-star(V, s, t, euclidean-distance-to(t))
+  if route[k] = nil then
+    return failure
+  cost[k] ← length + α · bends + β · angles + γ · crossings of route[k]
+  return route[k]
+procedure add-obstacle(o)
+  for each (p, q) in V do
+    if segment(p, q) enters interior(o) then
+      V ← V ∖ {(p, q)}
+      INVIS[o] ← INVIS[o] ∪ {(p, q)}         ▷ o is the one blocker it remembers
+  for each c in corners(o) do
+    add-node(c)                              ▷ tests c against every other node
+  for each k in connectors do
+    if route[k] enters interior(o) then
+      report-invalidated(k)
+procedure remove-obstacle(o)
+  for each c in corners(o) do
+    remove-node(c)
+  for each (p, q) in INVIS[o] do
+    classify(p, q)                           ▷ visible now, or blocked by another obstacle
+  for each k in connectors do
+    if route[k] = nil or lower-bound-through(s_k, t_k, o) < cost[k] then
+      report-may-improve(k)

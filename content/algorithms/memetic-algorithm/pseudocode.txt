@@ -1,0 +1,21 @@
+algorithm Memetic(x, c, local, lamarckian)
+  input: a child genome x with cost c, a local searcher local, a flag lamarckian
+  output: the child to put into the population
+  f ← draw(FREQUENCY)                           ▷ a level: probability of local search
+  i ← draw(INTENSITY)                           ▷ a level: evaluation cap
+  if random() ≥ value(f) then
+    return (x, c)
+  x′, c′, spent ← improve(local, x, c, value(i))   ▷ hill climbing or Rosenbrock
+  benefit ← max(0, (c − c′) / |c|) / spent        ▷ relative gain per evaluation
+  record(FREQUENCY, f, benefit)
+  record(INTENSITY, i, benefit)
+  if lamarckian then
+    return (x′, c′)
+  return (x, c′)                                ▷ Baldwinian: keep the genome, take the cost
+procedure record(LEVELS, l, benefit)
+  add benefit to the window statistics of level l
+  if the window is full then
+    for each level u used in the window do
+      p[u] ← ½ · p[u] + ½ · used-mass · mean-benefit[u] / ∑ mean-benefit
+    raise each p[u] to at least floor / |LEVELS|, then normalise p
+    clear the window statistics

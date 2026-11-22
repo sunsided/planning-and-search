@@ -1,0 +1,24 @@
+{
+	"description": "SST* makes Stable Sparse RRT *asymptotically optimal*: with more iterations, the best trajectory converges to an optimal one. It runs SST in epochs. After each epoch, both the selection radius and the pruning radius shrink by a factor `ξ` between 0 and 1, and the next epoch is longer, so the tree can grow denser. Like SST, it needs only forward simulation, not a steering function. Use it when you want the cost to keep improving over a long run and can give it more memory over time.",
+	"papers": [
+		{
+			"authors": "Yanbo Li, Zakary Littlefield, Kostas E. Bekris",
+			"title": "Asymptotically optimal sampling-based kinodynamic planning",
+			"year": 2016,
+			"venue": "The International Journal of Robotics Research",
+			"doi": "10.1177/0278364915614386",
+			"arxiv": "1407.2896",
+			"url": null,
+			"role": "introduces"
+		}
+	],
+	"lineage": [
+		{
+			"slug": "sst",
+			"name": null,
+			"relation": "builds-on",
+			"source": "sampling-planning, src/kinodynamic/sst.rs: \"SST is asymptotically near-optimal; with an SstStarSchedule it becomes SST*, which is asymptotically optimal\""
+		}
+	],
+	"trace": null
+}

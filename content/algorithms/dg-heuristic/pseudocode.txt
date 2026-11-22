@@ -1,0 +1,12 @@
+algorithm DG(n)
+  input: a constraint-tree node n with the MDD of each conflicting agent
+  output: a lower bound on the rise of the sum of costs below n
+  E ← ∅
+  for each pair (i, j) in conflicting-pairs(n) do
+    if dependent(MDD_i, MDD_j) then
+      E ← E ∪ {(i, j)}
+  return vertex-cover-bound(E)                 ▷ as for CG
+function dependent(M_i, M_j)
+  if M_i and M_j have a cardinal conflict then
+    return true                                ▷ skips the joint search
+  return joint-paths(M_i, M_j) = ∅             ▷ no conflict-free pair of paths

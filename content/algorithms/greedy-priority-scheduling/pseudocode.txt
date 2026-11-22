@@ -1,0 +1,9 @@
+algorithm Greedy-Schedule(P, REQUESTS, max-checks)
+  input: plan P, requests with activity id, priority, start window and demands
+  output: the chosen start of each request, or nil where it does not fit
+  ORDER ← REQUESTS sorted by priority, highest first, ties by activity id
+  for each r in ORDER do
+    start[r] ← earliest-start(P, demands(r), window(r), max-checks)
+    if start[r] ≠ nil then
+      place(P, activity(r), start[r], demands(r))   ▷ never moved again, no backtracking
+  return start

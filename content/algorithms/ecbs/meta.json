@@ -1,0 +1,30 @@
+{
+	"description": "Enhanced CBS (ECBS) finds a collision-free plan for many agents whose cost is at most `w` times the optimum (*bounded-suboptimal*). It runs *focal search* at both levels of CBS: among the open nodes whose cost is within `w` times the lowest lower bound, it expands the one with the fewest conflicts, not the cheapest one. The low level does this per agent in space and time, counts conflicts with the other agents' current paths and reports a lower bound on the agent's optimal cost. The high level adds these bounds to get its lower bound and prefers nodes with fewer conflicting agent pairs. Use ECBS when optimal CBS is too slow and a known cost bound is enough; `w = 1` gives an optimal plan.",
+	"papers": [
+		{
+			"authors": "Max Barer, Guni Sharon, Roni Stern, Ariel Felner",
+			"title": "Suboptimal Variants of the Conflict-Based Search Algorithm for the Multi-Agent Pathfinding Problem",
+			"year": 2014,
+			"venue": "Symposium on Combinatorial Search (SoCS)",
+			"doi": null,
+			"arxiv": null,
+			"url": "https://ojs.aaai.org/index.php/SOCS/article/view/18315",
+			"role": "introduces"
+		}
+	],
+	"lineage": [
+		{
+			"slug": "cbs",
+			"name": null,
+			"relation": "builds-on",
+			"source": "Suboptimal Variants of the Conflict-Based Search Algorithm for the Multi-Agent Pathfinding Problem"
+		},
+		{
+			"slug": "focal-search",
+			"name": null,
+			"relation": "combines",
+			"source": "mapf-search, docs/design.md: \"ECBS (Barer et al. 2014) runs focal search at both levels.\""
+		}
+	],
+	"trace": null
+}

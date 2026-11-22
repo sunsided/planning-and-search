@@ -1,0 +1,33 @@
+algorithm A-A*pex(s₀, goal, h, schedule)
+  input: start s₀, goal test goal, consistent heuristic h, tolerance vectors ε from schedule
+  output: ever better approximations of the Pareto front, the last one exact if it gets there
+  SOLUTIONS ← ∅                                ▷ plain paths, kept across iterations
+  PRUNED ← {[s₀]}
+  for each ε in schedule do
+    OPEN ← {⟨c(π), π⟩ : π ∈ PRUNED}             ▷ apex-path pairs; restart uses [s₀] instead
+    PRUNED ← ∅
+    CLOSED[s] ← ∅ for every state s
+    while OPEN ≠ ∅ do
+      AP ← extract-min(OPEN)                   ▷ ordered by f = apex + h
+      s ← state of AP
+      if some π* in SOLUTIONS has c(π*) ≤ (1 + ε) · f(AP) in every objective then
+        if c(π*) does not weakly dominate c(rep(AP)) + h(s) then
+          PRUNED ← PRUNED ∪ {rep(AP)}          ▷ may still lead to a Pareto-optimal path
+        continue
+      if some AP″ in CLOSED[s] has Tr(apex(AP″)) weakly dominating Tr(apex(AP)) then   ▷ Tr drops objective 1
+        if c(rep(AP″)) does not weakly dominate c(rep(AP)) then
+          PRUNED ← PRUNED ∪ {rep(AP)}
+        continue
+      CLOSED[s] ← CLOSED[s] ∪ {AP}               ▷ reuse-enh also prunes by earlier representatives
+      if goal(s) then
+        SOLUTIONS ← non-dominated(SOLUTIONS ∪ {rep(AP)})
+        continue
+      for each child AP′ of AP that the same two tests keep do
+        merge AP′ into an open pair at its state if the result is ε-bounded, else insert it
+        if a merge drops a representative that the kept one does not weakly dominate then
+          PRUNED ← PRUNED ∪ {that representative}
+    if the factor of SOLUTIONS fell then
+      report(SOLUTIONS, max ε)
+    if PRUNED = ∅ then
+      return SOLUTIONS                         ▷ the exact Pareto front
+  return SOLUTIONS

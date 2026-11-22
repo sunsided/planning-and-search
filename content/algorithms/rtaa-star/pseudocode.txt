@@ -1,0 +1,16 @@
+algorithm RTAA*(s₀, goal, H, n)
+  input: start state s₀, goal test goal, learned table H, lookahead of n ≥ 1 expansions
+  output: the path travelled to a goal, or failure; H keeps what it learned
+  s ← s₀
+  while not goal(s) do
+    CLOSED, OPEN, t ← lookahead(s, n)          ▷ A* by g + H, at most n expansions
+    if t = nil then                            ▷ OPEN ran empty: no goal is reachable
+      for each x in CLOSED do
+        H[x] ← ∞                               ▷ mark them dead ends
+      return failure
+    f ← g[t] + H[t]                            ▷ t: the goal A* selected, or the best open state
+    for each x in CLOSED do
+      H[x] ← f − g[x]                          ▷ no second search
+    move along the A* path from s to t
+    s ← t
+  return the path travelled

@@ -1,0 +1,27 @@
+{
+	"description": "KPIECE (Kinodynamic Planning by Interior-Exterior Cell Exploration) grows a tree of motions for a robot that must obey its dynamics (a *kinodynamic* problem). It applies random controls and simulates them forward, so it needs no steering function and no state sampler. A grid over a low-dimensional *projection* of the state, for example the position, records where the tree has been: a cell with all its grid neighbours occupied is *interior*, any other cell is *exterior*, the frontier. KPIECE prefers exterior cells that are little covered and that gave good expansions, so the tree spreads quickly into new space. It is probabilistically complete (it finds a path with probability one, given enough time, if one exists) but not optimal, and it stops at the first motion that reaches the goal.",
+	"papers": [
+		{
+			"authors": "Ioan A. Şucan, Lydia E. Kavraki",
+			"title": "Kinodynamic Motion Planning by Interior-Exterior Cell Exploration",
+			"year": 2009,
+			"venue": "Algorithmic Foundation of Robotics VIII (WAFR 2008), Springer Tracts in Advanced Robotics",
+			"doi": "10.1007/978-3-642-00312-7_28",
+			"arxiv": null,
+			"url": null,
+			"role": "introduces"
+		},
+		{
+			"authors": "Ioan A. Sucan, Lydia E. Kavraki",
+			"title": "A Sampling-Based Tree Planner for Systems With Complex Dynamics",
+			"year": 2012,
+			"venue": "IEEE Transactions on Robotics",
+			"doi": "10.1109/TRO.2011.2160466",
+			"arxiv": null,
+			"url": null,
+			"role": "extends"
+		}
+	],
+	"lineage": [],
+	"trace": null
+}

@@ -1,0 +1,30 @@
+algorithm GA-SAS+(Π, N, L)
+  input: SAS+ task Π, population size N, longest chain L
+  output: a valid plan and its cost, or failure
+  P ← N applicable random walks from the initial state of Π, each scored
+  repeat                                          ▷ steady state
+    a, b ← tournament(P, 3), tournament(P, 3)
+    for each c in cut-and-splice(a, b) do           ▷ with rate 0.6, else copies
+      mutate(c)                                   ▷ insert, delete, replace, shift or invert genes
+      PlanRepair(c)                               ▷ optional: write the executed plan back
+      replace the worst member of P by (c, score(c))
+  until budget exhausted
+  π, valid ← decode(the cheapest chain of P)
+  if not valid then
+    return failure
+  return π, cost(π)
+function decode(c)
+  s ← initial state of Π
+  π ← ⟨⟩
+  for each o in c do
+    if goal(s) then
+      break
+    if applicable(o, s) then                      ▷ otherwise skip o
+      s ← apply(o, s)
+      append o to π
+  return π, goal(s)
+function score(c)
+  π, valid ← decode(c)
+  if valid then
+    return cost(π)
+  return PENALTY + unsatisfied-goals(π) + (1 − |π| / |c|)

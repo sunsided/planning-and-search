@@ -1,0 +1,13 @@
+{
+	"description": "Bidirectional Dijkstra runs Dijkstra's algorithm forwards from the start and backwards from the goals at the same time. Each step expands the side whose cheapest open state has the smaller `g`, the cost from that side's origin. A state that both sides reached gives a path, and the cheapest such path costs `μ`. The search stops when `g_min_F + g_min_B ≥ μ`; then `μ` is optimal for non-negative edge costs. It needs no heuristic, only the predecessors of each state, and it is the baseline for bidirectional heuristic search.",
+	"papers": [],
+	"lineage": [
+		{
+			"slug": "dijkstras-algorithm",
+			"name": null,
+			"relation": "builds-on",
+			"source": "heuristic-search, src/bidirectional/frontier.rs: \"Bidirectional Dijkstra: uniform-cost search from both ends, cheapest path\""
+		}
+	],
+	"trace": null
+}

@@ -1,0 +1,17 @@
+{
+	"description": "A *factoring* splits the variables of a planning task into a *center* and *leaves* for decoupled search. The incident-arcs strategy sorts the variables by their incoming plus outgoing arcs in the *causal graph*, which has an arc from `u` to `v` when some operator reads or writes `u` and writes `v`. It moves them into the center one at a time, most arcs first; after each move, the weakly connected components of the rest (with at most 2^16 states) are the leaves. It keeps the candidate with the most *mobile* leaves: leaves with at least one *leaf action*, an operator that changes only that leaf and reads only it and the center. No arc connects two leaves, so the result is always a *strict star*.",
+	"papers": [
+		{
+			"authors": "Daniel Gnad, Valerie Poser, Jörg Hoffmann",
+			"title": "Beyond Forks: Finding and Ranking Star Factorings for Decoupled Search",
+			"year": 2017,
+			"venue": "International Joint Conference on Artificial Intelligence (IJCAI)",
+			"doi": "10.24963/ijcai.2017/602",
+			"arxiv": null,
+			"url": null,
+			"role": "introduces"
+		}
+	],
+	"lineage": [],
+	"trace": null
+}

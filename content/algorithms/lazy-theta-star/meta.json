@@ -1,0 +1,24 @@
+{
+	"description": "Lazy Theta* finds short *any-angle* paths on a grid: chains of straight segments between cell centres at any angle, not only in 45-degree steps. Like Theta*, it runs A* over the eight grid moves with Euclidean lengths, and a cell may take the parent of the cell that generated it as its own parent. Lazy Theta* makes that link without a check. It checks *line of sight* (that the straight segment crosses no blocked cell) only once, when it expands the cell; if the check fails, the cell takes its cheapest expanded neighbour as parent. This needs far fewer line-of-sight checks than Theta* for paths of similar length, but the paths are not guaranteed to be shortest, and unlike Theta* not guaranteed to be no longer than the cheapest 8-connected path.",
+	"papers": [
+		{
+			"authors": "Alex Nash, Sven Koenig, Craig Tovey",
+			"title": "Lazy Theta*: Any-Angle Path Planning and Path Length Analysis in 3D",
+			"year": 2010,
+			"venue": "AAAI Conference on Artificial Intelligence",
+			"doi": "10.1609/aaai.v24i1.7566",
+			"arxiv": null,
+			"url": null,
+			"role": "introduces"
+		}
+	],
+	"lineage": [
+		{
+			"slug": "theta-star",
+			"name": null,
+			"relation": "builds-on",
+			"source": "heuristic-search, src/grid/theta.rs: \"Lazy Theta*: theta_star with far fewer line-of-sight checks\""
+		}
+	],
+	"trace": null
+}

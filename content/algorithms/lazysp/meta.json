@@ -1,0 +1,24 @@
+{
+	"description": "LazySP (Lazy Shortest Path) finds a cheapest path when the true cost of an edge is expensive to compute, for example by a collision check or a simulation. Every edge has a cheap *lazy* cost. LazySP runs A* with the true costs of the edges it has already evaluated, without the edges found infeasible, and with the lazy costs of all other edges. If every edge of the path found is evaluated, that path is the answer; otherwise an *edge selector* (first, last, alternating, middle, or all unevaluated edges) picks edges of the path to evaluate, and the search runs again. The path is optimal if no lazy cost exceeds the true cost and the heuristic is *admissible* (it never overestimates) for the true costs, and each edge is evaluated at most once.",
+	"papers": [
+		{
+			"authors": "Christopher M. Dellin, Siddhartha S. Srinivasa",
+			"title": "A Unifying Formalism for Shortest Path Problems with Expensive Edge Evaluations via Lazy Best-First Search over Paths with Edge Selectors",
+			"year": 2016,
+			"venue": "International Conference on Automated Planning and Scheduling (ICAPS)",
+			"doi": "10.1609/icaps.v26i1.13788",
+			"arxiv": "1603.03490",
+			"url": null,
+			"role": "introduces"
+		}
+	],
+	"lineage": [
+		{
+			"slug": "a-star",
+			"name": null,
+			"relation": "builds-on",
+			"source": "heuristic-search, src/lazy.rs: \"LazySP repeatedly finds the cheapest path with A*, using the true cost for edges already evaluated (dropping infeasible ones) and the lazy cost for the rest\""
+		}
+	],
+	"trace": null
+}

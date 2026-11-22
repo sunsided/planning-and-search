@@ -1,0 +1,20 @@
+algorithm Conservative-Linearization(X, U, f, r, κ, ρ)
+  input: start set X, input zonotope U, dynamics x′ = f(x, u), step r, error growth factor κ, order ρ
+  output: time-point set X′ and time-interval set R for one step, or failure
+  x* ← middle(interval-hull(X)) + (r / 2) · f(middle(interval-hull(X)), center(U))
+  z* ← (x*, center(U))                   ▷ the linearization point
+  A, B ← jacobian(f, z*)
+  w ← f(z*) − A x* − B center(U)         ▷ offset of the linear model
+  Ψ ← {0}                                ▷ guessed box for the abstraction error
+  for attempt in 1, …, max-iterations do
+    X′, R ← linear-step(X, A, B U ⊕ w ⊕ Ψ, r)
+    R ← reduce(R, ρ)
+    Δz ← (R × U) ⊕ (−z*)
+    H ← hessian(f, box(z*, R × U))        ▷ holds every segment from z* into R × U
+    Q ± R_H ← ½ · H                       ▷ center and radius
+    ε ← |Δz|ᵀ R_H |Δz| + R_J |Δz|        ▷ R_J: spread of the Jacobian at z*
+    Ψ-true ← interval-hull(quadratic-map(Q, Δz)) + [−ε, ε]
+    if Ψ-true ⊆ Ψ then
+      return X′, R                       ▷ the guess holds, so the step is proven
+    Ψ ← widen(Ψ, Ψ-true, κ)
+  return failure                         ▷ the abstraction diverged

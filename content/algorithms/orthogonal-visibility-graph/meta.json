@@ -1,0 +1,17 @@
+{
+	"description": "The orthogonal visibility graph (OVG) is the routing graph for connectors made of horizontal and vertical segments around rectangular obstacles. From each obstacle corner and each port, a horizontal and a vertical line run until they would enter an obstacle. The vertices are where these lines cross, and the edges join neighbouring vertices along a line. Wybrow, Marriott and Stuckey show that some optimal route, for a cost that grows with length and bends, uses only these edges. `Scene` updates the graph in place when obstacles or ports change, and adds a frame and port stubs for ports with fixed directions.",
+	"papers": [
+		{
+			"authors": "Michael Wybrow, Kim Marriott, Peter J. Stuckey",
+			"title": "Orthogonal Connector Routing",
+			"year": 2010,
+			"venue": "Graph Drawing (GD 2009), LNCS",
+			"doi": "10.1007/978-3-642-11805-0_22",
+			"arxiv": null,
+			"url": null,
+			"role": "introduces"
+		}
+	],
+	"lineage": [],
+	"trace": null
+}

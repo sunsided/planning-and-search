@@ -1,0 +1,13 @@
+{
+	"description": "Reachability-guided A* plans a path for a system with an uncertain state and proves that the path is safe. Each search node holds a nominal state and its *reachable set*: every state that the system can be in there. To expand a node, the search tries each motion primitive, propagates the set along the edge, and keeps the edge only if every set along it is proven free of obstacles. It returns the first node, in order of `f = g + h`, whose whole set is proven inside the goal; with an admissible `h` (the default `h = 0` is one), this is the cheapest proven path among the nodes it keeps. It drops a new node when an older node in the same lattice cell costs no more and its interval hull lies inside the new one; this never affects safety, but it can lose completeness in narrow passages.",
+	"papers": [],
+	"lineage": [
+		{
+			"slug": "a-star",
+			"name": null,
+			"relation": "builds-on",
+			"source": "robust-planning, src/search.rs: \"Reachability-guided search: A* over reachable-set nodes on a lattice of nominal states.\""
+		}
+	],
+	"trace": null
+}

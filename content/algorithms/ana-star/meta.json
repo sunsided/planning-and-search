@@ -1,0 +1,24 @@
+{
+	"description": "ANA* (Anytime Nonparametric A*) finds a first path fast and then improves it, with no weight schedule to tune. With `G` the cost of the best solution so far, it expands the open state with the largest `e = (G − g) / h`: the state that could reach a goal with the most slack below `G`. It drops every state with `g + h ≥ G`, so each new goal it finds is cheaper than the one before. Before the first solution it orders by `h` alone, like greedy best-first search. With an *admissible* `h` (it never overestimates), the last solution is optimal, and each report comes with a lower bound on the optimal cost.",
+	"papers": [
+		{
+			"authors": "Jur van den Berg, Rajat Shah, Arthur Huang, Ken Goldberg",
+			"title": "Anytime Nonparametric A*",
+			"year": 2011,
+			"venue": "Proceedings of the AAAI Conference on Artificial Intelligence",
+			"doi": "10.1609/aaai.v25i1.7819",
+			"arxiv": null,
+			"url": "https://ojs.aaai.org/index.php/AAAI/article/download/7819/7678",
+			"role": "introduces"
+		}
+	],
+	"lineage": [
+		{
+			"slug": "ara-star",
+			"name": null,
+			"relation": "builds-on",
+			"source": "Anytime Nonparametric A*: \"The algorithm we present in this paper was motivated by ARA*.\""
+		}
+	],
+	"trace": null
+}

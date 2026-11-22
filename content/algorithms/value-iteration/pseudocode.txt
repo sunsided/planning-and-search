@@ -1,0 +1,16 @@
+algorithm ValueIteration(s₀, goal, ε)
+  input: initial state s₀, goal test goal, tolerance ε
+  output: values V and a greedy policy π on every reachable state
+  S ← every state reachable from s₀, in discovery order
+  D ← states of S with no policy that reaches a goal with probability 1   ▷ greatest fixed point
+  for each s in S do
+    V[s] ← ∞ if s ∈ D, else 0
+  repeat
+    r ← 0
+    for each s in S ∖ D with not goal(s) do      ▷ Gauss-Seidel: new values used at once
+      v ← min over a ∈ A(s) of c(s, a) + ∑ P(s′ | s, a) · V[s′]
+      π[s] ← the action that attains v
+      r ← max(r, |v − V[s]|)
+      V[s] ← v
+  until r < ε
+  return V, π

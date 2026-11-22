@@ -1,0 +1,13 @@
+{
+	"description": "Robust-RRT is an RRT whose nodes carry *reachable sets*: every state that the system can be in at that node. It plans when the start state, the control or a disturbance is uncertain. Each iteration steers the nearest node toward a random sample (sometimes the goal) and propagates that node's set along the edge. It keeps the edge only if every set that covers the edge is proven disjoint from every obstacle, and the search stops at the first node whose whole set is proven inside the goal. Uncertainty grows along each branch, so a wide set cannot pass a narrow gap that a point could pass; the path is proven safe, but it has no optimality guarantee.",
+	"papers": [],
+	"lineage": [
+		{
+			"slug": "rrt",
+			"name": null,
+			"relation": "builds-on",
+			"source": "robust-planning, src/robust_rrt.rs: \"Robust-RRT: an RRT whose nodes carry the reachable set they are reached with.\""
+		}
+	],
+	"trace": null
+}

@@ -1,0 +1,21 @@
+algorithm BOA*(s₀, goal, h)
+  input: start state s₀, goal test goal, heuristic h consistent in both costs
+  output: one path for every Pareto-optimal cost vector
+  g2-min[s] ← ∞ for every state s
+  g2-best ← ∞                                  ▷ g₂ of the last solution, the smallest so far
+  SOLUTIONS ← ∅
+  OPEN ← {⟨s₀, (0, 0)⟩}                        ▷ ordered by f = g + h, lexicographically
+  while OPEN ≠ ∅ do
+    ⟨s, g⟩ ← extract-min(OPEN)
+    if g₂ ≥ g2-min[s] or g₂ + h₂(s) ≥ g2-best then
+      continue                                 ▷ dominated
+    g2-min[s] ← g₂
+    if goal(s) then
+      SOLUTIONS ← SOLUTIONS ∪ {path-to(s, g)}
+      g2-best ← g₂
+      continue
+    for each (s′, c) in successors(s) do
+      g′ ← g + c
+      if g′₂ < g2-min[s′] and g′₂ + h₂(s′) < g2-best then
+        insert(OPEN, ⟨s′, g′⟩, g′ + h(s′))
+  return SOLUTIONS                             ▷ first cost ascending, second descending

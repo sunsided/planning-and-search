@@ -1,0 +1,24 @@
+{
+	"description": "Conservative linearization computes reachable sets for a nonlinear system `x′ = f(x, u)` that contain every true state. In each step it linearizes `f` near the middle of the set and runs the linear reachability step, with the *abstraction error* (the difference between `f` and its linear model) as an extra input in a guessed box. Then it bounds the true error over the *time-interval set*, which holds every state during the step: by Taylor's theorem the error is `½ Δzᵀ H(ξ) Δz`, and the method encloses it with the Hessians `H` over a box around the set. If this bound is inside the guess, the step is proven; if not, the guess grows and the step runs again, up to a fixed number of tries. It needs only the Jacobian and the Hessians of `f`, so it works for any smooth model, but the error box grows fast for wide sets.",
+	"papers": [
+		{
+			"authors": "Matthias Althoff, Olaf Stursberg, Martin Buss",
+			"title": "Reachability analysis of nonlinear systems with uncertain parameters using conservative linearization",
+			"year": 2008,
+			"venue": "2008 47th IEEE Conference on Decision and Control",
+			"doi": "10.1109/CDC.2008.4738704",
+			"arxiv": null,
+			"url": null,
+			"role": "introduces"
+		}
+	],
+	"lineage": [
+		{
+			"slug": "linear-system-reachability",
+			"name": null,
+			"relation": "builds-on",
+			"source": "polyzonotope-reach, README.md: \"Run the linear step with the abstraction error as an extra input, bounded by a guessed box `Ψ̄`.\""
+		}
+	],
+	"trace": null
+}

@@ -1,0 +1,28 @@
+algorithm Parallel-MOA*(s₀, goal, h)
+  input: start state s₀, goal test goal, consistent heuristic h, N objectives
+  output: one path per Pareto-optimal cost vector
+  LEVELS ← shared multi-level upper bounds, empty
+  in parallel do
+    for i in 1, …, N do
+      Thread(i)                          ▷ the first thread to end stops all
+  return non-dominated union of every thread's solutions
+procedure Thread(i)
+  rot(v) ← v with objective i first, the others in cyclic order
+  OPEN ← {⟨s₀, 0⟩}                       ▷ by rot(g + h), lexicographic
+  G_cl[s] ← ∅ for every state s          ▷ truncated rot(g) per state
+  while OPEN ≠ ∅ do
+    ⟨s, g⟩ ← extract-min(OPEN)
+    f ← g + h(s)
+    if f_i ≥ global bound of objective i then
+      return                             ▷ early termination of this thread
+    if G_cl[s] weakly dominates Tr(rot(g)) or Is-Dominated-MD(rot(f)) then
+      continue
+    G_cl[s] ← G_cl[s] ∪ {Tr(rot(g))}
+    if goal(s) then
+      publish(path-to(s, g))
+      Update-Upper-Bound(LEVELS)         ▷ move costs down one level each
+      continue
+    for each (s′, c) in successors(s) do
+      g′ ← g + c
+      if not (G_cl[s′] weakly dominates Tr(rot(g′)) or Is-Dominated-MD(rot(g′ + h(s′)))) then
+        insert(OPEN, ⟨s′, g′⟩, parent: ⟨s, g⟩)

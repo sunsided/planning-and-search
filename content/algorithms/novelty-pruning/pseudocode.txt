@@ -1,0 +1,14 @@
+algorithm Novelty(F)
+  input: the features F of a new state; a table SEEN of feature sets up to size k
+  output: the novelty of the state, or nil if it is above k
+  w ← nil
+  for i in 1, …, k do                ▷ sizes 1 and 2 as bitsets, larger sizes hashed
+    for each set t ⊆ F with |t| = i do
+      if t ∉ SEEN then
+        SEEN ← SEEN ∪ {t}
+        if w = nil then
+          w ← i                      ▷ the smallest new set gives the novelty
+  return w
+procedure prune(s)
+  if Novelty(features(s)) = nil and not goal(s) then
+    drop s                           ▷ IW and SIW never expand it

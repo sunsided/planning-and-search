@@ -1,0 +1,28 @@
+algorithm PIBT(agents)
+  input: agents with starts and goals
+  output: a conflict-free plan; the caller's budget may stop it first
+  for each agent i do
+    here[i] ← start_i
+  while some agent i has here[i] ≠ goal_i do
+    update-priorities(here)                  ▷ +1 away from the goal, reset at the goal
+    for each agent i do
+      next[i] ← nil
+    for each agent i by decreasing priority do
+      if next[i] = nil then
+        plan(i, nil)
+    for each agent i do
+      here[i] ← next[i]
+      append(path[i], here[i])
+  return path
+function plan(i, pusher)
+  for each v in candidates(i) do             ▷ here[i] and its neighbours, nearest to goal_i first
+    if reserved(v) or (pusher ≠ nil and v = here[pusher]) then
+      continue
+    reserve(i, v)                            ▷ next[i] ← v
+    j ← occupant(v)
+    if j ≠ nil and j ≠ i and next[j] = nil then
+      if not plan(j, i) then                 ▷ j inherits the priority of i
+        continue                             ▷ backtrack: try the next vertex
+    return true
+  reserve(i, here[i])                        ▷ stuck: stay
+  return false

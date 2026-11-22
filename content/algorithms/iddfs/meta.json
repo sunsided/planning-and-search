@@ -1,0 +1,24 @@
+{
+	"description": "IDDFS (iterative deepening depth-first search) finds a path with the fewest edges, in memory linear in that path's length. It ignores edge costs, so the path is not always the cheapest one. It runs a depth-limited depth-first search with the limits 0, 1, 2, and so on, until a search finds a goal; if a limit cuts off nothing, no goal is reachable and IDDFS reports failure. It keeps only the current path, so it skips cycles on that path but can visit a state many times along different paths and in every iteration. Use it when breadth-first search would need too much memory and the solution is shallow.",
+	"papers": [
+		{
+			"authors": "Richard E. Korf",
+			"title": "Depth-first iterative-deepening: An optimal admissible tree search",
+			"year": 1985,
+			"venue": "Artificial Intelligence",
+			"doi": "10.1016/0004-3702(85)90084-0",
+			"arxiv": null,
+			"url": "https://academiccommons.columbia.edu/doi/10.7916/D8BK1M9V/download",
+			"role": "analyses"
+		}
+	],
+	"lineage": [
+		{
+			"slug": "depth-limited-dfs",
+			"name": null,
+			"relation": "builds-on",
+			"source": "heuristic-search, src/depth_first.rs: \"Runs depth_limited_dfs with limits 0, 1, 2, ... until a goal is found or a limit cuts nothing off\""
+		}
+	],
+	"trace": null
+}

@@ -1,0 +1,25 @@
+algorithm RHEA(model, s, h, n, e-max)
+  input: forward model, current state s, horizon h, population size n, evaluations per decision e-max
+  output: the action to execute now
+  P ← BUFFER, filled up with random sequences of h actions to n    ▷ shift buffering
+  cost[p] ← rollout(model, s, p) for each p ∈ P
+  e ← n
+  while e < e-max do
+    if n = 1 then                                 ▷ RMHC
+      p′ ← mutate(P[1])
+      if rollout(model, s, p′) ≤ cost[P[1]] then
+        P[1] ← p′
+      e ← e + 1
+    else
+      P, spent ← next-generation(P)               ▷ elitism 1, binary tournament, uniform crossover, mutation
+      e ← e + spent
+  BUFFER ← each sequence of P, best first, without its first action and with one random action at the end
+  return first action of the cheapest sequence in P
+function rollout(model, s, a₁, …, a_h)
+  total ← 0
+  for t in 1, …, h do
+    s, c, done ← step(model, s, a_t)
+    total ← total + γ^(t−1) · c
+    if done then
+      break
+  return total                                    ▷ averaged over several rollouts for stochastic models

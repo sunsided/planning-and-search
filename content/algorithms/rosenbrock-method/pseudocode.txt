@@ -1,0 +1,29 @@
+algorithm Rosenbrock(f, x, s₀, α, β, s-min, e)
+  input: cost f, start point x, initial step s₀, expansion α, contraction β, minimum step s-min, evaluation cap e
+  output: an improved point
+  for i in 1, …, n do
+    d_i, s_i, λ_i ← e_i, s₀, 0                     ▷ e_i: the i-th unit vector
+    success_i, failure_i ← false, false
+  while fewer than e evaluations and some |s_i| ≥ s-min do
+    for i in 1, …, n do
+      y ← x + s_i · d_i
+      if f(y) ≤ f(x) then
+        x ← y
+        λ_i ← λ_i + s_i                           ▷ progress along d_i
+        s_i ← α · s_i
+        success_i ← true
+      else
+        s_i ← −β · s_i                            ▷ reverse and shrink
+        failure_i ← true
+    if success_i and failure_i for every i then
+      d ← rotate(d, λ)
+      reset every s_i to s₀, every λ_i to 0, and every success_i and failure_i to false
+  return x
+function rotate(d, λ)
+  for i in 1, …, n do
+    a_i ← ∑ over j ≥ i of λ_j · d_j
+    v ← a_i minus its projections on d′₁, …, d′_(i−1)        ▷ Gram-Schmidt
+    if |v| ≈ 0 then
+      v ← d_i minus its projections on d′₁, …, d′_(i−1)
+    d′_i ← v / |v|
+  return d′

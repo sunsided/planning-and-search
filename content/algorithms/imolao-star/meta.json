@@ -1,0 +1,24 @@
+{
+	"description": "iMOLAO* (*improved multi-objective LAO\\**) plans when each action has a vector of costs. Each state's value is a set of cost vectors, the convex coverage set of the best trade-offs. It works in passes over the states that any greedy action reaches from the start. Each pass expands every unexpanded state it meets and backs up all states once, children first. It returns one deterministic *proper* policy (one that reaches a goal with probability 1) per vertex of the start state's set; it is the first choice when only part of the state space is relevant.",
+	"papers": [
+		{
+			"authors": "Dillon Z. Chen, Felipe Trevizan, Sylvie Thiébaux",
+			"title": "Heuristic Search for Multi-Objective Probabilistic Planning",
+			"year": 2023,
+			"venue": "AAAI Conference on Artificial Intelligence",
+			"doi": "10.1609/aaai.v37i10.26409",
+			"arxiv": "2303.14363",
+			"url": null,
+			"role": "introduces"
+		}
+	],
+	"lineage": [
+		{
+			"slug": "ilao-star",
+			"name": null,
+			"relation": "builds-on",
+			"source": "stochastic-search, src/mo/lao.rs: \"MOLAO* and iMOLAO* (Algorithms 3 and 4 of Chen, Trevizan and Thiébaux 2023): LAO* and improved LAO* with the multi-objective backup\""
+		}
+	],
+	"trace": null
+}

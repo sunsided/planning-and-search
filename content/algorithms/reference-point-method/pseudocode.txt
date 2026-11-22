@@ -1,0 +1,22 @@
+algorithm Reference-Point-Next(r, w)
+  input: aspiration point r, positive weights w; search state kept between calls
+  output: the next Pareto-optimal path by achievement, or nil
+  ▷ ach(v) ← max over i of w_i · (v_i − r_i), monotone in v
+  while OPEN ≠ ∅ do
+    ℓ ← extract-min(OPEN)                ▷ by ach(f), then f lexicographic
+    if a vector in G_cl[ℓ.s] weakly dominates ℓ.g then
+      continue
+    if a returned solution weakly dominates ℓ.f then
+      continue
+    G_cl[ℓ.s] ← G_cl[ℓ.s] ∪ {ℓ.g}
+    if goal(ℓ.s) then
+      RETURNED ← RETURNED ∪ {ℓ.g}
+      return path-to(ℓ)                  ▷ the next call resumes here
+    for each (s′, c) in successors(ℓ.s) do
+      g′ ← ℓ.g + c
+      if no vector in G_cl[s′] weakly dominates g′ and no returned solution weakly dominates g′ + h(s′) then
+        insert(OPEN, ⟨s′, g: g′, f: g′ + h(s′), parent: ℓ⟩)
+  return nil
+procedure Aim(r′, w′)
+  r, w ← r′, w′
+  re-rank every label in OPEN by ach(f)  ▷ nothing is searched again

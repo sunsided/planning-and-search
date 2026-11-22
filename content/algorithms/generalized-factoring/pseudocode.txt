@@ -1,0 +1,13 @@
+algorithm generalized(Π)
+  input: planning task Π
+  output: a factoring whose leaves may interact and whose center may be empty
+  CAND ← { vars(eff(o)) : o an operator of Π, no derived variable, states ≤ 2^16 }
+  CAND ← sort(CAND)                        ▷ smallest first, then least overlap, then most operators with that effect set
+  LEAVES ← ⟨⟩
+  for each K in CAND do
+    if K ∩ L = ∅ for every L in LEAVES then
+      append(LEAVES, K)
+      if some leaf of LEAVES is not mobile then
+        remove-last(LEAVES)                ▷ the new leaf took variables another leaf needed
+  C ← variables of Π not in any leaf
+  return (C, LEAVES)

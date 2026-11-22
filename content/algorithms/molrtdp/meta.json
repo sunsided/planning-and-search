@@ -1,0 +1,24 @@
+{
+	"description": "MOLRTDP (*multi-objective labeled RTDP*) plans when each action has a vector of costs. Each state's value is a set of cost vectors, the convex coverage set of the best trade-offs. Trials back up each state, pick a random greedy action with an unsolved successor, and sample a successor. The solved check of LRTDP then marks states solved, and the run ends when the start state is solved. It returns one deterministic *proper* policy (one that reaches a goal with probability 1) per vertex of the start state's set; use it when trials reach the relevant states faster than full passes.",
+	"papers": [
+		{
+			"authors": "Dillon Z. Chen, Felipe Trevizan, Sylvie Thiébaux",
+			"title": "Heuristic Search for Multi-Objective Probabilistic Planning",
+			"year": 2023,
+			"venue": "AAAI Conference on Artificial Intelligence",
+			"doi": "10.1609/aaai.v37i10.26409",
+			"arxiv": "2303.14363",
+			"url": null,
+			"role": "introduces"
+		}
+	],
+	"lineage": [
+		{
+			"slug": "lrtdp",
+			"name": null,
+			"relation": "builds-on",
+			"source": "stochastic-search, src/mo/lrtdp.rs: \"MOLRTDP (Algorithm 5 of Chen, Trevizan and Thiébaux 2023): labeled RTDP with the multi-objective backup\""
+		}
+	],
+	"trace": null
+}

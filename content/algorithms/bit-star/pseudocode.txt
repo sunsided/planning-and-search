@@ -1,0 +1,26 @@
+algorithm BIT*(x₀, X-goal, m)
+  input: start state x₀, goal region X-goal, batch size m
+  output: an improving sequence of paths to the goal region (anytime)
+  T ← tree with root x₀
+  X-sample ← {goal center}
+  c-best ← ∞
+  repeat
+    if Q-V = ∅ and Q-E = ∅ then                ▷ the batch is over
+      prune(T, X-sample, c-best)               ▷ drop states with f-hat ≥ c-best
+      X-sample ← X-sample ∪ sample-informed(m, c-best)
+      r ← radius(|V(T)| + |X-sample|)
+      Q-V ← V(T)                               ▷ ordered by g + h-hat
+    while best-value(Q-V) ≤ best-value(Q-E) do
+      expand-next-vertex(Q-V, Q-E, r)          ▷ queue edges that could help
+    (v, x) ← extract-min(Q-E)                  ▷ ordered by g[v] + c-hat(v, x) + h-hat(x)
+    if g[v] + c-hat(v, x) + h-hat(x) ≥ c-best then
+      Q-V, Q-E ← ∅, ∅                          ▷ nothing in this batch can improve the path
+    else if g[v] + c-hat(v, x) < g[x] and motion-valid(v, x) then
+      if x ∈ V(T) then
+        reparent(T, x, v)                      ▷ rewire; costs below x drop
+      else
+        add(T, x, parent: v)
+        X-sample ← X-sample ∖ {x}
+        insert(Q-V, x)
+      c-best ← min over goal vertices x_g of T of g[x_g]
+  until stopped

@@ -1,0 +1,18 @@
+algorithm dominance-check(n, g-n, STORED)
+  input: generated decoupled state n reached at cost g-n, stored states STORED
+  output: true if n can be pruned
+  for each t in STORED with center(t) = center(n) do
+    if dominates(t, g[t], n, g-n) then
+      return true
+  return false
+function dominates(t, g-t, n, g-n)
+  budget ← 0
+  for each leaf L do
+    δ ← -∞                                ▷ a negative δ: t is cheaper on this leaf
+    for each leaf state x reached in n do  ▷ only frontier states under Frontier
+      d ← bound(t, L, x)                   ▷ basic: price of x in t; or effective prices, or the cheapest simulating state
+      if d = ∞ then
+        return false
+      δ ← max(δ, d - price(n, L, x))
+    budget ← budget + δ
+  return g-t + budget ≤ g-n                ▷ one budget shared by all leaves; greedy search only needs finite bounds

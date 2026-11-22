@@ -1,0 +1,32 @@
+algorithm DESPOT(B, K, D, γ, λ, ξ, ε₀)
+  input: particle belief B, scenario count K, depth limit D, discount γ, regularization λ, ξ, target gap ε₀
+  output: the root action with the best regularized lower bound
+  Φ ← K scenarios, each a start state from B and a random stream per depth
+  b₀ ← root node with all of Φ
+  initial-bounds(b₀)                             ▷ U from the upper bound, L₀ from the default policy
+  while μ(b₀) − ℓ(b₀) > ε₀ do
+    b ← explore(b₀)
+    for each node b′ from b up to b₀ do
+      back-up(b′)
+  if l₀(b₀) beats every ℓ(b₀, a) then
+    return the default policy's action
+  return argmax over a of ℓ(b₀, a)
+function explore(b)
+  while depth(b) ≤ D do
+    if fixed(b) or excess-uncertainty(b) ≤ 0 or prune(b) then
+      return b
+    if b is unexpanded then
+      expand(b)                                  ▷ steps every scenario of b under every action
+    a ← argmax over a of μ(b, a)
+    if b has no child under a then
+      return b
+    b ← the child of b under a with the largest excess-uncertainty
+  make-default(b)                                ▷ U ← L₀ and μ, ℓ ← l₀, then fixed
+  return b
+function excess-uncertainty(b)
+  return μ(b) − ℓ(b) − |Φ_b| / K · ξ · (μ(b₀) − ℓ(b₀))
+procedure back-up(b)
+  ρ(b, a) ← γ^depth(b) · (∑ of the rewards of Φ_b under a) / K − λ, for each a
+  μ(b) ← max(l₀(b), max over a of ρ(b, a) + ∑ over children c of μ(c))
+  ℓ(b) ← max(l₀(b), max over a of ρ(b, a) + ∑ over children c of ℓ(c))
+  U(b) ← max(L₀(b), max over a of avg reward + γ · ∑ over c of |Φ_c| / |Φ_b| · U(c))

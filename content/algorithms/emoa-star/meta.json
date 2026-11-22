@@ -1,0 +1,24 @@
+{
+	"description": "EMOA\\* finds one path for every Pareto-optimal cost vector, for any number of objectives. A path *weakly dominates* another when it is no worse in every objective. EMOA\\* expands paths in lexicographic order of `f = g + h`, so a new path at a state is never better in the first objective than the paths expanded there before it; the dominance checks can therefore skip the first objective (*truncated* dominance). Unlike NAMOA\\*, it keeps no per-state set of open paths: it checks a new path against expanded paths and solutions when it is generated, and again when it is expanded. Use it with three or more objectives and a consistent heuristic; `emoa_star_tree` keeps the frontiers in the paper's balanced trees.",
+	"papers": [
+		{
+			"authors": "Zhongqiang Ren, Richard Zhan, Sivakumar Rathinam, Maxim Likhachev, Howie Choset",
+			"title": "Enhanced Multi-Objective A* Using Balanced Binary Search Trees",
+			"year": 2022,
+			"venue": "International Symposium on Combinatorial Search (SoCS)",
+			"doi": "10.1609/socs.v15i1.21764",
+			"arxiv": "2202.08992",
+			"url": null,
+			"role": "introduces"
+		}
+	],
+	"lineage": [
+		{
+			"slug": "namoa-star",
+			"name": null,
+			"relation": "builds-on",
+			"source": "multiobjective-search, docs/design.md: \"EMOA* (NAMOA*-style search with faster frontier checks)\""
+		}
+	],
+	"trace": null
+}

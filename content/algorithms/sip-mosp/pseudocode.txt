@@ -1,0 +1,28 @@
+algorithm SIP-MOSP(s₀, goal, h)
+  input: start s₀, goal test goal, admissible heuristic h
+  output: one path per Pareto-optimal cost vector
+  F[s] ← ∅ and SNAP[s] ← ⟨∅, version 0⟩ for every state s
+  send ⟨s₀, 0⟩ to owner(s₀)
+  in parallel do
+    run every search worker, every update worker and the goal worker
+  until no label is sent but not yet processed
+  return F[goal states] as paths
+procedure Search-Worker(j)
+  repeat
+    ℓ ← extract-min(Q_j)                 ▷ private queue, own objective order
+    for each (s′, c) in successors(ℓ.s) do
+      g′ ← ℓ.g + c
+      σ ← SNAP[s′]
+      if σ weakly dominates g′ or SNAP[goal] weakly dominates g′ + h(s′) then
+        continue                         ▷ pruned against snapshots
+      send ⟨s′, g′, version of σ, parent: ℓ⟩ to owner(s′), or to the goal worker
+  until stopped
+procedure Update-Worker(ℓ)
+  if version of ℓ ≠ current version of SNAP[ℓ.s] and SNAP[ℓ.s] weakly dominates ℓ.g then
+    return                               ▷ re-check only when the snapshot is old
+  if F[ℓ.s] weakly dominates ℓ.g then
+    return
+  F[ℓ.s] ← {x ∈ F[ℓ.s] : ℓ.g does not dominate x} ∪ {ℓ.g}
+  SNAP[ℓ.s] ← publish(F[ℓ.s])            ▷ indexed base plus short delta
+  if not goal(ℓ.s) then                  ▷ the goal worker keeps its labels
+    insert ℓ into the less loaded of two search queues

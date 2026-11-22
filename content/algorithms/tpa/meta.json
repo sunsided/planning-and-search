@@ -1,0 +1,17 @@
+{
+	"description": "TPA is an exact *anytime* method for multi-objective problems: it can stop early with a well spread part of the Pareto set and finds the full set if it runs to the end. It splits the objective space into boxes, starting with one box between the ideal point and a bound above the nadir point. For each box, it solves one single-objective problem with an *augmented Tchebycheff* objective, a weighted maximum plus a small weighted sum. A score below the limit gives a new Pareto-optimal point; then the boxes above it are split and joined again, else the box is dropped. `tpa` works with any solver, and `tpa_paths` applies it to shortest paths.",
+	"papers": [
+		{
+			"authors": "Miguel Ángel Domínguez-Ríos, Francisco Chicano, Enrique Alba",
+			"title": "Effective anytime algorithm for multiobjective combinatorial optimization problems",
+			"year": 2024,
+			"venue": null,
+			"doi": null,
+			"arxiv": "2403.08807",
+			"url": null,
+			"role": "introduces"
+		}
+	],
+	"lineage": [],
+	"trace": null
+}

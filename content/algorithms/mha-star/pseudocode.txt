@@ -1,0 +1,32 @@
+algorithm SMHA*(s₀, goal, h₀, h₁, …, h_n, w₁, w₂)
+  input: start s₀, goal test goal, consistent anchor h₀, inadmissible h₁ … h_n, weights w₁, w₂ ≥ 1
+  output: a path that costs at most w₁ · w₂ times the optimum, or failure
+  g[s₀] ← 0
+  for i in 0, …, n do
+    OPEN_i ← {s₀}                              ▷ ordered by key_i(s) = g[s] + w₁ · h_i(s)
+  best ← nil                                   ▷ the cheapest goal generated so far
+  while OPEN₀ ≠ ∅ do
+    for i in 1, …, n do                        ▷ round robin over the inadmissible queues
+      q ← i
+      if min-key(OPEN_i) > w₂ · min-key(OPEN₀) then
+        q ← 0                                  ▷ the anchor expands instead
+      if best ≠ nil and w₁ · g[best] ≤ min-key(OPEN_q) then
+        return path-to(best)
+      s ← extract-min(OPEN_q)
+      remove s from every OPEN_j
+      record that s was expanded by the anchor (q = 0) or by an inadmissible queue
+      for each (s′, c) in successors(s) do
+        if g[s] + c < g[s′] then
+          g[s′] ← g[s] + c
+          parent[s′] ← s
+          if goal(s′) then                     ▷ goals are not expanded
+            best ← cheaper of best and s′
+          else
+            if the anchor has not expanded s′ then
+              insert-or-update(OPEN₀, s′, key₀(s′))
+            if no inadmissible queue has expanded s′ then
+              for i in 1, …, n with key_i(s′) ≤ w₂ · key₀(s′) do
+                insert-or-update(OPEN_i, s′, key_i(s′))
+  if best ≠ nil then
+    return path-to(best)
+  return failure

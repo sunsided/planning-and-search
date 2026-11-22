@@ -1,0 +1,24 @@
+{
+	"description": "A Reeds-Shepp path is a shortest path for a car that drives forward and backward at unit speed and cannot turn tighter than a minimum radius. The car's state is a pose: a position and a heading. Reeds and Shepp showed that a shortest path always has at most five parts, each a circular arc at the minimum radius or a straight line, with optional changes of gear (*cusps*) between them. The crate moves the goal into the start's frame, scales it by the radius, evaluates the closed-form formula of each path family under its symmetries, and keeps the shortest result. Its length is a true distance (symmetric, with the triangle inequality), so you can use it as the metric of a sampling-based planner for car-like vehicles that may reverse.",
+	"papers": [
+		{
+			"authors": "James Reeds, Lawrence Shepp",
+			"title": "Optimal paths for a car that goes both forwards and backwards",
+			"year": 1990,
+			"venue": "Pacific Journal of Mathematics",
+			"doi": "10.2140/pjm.1990.145.367",
+			"arxiv": null,
+			"url": "https://msp.org/pjm/1990/145-2/p06.xhtml",
+			"role": "introduces"
+		}
+	],
+	"lineage": [
+		{
+			"slug": "dubins-paths",
+			"name": null,
+			"relation": "generalizes",
+			"source": "Optimal paths for a car that goes both forwards and backwards (abstract): \"This contrasts with the case when cusps are not allowed, where Dubins (1957) has shown that paths of the form CCC and CSC suffice.\""
+		}
+	],
+	"trace": null
+}

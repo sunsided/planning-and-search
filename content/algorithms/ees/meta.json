@@ -1,0 +1,17 @@
+{
+	"description": "EES (Explicit Estimation Search) finds a path that costs at most `w` times the optimum. It uses three estimates: an *admissible* heuristic `h` (it never overestimates), which proves the bound; a more accurate cost estimate `ĥ`, which may overestimate; and `d̂`, an estimate of the number of steps to the goal. Its first choice is the open state with the smallest `d̂` among those with `f̂ = g + ĥ ≤ w · f̂_min`. It takes that state only if its `f̂` is at most `w · f_min`, with `f = g + h`; else it takes the state with the smallest `f̂` under the same test, and else the state with the smallest `f`, which raises `f_min`. Use it when solution cost and solution length differ and you have good estimates of both.",
+	"papers": [
+		{
+			"authors": "Jordan T. Thayer, Wheeler Ruml",
+			"title": "Bounded Suboptimal Search: A Direct Approach Using Inadmissible Estimates",
+			"year": 2011,
+			"venue": "International Joint Conference on Artificial Intelligence (IJCAI)",
+			"doi": null,
+			"arxiv": null,
+			"url": "https://www.ijcai.org/proceedings/2011/119",
+			"role": "introduces"
+		}
+	],
+	"lineage": [],
+	"trace": null
+}

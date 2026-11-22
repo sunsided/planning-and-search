@@ -1,0 +1,19 @@
+algorithm TPA(z^I, z^N, solve)
+  input: ideal point z^I, strict upper bound z^N of the nadir point, a subproblem solver
+  output: the Pareto set, complete when no box is left
+  BOXES ← {[z^I, z^N)}                   ▷ half-open boxes in objective space
+  FRONT ← ∅
+  j ← p                                  ▷ p objectives; the first pick uses direction 1
+  while BOXES ≠ ∅ do
+    j ← next direction after j whose queue is not empty, cyclic
+    B ← box of highest priority in the queue of direction j
+    remove B from BOXES
+    ω_i ← 1 / max(1, B.upper_i − z^I_i) for every i
+    x, z ← solve(min of max_i ω_i (z_i − z^I_i) + ϵ · ∑_i ω_i (z_i − z^I_i))
+    if score(z) < 1 then                 ▷ a new Pareto point inside B
+      FRONT ← FRONT ∪ {(x, z)}
+      for each box A in BOXES ∪ {B} with z < A.upper do
+        replace A by its p-partition at z
+      join the boxes with comparable upper bounds
+      set the reduced scaled priority of every new box
+  return FRONT

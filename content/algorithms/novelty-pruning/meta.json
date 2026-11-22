@@ -1,0 +1,27 @@
+{
+	"description": "Novelty pruning keeps only the states of a search that bring something new. Each state is described by integer *features*, such as the facts that hold in it. The *novelty* of a state is the size of the smallest set of its features that no earlier state had all at once; if every set of up to `k` features was seen before, the novelty counts as greater than `k`. A `NoveltyTable` records every feature set of size up to `k` that it has seen, so with `n` features it holds at most `O(n^k)` sets. IW and SIW drop each non-goal state with novelty above `k`, so they need no heuristic. BFWS keeps such states and uses novelty as its first sort key.",
+	"papers": [
+		{
+			"authors": "Nir Lipovetzky, Hector Geffner",
+			"title": "Width and Serialization of Classical Planning Problems",
+			"year": 2012,
+			"venue": "ECAI 2012 (Frontiers in Artificial Intelligence and Applications)",
+			"doi": "10.3233/978-1-61499-098-7-540",
+			"arxiv": null,
+			"url": null,
+			"role": "introduces"
+		},
+		{
+			"authors": "Nir Lipovetzky, Hector Geffner",
+			"title": "Best-First Width Search: Exploration and Exploitation in Classical Planning",
+			"year": 2017,
+			"venue": "Proceedings of the AAAI Conference on Artificial Intelligence",
+			"doi": "10.1609/aaai.v31i1.11027",
+			"arxiv": null,
+			"url": null,
+			"role": "extends"
+		}
+	],
+	"lineage": [],
+	"trace": null
+}

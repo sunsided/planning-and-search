@@ -1,0 +1,23 @@
+algorithm DPS(S₀, goal, h, w)
+  input: start states S₀, goal test goal, admissible heuristic h, weight w ≥ 1
+  output: a path to a goal that costs at most w times the optimum, or failure
+  for each s in S₀ do
+    g[s] ← 0
+    insert(OPEN, s)                            ▷ grouped by the pair (g[s], h(s))
+  while OPEN ≠ ∅ do
+    f-min ← min { g[s] + h(s) : s ∈ OPEN }
+    B ← w · f-min
+    s ← the state of OPEN with g[s] + h(s) ≤ B and the largest potential(B, g[s], h(s))
+    remove(OPEN, s)                            ▷ ties go to the larger g
+    if goal(s) then
+      return path-to(s)
+    for each (s′, c) in successors(s) do
+      if g[s] + c < g[s′] then                 ▷ g of an unseen state is ∞
+        g[s′] ← g[s] + c
+        parent[s′] ← s
+        insert-or-update(OPEN, s′)             ▷ reopens a closed state
+  return failure
+function potential(B, g, h)
+  if h = 0 then
+    return ∞
+  return (B − g) / h

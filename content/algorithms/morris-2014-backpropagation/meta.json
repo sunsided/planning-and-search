@@ -1,0 +1,34 @@
+{
+	"description": "Morris's 2014 algorithm decides *dynamic controllability* of a simple temporal network with uncertainty (STNU) in `O(n³)` time. A *negative node* is a point with a negative incoming edge. From each negative node, the algorithm runs Dijkstra's algorithm backwards through non-negative edges, and each path that reaches distance zero or more becomes a new ordinary edge. When the search meets another negative node, it processes that node first; if that node is still in progress, the nested paths form a negative cycle and the network is not controllable. `temporal-control` uses it as its default checker, and its dispatchable variant also keeps the derived edges and *waits* (\"execute only after a delay, unless this duration has ended\").",
+	"papers": [
+		{
+			"authors": "Paul Morris",
+			"title": "Dynamic Controllability and Dispatchability Relationships",
+			"year": 2014,
+			"venue": "CPAIOR 2014, Lecture Notes in Computer Science",
+			"doi": "10.1007/978-3-319-07046-9_33",
+			"arxiv": null,
+			"url": null,
+			"role": "introduces"
+		},
+		{
+			"authors": "Nikhil Bhargava, Tiago Vaquero, Brian Williams",
+			"title": "Faster Conflict Generation for Dynamic Controllability",
+			"year": 2017,
+			"venue": "IJCAI 2017",
+			"doi": "10.24963/ijcai.2017/598",
+			"arxiv": null,
+			"url": null,
+			"role": "extends"
+		}
+	],
+	"lineage": [
+		{
+			"slug": "dijkstras-algorithm",
+			"name": null,
+			"relation": "builds-on",
+			"source": "temporal-control, src/stnu/morris.rs: \"backprop(s) runs Dijkstra backwards from s, seeded with its negative incoming edges and extending only through non-negative edges\""
+		}
+	],
+	"trace": null
+}

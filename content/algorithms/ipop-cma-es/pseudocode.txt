@@ -1,0 +1,15 @@
+algorithm IPOP-CMA-ES(f, a, b, λ₀, k, r-max)
+  input: objective f, search box [a, b], first population size λ₀, growth factor k, restart limit r-max
+  output: the best point found
+  σ₀ ← 0.3 · mean width of [a, b]
+  λ ← λ₀
+  r ← 0
+  repeat
+    m ← uniform-sample([a, b])                 ▷ a fresh mean for every run
+    stop ← run(CmaEs(m, σ₀, λ), f)              ▷ until a termination criterion holds
+    if stop = budget then
+      return best point seen
+    r ← r + 1
+    λ ← round(k · λ)                           ▷ k = 2 doubles the population
+  until r > r-max
+  return best point seen

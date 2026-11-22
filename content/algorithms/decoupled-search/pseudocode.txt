@@ -1,0 +1,30 @@
+algorithm decoupled-search(Π, F)
+  input: planning task Π, factoring F into a center C and leaves L₁, …, L_k
+  output: a cheapest sequential plan for Π, or failure
+  s₀ ← ⟨center of the initial state, per leaf the price 0 at its initial leaf state⟩
+  close-leaves(s₀)
+  g[s₀] ← 0
+  OPEN ← {s₀}                              ▷ ordered by g (A*: by g + h)
+  best ← goal-cost(s₀)                     ▷ ∞ unless s₀ is a goal state
+  while OPEN ≠ ∅ do
+    s ← extract-min(OPEN)
+    if key(s) ≥ best then
+      break                                ▷ leaf goal prices are ≥ 0, so best is optimal
+    for each global action a applicable in s do
+      s′ ← ⟨apply(a, center(s)), per leaf transfer(a, prices(s, L))⟩
+      close-leaves(s′)
+      g[s′] ← g[s] + cost(a)
+      if no stored state with the center of s′ dominates s′ then
+        parent[s′] ← (s, a)
+        insert(OPEN, s′)
+        best ← min(best, goal-cost(s′))
+  if best = ∞ then
+    return failure
+  return interleave(the leaf paths, the global path to the best goal state)
+procedure close-leaves(s)
+  for each leaf L do
+    prices(s, L) ← dijkstra(L, prices(s, L), leaf actions whose center preconditions hold in center(s))
+function goal-cost(s)
+  if the center goal holds in s and every leaf reaches a goal leaf state then
+    return g[s] + ∑ over leaves L of the cheapest goal price in L
+  return ∞

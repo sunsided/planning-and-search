@@ -1,0 +1,34 @@
+{
+	"description": "Suurballe's algorithm finds two disjoint paths between the same two states with the smallest total cost. *Disjoint* means that the paths share no edge, or, in the state variant, no state except the two ends. A first Dijkstra run gives distances `d` and a shortest path `P1`. Each edge then gets the *reduced cost* `d(u) + c − d(v)`, which is never negative, and the edges of `P1` are reversed with zero cost; a second Dijkstra run gives `P2`. The edges that `P2` uses backwards are removed from `P1 ∪ P2`, and the rest forms the optimal pair.",
+	"papers": [
+		{
+			"authors": "J. W. Suurballe",
+			"title": "Disjoint paths in a network",
+			"year": 1974,
+			"venue": "Networks",
+			"doi": "10.1002/net.3230040204",
+			"arxiv": null,
+			"url": null,
+			"role": "introduces"
+		},
+		{
+			"authors": "J. W. Suurballe, R. E. Tarjan",
+			"title": "A quick method for finding shortest pairs of disjoint paths",
+			"year": 1984,
+			"venue": "Networks",
+			"doi": "10.1002/net.3230140209",
+			"arxiv": null,
+			"url": null,
+			"role": "extends"
+		}
+	],
+	"lineage": [
+		{
+			"slug": "dijkstras-algorithm",
+			"name": null,
+			"relation": "builds-on",
+			"source": "multiobjective-search, src/disjoint.rs: \"A first Dijkstra gives distances d and a shortest path P1 ... a second Dijkstra on that residual graph gives P2\""
+		}
+	],
+	"trace": null
+}

@@ -1,0 +1,34 @@
+algorithm CG-iLAO*(s₀, goal, h, ε)
+  input: initial state s₀, goal test goal, heuristic h, tolerance ε
+  output: values V and a greedy policy π that is ε-consistent on its envelope
+  active[s, a] ← false for every action a of every state s
+  CANDIDATES ← ∅
+  while not solved(s₀) do
+    ORDER ← postorder of a depth-first pass from s₀ over greedy arcs π
+    for each fringe state s in ORDER do          ▷ partial expansion
+      expand(s)
+      active[s, a] ← true for each action a of s with the smallest Q(s, a)
+    repeat
+      r ← 0
+      for each expanded state s in ORDER do
+        v ← min over active a of Q(s, a)
+        if v > V[s] + ε then
+          active[s, a] ← true for each inactive a with Q(s, a) + ε < v   ▷ the crate's guard
+          v ← min over active a of Q(s, a)
+          CANDIDATES ← CANDIDATES ∪ inactive actions of s
+        if v < V[s] − ε then
+          queue-predecessors(s)                  ▷ every action that leads into s
+        r ← max(r, |v − V[s]|)
+        V[s], π[s] ← v and its action
+    until r ≤ ε or π changed or there is a fringe or CANDIDATES ≠ ∅
+    FIX, CANDIDATES ← CANDIDATES, ∅
+    for each (s, a) in FIX do                    ▷ fix the violated constraints
+      if V[s] > Q(s, a) + ε then
+        active[s, a] ← true
+        r ← max(r, V[s] − Q(s, a))
+        V[s], π[s] ← Q(s, a), a
+        queue-predecessors(s)                    ▷ checked in the next round
+    if no fringe, π unchanged and r ≤ ε then
+      if not check-solved(s₀, ε) over all actions then   ▷ labels s₀ solved when it passes
+        queue-inactive-actions()
+  return V, π

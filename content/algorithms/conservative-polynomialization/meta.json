@@ -1,0 +1,24 @@
+{
+	"description": "Conservative polynomialization computes reachable sets for a nonlinear system `x′ = f(x, u)` that contain every true state, and it keeps more of the shape of the set than conservative linearization. Like linearization, it runs a linear step with the abstraction error (the difference between `f` and its linear model) as an input. But the second- and third-order Taylor terms at the start set stay a *polynomial zonotope*: a set that keeps the polynomial dependencies between its factors. This part moves with the set, and only the change during the step and the remainder go into a guessed box, which is checked and widened until it holds. It needs the third derivatives of `f`, and it gives tighter sets than linearization when the start set is wide.",
+	"papers": [
+		{
+			"authors": "Matthias Althoff",
+			"title": "Reachability analysis of nonlinear systems using conservative polynomialization and non-convex sets",
+			"year": 2013,
+			"venue": "Proceedings of the 16th International Conference on Hybrid Systems: Computation and Control (HSCC)",
+			"doi": "10.1145/2461328.2461358",
+			"arxiv": null,
+			"url": null,
+			"role": "introduces"
+		}
+	],
+	"lineage": [
+		{
+			"slug": "linear-system-reachability",
+			"name": null,
+			"relation": "builds-on",
+			"source": "polyzonotope-reach, README.md: the static error \"enters as the constant input `v` of the augmented system `x' = A x + v, v' = 0, x₀' = 0`\""
+		}
+	],
+	"trace": null
+}

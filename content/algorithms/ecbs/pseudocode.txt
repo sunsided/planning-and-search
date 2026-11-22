@@ -1,0 +1,27 @@
+algorithm ECBS(agents, w)
+  input: agents with start and goal vertices, weight w ≥ 1
+  output: a conflict-free plan with cost at most w · optimum, or failure
+  for each agent i do
+    root.paths[i], root.lb[i] ← focal-plan(i, ∅, root.paths, w)
+    if root.paths[i] = nil then
+      return failure
+  OPEN ← {root}                                ▷ f(n) = ∑ n.lb, ordered by f
+  while OPEN ≠ ∅ do
+    FOCAL ← {n ∈ OPEN : cost(n) ≤ w · min f(OPEN)}
+    n ← the node of FOCAL with the fewest conflicting pairs
+    remove(OPEN, n)
+    c ← first-conflict(n.paths)
+    if c = nil then
+      return n.paths
+    for each (i, k) in split(c) do               ▷ agent i gets constraint k
+      m ← copy(n)
+      m.constraints ← n.constraints ∪ {k}
+      m.paths[i], b ← focal-plan(i, m.constraints, m.paths, w)
+      if m.paths[i] ≠ nil then
+        m.lb[i] ← max(n.lb[i], b)
+        insert(OPEN, m)
+  return failure
+function focal-plan(i, C, PATHS, w)
+  ▷ focal search over (vertex, time) under C: among open states with f ≤ w · f-min,
+  ▷ expand the one with the fewest conflicts with PATHS so far
+  return the path to the goal, and f-min when the goal is popped

@@ -1,0 +1,30 @@
+{
+	"description": "RUL⁻ decides *dynamic controllability* of a simple temporal network with uncertainty (STNU) with three rules that only add ordinary edges. Each uncertain duration runs from an *activation point* to a *contingent point*, which nature sets. One Bellman-Ford pass first computes a *potential*, a function that lets later Dijkstra searches handle negative edges. Then, for each contingent point, a backward search applies the rules Relax⁻ and Lower⁻, the rule Upper⁻ adds edges into the activation point, and the potential is repaired. If another duration blocks the search, it is processed first, and a cycle of blocks or a potential that cannot be repaired means the network is not controllable; with at most `2k` rounds for `k` durations, it is fast on sparse networks.",
+	"papers": [
+		{
+			"authors": "Massimo Cairo, Luke Hunsberger, Romeo Rizzi",
+			"title": "Faster Dynamic Controllability Checking for Simple Temporal Networks with Uncertainty",
+			"year": 2018,
+			"venue": "TIME 2018, LIPIcs 120",
+			"doi": null,
+			"arxiv": null,
+			"url": "https://drops.dagstuhl.de/entities/document/10.4230/LIPIcs.TIME.2018.8",
+			"role": "introduces"
+		}
+	],
+	"lineage": [
+		{
+			"slug": "bellman-ford",
+			"name": null,
+			"relation": "builds-on",
+			"source": "temporal-control, src/stnu/rul.rs: \"One Bellman-Ford pass computes a potential h for the LO-graph\""
+		},
+		{
+			"slug": "dijkstras-algorithm",
+			"name": null,
+			"relation": "builds-on",
+			"source": "temporal-control, src/stnu/rul.rs: \"CloseRelaxLower(R): Dijkstra backwards from R over the LO-graph, keyed by h(P) + w(P, R)\""
+		}
+	],
+	"trace": null
+}

@@ -1,0 +1,24 @@
+{
+	"description": "A-BOA\\*ε is an anytime search for two objectives: it reports a better approximation of the Pareto front each time it finds one. It keeps the solutions found so far as the corners of *intervals*, and each interval holds the paths that can still give a new solution between its two corners. The *approximation factor* `ε̂` of an interval tells how far its corners can be from such a solution. Each iteration takes the interval with the largest `ε̂`, runs BOA\\*ε on its paths with `ε = ε̂ / d`, and keeps the paths that only the tolerance pruned for later iterations, so no work repeats. The reported factors fall strictly, and a complete run ends with the exact front; the crate also has a weighted-sum pruning variant and a baseline that restarts every iteration.",
+	"papers": [
+		{
+			"authors": "Han Zhang, Oren Salzman, T. K. Satish Kumar, Ariel Felner, Carlos Hernández Ulloa, Sven Koenig",
+			"title": "Anytime Approximate Bi-Objective Search",
+			"year": 2022,
+			"venue": "International Symposium on Combinatorial Search (SoCS)",
+			"doi": "10.1609/socs.v15i1.21768",
+			"arxiv": null,
+			"url": null,
+			"role": "introduces"
+		}
+	],
+	"lineage": [
+		{
+			"slug": "boa-star-eps",
+			"name": null,
+			"relation": "builds-on",
+			"source": "multiobjective-search, src/anytime_boa.rs: \"Each iteration takes the interval with the largest ε̂ and runs BOA*ε on its to-expand paths with ε = ε̂ / d\""
+		}
+	],
+	"trace": null
+}

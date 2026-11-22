@@ -1,0 +1,25 @@
+algorithm KPIECE(x₀, X-goal, n)
+  input: start state x₀, goal region X-goal, number of iterations n
+  output: a trajectory to the goal region, or failure
+  T ← tree of motions with root x₀
+  add-motion(cell(project(x₀)), x₀)
+  for i in 1, …, n do
+    if close motions exist and random() < goal-bias then
+      m ← one of the motions closest to X-goal
+    else
+      exterior ← random() < max(exterior-bias, exterior share of the cells)
+      C ← cell of that kind with the highest importance
+      m ← a motion of C, drawn half-normal around the newest one
+    u ← sample-control()
+    k ← random number of steps
+    STATES ← propagate m's end state with u for up to k steps, stopping at the first invalid step
+    good ← |STATES| ≥ min-steps
+    if good and (is-interesting(STATES) or random() < 0.05) then
+      for each run of STATES in one cell C′ do
+        add-motion(C′, last state of the run, parent: previous piece)
+        if the state is in X-goal then
+          return trajectory-to(that motion)
+    score[C] ← score[C] · (0.9 if good, else 0.45)
+  return failure
+  ▷ importance(C) = score[C] / ((neighbours(C) + 1) · coverage(C) · selections(C))
+  ▷ a cell with all 2K grid neighbours occupied is interior, any other cell exterior

@@ -1,0 +1,33 @@
+algorithm IDA*-TT(s₀, goal, h, capacity)
+  input: start state s₀, goal test goal, admissible heuristic h, number of table slots capacity
+  output: a cheapest path to a goal, or failure
+  TT ← a direct-mapped table with capacity slots
+  θ ← h(s₀)
+  P ← ⟨s₀⟩
+  while true do
+    forget-all(TT)                             ▷ a new iteration
+    t ← search(P, 0, θ)
+    if t = found then
+      return P
+    if t = ∞ then
+      return failure
+    θ ← t
+function search(P, g, θ)
+  s ← last(P)
+  if TT[s] ≤ g then                            ▷ searched below already, from no larger g
+    return ∞
+  if g + h(s) > θ then
+    return g + h(s)
+  TT[s] ← g                                    ▷ overwrites the slot of s
+  if goal(s) then
+    return found
+  t-min ← ∞
+  for each (s′, c) in successors(s) do
+    if s′ ∉ P then
+      append(P, s′)
+      t ← search(P, g + c, θ)
+      if t = found then
+        return found
+      t-min ← min(t-min, t)
+      remove-last(P)
+  return t-min

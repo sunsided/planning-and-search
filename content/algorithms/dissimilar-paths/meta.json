@@ -1,0 +1,27 @@
+{
+	"description": "This search gives up to `k` paths from a start to a goal that overlap little. It ranks loopless paths best-first by a scalar cost, with ties broken by the edge sequence, and keeps a path only if it shares at most `max_shared` edges with every path it kept before. The answer is greedy: each kept path is the cheapest one that is different enough from the earlier ones, not the best set as a whole. It needs a graph with edge identities (`EdgeGraph`), and its run time can grow exponentially, as for every ranking method. Use it to offer alternative routes, or backup routes that do not fail together.",
+	"papers": [
+		{
+			"authors": "Ali Moghanni, Marta Pascoal, Maria Teresa Godinho",
+			"title": "Finding shortest and dissimilar paths",
+			"year": 2022,
+			"venue": "International Transactions in Operational Research",
+			"doi": "10.1111/itor.13060",
+			"arxiv": null,
+			"url": null,
+			"role": "analyses"
+		},
+		{
+			"authors": "José Craveirinha, João Clímaco, Rita Girão-Silva, Marta Pascoal",
+			"title": "Multiobjective Path Problems and Algorithms in Telecommunication Network Design—Overview and Trends",
+			"year": 2024,
+			"venue": "Algorithms",
+			"doi": "10.3390/a17060222",
+			"arxiv": null,
+			"url": null,
+			"role": "surveys"
+		}
+	],
+	"lineage": [],
+	"trace": null
+}

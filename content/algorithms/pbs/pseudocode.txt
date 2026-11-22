@@ -1,0 +1,33 @@
+algorithm PBS(agents)
+  input: agents with starts and goals
+  output: a conflict-free plan, or failure
+  for each agent i do
+    higher[i] ← ∅                            ▷ every agent above i
+    paths[i] ← plan(i, ∅)
+    if paths[i] = failure then
+      return failure
+  STACK ← ⟨(higher, paths)⟩
+  while STACK ≠ ∅ do
+    (higher, paths) ← pop(STACK)
+    κ ← first-conflict(paths)
+    if κ = nil then
+      return paths
+    (a, b) ← agents-of(κ)
+    CHILDREN ← ∅
+    for each (hi, lo) in ⟨(a, b), (b, a)⟩ do
+      if lo ∉ higher[hi] then
+        n′ ← child(higher, paths, hi, lo)
+        if n′ ≠ failure then
+          CHILDREN ← CHILDREN ∪ {n′}
+    push(STACK, CHILDREN)                    ▷ the cheaper child is popped first
+  return failure
+function child(higher, paths, hi, lo)
+  A ← {lo} ∪ {j : lo ∈ higher[j]}            ▷ lo and every agent below it
+  for each j in A do
+    higher[j] ← higher[j] ∪ higher[hi] ∪ {hi}
+  for each j in A by increasing |higher[j]| do   ▷ a topological order
+    if j = lo or collides(paths[j], paths-of(higher[j])) then
+      paths[j] ← plan(j, paths-of(higher[j]))    ▷ space-time A* around the higher paths
+      if paths[j] = failure then
+        return failure
+  return (higher, paths)

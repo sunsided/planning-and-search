@@ -1,0 +1,34 @@
+{
+	"description": "Label reduction makes merge-and-shrink abstractions smaller without losing information. A *label* is the operator name on a transition, and two labels are *locally equivalent* in a factor when they have the same transitions there. Before each merge, the crate combines labels of equal cost that are locally equivalent in every factor except one. This is *exact*: products and goal distances stay the same as with the original labels. Bisimulation can then group more states, so keep it on.",
+	"papers": [
+		{
+			"authors": "Silvan Sievers, Martin Wehrle, Malte Helmert",
+			"title": "Generalized Label Reduction for Merge-and-Shrink Heuristics",
+			"year": 2014,
+			"venue": "Proceedings of the AAAI Conference on Artificial Intelligence",
+			"doi": "10.1609/aaai.v28i1.9028",
+			"arxiv": null,
+			"url": null,
+			"role": "introduces"
+		},
+		{
+			"authors": "Silvan Sievers, Malte Helmert",
+			"title": "Merge-and-Shrink: A Compositional Theory of Transformations of Factored Transition Systems",
+			"year": 2021,
+			"venue": "Journal of Artificial Intelligence Research",
+			"doi": "10.1613/jair.1.12557",
+			"arxiv": null,
+			"url": null,
+			"role": "surveys"
+		}
+	],
+	"lineage": [
+		{
+			"slug": null,
+			"name": "Label reduction (Nissim, Hoffmann & Helmert 2011)",
+			"relation": "generalizes",
+			"source": "Generalized Label Reduction for Merge-and-Shrink Heuristics: \"According to current theory (Nissim, Hoffmann, and Helmert 2011a) ... We introduce a generalized concept of label reduction to overcome this limitation.\""
+		}
+	],
+	"trace": null
+}

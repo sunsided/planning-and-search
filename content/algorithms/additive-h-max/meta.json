@@ -1,0 +1,24 @@
+{
+	"description": "Additive h^max splits the operators into disjoint groups (a *partition*). For each group it computes `h_max` with only that group's operators at their real cost; all other operators cost 0. The sum over the groups is the estimate. Each operator's cost is counted in one group only, so the sum never overestimates the cost of a plan (it is *admissible*), and you can use it with A* for optimal plans. The crate's default puts each operator in the group of the lowest variable it changes; `with_partition` takes your own groups.",
+	"papers": [
+		{
+			"authors": "Patrik Haslum, Blai Bonet, Héctor Geffner",
+			"title": "New Admissible Heuristics for Domain-Independent Planning",
+			"year": 2005,
+			"venue": "AAAI Conference on Artificial Intelligence",
+			"doi": null,
+			"arxiv": null,
+			"url": "https://cdn.aaai.org/AAAI/2005/AAAI05-184.pdf",
+			"role": "introduces"
+		}
+	],
+	"lineage": [
+		{
+			"slug": "h-max",
+			"name": null,
+			"relation": "builds-on",
+			"source": "planning-heuristics, src/additive_max.rs: \"Additive `h_max`: `h_max` summed over a partition of the operator costs\""
+		}
+	],
+	"trace": null
+}

@@ -1,0 +1,17 @@
+algorithm MOLAO*(s₀, goal, H, b, ε, λ)
+  input: initial state s₀, goal test goal, heuristic H (a set of cost vectors), cost bound b, tolerance ε, margin λ
+  output: value sets V and one deterministic proper policy per vertex of V[s₀]
+  V[s₀] ← H(s₀)
+  while true do
+    N ← states reachable from s₀ under every greedy action   ▷ actions that give a vector of V or b
+    if N has an unexpanded non-goal tip then
+      s ← the first such tip in depth-first order
+      expand(s)                                  ▷ new successors s′ get V[s′] ← H(s′)
+      Z ← s and its ancestors along greedy arcs inside N
+      repeat                                     ▷ MOVI on Z
+        r ← max over z in Z of back-up(z)
+      until r < ε
+    else
+      r ← max over s in N of back-up(s)          ▷ one sweep, last state first
+      if r < ε and the sweep left N unchanged then
+        return V, extract-policies(V, s₀)

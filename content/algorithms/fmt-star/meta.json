@@ -1,0 +1,17 @@
+{
+	"description": "FMT* (Fast Marching Tree) draws one batch of random samples and then grows a tree outward from the start in order of cost-to-come, like a wavefront. Each step takes the cheapest open node `z`. Each unvisited neighbour `x` of `z` connects to the open neighbour that gives `x` the lowest cost, and only that one motion is checked for collisions; if the check fails, `x` waits for a later step instead of trying the next-best parent. This *lazy* rule needs far fewer collision checks than RRT* or PRM*. FMT* is still *asymptotically optimal*: as the batch grows, its cost converges in probability to the optimum.",
+	"papers": [
+		{
+			"authors": "Lucas Janson, Edward Schmerling, Ashley Clark, Marco Pavone",
+			"title": "Fast Marching Tree: A Fast Marching Sampling-Based Method for Optimal Motion Planning in Many Dimensions",
+			"year": 2015,
+			"venue": "The International Journal of Robotics Research",
+			"doi": "10.1177/0278364915577958",
+			"arxiv": "1306.3532",
+			"url": null,
+			"role": "introduces"
+		}
+	],
+	"lineage": [],
+	"trace": null
+}

@@ -1,0 +1,20 @@
+algorithm Bypass(n, c)
+  input: a constraint-tree node n, its chosen conflict c
+  output: the nodes to put into the open list
+  CHILDREN ← ∅
+  for each constraint k in split(c) do
+    m ← child(n, k)                            ▷ replans the agents k affects
+    if m ≠ nil then
+      CHILDREN ← CHILDREN ∪ {m}
+  for each m in CHILDREN do
+    if is-bypass(n, m) then
+      for each agent j in replanned(m) do
+        n.paths[j] ← m.paths[j]                ▷ n keeps its own constraints
+      update-conflicts(n)
+      return {n}                               ▷ reopen n instead of splitting
+  return CHILDREN
+function is-bypass(n, m)
+  for each agent j in replanned(m) do
+    if cost(m.paths[j]) ≠ cost(n.paths[j]) then
+      return false
+  return |conflicts(m)| < |conflicts(n)|

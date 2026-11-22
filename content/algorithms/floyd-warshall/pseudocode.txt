@@ -1,0 +1,15 @@
+algorithm Floyd-Warshall(V, E)
+  input: time points V = {0, …, n − 1}, distance-graph edges E, each (u, v, w)
+  output: the all-pairs distance matrix D, or inconsistent
+  for each (i, j) in V × V do
+    D[i][j] ← 0 if i = j, else ∞
+  for each (u, v, w) in E do
+    D[u][v] ← min(D[u][v], w)
+  for k in 0, …, n − 1 do
+    if D[k][k] < 0 then
+      return inconsistent                  ▷ stop before distances diverge
+    for each (i, j) in V × V do
+      D[i][j] ← min(D[i][j], D[i][k] + D[k][j])
+  if D[i][i] < 0 for some i in V then
+    return inconsistent
+  return D                                 ▷ pair (i, j) gets the interval [−D[j][i], D[i][j]]

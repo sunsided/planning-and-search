@@ -1,0 +1,30 @@
+{
+	"description": "The canonical heuristic combines a collection of pattern databases (PDBs) into one estimate that never overestimates (an *admissible* estimate). Two patterns are *additive* when no operator changes a variable of both; then the sum of their PDBs still never overestimates. The heuristic takes every maximal set of pairwise additive patterns, adds up their PDBs, and uses the largest of these sums. It never overestimates, and it is at least as good as the best single PDB. The number of maximal sets can grow exponentially, so the crate stops after a cap and then uses the maximum of the single PDBs.",
+	"papers": [
+		{
+			"authors": "Patrik Haslum, Adi Botea, Malte Helmert, Blai Bonet, Sven Koenig",
+			"title": "Domain-Independent Construction of Pattern Database Heuristics for Cost-Optimal Planning",
+			"year": 2007,
+			"venue": "Proceedings of the Twenty-Second AAAI Conference on Artificial Intelligence",
+			"doi": null,
+			"arxiv": null,
+			"url": "https://cdn.aaai.org/AAAI/2007/AAAI07-160.pdf",
+			"role": "introduces"
+		}
+	],
+	"lineage": [
+		{
+			"slug": "pattern-database",
+			"name": null,
+			"relation": "builds-on",
+			"source": "Domain-Independent Construction of Pattern Database Heuristics for Cost-Optimal Planning"
+		},
+		{
+			"slug": "symbolic-pattern-databases",
+			"name": null,
+			"relation": "builds-on",
+			"source": "symbolic-search, src/search.rs: canonical_pdbs uses \"one symbolic PDB per pattern (see SymbolicTask::pdb)\""
+		}
+	],
+	"trace": null
+}

@@ -1,0 +1,27 @@
+{
+	"description": "MOEA/D solves a problem with several objectives by splitting it into many single-objective subproblems (*decomposition*). Each subproblem has a weight vector and a scalarising function that turns the objective vector into one cost: a weighted sum, the Tchebycheff distance to the *ideal point* (the best value seen for each objective), or penalty-based boundary intersection (PBI). Subproblems with close weight vectors are *neighbours*: a child is bred from two parents of the neighbourhood (with probability `δ`, otherwise of the whole population), and it replaces at most `n_r` members of that pool that it solves at least as well on their own subproblem, with lower constraint violation first. The result approximates the *Pareto front*, the set of trade-offs where no objective can improve without another getting worse. It has no convergence guarantee; use it when a set of weight vectors can cover the front, for example from Das-Dennis points.",
+	"papers": [
+		{
+			"authors": "Qingfu Zhang, Hui Li",
+			"title": "MOEA/D: A Multiobjective Evolutionary Algorithm Based on Decomposition",
+			"year": 2007,
+			"venue": "IEEE Transactions on Evolutionary Computation",
+			"doi": "10.1109/TEVC.2007.892759",
+			"arxiv": null,
+			"url": null,
+			"role": "introduces"
+		},
+		{
+			"authors": "Hui Li, Qingfu Zhang",
+			"title": "Multiobjective Optimization Problems With Complicated Pareto Sets, MOEA/D and NSGA-II",
+			"year": 2009,
+			"venue": "IEEE Transactions on Evolutionary Computation",
+			"doi": "10.1109/TEVC.2008.925798",
+			"arxiv": null,
+			"url": null,
+			"role": "extends"
+		}
+	],
+	"lineage": [],
+	"trace": null
+}

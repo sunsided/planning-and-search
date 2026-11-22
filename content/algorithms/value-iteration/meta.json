@@ -1,0 +1,6 @@
+{
+	"description": "Value iteration computes the optimal expected cost of every state of a stochastic shortest path problem. It first lists every state that the start can reach. When dead ends have infinite cost, it gives an infinite value to each state from which no policy reaches a goal with probability 1. Then it sweeps the other states again and again, and sets each value to the cheapest expected cost over the actions (*Gauss-Seidel*: new values count at once). It stops when the largest change in a sweep is below ε; it stores the whole reachable space, so use it as an exact reference on small problems.",
+	"papers": [],
+	"lineage": [],
+	"trace": null
+}

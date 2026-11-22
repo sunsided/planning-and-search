@@ -1,0 +1,24 @@
+{
+	"description": "MOVI (*multi-objective value iteration*) plans when each action has a vector of costs, for example time and risk. A value is then a set of cost vectors: the *convex coverage set*, one vector for each policy that is best for some weighting of the objectives. MOVI sweeps every reachable state until no set moves by more than ε. A sum above the bound `b` becomes `b`, which keeps out *improper* policies (policies that may never reach a goal). It returns one deterministic proper policy per vertex of the start state's set and is the exact reference for small problems.",
+	"papers": [
+		{
+			"authors": "Dillon Z. Chen, Felipe Trevizan, Sylvie Thiébaux",
+			"title": "Heuristic Search for Multi-Objective Probabilistic Planning",
+			"year": 2023,
+			"venue": "AAAI Conference on Artificial Intelligence",
+			"doi": "10.1609/aaai.v37i10.26409",
+			"arxiv": "2303.14363",
+			"url": null,
+			"role": "extends"
+		}
+	],
+	"lineage": [
+		{
+			"slug": "value-iteration",
+			"name": null,
+			"relation": "builds-on",
+			"source": "stochastic-search, src/mo/movi.rs: \"Multi-objective value iteration (MOVI) under the weak improper policy assumption (Algorithm 2 of Chen, Trevizan and Thiébaux 2023): the exact reference\""
+		}
+	],
+	"trace": null
+}

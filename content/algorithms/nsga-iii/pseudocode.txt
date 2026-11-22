@@ -1,0 +1,36 @@
+algorithm NSGA-III(f, n, Z)
+  input: objectives f, population size n, reference points Z
+  output: the first front of the final population
+  P ← n random genomes, evaluated
+  repeat
+    Q ← n offspring of uniformly random parent pairs in P
+    S ← ∅
+    LAST ← ∅
+    for each front F_k in non-dominated-sort(P ∪ Q) do
+      if |S| + |F_k| ≤ n then
+        S ← S ∪ F_k
+      else
+        LAST ← F_k                                  ▷ the last front, which does not fit
+        break
+    if |S| < n then
+      Y ← normalise(S ∪ LAST)                        ▷ ideal point, extreme points, intercepts
+      niche, dist ← associate(Y, Z)               ▷ nearest reference line, perpendicular distance
+      S ← S ∪ niching(n − |S|, S, LAST, niche, dist)
+    P ← S
+  until the budget is spent
+  return first front of P
+function niching(k, S, LAST, niche, dist)
+  ρ[r] ← number of members of S associated with r, for each r ∈ Z
+  PICKED ← ∅
+  while |PICKED| < k do
+    r ← a random reference point with the smallest ρ[r] among those not excluded
+    M ← members of LAST ∖ PICKED associated with r
+    if M = ∅ then
+      exclude r
+    else
+      if ρ[r] = 0 then
+        PICKED ← PICKED ∪ {the member of M with the smallest dist}
+      else
+        PICKED ← PICKED ∪ {a random member of M}
+      ρ[r] ← ρ[r] + 1
+  return PICKED

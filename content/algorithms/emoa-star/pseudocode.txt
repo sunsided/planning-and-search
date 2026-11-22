@@ -1,0 +1,23 @@
+algorithm EMOA*(s₀, goal, h)
+  input: start s₀, goal test goal, heuristic h consistent in every objective
+  output: one path for every Pareto-optimal cost vector
+  OPEN ← {⟨s₀, 0⟩}                             ▷ ordered by f = g + h, lexicographically
+  SOLS ← ∅                                     ▷ truncated costs of the solutions
+  G-CL[s] ← ∅ for every state s                ▷ truncated g of the paths expanded at s
+  PATHS ← ∅
+  while OPEN ≠ ∅ do
+    ⟨s, g⟩ ← extract-min(OPEN)
+    if dominated(s, g) then
+      continue                                 ▷ checked again: OPEN may hold stale paths
+    G-CL[s] ← non-dominated(G-CL[s] ∪ {Tr(g)})
+    if goal(s) then
+      SOLS ← SOLS ∪ {Tr(g)}
+      PATHS ← PATHS ∪ {path-to(s, g)}
+      continue
+    for each (s′, c) in successors(s) do
+      if not dominated(s′, g + c) then
+        insert(OPEN, ⟨s′, g + c⟩, g + c + h(s′))   ▷ no per-state open frontier
+  return PATHS
+function dominated(s, g)
+  ▷ Tr(x) drops the first objective; the pop order makes it safe to skip
+  return G-CL[s] weakly dominates Tr(g) or SOLS weakly dominates Tr(g + h(s))

@@ -1,0 +1,21 @@
+algorithm Two-Phase(s₀, goal, h)
+  input: start s₀, goal test goal, consistent two-objective heuristic h
+  output: one path per Pareto-optimal cost vector
+  S ← Supported(s₀, goal, h)             ▷ phase 1, sorted by c₁
+  ALL ← S
+  for each neighbours a, b in S do       ▷ phase 2
+    ▷ every other Pareto point lies in a₁ < c₁ < b₁, b₂ < c₂ < a₂
+    ALL ← ALL ∪ boa-in-box(s₀, goal, h, c₁ < b₁, initial bound a₂)
+  return ALL sorted by cost
+function Supported(s₀, goal, h)
+  a ← lexicographic (c₁, c₂) optimum
+  b ← lexicographic (c₂, c₁) optimum
+  if a = b then
+    return {a}
+  return {a} ∪ Dichotomic(a, b) ∪ {b}
+function Dichotomic(a, b)
+  w ← (a₂ − b₂, b₁ − a₁)                 ▷ level line through a and b
+  x ← A* on the weighted sum w · c, ties lexicographic
+  if w · x ≥ w · a then
+    return ∅                             ▷ no hull vertex between a and b
+  return Dichotomic(a, x) ∪ {x} ∪ Dichotomic(x, b)

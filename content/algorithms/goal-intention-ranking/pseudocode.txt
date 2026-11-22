@@ -1,0 +1,35 @@
+algorithm GoalIntention(s₀, G, N)
+  input: initial state s₀, goal facts G, sample count N
+  output: fact probabilities PG = P(q | G) and PN = P(q | ¬G)
+  PG ← probabilities(sample-plans(s₀, G, N))
+  PN ← probabilities(sample-plans(s₀, reachable-non-goal-facts(s₀), N))
+  return PG, PN
+function sample-plans(s₀, T, N)
+  SAMPLES ← ∅
+  for each i in 1, …, N do
+    C ← T ∖ s₀
+    A ← ∅
+    DONE ← ∅
+    for each layer k of the relaxed planning graph, from the top down to 0 do
+      NEXT ← ∅
+      while C ≠ ∅ do
+        q ← pop(C)
+        a ← choose-achiever(q, k)            ▷ layer ≤ k, least h_add, least used, random
+        A ← A ∪ {a}
+        DONE ← DONE ∪ {q}
+        NEXT ← NEXT ∪ (pre(a) ∖ s₀ ∖ DONE)
+        C ← C ∖ (add(a) ∖ pre(a))           ▷ facts a surely adds need no supporter
+        NEXT ← NEXT ∖ (add(a) ∖ pre(a))
+      C ← NEXT                               ▷ the conditions go one layer down
+    SAMPLES ← SAMPLES ∪ {A}
+  return SAMPLES
+function probabilities(SAMPLES)
+  for each operator a do
+    p[a] ← the fraction of SAMPLES that contain a
+  for each fact q do
+    P[q] ← 1 − ∏ (1 − p[a]) over achievers a of q
+  return P
+function likelihood-cost(O)
+  return ∑ −ln PG[q] over q ∈ O                ▷ ol_rp: lower is more goal-directed
+function posterior-cost(O)
+  return ∑ (ln PN[q] − ln PG[q]) over q ∈ O     ▷ op_rp

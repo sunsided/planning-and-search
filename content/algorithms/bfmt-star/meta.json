@@ -1,0 +1,24 @@
+{
+	"description": "BFMT* (Bidirectional Fast Marching Tree) runs FMT* from both ends over one batch of random samples. One tree marches outward from the start in order of cost-to-come; the other marches from the goal in order of cost-to-go. The trees take turns, and a sample that both trees reach joins them into a path. By default BFMT* stops once the node it just expanded was already expanded by the other tree, and returns the cheapest join; this keeps FMT*'s *asymptotic optimality* (the cost converges in probability to the optimum as the batch grows). A faster mode stops at the first meeting, which in general is not the cheapest path through the batch.",
+	"papers": [
+		{
+			"authors": "Joseph A. Starek, Javier V. Gomez, Edward Schmerling, Lucas Janson, Luis Moreno, Marco Pavone",
+			"title": "An Asymptotically-Optimal Sampling-Based Algorithm for Bi-directional Motion Planning",
+			"year": 2015,
+			"venue": "IEEE/RSJ International Conference on Intelligent Robots and Systems (IROS)",
+			"doi": "10.1109/IROS.2015.7353652",
+			"arxiv": "1507.07602",
+			"url": null,
+			"role": "introduces"
+		}
+	],
+	"lineage": [
+		{
+			"slug": "fmt-star",
+			"name": null,
+			"relation": "builds-on",
+			"source": "An Asymptotically-Optimal Sampling-Based Algorithm for Bi-directional Motion Planning: BFMT* \"extends the Fast Marching Tree (FMT*) algorithm to bi-directional search\""
+		}
+	],
+	"trace": null
+}

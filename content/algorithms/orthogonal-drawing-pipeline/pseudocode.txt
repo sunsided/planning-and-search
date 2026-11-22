@@ -1,0 +1,19 @@
+algorithm Draw(B, E)
+  input: boxes B, edges E between boxes
+  output: an orthogonal drawing: one route per edge, and the boxes
+  P ← assign-ports(B, E)            ▷ sides from the line between box centres; L near a corner
+  R ← nil
+  if graph-kind = channels then
+    G ← channel-graph(B, P, frame)  ▷ centre lines of the narrowest empty channels
+    R ← route-all(G, P)             ▷ nil if a port is off the graph or routing fails
+  if R = nil then
+    G ← orthogonal-visibility-graph(B, P)
+    R ← route-all(G, P)
+  reduce-crossings(G, R)
+  overuse ← overuse(G, R)           ▷ measured again: crossing reduction ignores capacity
+  N ← nudge(G, B, R)                ▷ boxes and ports stay fixed
+  if full-nudging then
+    F ← full(G, B, R)               ▷ boxes move and grow; nil if the separation is infeasible
+    if F ≠ nil then
+      return F
+  return N

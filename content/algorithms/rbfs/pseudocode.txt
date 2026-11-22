@@ -1,0 +1,27 @@
+algorithm RBFS(s₀, goal, h)
+  input: start state s₀, goal test goal, admissible heuristic h
+  output: a cheapest path to a goal, or failure
+  g[s₀] ← 0
+  result, F ← search(s₀, h(s₀), ∞)
+  return result
+function search(s, F-s, bound)
+  if goal(s) then
+    return path-to(s), F-s
+  C ← successors of s that are not on the current path
+  if C = ∅ then
+    return failure, ∞
+  for each child c in C do
+    f ← g[c] + h(c)
+    if F-s > g[s] + h(s) then                  ▷ s was searched before: pass its value down
+      F[c] ← max(F-s, f)
+    else
+      F[c] ← f
+  repeat
+    b ← the child in C with the smallest F[b]
+    if F[b] > bound or F[b] = ∞ then
+      return failure, F[b]                     ▷ the parent remembers this backed-up value
+    a ← the second-smallest F in C, or ∞
+    result, F[b] ← search(b, F[b], min(bound, a))
+    if result ≠ failure then
+      return result, F[b]
+  until false

@@ -1,0 +1,24 @@
+{
+	"description": "Iterative-PP-A\\* is a simple anytime search for two objectives. It runs PP-A\\* from the start for each tolerance `ε` of a schedule, such as `0.01, 0.001, 0.0001, 0`. After each run, the solutions cover every Pareto-optimal cost within the factor `1 + ε` in both objectives; a schedule that ends with `0` ends with the exact front. It reuses nothing between runs, so it does more work than A-BOA\\*ε, which is why it serves as the baseline in the A-BOA\\*ε paper. Before the last run the solutions are not always Pareto-optimal, because PP-A\\* returns representative paths.",
+	"papers": [
+		{
+			"authors": "Han Zhang, Oren Salzman, T. K. Satish Kumar, Ariel Felner, Carlos Hernández Ulloa, Sven Koenig",
+			"title": "Anytime Approximate Bi-Objective Search",
+			"year": 2022,
+			"venue": "International Symposium on Combinatorial Search (SoCS)",
+			"doi": "10.1609/socs.v15i1.21768",
+			"arxiv": null,
+			"url": null,
+			"role": "introduces"
+		}
+	],
+	"lineage": [
+		{
+			"slug": "pp-a-star",
+			"name": null,
+			"relation": "builds-on",
+			"source": "multiobjective-search, src/pp_a/iterative.rs: \"Iterative-PP-A*: pp_a_star run from scratch for every tolerance of schedule\""
+		}
+	],
+	"trace": null
+}

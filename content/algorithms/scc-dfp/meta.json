@@ -1,0 +1,24 @@
+{
+	"description": "SCC-DFP is a merge strategy for merge-and-shrink. The *causal graph* of a task has an edge from variable `u` to `v` when an operator that changes `v` has `u` in its precondition or in an effect condition, or also changes `u`. A *strongly connected component* (SCC) is a largest set of variables that all reach each other in this graph. SCC-DFP first merges the variables of each SCC into one factor with DFP, components in topological order, and then merges these factors with DFP. Use it to keep tightly coupled variables together; it is the configuration the crate compares with Fast Downward.",
+	"papers": [
+		{
+			"authors": "Silvan Sievers, Martin Wehrle, Malte Helmert",
+			"title": "An Analysis of Merge Strategies for Merge-and-Shrink Heuristics",
+			"year": 2016,
+			"venue": "Proceedings of the International Conference on Automated Planning and Scheduling (ICAPS 2016)",
+			"doi": "10.1609/icaps.v26i1.13763",
+			"arxiv": null,
+			"url": null,
+			"role": "introduces"
+		}
+	],
+	"lineage": [
+		{
+			"slug": "dfp",
+			"name": null,
+			"relation": "builds-on",
+			"source": "An Analysis of Merge Strategies for Merge-and-Shrink Heuristics: \"for each SCC, we apply the DFP merge strategy to the atomic transition systems in this SCC ... Finally, we merge these transition systems by again applying the DFP merge strategy\""
+		}
+	],
+	"trace": null
+}

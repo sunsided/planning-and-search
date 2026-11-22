@@ -1,0 +1,13 @@
+algorithm LRTA*(s₀, goal, H)
+  input: start state s₀, goal test goal, learned table H (starts as a heuristic h)
+  output: the path travelled to a goal, or failure; H keeps what it learned
+  s ← s₀
+  while not goal(s) do
+    E ← {(s′, c + H[s′]) : (s′, c) in successors(s), H[s′] < ∞}
+    if E = ∅ then                              ▷ every successor is a dead end
+      H[s] ← ∞
+      return failure
+    (s-best, f₁) ← entry of E with the smallest value   ▷ the first on ties
+    H[s] ← f₁                                  ▷ Korf's update: no max with the old value
+    s ← s-best                                 ▷ move one step and record it
+  return the path travelled

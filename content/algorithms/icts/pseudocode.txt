@@ -1,0 +1,26 @@
+algorithm ICTS(agents)
+  input: agents, each with a start and a goal on a graph
+  output: a conflict-free plan with the least sum of costs, or failure
+  c₀ ← ⟨dist(start_i, goal_i) for each agent i⟩
+  if some c₀[i] = ∞ then
+    return failure                           ▷ an agent cannot reach its goal alone
+  OPEN ← {c₀}                                ▷ cost vectors, ordered by their sum
+  SEEN ← {c₀}
+  while OPEN ≠ ∅ do
+    c ← extract-min(OPEN)
+    plan ← evaluate(c)
+    if plan ≠ nil then
+      return plan
+    for each agent i do
+      c′ ← raise(c, i)                       ▷ c with c[i] + 1 for agent i
+      if c′ ∉ SEEN then
+        SEEN ← SEEN ∪ {c′}
+        insert(OPEN, c′)
+  return failure                             ▷ the tree is infinite: in practice the budget ends it
+function evaluate(c)
+  for each agent i do
+    M[i] ← mdd(i, c[i])                      ▷ every path of i that arrives at time c[i]
+  for each pair (i, j) of agents do
+    if joint-paths(M[i], M[j]) = nil then
+      return nil                             ▷ pairwise pruning
+  return joint-paths(M[1], …, M[k])          ▷ a conflict-free combination, or nil

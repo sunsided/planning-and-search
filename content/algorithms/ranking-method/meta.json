@@ -1,0 +1,34 @@
+{
+	"description": "The ranking method finds the Pareto-optimal paths of a two-objective problem by listing paths in order. It generates loopless paths from start to goal in order of the first cost (and the second cost for ties), with a k-shortest-paths enumeration. It keeps a path when its second cost is lower than that of each path already kept. It stops after the path that is best in the second objective, because no later path can be efficient. The method is exact but can take exponential time, so it is mainly a reference for comparison with label-setting searches like BOA*.",
+	"papers": [
+		{
+			"authors": "João Carlos Namorado Clímaco, Ernesto Queirós Vieira Martins",
+			"title": "A bicriterion shortest path algorithm",
+			"year": 1982,
+			"venue": "European Journal of Operational Research",
+			"doi": "10.1016/0377-2217(82)90205-3",
+			"arxiv": null,
+			"url": null,
+			"role": "introduces"
+		},
+		{
+			"authors": "José Craveirinha, João Clímaco, Rita Girão-Silva, Marta Pascoal",
+			"title": "Multiobjective Path Problems and Algorithms in Telecommunication Network Design—Overview and Trends",
+			"year": 2024,
+			"venue": "Algorithms",
+			"doi": "10.3390/a17060222",
+			"arxiv": null,
+			"url": null,
+			"role": "surveys"
+		}
+	],
+	"lineage": [
+		{
+			"slug": null,
+			"name": "k-shortest loopless paths",
+			"relation": "builds-on",
+			"source": "multiobjective-search, src/ranking.rs: \"loopless paths from start to a goal are generated in lexicographic (c1, c2) order (a best-first k-shortest-path enumeration)\""
+		}
+	],
+	"trace": null
+}

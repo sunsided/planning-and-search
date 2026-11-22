@@ -1,0 +1,24 @@
+{
+	"description": "BOA\\*ε is BOA\\* with a multiplicative tolerance `1 + ε` on the second objective. It changes one test only: a path is dropped once `(1 + ε) · f2` reaches the second cost of the last solution. Every returned solution is Pareto-optimal, and for each Pareto-optimal cost `s` some returned solution `r` has `r1 ≤ s1` and `r2 ≤ (1 + ε) · s2`. The crate takes `ε` as an exact fraction `num / den`, so the test uses no floating point, and `ε = 0` gives BOA\\* again. Use it when a slightly worse second cost is acceptable and a smaller front, found faster, is worth more.",
+	"papers": [
+		{
+			"authors": "Boris Goldin, Oren Salzman",
+			"title": "Approximate Bi-Criteria Search by Efficient Representation of Subsets of the Pareto-Optimal Frontier",
+			"year": 2021,
+			"venue": "International Conference on Automated Planning and Scheduling (ICAPS)",
+			"doi": "10.1609/icaps.v31i1.15957",
+			"arxiv": "2006.10302",
+			"url": null,
+			"role": "introduces"
+		}
+	],
+	"lineage": [
+		{
+			"slug": "boa-star",
+			"name": null,
+			"relation": "builds-on",
+			"source": "multiobjective-search, src/boa.rs: \"BOA*ε: boa_star with a multiplicative tolerance 1 + eps on the second objective\""
+		}
+	],
+	"trace": null
+}

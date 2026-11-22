@@ -1,0 +1,23 @@
+algorithm ReachSearch(x₀, X₀, P, h)
+  input: nominal start x₀, start set X₀, motion primitives P, heuristic h
+  output: a nominal path whose reachable sets are proven safe and end inside the goal, or failure
+  g[n₀] ← 0                              ▷ node n₀ holds x₀ and X₀
+  OPEN ← {n₀}                            ▷ ordered by f = g + h, oldest first on ties
+  while OPEN ≠ ∅ do
+    n ← extract-min(OPEN)
+    if superseded(n) then
+      continue
+    if goal-contains(set(n)) then
+      return path-to(n)
+    for each p in P do
+      control, x′ ← steer(nominal(n), nominal(n) + p)
+      if |x′ − nominal(n)| > 0 and x′ ∈ bounds then
+        verdict, X′ ← check-edge(set(n), control)  ▷ propagate, then test every cover set
+        if verdict = Safe then
+          c ← g[n] + cost(nominal(n), x′, X′)
+          if not dominated(cell(x′), X′, c) then
+            n′ ← node(x′, X′, parent: n)
+            g[n′] ← c
+            insert(OPEN, n′)
+            supersede the nodes of cell(x′) that n′ dominates
+  return failure

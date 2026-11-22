@@ -1,0 +1,15 @@
+algorithm PRM*(n, γ)
+  input: number of samples n, radius constant γ
+  output: a roadmap G whose shortest paths converge to optimal ones
+  G ← empty graph
+  for i in 1, …, n do
+    x ← sample()
+    if state-valid(x) then
+      m ← |G| + 1                              ▷ counts the new node
+      r ← γ · (ln m / m)^(1/d)                 ▷ d: dimension of the space
+      X-NEAR ← nodes of G within r of x        ▷ or the ⌈k ln m⌉ nearest
+      add-node(G, x)
+      for each y in X-NEAR do
+        if motion-valid(y, x) then
+          add-edge(G, y, x, d(y, x))
+  return G                                     ▷ queried with Dijkstra, as in PRM

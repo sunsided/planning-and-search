@@ -1,0 +1,15 @@
+algorithm h^add(s)
+  input: state s; delete-free rules r with conditions pre(r), added fact head(r) and cost c(r)
+  output: the additive estimate of the cost from s to the goal facts G, or ∞
+  for each fact p do
+    cost[p] ← 0 if p holds in s, otherwise ∞
+  repeat                             ▷ one rule per operator effect, axioms cost 0
+    changed ← false
+    for each rule r do
+      v ← c(r) + ∑ q ∈ pre(r) cost[q]
+      if v < cost[head(r)] then
+        cost[head(r)] ← v
+        supporter[head(r)] ← r       ▷ best supporter, used to extract relaxed plans
+        changed ← true
+  until not changed
+  return ∑ p ∈ G cost[p]             ▷ ∞ if some goal fact cannot be reached

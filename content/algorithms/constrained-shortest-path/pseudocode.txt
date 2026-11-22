@@ -1,0 +1,19 @@
+algorithm Constrained-shortest-path(s₀, goal, h, b)
+  input: start state s₀, goal test goal, heuristic h consistent in both costs, budget b
+  output: the path with the least first cost among those with second cost ≤ b, or failure
+  if h₂(s₀) > b then
+    return failure
+  g2-min[s] ← ∞ for every state s
+  OPEN ← {⟨s₀, (0, 0)⟩}                        ▷ ordered by f = g + h, lexicographically
+  while OPEN ≠ ∅ do
+    ⟨s, g⟩ ← extract-min(OPEN)
+    if g₂ ≥ g2-min[s] then
+      continue                                 ▷ an earlier path here was no dearer in g₂
+    g2-min[s] ← g₂
+    if goal(s) then
+      return path-to(s, g)                     ▷ no open path is cheaper in the first cost
+    for each (s′, c) in successors(s) do
+      g′ ← g + c
+      if g′₂ < g2-min[s′] and g′₂ + h₂(s′) ≤ b then
+        insert(OPEN, ⟨s′, g′⟩, g′ + h(s′))
+  return failure

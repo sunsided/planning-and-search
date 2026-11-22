@@ -1,0 +1,27 @@
+{
+	"description": "Bellman-Ford finds shortest paths from one source in a graph whose edge weights can be negative. It relaxes every edge in passes: an edge `u → v` of weight `w` lowers the distance of `v` to `d(u) + w` when that is smaller. With `n` vertices, all distances are final after `n − 1` passes, so a change in pass `n` proves a *negative cycle* (a cycle whose weights add up to less than zero). A simple temporal network (STN) turns each constraint `lo ≤ t_j − t_i ≤ hi` into two such edges, and it is *consistent* (some schedule meets every constraint) exactly when this graph has no negative cycle. `temporal-control` starts all distances at zero and returns either the distances as a valid schedule or the negative cycle as a list of constraint bounds.",
+	"papers": [
+		{
+			"authors": "Richard Bellman",
+			"title": "On a routing problem",
+			"year": 1958,
+			"venue": "Quarterly of Applied Mathematics",
+			"doi": "10.1090/qam/102435",
+			"arxiv": null,
+			"url": null,
+			"role": "introduces"
+		},
+		{
+			"authors": "Rina Dechter, Itay Meiri, Judea Pearl",
+			"title": "Temporal constraint networks",
+			"year": 1991,
+			"venue": "Artificial Intelligence",
+			"doi": "10.1016/0004-3702(91)90006-6",
+			"arxiv": null,
+			"url": null,
+			"role": "applies"
+		}
+	],
+	"lineage": [],
+	"trace": null
+}

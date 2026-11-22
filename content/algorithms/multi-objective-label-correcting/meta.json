@@ -1,0 +1,27 @@
+{
+	"description": "Multi-objective label correcting finds one path for every Pareto-optimal cost vector. A cost vector is *Pareto-optimal* when no other path is as good in every objective and better in one. Each state keeps a set of non-dominated labels (partial paths with their cost vectors). A first-in, first-out queue holds the states whose set changed. The algorithm extends the new labels of a queued state along each edge and merges them into the successors' sets; unlike label setting, a label can be dropped after it was extended. It needs no heuristic and is exact for non-negative edge costs.",
+	"papers": [
+		{
+			"authors": "F. Guerriero, R. Musmanno",
+			"title": "Label Correcting Methods to Solve Multicriteria Shortest Path Problems",
+			"year": 2001,
+			"venue": "Journal of Optimization Theory and Applications",
+			"doi": "10.1023/a:1012602011914",
+			"arxiv": null,
+			"url": null,
+			"role": "extends"
+		},
+		{
+			"authors": "Oren Salzman, Carlos Hernández Ulloa, Ariel Felner, Sven Koenig",
+			"title": "Multi-Objective Search: Algorithms, Applications, and Emerging Directions",
+			"year": 2025,
+			"venue": null,
+			"doi": null,
+			"arxiv": "2510.25504",
+			"url": null,
+			"role": "surveys"
+		}
+	],
+	"lineage": [],
+	"trace": null
+}

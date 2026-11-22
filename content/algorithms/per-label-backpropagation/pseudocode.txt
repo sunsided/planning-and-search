@@ -1,0 +1,35 @@
+algorithm Per-Label-Backprop(G)
+  input: labelled distance graph G of an STNU, not in normal form
+  output: DC, or not DC
+  for each negative node s in G do
+    if not backprop(s) then
+      return not DC
+  return DC
+function backprop(s)
+  if status[s] = active then
+    return false                                  ▷ a semi-reducible negative cycle
+  if status[s] = done then
+    return true
+  status[s] ← active
+  if not propagate(s, ordinary negative edges into s, nil) then
+    return false
+  for each upper-case edge e into s, labelled c, do
+    if not propagate(s, {e}, c) then
+      return false
+  status[s] ← done
+  return true
+function propagate(s, SEEDS, c)
+  dist ← the seed weights by tail, ∞ elsewhere
+  Q ← nodes with finite dist                      ▷ a priority queue on dist
+  while Q ≠ ∅ do
+    u ← extract-min(Q)
+    if dist[u] ≥ 0 then
+      add-edge(G, u, s, dist[u])                  ▷ a derived ordinary edge, not extended
+      continue
+    if u is a negative node and not backprop(u) then
+      return false
+    for each non-negative edge (v, u, e) into u do
+      if (v, u) is not the lower-case edge of c and dist[u] + e < dist[v] then
+        dist[v] ← dist[u] + e
+        insert-or-update(Q, v)
+  return true

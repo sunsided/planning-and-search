@@ -1,0 +1,34 @@
+{
+	"description": "Nudging moves route segments apart, so that connectors which share a channel (the free space between obstacles) no longer lie on top of each other. One pass moves the vertical segments and a second pass the horizontal ones; segments that end at a port stay fixed. *Separation constraints* of the form `x_v − x_u ≥ gap` keep the order of neighbouring segments, so routes keep their shape and get no new crossings. `connector-routing` solves them exactly, with no linear program: it finds the largest common gap and puts each segment midway in its free range. Full nudging (`full`) also lets boxes move and grow to make room.",
+	"papers": [
+		{
+			"authors": "Michael Wybrow, Kim Marriott, Peter J. Stuckey",
+			"title": "Orthogonal Connector Routing",
+			"year": 2010,
+			"venue": "Graph Drawing (GD 2009), LNCS",
+			"doi": "10.1007/978-3-642-11805-0_22",
+			"arxiv": null,
+			"url": null,
+			"role": "introduces"
+		},
+		{
+			"authors": "Tim Hegemann, Alexander Wolff",
+			"title": "A Simple Pipeline for Orthogonal Graph Drawing",
+			"year": 2023,
+			"venue": "Graph Drawing and Network Visualization (GD 2023), LNCS",
+			"doi": "10.1007/978-3-031-49275-4_12",
+			"arxiv": "2309.01671",
+			"url": null,
+			"role": "extends"
+		}
+	],
+	"lineage": [
+		{
+			"slug": "vpsc",
+			"name": null,
+			"relation": "builds-on",
+			"source": "connector-routing, src/nudge.rs: Placement::Project is the \"Least-squares projection of desired positions onto the constraints at Config::separation (VPSC, as in Wybrow et al. 2009)\""
+		}
+	],
+	"trace": null
+}

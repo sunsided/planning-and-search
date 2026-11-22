@@ -1,0 +1,29 @@
+algorithm IDDFS(s₀, goal)
+  input: start state s₀, goal test goal
+  output: a path to a goal with the fewest edges, or failure
+  for ℓ in 0, 1, 2, … do
+    r ← depth-limited-dfs(⟨s₀⟩, ℓ, goal)
+    if r is a path then
+      return r
+    if r = exhausted then                      ▷ the limit cut nothing off
+      return failure
+function depth-limited-dfs(P, ℓ, goal)
+  s ← last(P)
+  if goal(s) then
+    return P
+  cut ← false
+  for each s′ in successors(s) do
+    if s′ ∉ P then                             ▷ skip cycles on the path
+      if |P| − 1 = ℓ then
+        cut ← true                             ▷ s′ lies beyond the limit
+        continue
+      append(P, s′)
+      r ← depth-limited-dfs(P, ℓ, goal)
+      if r is a path then
+        return r
+      if r = cutoff then
+        cut ← true
+      remove-last(P)
+  if cut then
+    return cutoff
+  return exhausted

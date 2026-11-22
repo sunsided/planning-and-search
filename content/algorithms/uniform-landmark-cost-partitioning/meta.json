@@ -1,0 +1,30 @@
+{
+	"description": "Uniform landmark cost partitioning turns landmarks into an admissible heuristic: it never overestimates the cost to the goal. A *landmark* is a fact that is true at some point of every plan. Each operator shares its cost equally among the landmarks it can achieve that are still false; each landmark is worth its cheapest share; the estimate is the sum. Every plan must achieve each landmark, and no operator pays more than its cost in total, so A* with this heuristic finds optimal plans. It is cheap to compute, but often weaker than the optimal partitioning.",
+	"papers": [
+		{
+			"authors": "Erez Karpas, Carmel Domshlak",
+			"title": "Cost-Optimal Planning with Landmarks",
+			"year": 2009,
+			"venue": "International Joint Conference on Artificial Intelligence (IJCAI)",
+			"doi": null,
+			"arxiv": null,
+			"url": "https://www.ijcai.org/Proceedings/09/Papers/288.pdf",
+			"role": "introduces"
+		}
+	],
+	"lineage": [
+		{
+			"slug": "h-1-landmarks",
+			"name": null,
+			"relation": "builds-on",
+			"source": "planning-heuristics, src/landmarks/heuristics.rs: `UniformLandmarkCost` is \"uniform cost partitioning over the fact landmarks\" of `Relaxation::landmarks`"
+		},
+		{
+			"slug": "landmark-count-heuristic",
+			"name": null,
+			"relation": "builds-on",
+			"source": "planning-heuristics, src/landmarks/tracking.rs: \"LAMA-style landmark tracking along the search path (Richter & Westphal 2010; Karpas & Domshlak 2009 for the admissible variant)\""
+		}
+	],
+	"trace": null
+}

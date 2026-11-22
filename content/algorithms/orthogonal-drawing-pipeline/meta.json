@@ -1,0 +1,42 @@
+{
+	"description": "The orthogonal drawing pipeline of Hegemann and Wolff makes a complete orthogonal drawing from boxes and the edges between them. It assigns ports on the box sides, routes every edge short and with few bends, reduces crossings, and then nudges shared segments apart. Routes run on the orthogonal visibility graph, or on the sparser *channel graph* of the centre lines between boxes. Boxes stay in place by default; with full nudging they can move and grow to keep the separation. Use `draw` when you have a fixed box layout and want the whole drawing in one call.",
+	"papers": [
+		{
+			"authors": "Tim Hegemann, Alexander Wolff",
+			"title": "A Simple Pipeline for Orthogonal Graph Drawing",
+			"year": 2023,
+			"venue": "Graph Drawing and Network Visualization (GD 2023), LNCS",
+			"doi": "10.1007/978-3-031-49275-4_12",
+			"arxiv": "2309.01671",
+			"url": null,
+			"role": "introduces"
+		}
+	],
+	"lineage": [
+		{
+			"slug": "orthogonal-visibility-graph",
+			"name": null,
+			"relation": "combines",
+			"source": "connector-routing, src/pipeline.rs: \"The routing graph is the orthogonal visibility graph, or the paper's sparser channel graph\""
+		},
+		{
+			"slug": "pathfinder",
+			"name": null,
+			"relation": "combines",
+			"source": "connector-routing, src/pipeline.rs: draw routes every edge with global::route_all (\"negotiated routing\")"
+		},
+		{
+			"slug": "crossing-reduction",
+			"name": null,
+			"relation": "combines",
+			"source": "connector-routing, src/pipeline.rs: draw calls crossing::reduce_crossings after routing"
+		},
+		{
+			"slug": "nudging",
+			"name": null,
+			"relation": "combines",
+			"source": "connector-routing, src/pipeline.rs: draw ends with nudge::nudge, or nudge::full with full_nudging"
+		}
+	],
+	"trace": null
+}

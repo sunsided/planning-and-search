@@ -1,0 +1,27 @@
+{
+	"description": "DFP is a merge strategy for merge-and-shrink, named after Dräger, Finkbeiner and Podelski. It picks the two factors whose shared labels lead closest to the goal. The *rank* of a label in a factor is the smallest goal distance of a state that the label reaches there, and a pair scores the lowest value over all labels of the larger of its two ranks. The crate merges the pair with the lowest score, and prefers pairs in which one of the two factors has a non-goal state. DFP is *non-linear*, so it can merge two composite factors, and Sievers, Wehrle and Helmert (2016) call it a state-of-the-art merge strategy.",
+	"papers": [
+		{
+			"authors": "Klaus Dräger, Bernd Finkbeiner, Andreas Podelski",
+			"title": "Directed Model Checking with Distance-Preserving Abstractions",
+			"year": 2006,
+			"venue": "Model Checking Software (SPIN 2006), Lecture Notes in Computer Science",
+			"doi": "10.1007/11691617_2",
+			"arxiv": null,
+			"url": null,
+			"role": "introduces"
+		},
+		{
+			"authors": "Silvan Sievers, Martin Wehrle, Malte Helmert",
+			"title": "An Analysis of Merge Strategies for Merge-and-Shrink Heuristics",
+			"year": 2016,
+			"venue": "Proceedings of the International Conference on Automated Planning and Scheduling (ICAPS 2016)",
+			"doi": "10.1609/icaps.v26i1.13763",
+			"arxiv": null,
+			"url": null,
+			"role": "analyses"
+		}
+	],
+	"lineage": [],
+	"trace": null
+}

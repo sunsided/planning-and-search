@@ -1,0 +1,14 @@
+algorithm UniformLandmarkCost(s)
+  input: state s
+  output: an admissible estimate, or ∞ for a dead end
+  LM ← landmarks(s)                           ▷ h¹ fact landmarks
+  if LM = failure then
+    return ∞
+  PEND ← {l ∈ LM : l ∉ s}
+  for each operator o do
+    k[o] ← |{l ∈ PEND : o adds l}|
+  h ← 0
+  for each l in PEND do
+    if some operator adds l then              ▷ landmarks only axioms add are worth 0
+      h ← h + min over operators o adding l of cost(o) / k[o]
+  return ⌈h⌉                                  ▷ after a small relative tolerance

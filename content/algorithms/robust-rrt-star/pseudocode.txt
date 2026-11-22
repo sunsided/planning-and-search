@@ -1,0 +1,35 @@
+algorithm RobustRrtStar(x₀, X₀, n, γ)
+  input: nominal start x₀, start set X₀, number of iterations n, radius constant γ
+  output: the cheapest proven path to the goal found, or failure
+  T ← tree with root (x₀, X₀)
+  for i in 1, …, n do
+    v, x-new ← extend(T, sample())        ▷ as Robust-RRT, edge proven safe
+    if v ≠ nil then
+      r ← min(γ · (ln |T| / |T|)^(1/d), max-radius)  ▷ d: dimension
+      NEAR ← nodes of T within r of x-new
+      parent ← v
+      for each u in NEAR by increasing cost[u] + |u − x-new| do
+        if cost[u] + |u − x-new| < cost-via(parent, x-new) and connect(u, x-new) is proven then
+          parent ← u                       ▷ choose the cheapest safe parent
+      w ← insert(T, x-new, parent)
+      for each u in NEAR do
+        if cost[w] + |w − u| < cost[u] then
+          try-rewire(T, u, w)
+  return path-to(cheapest node of T proven in the goal), or failure if there is none
+function try-rewire(T, u, w)
+  S ← subtree(u) in breadth-first order
+  if w ∈ S or |S| > budget then
+    return false
+  control ← steer(w, u)
+  if control does not end exactly at u then
+    return false
+  for each node s in S do                 ▷ parents come before children
+    new-set[s] ← prove(new-set[parent(s)], control(s))  ▷ u starts from set(w) with control
+    if new-set[s] = nil then
+      return false                         ▷ an edge is not proven safe
+  if the cost of u does not drop, or a node of S costs more with new-set then
+    return false                         ▷ the cost may depend on the set width
+  if a node of S in the goal is not proven in the goal with new-set then
+    return false
+  commit(T, u, w, new-set)                 ▷ parents, sets, goal flags and costs at once
+  return true

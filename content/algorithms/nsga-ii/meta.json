@@ -1,0 +1,17 @@
+{
+	"description": "NSGA-II searches for the *Pareto front* of a problem with several objectives: the solutions where no objective can improve without another getting worse. A solution *dominates* another if it is no worse in every objective and better in at least one; front 1 is the set that no solution dominates, front 2 is dominated only by front 1, and so on, and inside a front a large *crowding distance* is preferred, so the front stays spread out. Each generation breeds `N` offspring from parents picked by binary tournaments on rank and crowding, merges them with the `N` parents, and keeps the best `N` by front and then by crowding, so good solutions are never lost (*elitism*). Constraints use Deb's constrained domination: a feasible solution beats an infeasible one, and of two infeasible ones the smaller violation wins. It has no convergence guarantee; for three or more objectives the crate offers NSGA-III.",
+	"papers": [
+		{
+			"authors": "K. Deb, A. Pratap, S. Agarwal, T. Meyarivan",
+			"title": "A fast and elitist multiobjective genetic algorithm: NSGA-II",
+			"year": 2002,
+			"venue": "IEEE Transactions on Evolutionary Computation",
+			"doi": "10.1109/4235.996017",
+			"arxiv": null,
+			"url": null,
+			"role": "introduces"
+		}
+	],
+	"lineage": [],
+	"trace": null
+}

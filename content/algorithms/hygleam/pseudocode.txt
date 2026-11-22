@@ -1,0 +1,21 @@
+algorithm HyGLEAM(N, r, F, T, w)
+  input: ring size N, deme radius r, frequency levels F, intensity levels T, window w
+  output: the cheapest individual found
+  give every level of F and of T the same probability
+  run Diffusion(N, r) and pass the best child of each mating to Refine(c)
+  return the cheapest individual evaluated
+function Refine(c)
+  a ← a level of F, drawn by its probability       ▷ how often
+  t ← a level of T, drawn by its probability       ▷ how long
+  if random() ≥ a then
+    return c
+  c′ ← local-search(c, at most t evaluations)      ▷ hill climbing or Rosenbrock's method
+  e ← evaluations spent
+  benefit ← max(0, (f(c) − f(c′)) / max(|f(c)|, 10⁻¹²)) / e
+  record benefit for a and for t
+  if w local searches were recorded since the last update then
+    move the probabilities of the levels used halfway towards their share of mean benefit
+    raise every probability to at least a floor
+  if lamarckian then
+    return c′
+  return c with the cost f(c′)                       ▷ Baldwinian

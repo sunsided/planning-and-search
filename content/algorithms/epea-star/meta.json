@@ -1,0 +1,30 @@
+{
+	"description": "Enhanced Partial Expansion A* (EPEA*) is A* that generates only the children it needs now. Each node stores a value `F`, at first its own `f = g + h`. When EPEA* expands a node, it generates only the children whose `f` equals `F`, then raises `F` to the next larger child value and puts the node back, or closes it if there is none. An *operator selection function* finds these children directly, without generating the others. In `mapf-search`, `epea` runs it in the joint space of all agents, where a node has a huge number of children: the plan is optimal, and an unsolvable instance is proved unsolvable.",
+	"papers": [
+		{
+			"authors": "Meir Goldenberg, Ariel Felner, Roni Stern, Guni Sharon, Nathan Sturtevant, Robert C. Holte, Jonathan Schaeffer",
+			"title": "Enhanced Partial Expansion A*",
+			"year": 2014,
+			"venue": "Journal of Artificial Intelligence Research",
+			"doi": "10.1613/jair.4171",
+			"arxiv": null,
+			"url": null,
+			"role": "introduces"
+		}
+	],
+	"lineage": [
+		{
+			"slug": "a-star",
+			"name": null,
+			"relation": "builds-on",
+			"source": "mapf-search, docs/design.md: \"A* in the joint space of all agents, with enhanced partial expansion.\""
+		},
+		{
+			"slug": null,
+			"name": "Partial Expansion A*",
+			"relation": "builds-on",
+			"source": "Enhanced Partial Expansion A*"
+		}
+	],
+	"trace": null
+}

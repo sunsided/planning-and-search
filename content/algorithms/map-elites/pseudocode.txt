@@ -1,0 +1,19 @@
+algorithm MAP-Elites(evaluate, grid, n₀, n)
+  input: evaluate giving (cost, descriptor), a descriptor grid, n₀ random genomes, n evaluations
+  output: an archive with one elite per filled cell
+  ARCHIVE ← ∅                                   ▷ cell → (genome, cost)
+  for i in 1, …, n do
+    if i ≤ n₀ or ARCHIVE = ∅ then
+      x ← random-genome()
+    else
+      x ← genome of random-elite(ARCHIVE)
+      if chance(crossover-rate) then
+        x ← crossover(x, genome of random-elite(ARCHIVE))
+      if chance(mutation-rate) then
+        x ← mutate(x)
+      x ← repair(x)
+    c, b ← evaluate(x)
+    k ← cell(grid, b)                            ▷ clamps b into the edge cells
+    if ARCHIVE[k] = nil or c < cost of ARCHIVE[k] then
+      ARCHIVE[k] ← (x, c)
+  return ARCHIVE

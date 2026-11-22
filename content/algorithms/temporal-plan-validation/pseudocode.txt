@@ -1,0 +1,32 @@
+algorithm ValidateTemporalPlan(problem, plan, ε)
+  input: a temporal PDDL problem, a timestamped plan, the separation ε
+  output: valid with the makespan, or the first violation
+  E ← ∅
+  for each (t, a, d) in plan do
+    if a is durative then
+      E ← E ∪ {start-event(a, t), finish-event(a, t + d)}
+    else
+      E ← E ∪ {instant-event(a, t)}
+  E ← E ∪ timed-initial-literals(problem)
+  s ← initial-state(problem)
+  t_prev ← 0
+  for each (t, H) in happenings(E) do          ▷ events within one instant, in time order
+    R ← running(t_prev, t)                     ▷ durative actions started and not yet ended
+    for each c in over-all-conditions(R) do    ▷ s is the state at t_prev
+      for each r in roots(c, s, t_prev, t) ∪ midpoints(c, s, t_prev, t) do
+        if not holds-at(c, s, r) then
+          return violation(r, c)
+    s ← advance-linear(s, R, t − t_prev)       ▷ continuous effects of R
+    for each c in over-all-conditions(R ∖ ending-in(H)) do
+      if not holds(c, s) then                  ▷ t lies inside their open interval
+        return violation(t, c)
+    for each e in H do
+      if interferes(e, H ∪ recent(E, t, ε)) then    ▷ events less than ε apart
+        return violation(t, "interference", e)
+      if not holds(conditions(e), s) or not duration-ok(e) then
+        return violation(t, e)
+    s ← apply-all(collect-effects(H, s), s)    ▷ effects read the state before H
+    t_prev ← t
+  if not holds(goal(problem), s) then
+    return violation(nil, goal(problem))
+  return valid(makespan(E))

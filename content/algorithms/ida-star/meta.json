@@ -1,0 +1,24 @@
+{
+	"description": "IDA* (Iterative Deepening A*) finds a cheapest path with an *admissible* heuristic `h` (one that never overestimates), in memory linear in the path length. It runs a series of depth-first searches, and each search prunes a state when `f = g + h` exceeds a threshold. The first threshold is `h` of the start; each next threshold is the smallest `f` that the last search pruned. IDA* keeps only the current path, so it expands a state again in every iteration and along every path that reaches it. Use it on trees and on graphs where few paths lead to the same state and few distinct `f` values occur; many distinct float costs mean many iterations.",
+	"papers": [
+		{
+			"authors": "Richard E. Korf",
+			"title": "Depth-first iterative-deepening: An optimal admissible tree search",
+			"year": 1985,
+			"venue": "Artificial Intelligence",
+			"doi": "10.1016/0004-3702(85)90084-0",
+			"arxiv": null,
+			"url": "https://academiccommons.columbia.edu/doi/10.7916/D8BK1M9V/download",
+			"role": "introduces"
+		}
+	],
+	"lineage": [
+		{
+			"slug": "iddfs",
+			"name": null,
+			"relation": "builds-on",
+			"source": "Depth-first iterative-deepening: An optimal admissible tree search, Section 6: \"Depth-first iterative-deepening can also be combined with a best-first heuristic\""
+		}
+	],
+	"trace": null
+}

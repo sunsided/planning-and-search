@@ -1,0 +1,22 @@
+algorithm Aggregated-Search(s₀, goal, h, F_ext, F_agg, ε)
+  input: start s₀, goal test goal, hidden-space heuristic h,
+  input: monotone extension F_ext and aggregation F_agg, tolerances ε
+  output: paths whose aggregated costs form (or ε-cover) the Pareto set
+  OPEN ← {⟨s₀, g: 0⟩}                    ▷ by F_agg(g + h(s)), lexicographic
+  G_cl[s] ← ∅ for every state s          ▷ hidden g vectors expanded at s
+  SOLUTIONS ← ∅
+  while OPEN ≠ ∅ do
+    ℓ ← extract-min(OPEN)
+    if a vector in G_cl[ℓ.s] weakly dominates ℓ.g then
+      continue
+    if a solution ε-dominates F_agg(ℓ.g + h(ℓ.s)) then
+      continue
+    G_cl[ℓ.s] ← G_cl[ℓ.s] ∪ {ℓ.g}
+    if goal(ℓ.s) then
+      SOLUTIONS ← SOLUTIONS ∪ {⟨path-to(ℓ), F_agg(ℓ.g)⟩}
+      continue
+    for each (s′, c) in successors(ℓ.s) do
+      g′ ← F_ext(ℓ.g, c)
+      if no vector in G_cl[s′] weakly dominates g′ and no solution ε-dominates F_agg(g′ + h(s′)) then
+        insert(OPEN, ⟨s′, g: g′, parent: ℓ⟩)
+  return Pareto filter of SOLUTIONS by aggregated cost

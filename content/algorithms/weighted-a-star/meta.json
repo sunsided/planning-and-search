@@ -1,0 +1,24 @@
+{
+	"description": "Weighted A* is A* that trusts its heuristic more. It expands the open state with the lowest `g + w · h`, where the weight `w` is at least 1. A larger `w` pushes the search toward the goal, so it usually expands far fewer states. The price is quality: with an *admissible* heuristic (one that never overestimates), the path costs at most `w` times the optimum (*bounded-suboptimal*). With `w = 1` it is plain A*. The heuristic-search crate takes `w` as a fraction `p/q` and orders by `q · g + p · h`, so integer costs stay exact.",
+	"papers": [
+		{
+			"authors": "Ira Pohl",
+			"title": "Heuristic search viewed as path finding in a graph",
+			"year": 1970,
+			"venue": "Artificial Intelligence",
+			"doi": "10.1016/0004-3702(70)90007-X",
+			"arxiv": null,
+			"url": null,
+			"role": "introduces"
+		}
+	],
+	"lineage": [
+		{
+			"slug": "a-star",
+			"name": null,
+			"relation": "generalizes",
+			"source": "heuristic-search, src/best_first.rs: \"Weighted A*: A* ordered by g + w * h\"; \"Weight Weight::ONE is plain A*\""
+		}
+	],
+	"trace": "grid/weighted-a-star"
+}

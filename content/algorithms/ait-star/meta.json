@@ -1,0 +1,30 @@
+{
+	"description": "AIT* (Adaptively Informed Trees) finds a path and then keeps improving it while it runs (it is *anytime*). Like BIT*, it treats each batch of random samples as an implicit *random geometric graph* (RGG), in which each sample links to its near neighbours. A reverse search from the goal, Lifelong Planning A* without collision checks, computes a cost-to-go estimate `h_con` for every state of this graph. A forward search grows a tree from the start in order of `g + c_hat + h_con` and checks only the edges that come out on top; each edge that fails is removed from the graph, and the reverse search repairs `h_con` incrementally, so the forward search turns away from obstacles. AIT* is almost-surely asymptotically optimal (its cost converges to the optimum) and often finds a first path about as fast as RRT-Connect.",
+	"papers": [
+		{
+			"authors": "Marlin P. Strub, Jonathan D. Gammell",
+			"title": "Adaptively Informed Trees (AIT*): Fast Asymptotically Optimal Path Planning through Adaptive Heuristics",
+			"year": 2020,
+			"venue": "IEEE International Conference on Robotics and Automation (ICRA)",
+			"doi": "10.1109/ICRA40945.2020.9197338",
+			"arxiv": "2002.06599",
+			"url": null,
+			"role": "introduces"
+		}
+	],
+	"lineage": [
+		{
+			"slug": "bit-star",
+			"name": null,
+			"relation": "builds-on",
+			"source": "Adaptively Informed Trees (AIT*): Fast Asymptotically Optimal Path Planning through Adaptive Heuristics: \"an almost-surely asymptotically optimal sampling-based planner based on BIT*\""
+		},
+		{
+			"slug": "lpa-star",
+			"name": null,
+			"relation": "builds-on",
+			"source": "sampling-planning, src/informed/ait_star.rs: \"a lazy reverse search from the goal states, Lifelong Planning A* (LPA*) without collision checks, computes the cost-to-go h_con\""
+		}
+	],
+	"trace": null
+}

@@ -1,0 +1,17 @@
+{
+	"description": "RTDP (*real-time dynamic programming*) plans when actions have costs and random outcomes, and a goal must be reached at the lowest expected cost (a *stochastic shortest path problem*). It runs *trials*: from the start state, it sets the state's value to the cheapest expected cost over its actions (a *Bellman backup*), takes the cheapest action and samples a successor. With an *admissible* heuristic (one that never overestimates the cost), the values on the states that trials keep visiting converge to the optimum. The crate's `rtdp` stops when every state that the greedy policy reaches has a *residual* (the change that one more backup would make) of at most ε. It is a baseline for comparisons; use `lrtdp` for real problems.",
+	"papers": [
+		{
+			"authors": "Andrew G. Barto, Steven J. Bradtke, Satinder P. Singh",
+			"title": "Learning to act using real-time dynamic programming",
+			"year": 1995,
+			"venue": "Artificial Intelligence",
+			"doi": "10.1016/0004-3702(94)00011-O",
+			"arxiv": null,
+			"url": null,
+			"role": "introduces"
+		}
+	],
+	"lineage": [],
+	"trace": null
+}

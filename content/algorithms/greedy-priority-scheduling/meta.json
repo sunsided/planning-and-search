@@ -1,0 +1,13 @@
+{
+	"description": "Greedy priority scheduling places activities on a resource plan one by one, highest priority first, with ties broken by activity id. Each activity goes to the earliest start in its window at which it fits, found by earliest-start search. An activity that does not fit anywhere is skipped, and the plan stays unchanged for it. The scheduler never moves a placed activity and never backtracks, so it can miss a placement that another order would find. Use it as a fast repair step after a change, with a precomputed order as the priorities.",
+	"papers": [],
+	"lineage": [
+		{
+			"slug": "earliest-start-search",
+			"name": null,
+			"relation": "builds-on",
+			"source": "resource-timeline, src/greedy.rs: \"Places every request at the earliest start in its window at which it fits, in priority order\" (it calls Plan::earliest_start)"
+		}
+	],
+	"trace": null
+}

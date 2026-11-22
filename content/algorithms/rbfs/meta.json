@@ -1,0 +1,17 @@
+{
+	"description": "RBFS (Recursive Best-First Search) finds a cheapest path in memory linear in the search depth. It keeps only the current path and the siblings of its nodes. It goes down into the child with the smallest *backed-up* value `F` (the smallest `f` found below it so far), while that value stays within a bound: the smaller of the parent's bound and the second-best sibling's `F`. When a subtree exceeds its bound, it returns its smallest leaf value to the parent, which then switches to the best sibling. With an *admissible* heuristic (one that never overestimates) the path is optimal; the cost is that it regenerates subtrees when it comes back to them.",
+	"papers": [
+		{
+			"authors": "Richard E. Korf",
+			"title": "Linear-space best-first search",
+			"year": 1993,
+			"venue": "Artificial Intelligence",
+			"doi": "10.1016/0004-3702(93)90045-D",
+			"arxiv": null,
+			"url": null,
+			"role": "introduces"
+		}
+	],
+	"lineage": [],
+	"trace": null
+}

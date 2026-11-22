@@ -1,0 +1,22 @@
+algorithm Nudge(R, O, δ, cap)
+  input: routes R on the routing graph, obstacles O, separation δ, largest spread gap cap
+  output: one polyline per route, with shared stretches moved apart
+  for each pass in ⟨x, y⟩ do                 ▷ x moves vertical segments, then y horizontal
+    S ← maximal-segments(R, pass)            ▷ a segment that ends at a port is fixed
+    S ← order-on-lines(S)                    ▷ the path order of the routes on each line
+    C ← scan-line-constraints(S, O)          ▷ each x_v − x_u ≥ gap, all forward in scan order
+    PLACED ← ∅
+    while some movable segment of S is not in PLACED do      ▷ water-filling rounds
+      for each M in components(C, S ∖ PLACED) do             ▷ placed segments are constants
+        t ← largest-gap(M, cap)              ▷ binary search on feasible(lowest(M, t))
+        if t < δ then
+          t ← largest-gap(M, cap) with obstacle gaps relaxed to 0
+        lo ← lowest(M, t)                    ▷ one forward pass: longest paths
+        hi ← highest(M, t)                   ▷ one backward pass
+        B ← M
+        if t < cap then
+          B ← bottleneck(M, lo, hi)          ▷ the members with the least slack
+        for each s in B do
+          x[s] ← ⌊(lo[s] + hi[s]) / 2⌋       ▷ a component open on one side packs at lo or hi
+        PLACED ← PLACED ∪ B
+  return polylines(R, x)

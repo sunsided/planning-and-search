@@ -1,0 +1,19 @@
+algorithm LM-cut(s, O, G)
+  input: state s, operators O with costs cost, goal facts G
+  output: an admissible estimate of the cost from s to G, or ∞ if G is unreachable
+  h ← 0
+  c ← fact-costs-max(s, O, cost)           ▷ the per-fact table that h^max computes
+  if max { c[g] : g ∈ G } = ∞ then
+    return ∞
+  while max { c[g] : g ∈ G } > 0 do
+    for each o in O do
+      choice[o] ← a precondition of o with the largest c
+    ZONE ← {a goal fact of largest c} ∪ facts that reach it through rules o of cost 0 from choice[o]
+    START ← facts reachable from s through rules from choice[o] without entering ZONE
+    CUT ← { o ∈ O : choice[o] ∈ START and eff(o) ∩ ZONE ≠ ∅ }
+    m ← min { cost(o) : o ∈ CUT }
+    h ← h + m
+    for each o in CUT do
+      cost(o) ← cost(o) - m
+    c ← fact-costs-max(s, O, cost)
+  return h

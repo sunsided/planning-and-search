@@ -1,0 +1,16 @@
+algorithm RipUpAndReroute(C, G, k)
+  input: connectors C on routing graph G, at most k iterations
+  output: one route per connector
+  for each c in C do
+    route[c] ← a-star(G, c, cost)
+    commit(route[c])                       ▷ occupies tracks of the resources it uses
+  for i in 2, …, k do
+    U ← connectors c whose route[c] uses a resource over capacity
+    if U = ∅ then
+      break
+    raise-costs()                          ▷ PathFinder: history and present factor grow
+    for each c in U do
+      rip-up(route[c])                     ▷ frees its tracks; the other routes stay
+      route[c] ← a-star(G, c, cost)        ▷ cost is higher on contested resources
+      commit(route[c])
+  return route

@@ -1,0 +1,27 @@
+{
+	"description": "Girard reduction replaces a zonotope by a simpler zonotope that still contains it. A *zonotope* is a center plus a list of generator vectors, and its *order* is the number of generators divided by the dimension `n`. The method sorts the generators by `‖g‖₁ − ‖g‖∞`, which is zero for a generator that points along an axis. It keeps the generators with the largest values and encloses all the others in one axis-aligned box, so at most `order · n` generators stay. The result is a *sound over-approximation*: it contains every point of the original set, and possibly more; the method is fast, and reachability tools run it after each step to keep the number of generators small.",
+	"papers": [
+		{
+			"authors": "Antoine Girard",
+			"title": "Reachability of Uncertain Linear Systems Using Zonotopes",
+			"year": 2005,
+			"venue": "Hybrid Systems: Computation and Control (HSCC), Lecture Notes in Computer Science",
+			"doi": "10.1007/978-3-540-31954-2_19",
+			"arxiv": null,
+			"url": null,
+			"role": "introduces"
+		},
+		{
+			"authors": "Anna-Kathrin Kopetzki, Bastian Schürmann, Matthias Althoff",
+			"title": "Methods for order reduction of zonotopes",
+			"year": 2017,
+			"venue": "2017 IEEE 56th Annual Conference on Decision and Control (CDC)",
+			"doi": "10.1109/CDC.2017.8264508",
+			"arxiv": null,
+			"url": "https://mediatum.ub.tum.de/1379661",
+			"role": "surveys"
+		}
+	],
+	"lineage": [],
+	"trace": null
+}

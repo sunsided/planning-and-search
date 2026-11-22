@@ -1,0 +1,17 @@
+{
+	"description": "The additive heuristic h^add estimates the cost from a state to the goal of a planning task. It uses the *delete relaxation*: actions only add facts and never remove them. A fact true in the state costs 0. Any other fact costs the minimum, over the rules that add it, of the rule's cost plus the sum of its conditions' costs. h^add is the sum of these costs over all goal facts. It is not *admissible* (it can overestimate the true cost), because it counts a shared subgoal once for each goal that needs it, so use it to guide greedy search or, as BFWS-f5 does, take its *best supporters* to build a relaxed plan.",
+	"papers": [
+		{
+			"authors": "Blai Bonet, Hector Geffner",
+			"title": "Planning as heuristic search",
+			"year": 2001,
+			"venue": "Artificial Intelligence",
+			"doi": "10.1016/S0004-3702(01)00108-4",
+			"arxiv": null,
+			"url": null,
+			"role": "introduces"
+		}
+	],
+	"lineage": [],
+	"trace": null
+}

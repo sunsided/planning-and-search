@@ -1,0 +1,24 @@
+{
+	"description": "The WDG heuristic gives CBS a lower bound on how much the cost of a node must still rise, so CBS expands fewer nodes. It builds the *weighted dependency graph*: one vertex per agent, and an edge between two agents that are *dependent*, which means that their MDDs (all their cheapest paths, layered by time) have no combination without a conflict. Each edge gets a weight `Δ`: the optimal sum of costs of the pair alone under its constraints, minus their current costs, from a small CBS over the two agents. The bound is a minimum *edge-weighted vertex cover*: the least total rise `∑ x_i` with `x_a + x_b ≥ Δ_ab` for every edge. It is admissible for sum of costs and at least as strong as DG; where an exact answer is too costly, the crate uses a smaller bound, so it stays admissible.",
+	"papers": [
+		{
+			"authors": "Jiaoyang Li, Ariel Felner, Eli Boyarski, Hang Ma, Sven Koenig",
+			"title": "Improved Heuristics for Multi-Agent Path Finding with Conflict-Based Search",
+			"year": 2019,
+			"venue": "Proceedings of the Twenty-Eighth International Joint Conference on Artificial Intelligence (IJCAI 2019)",
+			"doi": "10.24963/ijcai.2019/63",
+			"arxiv": null,
+			"url": null,
+			"role": "introduces"
+		}
+	],
+	"lineage": [
+		{
+			"slug": "dg-heuristic",
+			"name": null,
+			"relation": "builds-on",
+			"source": "mapf-search, src/cbs.rs: \"WDG (Li et al. 2019): the DG graph with each edge weighted by how much the pair's sum of costs must rise\""
+		}
+	],
+	"trace": null
+}

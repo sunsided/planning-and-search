@@ -1,0 +1,26 @@
+algorithm BFMT*(x₀, X-goal, n, γ, optimal)
+  input: start x₀, goal region X-goal with center x-goal, number of samples n, radius constant γ, termination mode optimal
+  output: the cheapest path found where the two trees meet, or failure
+  V ← {x₀, x-goal} ∪ n valid samples
+  F ← wave rooted at x₀, cost-to-come, edges checked parent to child
+  B ← wave rooted at x-goal, cost-to-go, edges checked child to parent
+  best ← nil
+  side ← F
+  while OPEN(side) ≠ ∅ do
+    z ← min(OPEN(side))
+    NEW ← expand(side, z)                      ▷ one FMT* step on this tree
+    for each x in NEW do
+      if x is connected in both F and B then
+        if cost-F[x] + cost-B[x] < cost of best then
+          best ← x
+      if side = F and x ∈ X-goal and cost-F[x] < cost of best then
+        best ← x                               ▷ the start tree reached the goal region alone
+    if optimal and z is closed in the other tree then
+      break
+    if not optimal and best ≠ nil then
+      break
+    if OPEN(other tree) ≠ ∅ then
+      side ← other tree
+  if best = nil then
+    return failure
+  return path-to(x₀, best), joined with path-to(best, x-goal) if best is in B

@@ -1,0 +1,27 @@
+{
+	"description": "Differential evolution (DE) minimises a function of real variables with a population of `NP` points. For each point it builds a *mutant*: a base point plus `F` times the difference of two other random points, for example `v = x_r1 + F (x_r2 − x_r3)` in `DE/rand/1`. A *crossover* then takes each coordinate from the mutant with probability `CR`, and at least one. The trial point replaces its target only if it is not worse, so the population never gets worse. Because the difference vectors shrink as the population converges, the step size adapts by itself. Use it for continuous problems without gradients, often with a *Latin hypercube* start (one point in each equal slice of every coordinate) or with a warm start from a library of solved, similar tasks; it is a heuristic with no optimality guarantee.",
+	"papers": [
+		{
+			"authors": "Rainer Storn, Kenneth Price",
+			"title": "Differential Evolution – A Simple and Efficient Heuristic for global Optimization over Continuous Spaces",
+			"year": 1997,
+			"venue": "Journal of Global Optimization",
+			"doi": "10.1023/A:1008202821328",
+			"arxiv": null,
+			"url": null,
+			"role": "introduces"
+		},
+		{
+			"authors": "Linzhu Yue, Zhitao Song, Hongbo Zhang, Xuanqi Zeng, Lingwei Zhang, Yun-Hui Liu",
+			"title": "Evolutionary-Based Online Motion Planning Framework for Quadruped Robot Jumping",
+			"year": 2023,
+			"venue": null,
+			"doi": null,
+			"arxiv": "2309.07633",
+			"url": null,
+			"role": "applies"
+		}
+	],
+	"lineage": [],
+	"trace": null
+}

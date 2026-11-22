@@ -1,0 +1,20 @@
+algorithm P³C(V, w)
+  input: time points V, weights w(i, j) of the constraint graph (∞ where absent)
+  output: the minimal weights on every edge of a chordal supergraph, or inconsistent
+  ORDER ← ⟨⟩
+  while V ≠ ∅ do
+    k ← node of V with the fewest neighbours in V    ▷ minimum degree, lowest index on ties
+    N[k] ← neighbours of k in V
+    for each ordered pair (i, j) of distinct nodes in N[k] do
+      add-fill-edge(i, j)                            ▷ only where the pair has no edge
+      w(i, j) ← min(w(i, j), w(i, k) + w(k, j))      ▷ directional path consistency
+    for each i in N[k] do
+      if w(i, k) + w(k, i) < 0 then
+        return inconsistent
+    V ← V ∖ {k}
+    append(ORDER, k)
+  for each k in reverse(ORDER) do                    ▷ backward sweep
+    for each ordered pair (i, j) of distinct nodes in N[k] do
+      w(i, k) ← min(w(i, k), w(i, j) + w(j, k))
+      w(k, j) ← min(w(k, j), w(k, i) + w(i, j))
+  return w

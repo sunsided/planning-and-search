@@ -1,0 +1,24 @@
+{
+	"description": "Rollout IW(1) is a depth-first form of IW(1) for problems where breadth-first layers are too wide, such as Atari games. It repeats random *rollouts*: walks down from the root, each step to a random child that is not *solved* (a solved node needs no more search). For each feature it keeps the smallest depth at which a node reached it. A rollout enters a new node only if the node reaches some feature at a smaller depth than before; otherwise it labels the node solved. Like IW(1), it reaches every goal of width 1, but its plans need not be shortest; this version runs until it finds a goal or the root is solved, while the paper uses it to choose actions within a time budget.",
+	"papers": [
+		{
+			"authors": "Wilmer Bandres, Blai Bonet, Hector Geffner",
+			"title": "Planning With Pixels in (Almost) Real Time",
+			"year": 2018,
+			"venue": "Proceedings of the AAAI Conference on Artificial Intelligence",
+			"doi": "10.1609/aaai.v32i1.12095",
+			"arxiv": "1801.03354",
+			"url": null,
+			"role": "introduces"
+		}
+	],
+	"lineage": [
+		{
+			"slug": "iw",
+			"name": null,
+			"relation": "builds-on",
+			"source": "Planning With Pixels in (Almost) Real Time (abstract): \"an episodic, rollout version of the IW(k) algorithm\""
+		}
+	],
+	"trace": null
+}

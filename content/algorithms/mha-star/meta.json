@@ -1,0 +1,24 @@
+{
+	"description": "MHA* (Multi-Heuristic A*) uses several heuristics at once and still bounds the solution cost. One *anchor* heuristic must be consistent; the others may be *inadmissible* (they can overestimate) and only guide the search. Each heuristic has its own queue, ordered by `g + w₁ · h`. In round robin, an inadmissible queue may expand while its best key is at most `w₂` times the anchor's best key; otherwise the anchor expands. The shared variant (SMHA*) shares path costs between queues and expands each state at most twice, and the result costs at most `w₁ · w₂` times the optimum.",
+	"papers": [
+		{
+			"authors": "Sandip Aine, Siddharth Swaminathan, Venkatraman Narayanan, Victor Hwang, Maxim Likhachev",
+			"title": "Multi-Heuristic A*",
+			"year": 2016,
+			"venue": "The International Journal of Robotics Research",
+			"doi": "10.1177/0278364915594029",
+			"arxiv": null,
+			"url": null,
+			"role": "introduces"
+		}
+	],
+	"lineage": [
+		{
+			"slug": "weighted-a-star",
+			"name": null,
+			"relation": "builds-on",
+			"source": "heuristic-search, src/mha.rs: \"Shared multi-heuristic A* (SMHA*): Weighted A* over one anchor queue and one queue per inadmissible heuristic\""
+		}
+	],
+	"trace": null
+}

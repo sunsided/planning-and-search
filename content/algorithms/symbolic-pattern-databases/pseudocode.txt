@@ -1,0 +1,18 @@
+algorithm Symbolic PDB(P, G, T)
+  input: pattern P (a set of variables), goal set G, relations T grouped by cost
+  output: the heuristic as disjoint sets H_h, one per goal distance h
+  T_P ← project(T, P)                          ▷ quantify the bits of variables outside P
+  G_P ← project(G, P)
+  OPEN[0] ← G_P
+  CLOSED ← ∅
+  H ← ∅
+  while some OPEN[g] ≠ ∅ do                    ▷ blind backward Dijkstra to the end
+    g ← smallest cost with OPEN[g] ≠ ∅
+    S ← OPEN[g] ∖ CLOSED
+    OPEN[g] ← ∅
+    if S ≠ ∅ then
+      H ← H ∪ {(g, S)}
+      CLOSED ← CLOSED ∪ S
+      for each (c, T_c) in T_P do
+        OPEN[g + c] ← OPEN[g + c] ∪ preimage(T_c, S)
+  return H                                     ▷ states in no H_g are dead ends

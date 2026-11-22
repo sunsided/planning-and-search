@@ -1,0 +1,34 @@
+{
+	"description": "Space-time A* plans the path of one agent when some vertices and moves are forbidden at given times (*constraints*). It runs A* over states `(vertex, time)`: from `(v, t)` the agent waits or moves to a neighbour at cost 1, unless a constraint forbids the vertex at `t + 1` or the move at `t`. The heuristic is the exact distance to the goal from a backward breadth-first search, raised so that the agent cannot arrive before the last constraint on its goal; it is admissible, so the path is the cheapest one under the constraints. Successors later than the last constraint plus the number of vertices are cut, so an empty open list proves that no path exists. CBS and PBS in the crate use it as their low level, and with a conflict avoidance table it prefers, among the cheapest paths, the one with the fewest conflicts.",
+	"papers": [
+		{
+			"authors": "David Silver",
+			"title": "Cooperative Pathfinding",
+			"year": 2005,
+			"venue": "Proceedings of the AAAI Conference on Artificial Intelligence and Interactive Digital Entertainment (AIIDE 2005)",
+			"doi": "10.1609/aiide.v1i1.18726",
+			"arxiv": null,
+			"url": "https://ojs.aaai.org/index.php/AIIDE/article/view/18726",
+			"role": "introduces"
+		},
+		{
+			"authors": "Guni Sharon, Roni Stern, Ariel Felner, Nathan R. Sturtevant",
+			"title": "Conflict-based search for optimal multi-agent pathfinding",
+			"year": 2015,
+			"venue": "Artificial Intelligence",
+			"doi": "10.1016/j.artint.2014.11.006",
+			"arxiv": null,
+			"url": null,
+			"role": "applies"
+		}
+	],
+	"lineage": [
+		{
+			"slug": "a-star",
+			"name": null,
+			"relation": "builds-on",
+			"source": "mapf-search, src/low_level.rs: \"space-time A* under a ConstraintSet … run by heuristic_search::a_star over (vertex, time) states\""
+		}
+	],
+	"trace": null
+}

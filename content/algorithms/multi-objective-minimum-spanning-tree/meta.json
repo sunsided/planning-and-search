@@ -1,0 +1,40 @@
+{
+	"description": "This problem asks for every Pareto-optimal spanning tree of an undirected graph whose edges carry cost vectors. A tree is *Pareto-optimal* when no other tree is as cheap in every objective and cheaper in one. `pareto_spanning_trees` does a branch and bound over the edges: it takes or skips each edge and prunes a partial tree when a known tree weakly dominates its lower bound, the cost so far plus the cheapest completion per objective by Kruskal's algorithm. The result is exact, but the run time can be exponential, because the Pareto set can be that large. For two objectives, `two_phase_spanning_trees` gives the same result by the two-phase method.",
+	"papers": [
+		{
+			"authors": "Horst W. Hamacher, Günter Ruhe",
+			"title": "On spanning tree problems with multiple objectives",
+			"year": 1994,
+			"venue": "Annals of Operations Research",
+			"doi": "10.1007/bf02032304",
+			"arxiv": null,
+			"url": null,
+			"role": "analyses"
+		},
+		{
+			"authors": "R.M. Ramos, S. Alonso, J. Sicilia, C. González",
+			"title": "The problem of the optimal biobjective spanning tree",
+			"year": 1998,
+			"venue": "European Journal of Operational Research",
+			"doi": "10.1016/s0377-2217(97)00391-3",
+			"arxiv": null,
+			"url": null,
+			"role": "extends"
+		}
+	],
+	"lineage": [
+		{
+			"slug": null,
+			"name": "Kruskal's algorithm",
+			"relation": "builds-on",
+			"source": "multiobjective-search, src/spanning.rs: \"its cost plus, per objective, the cheapest completion (Kruskal on the remaining edges)\""
+		},
+		{
+			"slug": "two-phase-method",
+			"name": null,
+			"relation": "combines",
+			"source": "multiobjective-search, src/spanning.rs: \"The two-phase method for bi-objective spanning trees (Ramos et al. 1998)\""
+		}
+	],
+	"trace": null
+}

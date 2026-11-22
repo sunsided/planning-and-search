@@ -1,0 +1,22 @@
+algorithm MO-CBS(agents, cost)
+  input: agents with starts and goals, vector costs cost(u, v) of moves and waits
+  output: the Pareto-optimal front: one conflict-free plan per Pareto-optimal cost vector
+  C ← ∅                                      ▷ solutions found so far
+  OPEN ← roots(agents)                       ▷ each combination of the agents' Pareto-optimal paths
+  while OPEN ≠ ∅ do
+    n ← extract-min(OPEN)                    ▷ lexicographic order of cost(n)
+    if dominated(C, cost(n)) then
+      continue
+    κ ← choose-conflict(n.paths)
+    if κ = nil then
+      C ← {s ∈ C : not dominates(cost(n), cost(s))} ∪ {n}
+      continue
+    for each (i, constraint) in resolving(κ) do
+      Q ← n.constraints ∪ {constraint}
+      for each path p in pareto-paths(i, Q) do  ▷ BOA* or NAMOA*dr over (vertex, time)
+        n′ ← child(n, Q, i, p)
+        if not dominated(C, cost(n′)) then
+          insert(OPEN, n′)
+  return C
+function dominated(C, c)
+  return ∃ s ∈ C : cost(s) ≤ c in every objective

@@ -1,0 +1,13 @@
+algorithm SccDfp(Π)
+  input: planning task Π
+  output: the next pair of factors to merge, at each call of next-pair
+  SCCS ← strongly-connected-components(causal-graph(Π))   ▷ topological order, sources first
+  REMAINING ← the components in SCCS with more than one variable
+function next-pair(F, c)
+  while REMAINING ≠ ∅ do
+    C ← first(REMAINING)
+    X ← the active factors in F whose variables lie in C
+    if |X| > 1 then
+      return Dfp(X, c)                              ▷ merge within the component
+    remove(REMAINING, C)                            ▷ C is one factor now
+  return Dfp(F, c)                                  ▷ then merge the components

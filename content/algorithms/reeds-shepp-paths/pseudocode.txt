@@ -1,0 +1,13 @@
+algorithm Reeds-Shepp-Path(p, q, ρ)
+  input: start pose p, goal pose q, minimum turning radius ρ
+  output: the shortest Reeds-Shepp path from p to q
+  (x, y, φ) ← q in the frame of p, scaled by 1/ρ   ▷ local-goal
+  best ← nil
+  for each family F in CSC, CCC, CCCC, CCSC, CCSCC do
+    for each variant (x′, y′, φ′, sign) in symmetric-variants(x, y, φ) do
+      ▷ the identity, time flip, reflection, and both together
+      if F has a solution (t, u, v) at (x′, y′, φ′) then
+        lengths ← sign · layout(F, t, u, v)      ▷ a negative length drives in reverse
+        if best = nil or ∑ |lengths| < ∑ |best| then
+          best ← lengths
+  return path of best, scaled by ρ              ▷ a CSC word always has a solution

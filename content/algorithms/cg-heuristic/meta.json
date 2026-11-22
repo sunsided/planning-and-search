@@ -1,0 +1,24 @@
+{
+	"description": "The CG heuristic gives CBS a lower bound on how much the sum of costs of a constraint-tree node must still rise. A conflict is *cardinal* when every cheapest path of both agents takes part in it, so each way of resolving it costs at least one more step. The heuristic builds the *conflict graph*: one vertex per agent and one edge per pair with a cardinal conflict. The agents whose costs rise must form a vertex cover of this graph, so the size of a minimum vertex cover is *admissible* (it never overestimates). `mapf-search` computes a safe lower bound on that size and uses it for the sum of costs only, as `CbsHeuristic::Cg`.",
+	"papers": [
+		{
+			"authors": "Ariel Felner, Jiaoyang Li, Eli Boyarski, Hang Ma, Liron Cohen, T. K. Satish Kumar, Sven Koenig",
+			"title": "Adding Heuristics to Conflict-Based Search for Multi-Agent Path Finding",
+			"year": 2018,
+			"venue": "International Conference on Automated Planning and Scheduling (ICAPS)",
+			"doi": "10.1609/icaps.v28i1.13883",
+			"arxiv": null,
+			"url": null,
+			"role": "introduces"
+		}
+	],
+	"lineage": [
+		{
+			"slug": "prioritizing-conflicts",
+			"name": null,
+			"relation": "builds-on",
+			"source": "mapf-search, src/cbs/cardinal.rs: \"Conflict classification by MDDs (Boyarski et al. 2015), which the CG heuristic (Felner et al. 2018) and conflict prioritization build on.\""
+		}
+	],
+	"trace": null
+}

@@ -1,0 +1,24 @@
+{
+	"description": "ARA* (Anytime Repairing A*) runs a series of Weighted A* searches with falling weights, for example 3, 2, 1.5 and 1. Each search orders states by `g + w·h` and stops when its solution costs at most `w` times the optimum. A state that gets a cheaper path after its expansion is not expanded again in the same search: it waits in a list (*INCONS*) for the next one. So each search reuses the work of the one before, which makes ARA* cheaper than a restart of Weighted A* for each weight. With an admissible and *consistent* `h` (its estimate never drops by more than the edge cost along an edge) and a schedule that ends at 1, the final path is optimal.",
+	"papers": [
+		{
+			"authors": "Maxim Likhachev, Geoff Gordon, Sebastian Thrun",
+			"title": "ARA*: Anytime A* with Provable Bounds on Sub-Optimality",
+			"year": 2003,
+			"venue": "Advances in Neural Information Processing Systems 16 (NIPS 2003)",
+			"doi": null,
+			"arxiv": null,
+			"url": "https://proceedings.neurips.cc/paper_files/paper/2003/file/ee8fe9093fbbb687bef15a38facc44d2-Paper.pdf",
+			"role": "introduces"
+		}
+	],
+	"lineage": [
+		{
+			"slug": "weighted-a-star",
+			"name": null,
+			"relation": "builds-on",
+			"source": "heuristic-search, src/anytime/ara.rs: \"a series of Weighted A* searches with falling weights that reuse each other's work\""
+		}
+	],
+	"trace": null
+}

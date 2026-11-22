@@ -1,0 +1,17 @@
+{
+	"description": "Genetic programming (GP) evolves programs instead of fixed-length parameter vectors. A program is a tree: inner nodes are *functions* such as `if` or `add`, and leaves are *terminals* such as sensor readings or actions; the caller's grammar gives each symbol its number of children (its *arity*). *Ramped half-and-half* creates the first trees: half are full trees and half grow at random, over a range of depths, for a varied start. *Subtree crossover* swaps random subtrees of two parents, *subtree mutation* replaces a subtree by a new random one, and *point mutation* swaps one symbol for another of the same arity; depth and size limits stop trees from growing without bound. Use it to evolve small policies, for example reactive navigation rules; it is a heuristic search with no optimality guarantee.",
+	"papers": [
+		{
+			"authors": "Jiabin Lou, Rong Ding, Wenjun Wu",
+			"title": "Evolutionary Programmer: Autonomously Creating Path Planning Programs based on Evolutionary Algorithms",
+			"year": 2022,
+			"venue": null,
+			"doi": null,
+			"arxiv": "2204.02970",
+			"url": null,
+			"role": "applies"
+		}
+	],
+	"lineage": [],
+	"trace": null
+}

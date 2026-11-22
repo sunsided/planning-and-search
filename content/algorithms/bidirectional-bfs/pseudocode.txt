@@ -1,0 +1,28 @@
+algorithm Bidirectional BFS(s₀, GOALS)
+  input: start s₀, a set of goal states GOALS, successors and predecessors
+  output: a path with the fewest edges, or failure
+  dF[s₀] ← 0                                   ▷ edges from the start
+  dB[t] ← 0 for each t in GOALS                ▷ edges to a goal
+  LF ← {s₀}
+  LB ← GOALS
+  while LF ≠ ∅ and LB ≠ ∅ do
+    if |LF| ≤ |LB| then
+      LF, MEETS ← expand-layer(LF, successors, dF, dB)
+    else
+      LB, MEETS ← expand-layer(LB, predecessors, dB, dF)
+    if MEETS ≠ ∅ then
+      m ← the state of MEETS with the smallest dF[m] + dB[m]
+      return join(path from s₀ to m, path from m to a goal)
+  return failure
+function expand-layer(L, next, d, d-other)
+  NEW ← ∅
+  MEETS ← ∅
+  for each s in L do
+    for each s′ in next(s) do
+      if s′ is new on this side then
+        d[s′] ← d[s] + 1
+        parent[s′] ← s
+        NEW ← NEW ∪ {s′}
+        if s′ was reached by the other side then
+          MEETS ← MEETS ∪ {s′}
+  return NEW, MEETS

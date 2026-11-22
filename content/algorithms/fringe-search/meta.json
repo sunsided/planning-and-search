@@ -1,0 +1,24 @@
+{
+	"description": "Fringe search finds a cheapest path with an *admissible* heuristic `h` (one that never overestimates), like A*, but it needs no priority queue. Like IDA*, it works in iterations with a cost threshold: it expands the states with `f = g + h` up to the threshold, defers the others, and then raises the threshold to the smallest deferred `f`. The *fringe* is two lists, *now* and *later*, and each new or improved successor goes to the head of *now*, so an iteration runs depth-first. Like A*, it caches the best `g` and the parent of every state seen, so it expands a state again only after it finds a cheaper path to it. Use it on grid and game maps with few distinct `f` values; many distinct float costs mean many iterations, and memory grows as for A*.",
+	"papers": [
+		{
+			"authors": "Yngvi Björnsson, Markus Enzenberger, Robert C. Holte, Jonathan Schaeffer",
+			"title": "Fringe Search: Beating A* at Pathfinding on Game Maps",
+			"year": 2005,
+			"venue": "IEEE Symposium on Computational Intelligence and Games (CIG)",
+			"doi": null,
+			"arxiv": null,
+			"url": null,
+			"role": "introduces"
+		}
+	],
+	"lineage": [
+		{
+			"slug": "ida-star",
+			"name": null,
+			"relation": "builds-on",
+			"source": "heuristic-search, src/fringe.rs: \"Runs threshold iterations like ida_star ... but caches the best known g and parent of every state like a_star\""
+		}
+	],
+	"trace": null
+}

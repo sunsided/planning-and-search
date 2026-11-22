@@ -1,0 +1,22 @@
+algorithm GA-Path(G, s, t)
+  input: graph G with edge costs, start vertex s, goal vertex t
+  output: the shortest s–t path found, or failure
+  P ← paths from random-path(G, s, t)              ▷ randomised depth-first search
+  repeat
+    P′ ← the 2 shortest paths of P                 ▷ elitism
+    while |P′| < |P| do
+      a, b ← tournament(P, 3), tournament(P, 3)
+      if random() < 0.7 then
+        c₁, c₂ ← common-vertex(a, b)               ▷ cut at a shared vertex, swap tails
+      else
+        c₁, c₂ ← a, b
+      for each c in ⟨c₁, c₂⟩ do
+        if random() < 0.8 then
+          reroute(c)                               ▷ random detour between two vertices of c
+        remove-loops(c)
+        add (c, path-length(c)) to P′              ▷ ∞ if c does not join s to t
+    P ← P′
+  until budget exhausted
+  if no evaluated path reaches t then
+    return failure
+  return the shortest path evaluated

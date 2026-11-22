@@ -1,0 +1,24 @@
+{
+	"description": "Symbolic BFS is breadth-first search over sets of states, each stored as a *binary decision diagram* (BDD): a compact graph that represents a Boolean function over the bits of a state. One step computes the *image* of a whole layer (the set of all its successors) and keeps only the states not seen before. The first layer that contains a goal state gives a plan with the fewest operators, and an empty layer proves that no plan exists. Backward search does the same from the goal set with *preimages* (sets of predecessors). Use it for unit-cost tasks with large but regular state spaces, where BDDs stay small.",
+	"papers": [
+		{
+			"authors": "Álvaro Torralba, Vidal Alcázar, Peter Kissmann, Stefan Edelkamp",
+			"title": "Efficient symbolic search for cost-optimal planning",
+			"year": 2017,
+			"venue": "Artificial Intelligence",
+			"doi": "10.1016/j.artint.2016.10.001",
+			"arxiv": null,
+			"url": null,
+			"role": "surveys"
+		}
+	],
+	"lineage": [
+		{
+			"slug": "breadth-first-search",
+			"name": null,
+			"relation": "builds-on",
+			"source": "symbolic-search, src/search.rs: forward_bfs is \"Symbolic forward breadth-first search from the initial state\""
+		}
+	],
+	"trace": null
+}

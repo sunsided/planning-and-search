@@ -1,0 +1,24 @@
+{
+	"description": "h^FF estimates the cost to the goal by the cost of a *relaxed plan*: a plan for the task without delete effects, where a fact that becomes true stays true. First it computes h_add, which records for each fact its *best supporter*: the operator that adds it most cheaply, with precondition costs summed. Then it walks back from the goal along the best supporters and sums the costs of the operators it collects, each operator once. h^FF can overestimate, so it does not give optimal plans, but it guides greedy best-first search well. Decoupled search keeps a *price* (cheapest cost) for each reached leaf state; there, facts start at these prices, and the estimate adds the largest price that the relaxed plan starts from.",
+	"papers": [
+		{
+			"authors": "Jörg Hoffmann, Bernhard Nebel",
+			"title": "The FF Planning System: Fast Plan Generation Through Heuristic Search",
+			"year": 2001,
+			"venue": "Journal of Artificial Intelligence Research",
+			"doi": "10.1613/jair.855",
+			"arxiv": null,
+			"url": null,
+			"role": "introduces"
+		}
+	],
+	"lineage": [
+		{
+			"slug": "h-add",
+			"name": null,
+			"relation": "builds-on",
+			"source": "planning-heuristics, src/delete_relaxation.rs: \"`h_FF` (Hoffmann & Nebel 2001): the cost of a relaxed plan extracted from `h_add` best supporters\""
+		}
+	],
+	"trace": null
+}

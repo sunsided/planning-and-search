@@ -1,0 +1,27 @@
+algorithm Lazy-PRM-Query(G, s, goal)
+  input: roadmap G with unchecked edges, start s, goal region goal
+  output: a cheapest valid path from s to goal through G, or failure
+  connect-endpoints(G, s, goal)                ▷ checked motions into and out of G
+  repeat
+    route ← dijkstra(G, s, goal)               ▷ skips edges marked invalid
+    if route = nil then
+      return failure
+    ok ← confirm-lazy-edges(G, route)
+  until ok
+  return route
+procedure Grow(G, n)
+  input: roadmap G, number of samples n
+  for i in 1, …, n do
+    x ← sample()
+    if state-valid(x) then
+      add-node(G, x)
+      for each y in G within the connection radius of x do
+        add-edge(G, y, x, status: unchecked)   ▷ no collision check yet
+function confirm-lazy-edges(G, route)
+  for each unchecked edge e of route, in travel order do
+    if motion-valid(e) then
+      status[e] ← valid                        ▷ remembered for later queries
+    else
+      status[e] ← invalid
+      return false
+  return true

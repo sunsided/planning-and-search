@@ -1,0 +1,30 @@
+{
+	"description": "RRT# (RRT sharp) grows a graph from random samples like RRT*, but it keeps the costs of the whole graph up to date. It links each new vertex both ways to its neighbours. Then a replanning step in the style of LPA* passes each cost improvement on to the vertices that can use it, cheapest first, until no change can improve the best goal vertex. So after every step, the best path is the shortest path to the goal region in the current graph; it converges to an optimal path and improves faster per sample than RRT*. The crate checks an edge for collisions only when the edge would make a vertex cheaper.",
+	"papers": [
+		{
+			"authors": "Oktay Arslan, Panagiotis Tsiotras",
+			"title": "Use of relaxation methods in sampling-based algorithms for optimal motion planning",
+			"year": 2013,
+			"venue": "2013 IEEE International Conference on Robotics and Automation",
+			"doi": "10.1109/icra.2013.6630906",
+			"arxiv": null,
+			"url": null,
+			"role": "introduces"
+		}
+	],
+	"lineage": [
+		{
+			"slug": "rrt-star",
+			"name": null,
+			"relation": "builds-on",
+			"source": "sampling-planning, src/trees/rrt_sharp.rs: \"RRT#: RRT* with dynamic-programming replanning (Arslan and Tsiotras 2013)\""
+		},
+		{
+			"slug": "lpa-star",
+			"name": null,
+			"relation": "builds-on",
+			"source": "sampling-planning, src/trees/rrt_sharp.rs: \"Instead of RRT*'s one-step rewiring, a replanning step then runs an LPA*-like relaxation\""
+		}
+	],
+	"trace": null
+}

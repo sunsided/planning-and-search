@@ -1,0 +1,34 @@
+{
+	"description": "This method searches for a cheap plan of a SAS+ planning task (a task over multi-valued state variables and operators with preconditions, effects and costs) with a steady-state genetic algorithm. A genome is a variable-length chain of operator ids. To decode it, the method simulates the task from the initial state: by default it skips each operator that is not applicable (*phenotypic repair*) and stops at the first goal state. A valid plan costs its plan cost. An invalid chain costs a large penalty plus the number of unsatisfied goal facts plus the fraction of the chain that does not execute, so near-misses rank above far misses (a *fitness cascade*). Optionally, *genotypic repair* writes the executed plan back into the chain. Every returned plan is valid, but it is not guaranteed to be optimal; use it when a valid plan is enough or as a baseline for heuristic search.",
+	"papers": [
+		{
+			"authors": "Bhavya Sai Nukapotula, Samin Moosavi, Haoze Wang, Luke Duncan, Diya Shakkottai, Varun Murali, Srinivas Shakkottai",
+			"title": "EvoPlan: Evolutionary Neuro-Symbolic Robot Planning with Spatio-Temporal Guarantees",
+			"year": 2026,
+			"venue": null,
+			"doi": null,
+			"arxiv": "2607.06724",
+			"url": null,
+			"role": "introduces"
+		},
+		{
+			"authors": "Wilfried Jakob",
+			"title": "Applying Evolutionary Algorithms Successfully: A Guide Gained from Real-world Applications",
+			"year": 2021,
+			"venue": null,
+			"doi": null,
+			"arxiv": "2107.11300",
+			"url": null,
+			"role": "surveys"
+		}
+	],
+	"lineage": [
+		{
+			"slug": "genetic-algorithm",
+			"name": null,
+			"relation": "specializes",
+			"source": "evolutionary-planning, src/sas.rs: \"Searches for a cheap plan with a steady-state GA over GLEAM chains\""
+		}
+	],
+	"trace": null
+}

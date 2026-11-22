@@ -1,0 +1,27 @@
+algorithm ValidatePddlPlus(problem, plan)
+  input: a PDDL+ problem with processes and events, a timestamped plan
+  output: valid, or the first violation
+  s ← initial-state(problem)
+  t ← 0
+  for each (t_next, H) in happenings(plan) do
+    repeat
+      s ← fire-cascade(s, t)
+      P ← {p ∈ processes : holds(pre(p), s, t⁺)}   ▷ the processes running just after t
+      rates ← linear-rates(P ∪ running-actions(t))
+      t_sw ← first-root(switch-conditions(s, rates), t, t_next)   ▷ t_next if none
+      if not over-all-hold(s, rates, t, t_sw) then
+        return violation(t, "over all condition")
+      s ← advance-linear(s, rates, t_sw − t)
+      t ← t_sw
+    until t = t_next
+    s ← fire-cascade(s, t)                     ▷ what triggers at t_next fires before H
+    s ← run-happening(H, s)                    ▷ as in temporal plan validation
+  if not holds(goal(problem), s) then
+    return violation(nil, goal(problem))
+  return valid
+function fire-cascade(s, t)
+  F ← {e ∈ events : enabled(e, s, t)}
+  while F ≠ ∅ do
+    s ← apply-all(collect-effects(F, s), s)    ▷ all enabled events fire together
+    F ← {e ∈ events : enabled(e, s, t)}
+  return s

@@ -1,0 +1,18 @@
+algorithm Plan-Avoiding(i, C, PATHS)
+  input: agent i, its constraints C, the other agents' current paths PATHS
+  output: a cheapest path of i with the fewest conflicts among the cheapest, or failure
+  CAT ← conflict-table(PATHS without i)         ▷ who is where at each time step
+  g[(start_i, 0)] ← (0, 0)                     ▷ cost pair (time steps, conflicts)
+  OPEN ← {(start_i, 0)}                        ▷ ordered by g + (dist(v, goal_i), 0), compared in order
+  while OPEN ≠ ∅ do
+    (v, t) ← extract-min(OPEN)
+    if v = goal_i and t > blocked-until(C, goal_i) then
+      return path-to((v, t))
+    for each u in {v} ∪ neighbours(v) do        ▷ wait or move
+      if allows(C, v, u, t) then
+        k ← conflicts(CAT, v, u, t)            ▷ vertex conflicts, swaps, parked agents
+        if g[(v, t)] + (1, k) < g[(u, t + 1)] then
+          g[(u, t + 1)] ← g[(v, t)] + (1, k)
+          parent[(u, t + 1)] ← (v, t)
+          insert-or-update(OPEN, (u, t + 1))
+  return failure

@@ -1,0 +1,34 @@
+{
+	"description": "A *factoring* splits the variables of a planning task into a *center* and *leaves* for decoupled search. The inverted fork factoring uses the *causal graph*, which has an arc from variable `u` to `v` when some operator reads or writes `u` and writes `v`. Every *source component* of this graph (a strongly connected component that no arc enters) becomes a leaf, if it has at most 2^16 states; all other variables form the center. The center may read the leaves, but the leaves never read the center. It suits tasks where independent parts supply preconditions to a shared component.",
+	"papers": [
+		{
+			"authors": "Daniel Gnad, Jörg Hoffmann, Carmel Domshlak",
+			"title": "From Fork Decoupling to Star-Topology Decoupling",
+			"year": 2015,
+			"venue": "Symposium on Combinatorial Search (SoCS)",
+			"doi": null,
+			"arxiv": null,
+			"url": "https://ojs.aaai.org/index.php/SOCS/article/view/18348",
+			"role": "introduces"
+		},
+		{
+			"authors": "Daniel Gnad, Valerie Poser, Jörg Hoffmann",
+			"title": "Beyond Forks: Finding and Ranking Star Factorings for Decoupled Search",
+			"year": 2017,
+			"venue": "International Joint Conference on Artificial Intelligence (IJCAI)",
+			"doi": "10.24963/ijcai.2017/602",
+			"arxiv": null,
+			"url": null,
+			"role": "extends"
+		}
+	],
+	"lineage": [
+		{
+			"slug": "fork-factoring",
+			"name": null,
+			"relation": "builds-on",
+			"source": "decoupled-search, docs/design.md: \"Inverted fork ... The fork strategy on the reversed causal graph\""
+		}
+	],
+	"trace": null
+}

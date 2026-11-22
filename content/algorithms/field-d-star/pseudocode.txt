@@ -1,0 +1,41 @@
+algorithm Field-D*(s-start, s-goal)
+  input: start corner s-start, goal corner s-goal of a grid with per-cell costs
+  output: an any-angle path from s-start to s-goal, or failure, after every change
+  g, rhs ← ∞, ∞                                ▷ at every corner
+  rhs[s-goal] ← 0
+  OPEN ← {s-goal}                              ▷ ordered by D* Lite's key towards s-start
+  repeat
+    compute-shortest-path()
+    yield the cheaper of extract-path(s-start) and the cheapest 8-connected corner path    ▷ failure if g[s-start] = ∞
+    s-start ← the new start, if the robot moved
+    for each corner s of a cell that changed do
+      update-corner(s)
+  until s-start = s-goal
+procedure compute-shortest-path()
+  while min-key(OPEN) < key(s-start) or rhs[s-start] ≠ g[s-start] do
+    s ← extract-min(OPEN)
+    if g[s] > rhs[s] then
+      g[s] ← rhs[s]
+    else
+      g[s] ← ∞
+      update-corner(s)
+    for each corner s′ that has s as a neighbour do
+      update-corner(s′)
+procedure update-corner(s)
+  if s ≠ s-goal then
+    rhs[s] ← min { interpolate(s, s₁, s₂) : (s₁, s₂) a pair of consecutive neighbours of s }
+  remove(OPEN, s)
+  if g[s] ≠ rhs[s] then
+    insert(OPEN, s, key(s))
+function interpolate(s, s₁, s₂)                 ▷ s₁ straight, s₂ diagonal from s
+  c, b ← cost of the cell s s₁ s₂, cost of the other cell along edge s s₁
+  f ← g[s₁] − g[s₂]
+  if f ≤ 0 then
+    return min(c, b) + g[s₁]                    ▷ along the edge to s₁
+  if c ≤ min(f, b) then
+    return c · √2 + g[s₂]                       ▷ straight across c to s₂
+  if f ≤ b then
+    y ← min(f / √(c² − f²), 1)                  ▷ cross c to a point on s₁ s₂
+    return c · √(1 + y²) + f · (1 − y) + g[s₂]
+  x ← 1 − min(b / √(c² − b²), 1)                ▷ along s s₁ at cost b, then across c
+  return b · x + c · √(1 + (1 − x)²) + g[s₂]

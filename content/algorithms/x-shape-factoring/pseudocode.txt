@@ -1,0 +1,13 @@
+algorithm x-shape(Π)
+  input: planning task Π
+  output: a strict-star factoring with center C and leaves
+  G ← causal-graph(Π)
+  FORK ← { K : K a sink component of G with states(K) ≤ 2^16 }
+  INV ← ∅
+  for each source component K of G do
+    if K shares no variable with a leaf of FORK and states(K) ≤ 2^16 then
+      if no arc of G runs from K into a leaf of FORK then
+        INV ← INV ∪ {K}
+  LEAVES ← FORK ∪ INV
+  C ← variables of Π not in any leaf
+  return (C, LEAVES)

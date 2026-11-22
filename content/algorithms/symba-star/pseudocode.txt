@@ -1,0 +1,28 @@
+algorithm SymBA*(I, G, T, limits)
+  input: initial set I, goal set G, relations T, node limits and abstraction hierarchy
+  output: a cheapest plan, or failure
+  F ← blind frontier forward from I
+  B ← blind frontier backward from G
+  best ← ∞
+  while F or B has open states do
+    if best ≤ lower-bound(F, B) then
+      break
+    D ← the frontier whose next bucket has fewer BDD nodes
+    if nodes(next-bucket(D)) > frontier-limit and D has abstract work left then
+      abstract-step(D)
+    expand-one-bucket(D)
+    best ← min(best, cheapest-meeting(F, B))
+  if best = ∞ then
+    return failure
+  return join(forward-plan(F), backward-plan(B))
+procedure abstract-step(D)
+  A ← the paused abstract search of D, or a new one at the next level
+  run A for one slice, in the direction opposite to D
+  if A is exhausted then
+    freeze(A)                                  ▷ exact; coarser levels cannot beat it
+    stop abstract work for D
+  else if nodes(next-bucket(A)) > abstract-limit then
+    freeze(A)
+    next level drops one more variable or bit
+  h ← max of all frozen perimeters and perimeter(A)
+  refile the open sets of D under h

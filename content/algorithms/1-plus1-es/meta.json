@@ -1,0 +1,17 @@
+{
+	"description": "The (1+1)-ES minimises a function of real variables with one parent and one child per step. The child is the parent plus Gaussian noise of step size `σ`. It replaces the parent if it is not worse. The *1/5th success rule* controls `σ`: after a success `σ` grows by `exp(1/3)`, after a failure it shrinks by `exp(-1/12)`, so `σ` stays constant when exactly one child in five succeeds. It is simple and converges fast on smooth, unimodal functions; on multimodal functions it can stop in a local minimum.",
+	"papers": [
+		{
+			"authors": "Hans-Georg Beyer, Hans-Paul Schwefel",
+			"title": "Evolution strategies – A comprehensive introduction",
+			"year": 2002,
+			"venue": "Natural Computing",
+			"doi": "10.1023/A:1015059928466",
+			"arxiv": null,
+			"url": null,
+			"role": "surveys"
+		}
+	],
+	"lineage": [],
+	"trace": null
+}

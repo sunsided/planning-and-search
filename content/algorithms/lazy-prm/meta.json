@@ -1,0 +1,24 @@
+{
+	"description": "Lazy PRM is a form of PRM, which builds a graph of random valid states with edges between near states, but it does not check the edges for collisions when it adds them. At query time it finds the cheapest path through the graph and checks only the edges on that path; if an edge is invalid, Lazy PRM marks it, leaves it out and searches again, and edges found valid stay valid for later queries. This saves most collision checks when checks are expensive and most edges are never used. In `sampling-planning` it is the lazy mode of `Prm`, and it returns the same path as the eager PRM for the same samples.",
+	"papers": [
+		{
+			"authors": "R. Bohlin, L. E. Kavraki",
+			"title": "Path planning using lazy PRM",
+			"year": 2000,
+			"venue": "IEEE International Conference on Robotics and Automation (ICRA)",
+			"doi": "10.1109/ROBOT.2000.844107",
+			"arxiv": null,
+			"url": null,
+			"role": "introduces"
+		}
+	],
+	"lineage": [
+		{
+			"slug": "prm",
+			"name": null,
+			"relation": "builds-on",
+			"source": "sampling-planning, src/roadmaps/prm.rs: \"Lazy PRM (Bohlin and Kavraki 2000): store edges unchecked and check only the edges of candidate query paths\", a mode of Prm"
+		}
+	],
+	"trace": null
+}

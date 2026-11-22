@@ -1,0 +1,19 @@
+algorithm RTDP(s₀, goal, h, ε)
+  input: initial state s₀, goal test goal, heuristic h, tolerance ε
+  output: values V and a greedy policy π
+  V[s] ← h(s) for each state s when it is first reached
+  repeat
+    s ← s₀
+    while not goal(s) do
+      back-up(s)                                 ▷ V[s] ← min over a of Q(s, a), π[s] ← its argmin
+      if π[s] = nil then                         ▷ a dead end ends the trial
+        break
+      s ← sample(successors(s, π[s]))
+  until envelope-consistent(s₀, ε)               ▷ checked only now and then
+  return V, π
+function envelope-consistent(s₀, ε)
+  ▷ the solved check of LRTDP; a failed check backs up nothing
+  for each state t reachable from s₀ under π do
+    if |V[t] − min over a of Q(t, a)| > ε then
+      return false
+  return true

@@ -1,0 +1,30 @@
+{
+	"description": "A\\*pex finds a small set of paths that approximates the *Pareto front* for any number of objectives. The Pareto front is the set of path costs that no other path matches in every objective and beats in one. The search works on *apex-path pairs*: the apex is a cost vector that is no worse than every path the pair stands for, and the representative is one real path. Two pairs at the same state merge when the representative stays within `1 + ε_i` of the merged apex in every objective `i`, so the search expands fewer pairs. With a *consistent* heuristic (one that never drops by more than an edge's cost along that edge), each Pareto-optimal cost has a returned path within `1 + ε_i` of it in every objective `i`, and `ε = 0` gives the exact front.",
+	"papers": [
+		{
+			"authors": "Han Zhang, Oren Salzman, T. K. Satish Kumar, Ariel Felner, Carlos Hernández Ulloa, Sven Koenig",
+			"title": "A*pex: Efficient Approximate Multi-Objective Search on Graphs",
+			"year": 2022,
+			"venue": "International Conference on Automated Planning and Scheduling (ICAPS)",
+			"doi": "10.1609/icaps.v32i1.19825",
+			"arxiv": null,
+			"url": null,
+			"role": "introduces"
+		}
+	],
+	"lineage": [
+		{
+			"slug": "namoa-star-dr",
+			"name": null,
+			"relation": "builds-on",
+			"source": "multiobjective-search, src/apex.rs: \"The search is NAMOA*dr over apexes (Algorithm 2 of the paper)\""
+		},
+		{
+			"slug": "pp-a-star",
+			"name": null,
+			"relation": "generalizes",
+			"source": "A*pex: Efficient Approximate Multi-Objective Search on Graphs (abstract): A*pex \"builds on PP-A*\" and \"generalizes it to multi-objective search for any number of cost components\""
+		}
+	],
+	"trace": null
+}

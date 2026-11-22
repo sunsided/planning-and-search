@@ -1,0 +1,34 @@
+{
+	"description": "Saturated cost partitioning (SCP) adds the estimates of several abstraction heuristics and stays *admissible*: the sum never overestimates the cost to the goal. It splits each operator's cost into shares, one per abstraction, that sum to at most the original cost. In a given order, each abstraction computes its goal distances under the costs that are left and keeps only its *saturated* cost: per operator, the largest drop in goal distance along one of its transitions. The result depends on the order, so `MaxOverOrders` takes the largest SCP estimate over several orders, which is still admissible. Use it to combine many weak abstractions, such as projections, into one strong heuristic for optimal search.",
+	"papers": [
+		{
+			"authors": "Jendrik Seipp, Malte Helmert",
+			"title": "Diverse and Additive Cartesian Abstraction Heuristics",
+			"year": 2014,
+			"venue": "Proceedings of the International Conference on Automated Planning and Scheduling (ICAPS 2014)",
+			"doi": "10.1609/icaps.v24i1.13639",
+			"arxiv": null,
+			"url": null,
+			"role": "introduces"
+		},
+		{
+			"authors": "Jendrik Seipp, Thomas Keller, Malte Helmert",
+			"title": "Saturated Cost Partitioning for Optimal Classical Planning",
+			"year": 2020,
+			"venue": "Journal of Artificial Intelligence Research",
+			"doi": "10.1613/jair.1.11673",
+			"arxiv": null,
+			"url": null,
+			"role": "extends"
+		}
+	],
+	"lineage": [
+		{
+			"slug": null,
+			"name": "Cost partitioning (Katz & Domshlak 2008)",
+			"relation": "specializes",
+			"source": "Saturated Cost Partitioning for Optimal Classical Planning: \"Saturated cost partitioning (Seipp & Helmert, 2014, 2018) is a greedy algorithm that quickly computes suboptimal cost partitionings.\""
+		}
+	],
+	"trace": null
+}

@@ -1,0 +1,16 @@
+algorithm OptimalLandmarkCost(s)
+  input: state s
+  output: an admissible estimate, or ∞ for a dead end
+  LM ← landmarks(s)                           ▷ h¹ fact landmarks
+  if LM = failure then
+    return ∞
+  PEND ← {l ∈ LM : l ∉ s and some operator adds l}
+  LP ← maximize ∑ c_l over l ∈ PEND, with c_l ≥ 0
+  for each operator o do
+    add-constraint(LP, ∑ c_l over l ∈ PEND added by o ≤ cost(o))
+  u ← uniform-landmark-cost(s)
+  c ← solve(LP)
+  if c = failure then
+    return u
+  c ← scale-to-feasible(clamp(c, 0))          ▷ every constraint holds exactly
+  return max(⌈∑ c_l over l ∈ PEND⌉, u)

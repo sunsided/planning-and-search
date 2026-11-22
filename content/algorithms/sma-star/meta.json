@@ -1,0 +1,24 @@
+{
+	"description": "SMA* (Simplified Memory-Bounded A*) runs A* on the search tree with at most `M` nodes in memory. When memory is full, it forgets the leaf with the largest `f`, and the parent remembers that child's value. The parent can then regenerate the child when it becomes the best part of the tree again. With an *admissible* heuristic (one that never overestimates), SMA* returns the cheapest path among those with at most `M − 1` edges. So it is optimal when some optimal path fits in memory. Use it when A* runs out of memory and IDA* repeats too much work.",
+	"papers": [
+		{
+			"authors": "Stuart Russell",
+			"title": "Efficient memory-bounded search methods",
+			"year": 1992,
+			"venue": "Proceedings of the 10th European Conference on Artificial Intelligence (ECAI)",
+			"doi": null,
+			"arxiv": null,
+			"url": null,
+			"role": "introduces"
+		}
+	],
+	"lineage": [
+		{
+			"slug": "a-star",
+			"name": null,
+			"relation": "builds-on",
+			"source": "heuristic-search, src/sma.rs: \"SMA* runs A* on the search tree with at most memory nodes in memory\""
+		}
+	],
+	"trace": null
+}

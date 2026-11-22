@@ -1,0 +1,27 @@
+{
+	"description": "DESPOT chooses the next action when the planner cannot see the true state, and it maximizes discounted reward. It samples K *scenarios*. Each is a start state from the particle belief and fixed random numbers for every step, so the tree holds only the observations that these scenarios produce. The search keeps an upper and a lower bound per node and explores where the gap is largest, while a cost λ per node (*regularization*) prefers small policies that do not overfit the scenarios. The crate follows the anytime algorithm of Ye et al. (2017) and recommends the action with the best lower bound; use it for large problems when POMCP's lack of bounds is a concern.",
+	"papers": [
+		{
+			"authors": "Adhiraj Somani, Nan Ye, David Hsu, Wee Sun Lee",
+			"title": "DESPOT: Online POMDP Planning with Regularization",
+			"year": 2013,
+			"venue": "Advances in Neural Information Processing Systems (NeurIPS)",
+			"doi": null,
+			"arxiv": null,
+			"url": "https://papers.nips.cc/paper_files/paper/2013/hash/c2aee86157b4a40b78132f1e71a9e6f1-Abstract.html",
+			"role": "introduces"
+		},
+		{
+			"authors": "Nan Ye, Adhiraj Somani, David Hsu, Wee Sun Lee",
+			"title": "DESPOT: Online POMDP Planning with Regularization",
+			"year": 2017,
+			"venue": "Journal of Artificial Intelligence Research",
+			"doi": "10.1613/jair.5328",
+			"arxiv": null,
+			"url": null,
+			"role": "extends"
+		}
+	],
+	"lineage": [],
+	"trace": null
+}

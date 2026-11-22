@@ -1,0 +1,17 @@
+{
+	"description": "ICTS finds a plan for many agents with the least sum of costs or the least makespan (the time at which the last agent arrives). Its high level searches the *increasing cost tree*: each node is a vector with one path cost per agent, and each child raises one agent's cost by 1. The vectors are visited in order of their sum, so the first vector that has a plan without conflicts is optimal. To test a vector, ICTS builds each agent's *MDD* (multi-valued decision diagram: all its paths of exactly that cost, layered by time) and searches their product for a combination without conflicts; pairwise pruning first tests each pair of agents alone, which rejects most vectors quickly. ICTS works best when only a few agents must take a detour, because the tree grows exponentially with the total extra cost.",
+	"papers": [
+		{
+			"authors": "Guni Sharon, Roni Stern, Meir Goldenberg, Ariel Felner",
+			"title": "The increasing cost tree search for optimal multi-agent pathfinding",
+			"year": 2013,
+			"venue": "Artificial Intelligence",
+			"doi": "10.1016/j.artint.2012.11.006",
+			"arxiv": null,
+			"url": null,
+			"role": "introduces"
+		}
+	],
+	"lineage": [],
+	"trace": null
+}

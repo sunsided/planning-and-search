@@ -1,0 +1,20 @@
+algorithm ES(μ, ρ, λ, f)
+  input: parents μ, parents per child ρ, children λ, cost function f
+  output: the best point found when the budget ends
+  P ← μ uniform points in the box, each with initial step sizes σ
+  repeat
+    Q ← ∅
+    for k in 1, …, λ do
+      choose ρ distinct parents from P
+      (x, σ) ← recombine(parents)              ▷ intermediate: the centroid; or discrete
+      ξ ← τ′ · N(0, 1)                         ▷ one global factor per child
+      for each i in 1, …, n do
+        σ_i ← σ_i · exp(ξ + τ · N(0, 1))        ▷ log-normal self-adaptation
+        x_i ← x_i + σ_i · N(0, 1)
+      reflect x into the box
+      Q ← Q ∪ {(x, σ, f(x))}
+    if plus selection then                     ▷ (μ/ρ+λ); otherwise (μ/ρ,λ)
+      Q ← Q ∪ P
+    P ← the μ cheapest members of Q
+  until budget exhausted
+  return the cheapest point evaluated

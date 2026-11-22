@@ -1,0 +1,24 @@
+{
+	"description": "CG-iLAO* (*constraint-generation iLAO\\**) is iLAO* that does not compute every action at every state. Each state starts with only its cheapest actions *active*, and backups use only those. A change of value marks other actions as candidates. A candidate becomes active when it is cheaper than the current value (a violated *constraint*). A final check over all actions makes the policy ε-consistent like that of iLAO*; use it when states have many actions and most of them are clearly bad.",
+	"papers": [
+		{
+			"authors": "Johannes Schmalz, Felipe Trevizan",
+			"title": "Efficient Constraint Generation for Stochastic Shortest Path Problems",
+			"year": 2024,
+			"venue": "AAAI Conference on Artificial Intelligence",
+			"doi": "10.1609/aaai.v38i18.30005",
+			"arxiv": null,
+			"url": null,
+			"role": "introduces"
+		}
+	],
+	"lineage": [
+		{
+			"slug": "ilao-star",
+			"name": null,
+			"relation": "builds-on",
+			"source": "stochastic-search, src/cg_ilao.rs: \"CG-iLAO* (Schmalz and Trevizan 2024): iLAO* over a partial SSP whose states hold only the actions constraint generation has found necessary\""
+		}
+	],
+	"trace": null
+}

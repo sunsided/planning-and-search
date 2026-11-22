@@ -1,0 +1,30 @@
+algorithm EvolutionaryProgrammer(I, k, M)
+  input: training instances I, evaluation budget k per planner run, meta budget M
+  output: the best decoded planner configuration and its score
+  for each (G, s, t) in I do
+    d*[G, s, t] ← length of a shortest s–t path by Dijkstra
+  P ← random bit strings of GENOME_BITS bits
+  repeat                                         ▷ generational meta-GA
+    P′ ← the cheapest genome of P                ▷ one elite
+    while |P′| < |P| do
+      a, b ← linear-ranking(P, 2)                ▷ scores 0.8 … 1.2
+      if random() < 0.8 then
+        c₁, c₂ ← uniform-crossover(a, b)
+      else
+        c₁, c₂ ← a, b
+      bit-flip(c₁)
+      bit-flip(c₂)
+      add (c₁, score(c₁)) and (c₂, score(c₂)) to P′
+    P ← P′
+  until M genomes are evaluated
+  return decode(the cheapest genome), its score
+function score(bits)
+  planner ← decode(bits)                         ▷ PlannerConfig: operators and parameters
+  e ← ⟨⟩
+  for each (G, s, t) in I with d*[G, s, t] < ∞ do
+    d ← planner.solve(G, s, t, k, fixed seed)
+    if d < ∞ then
+      append d / d*[G, s, t] − 1 to e
+    else
+      append 10 to e                             ▷ a failed run
+  return mean(e)

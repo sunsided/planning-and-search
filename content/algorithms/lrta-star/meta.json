@@ -1,0 +1,17 @@
+{
+	"description": "LRTA* (Learning Real-Time A*) moves an agent toward a goal while it plans only one step ahead. In each state it looks at every successor `s′`, sets the state's value to the smallest `c(s, s′) + h(s′)`, and moves to that successor. The values live in a table that persists across *trials* (runs from the start to a goal). If the table starts *admissible* (it never overestimates), it stays admissible. With positive edge costs and a reachable goal, every trial reaches the goal, and repeated trials converge to a cheapest path. Use it when the agent must act before a full plan is possible.",
+	"papers": [
+		{
+			"authors": "Richard E. Korf",
+			"title": "Real-time heuristic search",
+			"year": 1990,
+			"venue": "Artificial Intelligence",
+			"doi": "10.1016/0004-3702(90)90054-4",
+			"arxiv": null,
+			"url": null,
+			"role": "introduces"
+		}
+	],
+	"lineage": [],
+	"trace": null
+}

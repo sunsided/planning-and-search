@@ -1,0 +1,17 @@
+{
+	"description": "A conflict avoidance table (CAT) records where the other agents' current paths are at each time step. CBS uses it to break ties in its low level: among an agent's cheapest paths, the search returns one with the fewest conflicts with the other agents. To do this, A* uses a cost pair `(time steps, conflicts)` that it compares in that order, so the path stays cheapest and the conflict count is only a second criterion. The result is still optimal, and the constraint tree usually gets smaller. In `mapf-search` it is the `conflict_avoidance` field of `CbsConfig`, and ECBS uses the same table for its focal key.",
+	"papers": [
+		{
+			"authors": "Guni Sharon, Roni Stern, Ariel Felner, Nathan R. Sturtevant",
+			"title": "Conflict-based search for optimal multi-agent pathfinding",
+			"year": 2015,
+			"venue": "Artificial Intelligence",
+			"doi": "10.1016/j.artint.2014.11.006",
+			"arxiv": null,
+			"url": null,
+			"role": "applies"
+		}
+	],
+	"lineage": [],
+	"trace": null
+}

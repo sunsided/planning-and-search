@@ -1,0 +1,17 @@
+{
+	"description": "A *factoring* splits the variables of a planning task into a *center* and *leaves* for decoupled search. The maximum-leaves strategy seeds one leaf per variable of a *maximum independent set* of the *causal graph* (an arc from `u` to `v` when some operator reads or writes `u` and writes `v`): a largest set of variables with no arc between any two. It grows the leaves by center variables that touch exactly one leaf, drops *frozen* leaves, and grows again; a leaf is frozen if it has no *leaf action*, an operator that changes only that leaf and reads only it and the center. It keeps the result with the most *mobile* (not frozen) leaves over the independent sets it enumerates. The result is always a *strict star*, where no arc connects two leaves.",
+	"papers": [
+		{
+			"authors": "Daniel Gnad, Valerie Poser, Jörg Hoffmann",
+			"title": "Beyond Forks: Finding and Ranking Star Factorings for Decoupled Search",
+			"year": 2017,
+			"venue": "International Joint Conference on Artificial Intelligence (IJCAI)",
+			"doi": "10.24963/ijcai.2017/602",
+			"arxiv": null,
+			"url": null,
+			"role": "introduces"
+		}
+	],
+	"lineage": [],
+	"trace": null
+}

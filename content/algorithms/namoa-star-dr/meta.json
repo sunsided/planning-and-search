@@ -1,0 +1,34 @@
+{
+	"description": "NAMOA*dr is NAMOA* with *dimensionality reduction*. It needs a *consistent* heuristic: for each edge, the estimate drops by at most the edge cost. Then the labels of a state are expanded in order of their first objective, and so is each solution found. Thus a check against expanded labels and solutions can ignore the first objective. This saves one comparison per check, and for three objectives it turns the checks into binary searches. The result has the same cost vectors as NAMOA*.",
+	"papers": [
+		{
+			"authors": "Francisco-Javier Pulido, Lawrence Mandow, José-Luis Pérez-de-la-Cruz",
+			"title": "Dimensionality reduction in multiobjective shortest path search",
+			"year": 2015,
+			"venue": "Computers & Operations Research",
+			"doi": "10.1016/j.cor.2015.05.007",
+			"arxiv": null,
+			"url": null,
+			"role": "introduces"
+		},
+		{
+			"authors": "Maya Wolff, Ariel Felner, Oren Salzman",
+			"title": "Bridging Multi-Valued Heuristics and Dimensionality Reduction in Multi-Objective Search",
+			"year": 2026,
+			"venue": null,
+			"doi": null,
+			"arxiv": "2606.20644",
+			"url": null,
+			"role": "analyses"
+		}
+	],
+	"lineage": [
+		{
+			"slug": "namoa-star",
+			"name": null,
+			"relation": "builds-on",
+			"source": "multiobjective-search, src/namoa.rs: \"NAMOA*dr: namoa_star with dimensionality reduction, for consistent heuristics\""
+		}
+	],
+	"trace": null
+}

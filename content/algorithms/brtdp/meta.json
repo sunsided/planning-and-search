@@ -1,0 +1,24 @@
+{
+	"description": "BRTDP (*bounded RTDP*) keeps a lower bound `L` and an upper bound `U` on `V*`, the optimal expected cost of each state. `L` comes from an admissible heuristic and `U` from a finite upper heuristic, and `L ≤ V* ≤ U` holds at all times. Trials follow the action that is greedy on `L` and sample each successor by its probability times its gap `U − L`. The run stops when `U − L ≤ ε` at the start state, and the policy is greedy on `U`. It is *anytime*: you can stop it early and still know how far the policy can be from optimal.",
+	"papers": [
+		{
+			"authors": "H. Brendan McMahan, Maxim Likhachev, Geoffrey J. Gordon",
+			"title": "Bounded real-time dynamic programming: RTDP with monotone upper bounds and performance guarantees",
+			"year": 2005,
+			"venue": "International Conference on Machine Learning (ICML)",
+			"doi": "10.1145/1102351.1102423",
+			"arxiv": null,
+			"url": null,
+			"role": "introduces"
+		}
+	],
+	"lineage": [
+		{
+			"slug": "rtdp",
+			"name": null,
+			"relation": "builds-on",
+			"source": "Bounded real-time dynamic programming: RTDP with monotone upper bounds and performance guarantees"
+		}
+	],
+	"trace": null
+}

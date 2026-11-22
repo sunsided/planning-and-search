@@ -1,0 +1,22 @@
+algorithm Space-Time-A*(start, goal, CONSTRAINTS)
+  input: start and goal vertices, the agent's vertex and edge constraints
+  output: a cheapest path from start to goal under the constraints, or failure
+  dist ← backward-bfs(goal)                  ▷ exact distances, computed once per agent
+  τ ← blocked-until(CONSTRAINTS, goal)       ▷ last time the goal is forbidden
+  T ← latest-step(CONSTRAINTS) + |V|         ▷ horizon
+  g[(start, 0)] ← 0
+  OPEN ← {(start, 0)}                        ▷ ordered by f = g + h, ties to larger g
+  while OPEN ≠ ∅ do
+    (v, t) ← extract-min(OPEN)
+    if v = goal and t > τ then
+      return path-to((v, t))                 ▷ the agent stays at its goal for good
+    if t < T then
+      for each u in {v} ∪ neighbors(v) do    ▷ wait or move, at cost 1
+        if allows(CONSTRAINTS, v, u, t) and dist[u] < ∞ then
+          if g[(v, t)] + 1 < g[(u, t + 1)] then
+            g[(u, t + 1)] ← g[(v, t)] + 1
+            parent[(u, t + 1)] ← (v, t)
+            insert-or-update(OPEN, (u, t + 1), g[(u, t + 1)] + h(u, t + 1))
+  return failure                             ▷ a proof: every path fits in the horizon
+function h(u, t)
+  return max(dist[u], τ + 1 − t)

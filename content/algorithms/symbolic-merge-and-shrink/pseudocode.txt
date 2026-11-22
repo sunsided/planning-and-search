@@ -1,0 +1,18 @@
+algorithm Symbolic merge-and-shrink(task, limit)
+  input: planning task, node limit for the classes
+  output: goal distances of the final abstraction, as sets H_h
+  order ← goal variables, then the other variables, each by id
+  CLASSES ← {all states}                       ▷ one class per abstract state
+  for each v in order do
+    CLASSES ← {C ∩ (v = d) : C in CLASSES, d in domain(v), C ∩ (v = d) ≠ ∅}
+    if nodes(CLASSES) > limit then
+      dist ← class-distances(CLASSES, merged variables)
+      merge the classes with equal dist        ▷ dead classes only with each other
+      while nodes(CLASSES) > limit and |CLASSES| > 1 do
+        merge the two classes with the smallest dist
+  dist ← class-distances(CLASSES, all variables)
+  return {(h, ⋃ of the classes C with dist[C] = h)}
+function class-distances(CLASSES, V)
+  ▷ Dijkstra over classes in the projection onto V, backward from the goal
+  ▷ class C reaches D at cost c when some state in C has an operator of cost c into D
+  return the cheapest goal distance of every class, ∞ for dead classes

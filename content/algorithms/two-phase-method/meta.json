@@ -1,0 +1,40 @@
+{
+	"description": "The two-phase method finds all Pareto-optimal paths of a two-objective problem. Phase 1 finds the *extreme supported* solutions, the corners of the convex hull of the Pareto set. It does this by *dichotomic search*: for two neighbouring solutions it minimizes the weighted sum whose level line runs through both, and keeps a new solution below that line. Phase 2 searches each triangle between two neighbours for the other, *non-supported* solutions, with BOA*'s pruning limited to that box. The result is the same as BOA*'s.",
+	"papers": [
+		{
+			"authors": "Andrea Raith, Matthias Ehrgott",
+			"title": "A comparison of solution strategies for biobjective shortest path problems",
+			"year": 2009,
+			"venue": "Computers & Operations Research",
+			"doi": "10.1016/j.cor.2008.02.002",
+			"arxiv": null,
+			"url": null,
+			"role": "analyses"
+		},
+		{
+			"authors": "José Craveirinha, João Clímaco, Rita Girão-Silva, Marta Pascoal",
+			"title": "Multiobjective Path Problems and Algorithms in Telecommunication Network Design—Overview and Trends",
+			"year": 2024,
+			"venue": "Algorithms",
+			"doi": "10.3390/a17060222",
+			"arxiv": null,
+			"url": null,
+			"role": "surveys"
+		}
+	],
+	"lineage": [
+		{
+			"slug": "boa-star",
+			"name": null,
+			"relation": "combines",
+			"source": "multiobjective-search, src/two_phase.rs: phase 2 is \"found by BOA*'s label setting restricted to that box\""
+		},
+		{
+			"slug": null,
+			"name": "Dichotomic weighted-sum search (Aneja and Nair)",
+			"relation": "builds-on",
+			"source": "multiobjective-search, src/two_phase.rs: \"Dichotomic search (Aneja and Nair 1979)\""
+		}
+	],
+	"trace": null
+}

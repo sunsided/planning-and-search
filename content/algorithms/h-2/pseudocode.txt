@@ -1,0 +1,25 @@
+algorithm H2(s, G)
+  input: state s, goal facts G
+  output: h²(s), or ∞ for a dead end
+  for each fact set X with |X| ∈ {1, 2} do
+    if X ⊆ s then
+      h[X] ← 0
+    else
+      h[X] ← ∞                               ▷ two values of one variable stay ∞
+  repeat
+    changed ← false
+    for each operator o do
+      for each fact set X ⊆ eff(o) with |X| ∈ {1, 2} do
+        changed ← lower(X, cost(o) + cost2(pre(o))) or changed
+      for each p in eff(o) do
+        for each fact q whose variable o does not change do
+          changed ← lower({p, q}, cost(o) + cost2(pre(o) ∪ {q})) or changed
+  until not changed
+  return cost2(G)
+function cost2(X)
+  return max over Y ⊆ X with |Y| ∈ {1, 2} of h[Y]
+function lower(X, c)
+  if c < h[X] then
+    h[X] ← c
+    return true
+  return false

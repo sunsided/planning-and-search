@@ -1,0 +1,32 @@
+algorithm SPARS(Δ, δ, t, M)
+  input: guard range Δ, interface range δ, stretch t, failure limit M
+  output: a sparse roadmap S, a spanner of the dense graph D
+  D, S ← empty graph, empty graph
+  failures ← 0
+  while failures < M do
+    q ← sample()
+    if not state-valid(q) then
+      continue
+    add-milestone(D, q)                ▷ join the ⌈k ln n⌉ nearest; set representatives
+    V ← guards of S within Δ that see q, closest first
+    if V = ∅ then
+      add-guard(S, q)                  ▷ coverage
+    else if components(V) has more than one element then
+      connect-links(S, add-guard(S, q), V)       ▷ connectivity
+    else if check-interface(S, q, V) then
+      skip                             ▷ an edge v₁–v₂, or a guard at q between them
+    else if not Check-Add-Path(q) then
+      failures ← failures + 1
+      continue
+    failures ← 0                       ▷ reset by a new guard or interface edge
+  return S
+function Check-Add-Path(q)
+  v ← representative(q)
+  for each v′ ≠ v in representatives of the dense neighbours of q closer than δ do
+    for each v″ in neighbours(S, v) not adjacent to v′ do
+      s-max ← max-spanner-estimate(v, v′, v″)
+      π ← closest-interface-path(D, q, v, v″)
+      if s-max > t · length(π) then
+        add-quality-path(S, v′, π, v″)  ▷ π with one dense node at each end
+        return true
+  return false

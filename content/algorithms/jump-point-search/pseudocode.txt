@@ -1,0 +1,26 @@
+algorithm JPS(s₀, s-goal)
+  input: start cell s₀, goal cell s-goal of an 8-connected grid
+  output: a cheapest path as start, jump points and goal, or failure
+  return a-star((s₀, none), s-goal, octile-distance, jump-successors)    ▷ states are (cell, arrival direction)
+function jump-successors(x, d)
+  for each step e in pruned-steps(x, d) do     ▷ natural and forced neighbours
+    j ← jump(x, e)
+    if j ≠ nil then
+      yield ((j, e), octile cost of the moves from x to j)
+function jump(x, e)
+  repeat
+    if the move from x by e is blocked then
+      return nil
+    x ← x + e
+    if x = s-goal then
+      return x
+    if e is straight and has-forced-neighbour(x, e) then
+      return x
+    if e is diagonal and (jump(x, (eₓ, 0)) ≠ nil or jump(x, (0, e_y)) ≠ nil) then
+      return x
+  until false
+function has-forced-neighbour(x, e)
+  for each side step n perpendicular to e do
+    if x + n is open and x + n − e is blocked then
+      return true
+  return false

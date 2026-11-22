@@ -1,0 +1,27 @@
+{
+	"description": "*Signal temporal logic* (STL) states properties of a trace, a sequence of time steps of real-valued signals, for example \"speed stays at most 2 for the next 3 steps\". Its quantitative semantics gives a *robustness* value `ρ`: positive when the trace satisfies the formula, negative when it violates it, and its size says by how much. Robustness is computed bottom-up: a predicate `x_i ≥ c` gives `x_i(t) − c`, negation flips the sign, conjunction and disjunction take the minimum and the maximum, and the bounded operators `G[a,b]` (always), `F[a,b]` (eventually) and `U[a,b]` (until) take minima and maxima over a time window that is clipped to the end of the trace. The crate uses `−ρ` as a cost to minimise, as a graded constraint violation `max(0, −ρ)`, as a *shield* that picks the candidate action whose rollout is most robust, and in `fit` to tune the thresholds of a template formula to demonstrations with CMA-ES. The evaluation is exact and takes `O(nodes · length · window)` steps.",
+	"papers": [
+		{
+			"authors": "Alexandre Donzé, Oded Maler",
+			"title": "Robust Satisfaction of Temporal Logic over Real-Valued Signals",
+			"year": 2010,
+			"venue": "Formal Modeling and Analysis of Timed Systems (FORMATS 2010), LNCS",
+			"doi": "10.1007/978-3-642-15297-9_9",
+			"arxiv": null,
+			"url": null,
+			"role": "introduces"
+		},
+		{
+			"authors": "Bhavya Sai Nukapotula, Samin Moosavi, Haoze Wang, Luke Duncan, Diya Shakkottai, Varun Murali, Srinivas Shakkottai",
+			"title": "EvoPlan: Evolutionary Neuro-Symbolic Robot Planning with Spatio-Temporal Guarantees",
+			"year": 2026,
+			"venue": "Conference on Robot Learning (CoRL 2026)",
+			"doi": null,
+			"arxiv": "2607.06724",
+			"url": null,
+			"role": "applies"
+		}
+	],
+	"lineage": [],
+	"trace": null
+}

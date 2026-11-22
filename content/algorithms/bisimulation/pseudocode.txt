@@ -1,0 +1,29 @@
+algorithm Bisimulation(Θ, c, N)
+  input: factor Θ with states S and transitions T, label costs c, size limit N ≥ 1
+  output: a block for each state of Θ, at most N blocks
+  h ← goal-distances(Θ, c)
+  for each s in S do
+    block[s] ← id-of(h[s] = ∞, h[s], goal(s))     ▷ ids ordered by goal distance, dead ends last
+  if number-of-blocks(block) > N then
+    for each s in S do
+      block[s] ← min(block[s], N − 1)                ▷ combine the farthest blocks
+  repeat
+    for each s in S do
+      sig[s] ← (block[s], {(l, block[t]) : (s, l, t) ∈ T})
+    new ← id-of(sig)                                ▷ equal signatures share an id
+    if number-of-blocks(new) > N then
+      return split-at-limit(block, new, N)
+    changed ← number-of-blocks(new) > number-of-blocks(block)
+    block ← new
+  until not changed
+  return block
+function split-at-limit(block, new, N)
+  k ← number-of-blocks(block)
+  SPLIT ← ∅
+  for each block b in increasing id order do       ▷ closest to the goal first
+    p ← number of parts of b in new
+    if k + p − 1 > N then
+      break
+    SPLIT ← SPLIT ∪ {b}
+    k ← k + p − 1
+  return apply-splits(block, new, SPLIT)

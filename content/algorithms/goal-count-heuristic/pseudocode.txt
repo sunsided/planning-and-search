@@ -1,0 +1,8 @@
+algorithm GoalCount(task, s)
+  input: a grounded task with positive goal facts G, a state s
+  output: the number of goal facts that do not hold in s
+  n ← 0
+  for each f in G do
+    if f ∉ s then
+      n ← n + 1
+  return n

@@ -1,0 +1,24 @@
+{
+	"description": "LRTDP (*labeled RTDP*) finds a policy that reaches a goal at the lowest expected cost when actions have random outcomes. Like RTDP, it runs greedy trials from the start state and does a Bellman backup at each step. After a trial, it marks a state *solved* when each state that the greedy policy reaches from it has a *residual* (the change that one more backup would make) of at most ε. Trials stop at solved states, and the run ends when the start state is solved. It visits only the states that a good policy uses, so it is a strong default for large problems with an admissible heuristic.",
+	"papers": [
+		{
+			"authors": "Blai Bonet, Héctor Geffner",
+			"title": "Labeled RTDP: Improving the Convergence of Real-Time Dynamic Programming",
+			"year": 2003,
+			"venue": "International Conference on Automated Planning and Scheduling (ICAPS)",
+			"doi": null,
+			"arxiv": null,
+			"url": "https://cdn.aaai.org/ICAPS/2003/ICAPS03-002.pdf",
+			"role": "introduces"
+		}
+	],
+	"lineage": [
+		{
+			"slug": "rtdp",
+			"name": null,
+			"relation": "builds-on",
+			"source": "Labeled RTDP: Improving the Convergence of Real-Time Dynamic Programming"
+		}
+	],
+	"trace": null
+}

@@ -1,0 +1,24 @@
+algorithm BuildOVG(O, P)
+  input: rectangular obstacles O, ports P
+  output: the orthogonal visibility graph G
+  I ← corners(O) ∪ points(P) ∪ port-stubs(P) ∪ frame-corners(O, P)
+  H, V ← ∅, ∅
+  for each p in I do
+    if p is outside every obstacle interior then
+      H ← H ∪ {maximal-segment(p, horizontal, O)}   ▷ grows until it would enter an obstacle
+      V ← V ∪ {maximal-segment(p, vertical, O)}
+  for each h in H do
+    for each v in crossing(V, h) do
+      add-vertex(G, h ∩ v)
+  for each σ in H ∪ V do
+    link-consecutive(G, σ)                ▷ edges between neighbouring vertices on σ
+  return G
+procedure update(R)
+  ▷ R is an obstacle that is added, moved or removed
+  A ← segments whose line passes strictly through R's range and whose extent meets R
+  remove-segments(G, A)                   ▷ with their vertices
+  apply the change to O
+  for each p in generators(A) ∪ interesting-points-in(closure(R)) do
+    insert-segment(G, maximal-segment(p, horizontal, O))
+    insert-segment(G, maximal-segment(p, vertical, O))
+  ▷ a port that is added or removed adds or removes one generator

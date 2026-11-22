@@ -1,0 +1,24 @@
+{
+	"description": "iLAO* (*improved LAO\\**) solves a stochastic shortest path problem by heuristic search over the states that the greedy policy reaches from the start. It works in passes. Each pass is one depth-first walk along the greedy actions: it expands every unexpanded state it meets and backs up the states in postorder (children before parents). The run ends when a pass expands nothing, its largest change is below ε, and the solved check of LRTDP passes on the start state. The result is ε-consistent on the states the policy reaches; it is the LAO* variant to use.",
+	"papers": [
+		{
+			"authors": "Eric A. Hansen, Shlomo Zilberstein",
+			"title": "LAO*: A heuristic search algorithm that finds solutions with loops",
+			"year": 2001,
+			"venue": "Artificial Intelligence",
+			"doi": "10.1016/S0004-3702(01)00106-0",
+			"arxiv": null,
+			"url": null,
+			"role": "introduces"
+		}
+	],
+	"lineage": [
+		{
+			"slug": "lao-star",
+			"name": null,
+			"relation": "builds-on",
+			"source": "LAO*: A heuristic search algorithm that finds solutions with loops"
+		}
+	],
+	"trace": null
+}

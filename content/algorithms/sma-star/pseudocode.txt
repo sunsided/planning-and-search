@@ -1,0 +1,26 @@
+algorithm SMA*(s₀, goal, h, M)
+  input: start state s₀, goal test goal, admissible heuristic h, memory of M nodes
+  output: a cheapest path among those with at most M − 1 edges, or failure
+  f(s₀) ← h(s₀)
+  OPEN ← {s₀}                                  ▷ ordered by f, deepest first on ties
+  while OPEN ≠ ∅ do
+    n ← min(OPEN)
+    if f(n) = ∞ then
+      return failure                           ▷ a larger M may help if memory cut a path
+    if goal(n) then
+      return path-to(n)
+    if n was never expanded then
+      C ← successors of n that are not on its path
+    else
+      C ← {the best forgotten child of n}       ▷ regenerated with its remembered f
+    for each c in C do
+      if depth(c) + 1 > M or (depth(c) + 1 = M and not goal(c)) then
+        skip                                   ▷ the path to c does not fit in memory
+      else
+        f(c) ← max(f(n), g(c) + h(c))          ▷ never below the parent's value
+        add c to the tree and to OPEN
+    while more than M nodes are in memory do
+      ℓ ← the leaf with the largest f, shallowest first
+      remove ℓ, and let its parent remember ℓ and f(ℓ)
+    back up f to the ancestors of n            ▷ smallest f of children, kept and forgotten
+  return failure

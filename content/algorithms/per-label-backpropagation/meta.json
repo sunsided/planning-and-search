@@ -1,0 +1,13 @@
+{
+	"description": "Per-label backpropagation decides *dynamic controllability* of a simple temporal network with uncertainty (STNU) like Morris's 2014 algorithm, but on the network as it is. Morris first rewrites the network so that each node has only one kind of negative incoming edge. This variant skips that step and runs one backward Dijkstra search per kind instead: one for the ordinary edges and one for each *upper-case edge*, the edge that stands for the longest outcome of an uncertain duration. A search that starts from an upper-case edge ignores the *lower-case edge* (the shortest outcome) of the same duration, because one duration cannot take both values. It is slower than Morris's form and serves as an independent cross-check.",
+	"papers": [],
+	"lineage": [
+		{
+			"slug": "morris-2014-backpropagation",
+			"name": null,
+			"relation": "builds-on",
+			"source": "temporal-control, src/stnu/backprop.rs: \"A variant of Morris's 2014 algorithm [...] that keeps the network as it is instead of bringing it into normal form, and pays for that with one propagation per kind of negative incoming edge\""
+		}
+	],
+	"trace": null
+}

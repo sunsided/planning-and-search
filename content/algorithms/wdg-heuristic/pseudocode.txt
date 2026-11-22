@@ -1,0 +1,18 @@
+algorithm WDG(n)
+  input: a CBS node n with its paths, costs c_i and constraints
+  output: an admissible lower bound on how much n's sum of costs must rise
+  E ← ∅
+  for each pair (a, b) with a conflict in n.paths do
+    if dependent(a, b, n) then
+      Δ ← pair-weight(a, b, n)
+      if Δ = ∞ then
+        return ∞                             ▷ the pair has no joint plan: prune n
+      E ← E ∪ {(a, b, max(Δ, 1))}
+  return min-weighted-vertex-cover(E)        ▷ least ∑ x_i with x_a + x_b ≥ Δ_ab on each edge
+function dependent(a, b, n)
+  if cardinal(a, b, n) then
+    return true
+  return joint-paths(mdd(a, c_a), mdd(b, c_b)) = nil
+function pair-weight(a, b, n)
+  c* ← cbs-cost({a, b}, n.constraints)       ▷ the pair alone; a lower bound if cut short
+  return c* − (c_a + c_b)

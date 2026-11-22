@@ -1,0 +1,19 @@
+algorithm DFS(s₀, goal)
+  input: start state s₀, goal test goal
+  output: some path to a goal, or failure
+  if goal(s₀) then
+    return ⟨s₀⟩
+  SEEN ← {s₀}
+  STACK ← ⟨s₀⟩
+  while STACK ≠ ∅ do
+    s ← pop(STACK)
+    NEW ← ⟨⟩
+    for each s′ in successors(s), in the order the graph reports them do
+      if s′ ∉ SEEN then
+        SEEN ← SEEN ∪ {s′}
+        parent[s′] ← s
+        if goal(s′) then                       ▷ goals are tested on generation
+          return path-to(s′)
+        append(NEW, s′)
+    push NEW onto STACK in reverse order       ▷ the first reported successor is expanded first
+  return failure

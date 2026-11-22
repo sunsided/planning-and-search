@@ -1,0 +1,23 @@
+algorithm Robustness(φ, w, t)
+  input: STL formula φ, trace w with ℓ steps, step t
+  output: the robustness ρ(φ, w, t), positive if w satisfies φ at t
+  if φ = (x_i ≥ c) then
+    return x_i(w, t) − c                          ▷ −∞ past the end of the trace
+  else if φ = (x_i ≤ c) then
+    return c − x_i(w, t)
+  else if φ = ¬ψ then
+    return −Robustness(ψ, w, t)
+  else if φ = ψ₁ ∧ … ∧ ψ_k then
+    return min over j of Robustness(ψ_j, w, t)
+  else if φ = ψ₁ ∨ … ∨ ψ_k then
+    return max over j of Robustness(ψ_j, w, t)
+  else if φ = G[a,b] ψ then
+    return min over t′ ∈ window(t, a, b) of Robustness(ψ, w, t′)     ▷ +∞ on an empty window
+  else if φ = F[a,b] ψ then
+    return max over t′ ∈ window(t, a, b) of Robustness(ψ, w, t′)     ▷ −∞ on an empty window
+  else if φ = ψ₁ U[a,b] ψ₂ then
+    return max over t′ ∈ window(t, a, b) of min(Robustness(ψ₂, w, t′), min over t″ ∈ [t, t′) of Robustness(ψ₁, w, t″))
+function window(t, a, b)
+  return [t + a, min(t + b, ℓ − 1)]                ▷ clipped to the trace; empty if t + a ≥ ℓ
+function shield(CANDIDATES, rollout, φ)
+  return the candidate u ∈ CANDIDATES with the largest Robustness(φ, rollout(u), 0)

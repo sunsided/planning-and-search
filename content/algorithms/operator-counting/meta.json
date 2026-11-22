@@ -1,0 +1,30 @@
+{
+	"description": "An operator-counting heuristic gives each operator a count `Y_o ≥ 0` and minimizes the total cost `Σ cost(o) · Y_o` with a linear program (*LP*). Each constraint is true for the operator counts of every plan, so the minimum never overestimates (it is *admissible*). The crate uses two kinds of constraints: the *state equation*, which balances how often a plan can make each fact true and false, and the LM-cut landmarks, where each cut must be used at least once. An infeasible LP proves a dead end. It is a strong heuristic for optimal search, but each state needs one LP solve (feature `lp`).",
+	"papers": [
+		{
+			"authors": "Florian Pommerening, Gabriele Röger, Malte Helmert, Blai Bonet",
+			"title": "LP-Based Heuristics for Cost-Optimal Planning",
+			"year": 2014,
+			"venue": "International Conference on Automated Planning and Scheduling (ICAPS)",
+			"doi": "10.1609/icaps.v24i1.13621",
+			"arxiv": null,
+			"url": null,
+			"role": "introduces"
+		}
+	],
+	"lineage": [
+		{
+			"slug": "lm-cut",
+			"name": null,
+			"relation": "combines",
+			"source": "planning-heuristics, src/operator_counting.rs: \"the state equation (Bonet 2013) and LM-cut landmarks as constraints over operator counts\""
+		},
+		{
+			"slug": null,
+			"name": "State-equation heuristic (Bonet 2013)",
+			"relation": "generalizes",
+			"source": "LP-Based Heuristics for Cost-Optimal Planning; planning-heuristics, src/operator_counting.rs: \"State equation (Bonet 2013)\" is one of its constraint kinds"
+		}
+	],
+	"trace": null
+}

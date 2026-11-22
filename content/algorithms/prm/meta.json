@@ -1,0 +1,17 @@
+{
+	"description": "A probabilistic roadmap (PRM) is a graph of the free space that you build once and then query many times. PRM draws random states, keeps the valid ones as nodes, and joins each new node by direct, collision-free motions to the older nodes within a fixed radius (or to its `k` nearest nodes). A query connects the start and the goal to the graph and runs Dijkstra's algorithm on it. Use PRM when many start and goal pairs share one static environment. For path costs that converge to the optimum, use PRM*.",
+	"papers": [
+		{
+			"authors": "L. E. Kavraki, P. Švestka, J.-C. Latombe, M. H. Overmars",
+			"title": "Probabilistic roadmaps for path planning in high-dimensional configuration spaces",
+			"year": 1996,
+			"venue": "IEEE Transactions on Robotics and Automation",
+			"doi": "10.1109/70.508439",
+			"arxiv": null,
+			"url": null,
+			"role": "introduces"
+		}
+	],
+	"lineage": [],
+	"trace": null
+}

@@ -1,0 +1,26 @@
+algorithm Bellman-Ford(V, E)
+  input: time points V, distance-graph edges E, each (u, v, w) meaning t_v − t_u ≤ w
+  output: a schedule that meets every constraint, or a negative cycle
+  for each v in V do
+    d[v] ← 0                               ▷ a virtual source with a zero edge to every point
+    pred[v] ← nil
+  for pass in 1, …, |V| do
+    last ← nil
+    for each (u, v, w) in E do
+      if d[u] + w < d[v] then
+        d[v] ← d[u] + w
+        pred[v] ← (u, v, w)
+        last ← v
+    if last = nil then
+      return d                             ▷ consistent: d is a schedule
+  return extract-cycle(pred, last)         ▷ a change in pass |V| proves a negative cycle
+function extract-cycle(pred, x)
+  for i in 1, …, |V| do
+    x ← tail(pred[x])                      ▷ after |V| steps back, x lies on the cycle
+  C ← ⟨⟩
+  y ← x
+  repeat
+    prepend(C, pred[y])
+    y ← tail(pred[y])
+  until y = x
+  return C                                 ▷ its constraint bounds add up to less than zero

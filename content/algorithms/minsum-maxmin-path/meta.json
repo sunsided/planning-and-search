@@ -1,0 +1,44 @@
+{
+	"description": "A minsum-maxmin search finds every best trade-off between two path qualities. The first is the sum of the edge costs, which it minimizes. The second is the *bottleneck*: the smallest capacity of an edge on the path, which it maximizes. The search expands labels (partial paths) in order of cost plus a consistent heuristic, and wider bottlenecks first among equal costs. A label is redundant when an earlier label at its state, or an earlier solution, has a bottleneck at least as wide, so one value per state is enough. The result is the exact Pareto set, and `minsum_maxmin_multi` allows several sums and several bottlenecks.",
+	"papers": [
+		{
+			"authors": "Ernesto Queirós Vieira Martins",
+			"title": "On a special class of bicriterion path problems",
+			"year": 1984,
+			"venue": "European Journal of Operational Research",
+			"doi": "10.1016/0377-2217(84)90011-0",
+			"arxiv": null,
+			"url": null,
+			"role": "introduces"
+		},
+		{
+			"authors": "Xavier Gandibleux, Frédéric Beugnies, Sabine Randriamasy",
+			"title": "Martins' algorithm revisited for multi-objective shortest path problems with a MaxMin cost function",
+			"year": 2006,
+			"venue": "4OR",
+			"doi": "10.1007/s10288-005-0074-x",
+			"arxiv": null,
+			"url": null,
+			"role": "extends"
+		},
+		{
+			"authors": "José Craveirinha, João Clímaco, Rita Girão-Silva, Marta Pascoal",
+			"title": "Multiobjective Path Problems and Algorithms in Telecommunication Network Design—Overview and Trends",
+			"year": 2024,
+			"venue": "Algorithms",
+			"doi": "10.3390/a17060222",
+			"arxiv": null,
+			"url": null,
+			"role": "surveys"
+		}
+	],
+	"lineage": [
+		{
+			"slug": "boa-star",
+			"name": null,
+			"relation": "builds-on",
+			"source": "multiobjective-search, src/bottleneck.rs: \"A label is then dominated exactly when an earlier label at its state, or an earlier solution, has a bottleneck at least as large, as in BOA*\""
+		}
+	],
+	"trace": null
+}

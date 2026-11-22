@@ -1,0 +1,40 @@
+{
+	"description": "Dynamic multi-objective search keeps a Pareto front correct while the edges of the graph change. `DynamicSearch` stores, for each state, the Pareto set of path costs from the start, found by *label correcting*: a label is the cost vector of one path, and labels spread along edges until no new one survives. When an edge is added, changes its cost or is removed, it drops only the labels whose paths use that edge, together with the labels built on them. Then it seeds the affected states again from the labels of their predecessors and runs label correcting from there, as LPA\\* repairs only the part of its search that the change made wrong. After each change, the front is equal to the front of a new search, but the labels elsewhere stay.",
+	"papers": [
+		{
+			"authors": "Zhongqiang Ren, Sivakumar Rathinam, Maxim Likhachev, Howie Choset",
+			"title": "Multi-Objective Path-Based D* Lite",
+			"year": 2022,
+			"venue": "IEEE Robotics and Automation Letters",
+			"doi": "10.1109/lra.2022.3146918",
+			"arxiv": null,
+			"url": null,
+			"role": "extends"
+		},
+		{
+			"authors": "Oren Salzman, Carlos Hernández Ulloa, Ariel Felner, Sven Koenig",
+			"title": "Multi-Objective Search: Algorithms, Applications, and Emerging Directions",
+			"year": 2025,
+			"venue": null,
+			"doi": null,
+			"arxiv": "2510.25504",
+			"url": null,
+			"role": "surveys"
+		}
+	],
+	"lineage": [
+		{
+			"slug": "lpa-star",
+			"name": null,
+			"relation": "builds-on",
+			"source": "multiobjective-search, src/dynamic.rs: \"label correcting runs from there, as LPA* re-expands only the inconsistent part of its search tree\""
+		},
+		{
+			"slug": "multi-objective-label-correcting",
+			"name": null,
+			"relation": "builds-on",
+			"source": "multiobjective-search, docs/design.md: \"an LPA*-style repair over label correcting rather than MOPBD*'s path-based keys\""
+		}
+	],
+	"trace": null
+}

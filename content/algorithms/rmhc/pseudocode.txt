@@ -1,0 +1,23 @@
+algorithm RMHC(f, x₀, mutate, r)
+  input: cost f, start genome x₀, mutation mutate, restart limit r (∞ for none)
+  output: the best genome found
+  x, c ← x₀, f(x₀)
+  best ← (x, c)
+  stale ← 0
+  while the budget remains do
+    if stale ≥ r then
+      x ← random-genome()                        ▷ restart
+      c ← f(x)
+      stale ← 0
+    else
+      x′ ← mutate(copy of x)
+      c′ ← f(x′)
+      if c′ < c then
+        stale ← 0
+      else
+        stale ← stale + 1
+      if c′ ≤ c then                              ▷ equal costs are accepted: plateau moves
+        x, c ← x′, c′
+    if c < cost of best then
+      best ← (x, c)
+  return best

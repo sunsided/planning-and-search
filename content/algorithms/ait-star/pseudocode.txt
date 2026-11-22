@@ -1,0 +1,26 @@
+algorithm AIT*(x₀, X-goal, m)
+  input: start state x₀, goal region X-goal, batch size m
+  output: an improving sequence of paths to the goal region (anytime)
+  T ← tree with root x₀
+  c-best ← ∞
+  repeat
+    if Q-F = ∅ then                            ▷ start a new batch
+      prune(T, c-best)
+      add sample-informed(m, c-best) to the samples
+      G ← implicit RGG over the samples and the tree edges, minus invalid edges
+      restart-reverse-search(G, X-goal)        ▷ LPA* from the goals, no collision checks
+      expand(x₀)                               ▷ queue every edge (x₀, x) of G in Q-F
+    advance-reverse-search()                   ▷ until the best edge's child is settled
+    (v, x) ← extract-min(Q-F)                  ▷ ordered by g[v] + c-hat(v, x) + h-con[x]
+    if g[v] + c-hat(v, x) + h-con[x] ≥ c-best then
+      Q-F ← ∅
+    else if parent[x] = v then
+      expand(x)
+    else if g[v] + c-hat(v, x) < g[x] then
+      if motion-valid(v, x) then
+        connect(T, x, parent: v)               ▷ add, or rewire and lower the costs below x
+        expand(x)
+        c-best ← min over goal vertices x_g of T of g[x_g]
+      else
+        update-heuristic(v, x)                 ▷ remove the edge from G; LPA* repairs h-con
+  until stopped

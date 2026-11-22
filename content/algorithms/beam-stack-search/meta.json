@@ -1,0 +1,24 @@
+{
+	"description": "Beam-stack search is beam search that remembers what it pruned, so it is complete. Its *beam stack* holds one interval `[low, high)` of `f` values per layer, and the next layer admits only successors with `f` in that interval. When the search runs dry, it backtracks to the deepest layer that still has `f` values below the best solution cost `U`, moves that interval to `[high, U)` and builds the layer below again. It finds a first path as fast as beam search and reports each better one (it is *anytime*); when the stack is empty, the last path is optimal for an admissible heuristic. Memory stays at about `width` states per layer, but a narrow beam can take a long time to finish.",
+	"papers": [
+		{
+			"authors": "Rong Zhou, Eric A. Hansen",
+			"title": "Beam-Stack Search: Integrating Backtracking with Beam Search",
+			"year": 2005,
+			"venue": "Proceedings of the Fifteenth International Conference on Automated Planning and Scheduling (ICAPS 2005)",
+			"doi": null,
+			"arxiv": null,
+			"url": "https://cdn.aaai.org/ICAPS/2005/ICAPS05-010.pdf",
+			"role": "introduces"
+		}
+	],
+	"lineage": [
+		{
+			"slug": "beam-search",
+			"name": null,
+			"relation": "builds-on",
+			"source": "Beam-Stack Search: Integrating Backtracking with Beam Search: \"We describe a method for transforming beam search into a complete search algorithm\""
+		}
+	],
+	"trace": null
+}

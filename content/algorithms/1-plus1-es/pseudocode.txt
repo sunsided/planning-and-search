@@ -1,0 +1,14 @@
+algorithm (1+1)-ES(x₀, σ₀, f)
+  input: start point x₀, initial step size σ₀, cost function f
+  output: the best point found when the budget ends
+  x ← x₀
+  σ ← σ₀
+  repeat
+    x′ ← x + σ · N(0, I)                     ▷ one Gaussian child
+    if f(x′) ≤ f(x) then                    ▷ success: keep the child
+      x ← x′
+      σ ← σ · exp(1/3)
+    else
+      σ ← max(σ · exp(−1/12), σ-min)         ▷ stationary at a success rate of 1/5
+  until budget exhausted
+  return x

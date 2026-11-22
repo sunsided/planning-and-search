@@ -1,0 +1,23 @@
+algorithm Shortcut(P, e-max)
+  input: path P = ⟨p₀, …, p_m⟩, longest allowed new edge e-max
+  output: a valid path no more expensive than P
+  K ← ⟨⟩
+  i ← 0
+  while i < m do
+    append(K, p_i)
+    j ← largest j > i + 1 with d(p_i, p_j) ≤ e-max and motion-valid(p_i, p_j), else i + 1
+    i ← j
+  append(K, p_m)
+  return cheaper of K and P
+function Shortcut-Random(P, e-max, k)
+  input: path P, longest allowed new edge e-max, number of attempts k
+  output: a valid path no more expensive than P
+  Q ← P
+  for t in 1, …, k do
+    if |Q| < 3 then
+      break
+    a, b ← two random points on Q by arc length, a before b
+    Q′ ← Q with the piece from a to b replaced by the motion a → b
+    if d(a, b) ≤ e-max and the three new motions of Q′ are valid and cost(Q′) < cost(Q) then
+      Q ← Q′
+  return cheaper of Q and P

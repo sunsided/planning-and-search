@@ -1,0 +1,21 @@
+algorithm symbolic-leaf-closure(SEEDS, R)
+  input: seed layers SEEDS as pairs (price, BDD), leaf transition relations R active under the center
+  output: the closed layers, one BDD per price, every leaf state at its cheapest price
+  OPEN ← SEEDS                             ▷ a map from price to BDD, smallest price first
+  CLOSED ← ∅
+  LAYERS ← ⟨⟩
+  while OPEN ≠ ∅ do
+    p, S ← extract-min(OPEN)
+    FRONTIER ← S ∖ CLOSED
+    LAYER ← ∅
+    while FRONTIER ≠ ∅ do                  ▷ zero-cost steps stay at price p
+      CLOSED ← CLOSED ∪ FRONTIER
+      LAYER ← LAYER ∪ FRONTIER
+      FRONTIER ← union of image(FRONTIER, r) over r ∈ R with cost(r) = 0, ∖ CLOSED
+    if LAYER ≠ ∅ then
+      append(LAYERS, (p, LAYER))
+      for each r in R with cost(r) > 0 do
+        NEW ← image(LAYER, r) ∖ CLOSED
+        if NEW ≠ ∅ then
+          OPEN[p + cost(r)] ← OPEN[p + cost(r)] ∪ NEW
+  return LAYERS

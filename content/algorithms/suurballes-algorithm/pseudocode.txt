@@ -1,0 +1,17 @@
+algorithm Suurballe(G, s, t)
+  input: graph G with non-negative edge costs c, start s, target t
+  output: two edge-disjoint s–t paths of least total cost, or failure
+  d, P₁ ← dijkstra(G, s, t)
+  if P₁ = nil then
+    return failure
+  G′ ← empty graph
+  for each edge (u, v) of G do
+    if (u, v) ∈ P₁ then
+      add (v, u) to G′ with cost 0        ▷ reversed copy
+    else
+      add (u, v) to G′ with cost d(u) + c(u, v) − d(v)   ▷ reduced cost, ≥ 0
+  P₂ ← shortest s–t path in G′ by dijkstra
+  if P₂ = nil then
+    return failure
+  E ← (edges of P₁ ∪ edges of P₂) ∖ {edges of P₁ that P₂ crosses backwards}
+  return the two s–t paths that E decomposes into

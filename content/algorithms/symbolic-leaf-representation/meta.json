@@ -1,0 +1,24 @@
+{
+	"description": "Symbolic leaves store the leaf prices of decoupled search as binary decision diagrams (*BDDs*), compact graphs that represent sets of states. In decoupled search a task splits into a *center* and *leaves*, and each search node keeps the *price* (cheapest cost) of every reachable leaf state. Here each leaf keeps a list of layers, one BDD per price, instead of one number per leaf state. Leaf closure becomes a symbolic Dijkstra search with BDD image operations, so leaves too large to enumerate become usable. Under basic dominance pruning, the search space, the costs and the plans are the same as with explicit leaves. Small leaves can stay explicit next to symbolic ones.",
+	"papers": [
+		{
+			"authors": "Daniel Gnad, Álvaro Torralba, Jörg Hoffmann",
+			"title": "Symbolic Leaf Representation in Decoupled Search",
+			"year": 2017,
+			"venue": "Symposium on Combinatorial Search (SoCS)",
+			"doi": null,
+			"arxiv": null,
+			"url": "https://ojs.aaai.org/index.php/SOCS/article/view/18439",
+			"role": "introduces"
+		}
+	],
+	"lineage": [
+		{
+			"slug": "decoupled-search",
+			"name": null,
+			"relation": "builds-on",
+			"source": "Symbolic Leaf Representation in Decoupled Search"
+		}
+	],
+	"trace": null
+}

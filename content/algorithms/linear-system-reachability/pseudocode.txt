@@ -1,0 +1,17 @@
+algorithm LinearReach(X₀, U, A, B, r, η, k, ρ)
+  input: start set X₀, input zonotope U, system x′ = A x + B u, step r, Taylor terms η, steps k, order ρ
+  output: time-point sets X_i and time-interval sets R_i for i = 1, …, k
+  E ← taylor-remainder(A, r, η)          ▷ interval matrix that bounds the cut-off terms
+  Φ ← ∑ for j = 0, …, η of (A r)^j / j! + E    ▷ encloses e^(A r)
+  Γ ← ∑ for j = 0, …, η of A^j r^(j+1) / (j+1)! + E · r
+  F, F̃ ← curvature-corrections(A, r, η)
+  c_u ← center(B U)                      ▷ the constant part of the input
+  U_Δ ← B U ⊕ (−c_u)                     ▷ the part that may vary in time
+  R_p ← ⊕ for j = 0, …, η of (A^j r^(j+1) / (j+1)!) · U_Δ ⊕ E · r · U_Δ
+  X ← X₀
+  for i in 1, …, k do
+    X_i ← Φ · X ⊕ Γ · c_u ⊕ R_p
+    H ← hull-with-successor(X, Φ · X ⊕ Γ · c_u)  ▷ every λ x + (1 − λ) x′, λ ∈ [0, 1]
+    R_i ← H ⊕ F · X ⊕ F̃ · c_u ⊕ R_p
+    X ← reduce(X_i, ρ)                   ▷ the caller keeps the generator count bounded
+  return X₁, …, X_k and R₁, …, R_k

@@ -1,0 +1,18 @@
+algorithm h-FF(s, O, G)
+  input: state s, operators O, goal facts G
+  output: the cost of a relaxed plan from s to G, or ∞ if G is unreachable
+  c, supporter ← h-add(s, O)               ▷ like h^max, but an operator costs cost(o) + ∑ of its precondition costs
+  if ∃ g ∈ G: c[g] = ∞ then
+    return ∞
+  PLAN ← ∅
+  STACK ← G
+  SEEN ← ∅
+  while STACK ≠ ∅ do
+    p ← pop(STACK)
+    if p ∉ SEEN then
+      SEEN ← SEEN ∪ {p}
+      o ← supporter[p]                     ▷ nil for a fact of s
+      if o ≠ nil then
+        PLAN ← PLAN ∪ {o}
+        push(STACK, pre(o))
+  return ∑ { cost(o) : o ∈ PLAN }          ▷ each operator once; preferred operators: those of PLAN applicable in s

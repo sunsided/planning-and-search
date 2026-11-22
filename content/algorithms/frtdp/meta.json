@@ -1,0 +1,24 @@
+{
+	"description": "FRTDP (*focused RTDP*) keeps a lower bound `L` and an upper bound `U` on `V*`, the optimal expected cost of each state. It gives each state a *priority* from its gap `U − L` and the priorities of its successors. Trials do not sample: they follow the successor with the highest priority, up to a depth limit that grows when deep updates pay off. The run stops when `U − L ≤ ε` at the start state, and the policy is greedy on `U`. Use it like BRTDP when the probable outcomes matter most; the crate adds a BRTDP trial after a trial that does not shrink the gap.",
+	"papers": [
+		{
+			"authors": "Trey Smith, Reid Simmons",
+			"title": "Focused Real-Time Dynamic Programming for MDPs: Squeezing More Out of a Heuristic",
+			"year": 2006,
+			"venue": "AAAI Conference on Artificial Intelligence",
+			"doi": null,
+			"arxiv": null,
+			"url": "https://cdn.aaai.org/AAAI/2006/AAAI06-192.pdf",
+			"role": "introduces"
+		}
+	],
+	"lineage": [
+		{
+			"slug": "rtdp",
+			"name": null,
+			"relation": "builds-on",
+			"source": "Focused Real-Time Dynamic Programming for MDPs: Squeezing More Out of a Heuristic, abstract: \"We present a modified algorithm called Focused RTDP with several improvements\""
+		}
+	],
+	"trace": null
+}

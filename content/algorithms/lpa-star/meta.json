@@ -1,0 +1,24 @@
+{
+	"description": "LPA* (Lifelong Planning A*) finds a cheapest path from a fixed start to a fixed goal, and finds it again after edge costs change. It keeps two values per vertex: `g`, the cost it found, and `rhs`, a one-step lookahead from the predecessors' `g`. A vertex is *inconsistent* when the two differ, and only inconsistent vertices go on the queue. The first search costs about as much as A*; after a change, LPA* repairs only the part of the search tree that the change affects. With a *consistent* heuristic (one that never drops by more than the edge cost along an edge), every returned path is optimal.",
+	"papers": [
+		{
+			"authors": "Sven Koenig, Maxim Likhachev, David Furcy",
+			"title": "Lifelong Planning A*",
+			"year": 2004,
+			"venue": "Artificial Intelligence",
+			"doi": "10.1016/j.artint.2003.12.001",
+			"arxiv": null,
+			"url": null,
+			"role": "introduces"
+		}
+	],
+	"lineage": [
+		{
+			"slug": "a-star",
+			"name": null,
+			"relation": "builds-on",
+			"source": "heuristic-search, src/dynamic.rs: \"Lifelong Planning A* (LPA*, Koenig, Likhachev and Furcy 2004): A* that repairs its search tree after edge-cost changes instead of starting over\""
+		}
+	],
+	"trace": null
+}

@@ -1,0 +1,16 @@
+algorithm merge-and-shrink(Π, N)
+  input: planning task Π, size limit N for each product
+  output: an admissible heuristic, as goal distances of one abstract transition system
+  F ← { atomic(v) : v a variable of Π }    ▷ one factor per variable
+  for each f in F do
+    prune(f)                               ▷ drop unreachable and dead-end abstract states
+  while |F| > 1 do
+    f₁, f₂ ← merge-strategy-pick(F)        ▷ linear, DFP or SCC-DFP
+    reduce-labels(F, f₁, f₂)               ▷ optional, exact
+    shrink(f₁, f₂, N)                      ▷ bisimulation or greedy bisimulation until |f₁| · |f₂| ≤ N
+    f ← synchronized-product(f₁, f₂)
+    prune(f)
+    F ← (F ∖ {f₁, f₂}) ∪ {f}
+  f ← the only factor in F
+  d ← goal-distances(f)
+  return the heuristic h with h(s) = d[abstract-state(f, s)]

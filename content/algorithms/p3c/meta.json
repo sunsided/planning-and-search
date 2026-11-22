@@ -1,0 +1,24 @@
+{
+	"description": "P³C computes the minimal constraints of a simple temporal network (STN) only for the pairs that matter, not for all `n²` pairs. It first makes the constraint graph *chordal*, which means that every cycle of four or more points has a shortcut edge. To do this, it removes the points one by one, the one with the fewest neighbours first, and links the remaining neighbours of each removed point; it also tightens each such pair through the removed point (*directional path consistency*). A second pass in reverse order then gives every edge of the chordal graph its exact shortest-path distance, the same bound as the full minimal network. Use it on large sparse networks, and add a constraint without bounds for each extra pair that you need.",
+	"papers": [
+		{
+			"authors": "Léon Planken, Mathijs de Weerdt, Roman van der Krogt",
+			"title": "P³C: A New Algorithm for the Simple Temporal Problem",
+			"year": 2008,
+			"venue": "ICAPS 2008",
+			"doi": null,
+			"arxiv": null,
+			"url": "https://cdn.aaai.org/ICAPS/2008/ICAPS08-032.pdf",
+			"role": "introduces"
+		}
+	],
+	"lineage": [
+		{
+			"slug": null,
+			"name": "Directional path consistency (Dechter, Meiri and Pearl 1991)",
+			"relation": "builds-on",
+			"source": "temporal-control, src/stn/p3c.rs: \"This is directional path consistency (DPC) of Dechter, Meiri and Pearl (1991, Fig. 9) along the elimination order\""
+		}
+	],
+	"trace": null
+}

@@ -1,0 +1,23 @@
+algorithm Ranking(s₀, goal, h)
+  input: start s₀, goal test goal, consistent two-objective heuristic h
+  output: one path per Pareto-optimal cost vector
+  c₁-stop ← c₁ of the lexicographic (c₂, c₁)-optimal path
+  SOLUTIONS ← ∅
+  best₂ ← ∞
+  for each loopless path p in k-shortest-paths(s₀, goal) do   ▷ by (c₁, c₂)
+    if c₁(p) > c₁-stop then
+      break                              ▷ nothing later is efficient
+    if c₂(p) < best₂ then
+      SOLUTIONS ← SOLUTIONS ∪ {p}
+      best₂ ← c₂(p)
+  return SOLUTIONS
+function k-shortest-paths(s₀, goal)
+  OPEN ← {path ⟨s₀⟩}                     ▷ by (g + h) lexicographic
+  while OPEN ≠ ∅ do
+    p ← extract-min(OPEN)
+    if goal(last state of p) then
+      yield p
+      continue
+    for each (s′, c) in successors(last state of p) do
+      if s′ ∉ p then                     ▷ keep paths loopless
+        insert(OPEN, p extended by (s′, c))

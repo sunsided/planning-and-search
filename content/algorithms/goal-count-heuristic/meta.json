@@ -1,0 +1,6 @@
+{
+	"description": "The goal-count heuristic estimates the distance to the goal as the number of goal facts that are false in the current state. In `miniplan` it counts only the positive goal facts. It is very cheap to compute and needs no preprocessing. It is not *admissible* (it can overestimate the true cost), because one action can make several goal facts true at once. It also ignores preconditions, so it is a weak guide; use it with greedy best-first search for fast, non-optimal plans, or as a baseline for better heuristics.",
+	"papers": [],
+	"lineage": [],
+	"trace": null
+}

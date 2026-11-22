@@ -1,0 +1,17 @@
+{
+	"description": "Random-mutation hill climbing (RMHC) improves one candidate solution at a time. It copies the current genome, applies one random mutation, and keeps the copy if its cost is not worse; because it accepts equal costs, it can move across flat regions (*plateaus*). Optionally it restarts from a new random genome after a given number of steps without strict improvement, and it returns the best genome of all restarts. It needs only a mutation operator, so it works for any genome type, but it can stop at a *local optimum*, a solution that no single mutation improves; it has no optimality guarantee. In this crate it is also the population-of-one case of rolling-horizon planning and one of the local searchers of the memetic algorithm.",
+	"papers": [
+		{
+			"authors": "Thor V. A. N. Olesen, Dennis T. T. Nguyen, Rasmus Berg Palm, Sebastian Risi",
+			"title": "Evolutionary Planning in Latent Space",
+			"year": 2020,
+			"venue": "arXiv preprint",
+			"doi": null,
+			"arxiv": "2011.11293",
+			"url": null,
+			"role": "applies"
+		}
+	],
+	"lineage": [],
+	"trace": null
+}

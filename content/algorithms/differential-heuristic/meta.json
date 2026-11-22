@@ -1,0 +1,37 @@
+{
+	"description": "A differential heuristic estimates distances from exact distances to and from a few chosen states, the *landmarks*. For a landmark `L` and a goal `g`, the triangle inequality gives `d(v, g) ≥ d(L, g) − d(L, v)` and `d(v, g) ≥ d(v, L) − d(g, L)`; the heuristic takes the largest of these bounds over all landmarks, and at least zero. The crate does this for each objective on its own, with two Dijkstra searches per landmark and objective, and returns the vector of bounds. The estimate never overestimates, and it is consistent along every edge whose end can reach the goal, so exact multi-objective searches stay exact. Use it on a large, fixed graph that gets many queries to different goals.",
+	"papers": [
+		{
+			"authors": "Andrew V. Goldberg, Chris Harrelson",
+			"title": "Computing the shortest path: A* search meets graph theory",
+			"year": 2005,
+			"venue": "ACM-SIAM Symposium on Discrete Algorithms (SODA)",
+			"doi": null,
+			"arxiv": null,
+			"url": null,
+			"role": "introduces"
+		},
+		{
+			"authors": "Han Zhang, Oren Salzman, Ariel Felner, T. K. Satish Kumar, Shawn Skyler, Carlos Hernández Ulloa, Sven Koenig",
+			"title": "Towards Effective Multi-Valued Heuristics for Bi-objective Shortest-Path Algorithms via Differential Heuristics",
+			"year": 2023,
+			"venue": "International Symposium on Combinatorial Search (SoCS)",
+			"doi": "10.1609/socs.v16i1.27288",
+			"arxiv": null,
+			"url": null,
+			"role": "extends"
+		},
+		{
+			"authors": "Oren Salzman, Carlos Hernández Ulloa, Ariel Felner, Sven Koenig",
+			"title": "Multi-Objective Search: Algorithms, Applications, and Emerging Directions",
+			"year": 2025,
+			"venue": null,
+			"doi": null,
+			"arxiv": "2510.25504",
+			"url": null,
+			"role": "surveys"
+		}
+	],
+	"lineage": [],
+	"trace": null
+}

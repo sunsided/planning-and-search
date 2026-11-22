@@ -1,0 +1,21 @@
+algorithm LAO*(s₀, goal, h, ε)
+  input: initial state s₀, goal test goal, heuristic h, tolerance ε
+  output: values V and a greedy policy π that is ε-consistent on its envelope
+  G ← explicit graph with the state s₀, V[s₀] ← h(s₀)
+  repeat
+    while best-solution-graph(s₀) has an unexpanded non-goal tip do
+      s ← the first such tip in depth-first order
+      expand(G, s)                               ▷ new successors s′ get V[s′] ← h(s′)
+      Z ← s and its ancestors along greedy arcs inside the solution graph
+      repeat
+        r ← 0
+        for each z in Z, s first do
+          r ← max(r, back-up(z))                 ▷ updates V[z] and π[z], returns the change
+      until r < ε
+    repeat
+      r ← 0
+      for each z in best-solution-graph(s₀) do
+        r ← max(r, back-up(z))
+    until r < ε or best-solution-graph(s₀) has an unexpanded tip
+  until r < ε and check-solved(s₀, ε)           ▷ the solved check of LRTDP
+  return V, π

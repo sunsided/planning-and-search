@@ -1,0 +1,24 @@
+{
+	"description": "Goal-intention ranking treats planning as *goal recognition*: it asks how well the facts a search path made true match the goal. It samples many relaxed plans to the goal and gives each fact a probability `P(q | G)` from how often its achievers appear in them; a second set of samples gives `P(q | ¬G)` for plans that do not aim at the goal. `ol_rp` ranks a path by the negative log likelihood of its observed facts, and `op_rp` by the negative log ratio of the two probabilities; lower means more goal-directed. These are ranking keys, not distances: they are not admissible and never prove a dead end. Use them as a tie-breaker in search, for example in BFWS, with `IntentionTracker` to carry them along each path.",
+	"papers": [
+		{
+			"authors": "Giacomo Rosa, Jean Honorio, Nir Lipovetzky, Sebastian Sardina",
+			"title": "Planning as Goal Recognition: Deriving Heuristics from Intention Models -- Extended Version",
+			"year": 2026,
+			"venue": "arXiv preprint",
+			"doi": null,
+			"arxiv": "2603.14824",
+			"url": null,
+			"role": "introduces"
+		}
+	],
+	"lineage": [
+		{
+			"slug": null,
+			"name": "Fact probability vector based goal recognition (Wilken et al. 2024)",
+			"relation": "builds-on",
+			"source": "planning-heuristics, docs/design.md: \"the sampler comes from its Appendix B, which adapts Wilken et al. (ECAI 2024)\""
+		}
+	],
+	"trace": null
+}

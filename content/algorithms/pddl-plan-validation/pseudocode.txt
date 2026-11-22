@@ -1,0 +1,21 @@
+algorithm ValidatePlan(domain, problem, plan)
+  input: a PDDL domain and problem, a plan as a list of ground steps
+  output: valid with the metric value, or the first violation
+  check-model(domain, problem)                 ▷ names, arities, types
+  s ← initial-state(problem)
+  s ← close-derived(s)                         ▷ least fixpoint, stratum by stratum
+  for each (i, step) in plan do
+    a ← ground(step)                           ▷ action, arity, objects, types
+    if a = failure then
+      return violation(i, "unknown action or bad argument")
+    if not holds(pre(a), s) then              ▷ unknown counts as false
+      return violation(i, unmet(pre(a), s))
+    DEL, ADD, UPD ← collect-effects(a, s)      ▷ when conditions read s
+    if conflicting(UPD) then
+      return violation(i, "conflicting updates")
+    s ← (s ∖ DEL) ∪ ADD
+    s ← apply-numeric(s, UPD)
+    s ← close-derived(s)
+  if not holds(goal(problem), s) then
+    return violation(nil, unmet(goal(problem), s))
+  return valid(metric(problem, s))

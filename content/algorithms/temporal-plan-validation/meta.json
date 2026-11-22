@@ -1,0 +1,44 @@
+{
+	"description": "Temporal plan validation checks a plan in which every action has a start time and, for a *durative action*, a duration. Each durative action splits into a start event and an end event. Events at the same time form a *happening*: its conditions are checked in the state before it, and then all its effects apply at once. Between happenings, fluents change linearly, and every `over all` condition of a running action must hold on the whole open interval; for linear change it is enough to check each condition at the roots of its comparisons and between them, so the check is exact. Two events that *interfere* (one changes what the other reads or changes) must be at least a small time ε apart, as PDDL 2.1 and the VAL validator require.",
+	"papers": [
+		{
+			"authors": "Maria Fox, Derek Long",
+			"title": "PDDL2.1: An Extension to PDDL for Expressing Temporal Planning Domains",
+			"year": 2003,
+			"venue": "Journal of Artificial Intelligence Research",
+			"doi": "10.1613/jair.1129",
+			"arxiv": null,
+			"url": null,
+			"role": "introduces"
+		},
+		{
+			"authors": "Richard Howey, Derek Long, Maria Fox",
+			"title": "VAL: automatic plan validation, continuous effects and mixed initiative planning using PDDL",
+			"year": 2004,
+			"venue": "16th IEEE International Conference on Tools with Artificial Intelligence (ICTAI)",
+			"doi": "10.1109/ICTAI.2004.120",
+			"arxiv": null,
+			"url": null,
+			"role": "extends"
+		},
+		{
+			"authors": "Mohammad Abdulaziz, Lukas Koller",
+			"title": "Formal Semantics and Formally Verified Validation for Temporal Planning",
+			"year": 2022,
+			"venue": "Proceedings of the AAAI Conference on Artificial Intelligence",
+			"doi": "10.1609/aaai.v36i9.21197",
+			"arxiv": "2203.13604",
+			"url": null,
+			"role": "analyses"
+		}
+	],
+	"lineage": [
+		{
+			"slug": "pddl-plan-validation",
+			"name": null,
+			"relation": "builds-on",
+			"source": "pddl-validate, src/validator/temporal.rs: \"An untimed plan for a temporal task runs its steps at times 1, 2, 3, and so on\"; the temporal timeline reuses the classical effect rule \"apply all effects: deletes, adds, numeric updates\""
+		}
+	],
+	"trace": null
+}

@@ -1,0 +1,24 @@
+algorithm RUL⁻(G, LINKS)
+  input: LO-graph G (ordinary and lower-case edges), contingent links (A_R, l_R, u_R, R), upper-case edges apart
+  output: DC, or not DC
+  h ← bellman-ford-potential(G)
+  if h = failure then
+    return not DC                                 ▷ a negative cycle in the LO-graph
+  U ← all contingent points                       ▷ the unprocessed points
+  S ← empty stack
+  while U ≠ ∅ do
+    if S is empty then
+      push(S, first point of U)
+    R ← top(S)
+    close-relax-lower(G, h, R)                    ▷ backward Dijkstra keyed h(P) + w(P, R); Relax⁻, Lower⁻
+    apply-upper(G, R)                             ▷ Upper⁻: edges into A_R of weight max(v − u_R, −l_R)
+    if not update-potential(G, h, A_R) then
+      return not DC
+    if some R′ in U ∖ {R} has an edge A_R′ → R of weight < u_R − l_R then
+      if R′ is on S then
+        return not DC                             ▷ a cycle of blocking links
+      push(S, R′)                                 ▷ process the blocking link first
+    else
+      pop(S)
+      U ← U ∖ {R}
+  return DC

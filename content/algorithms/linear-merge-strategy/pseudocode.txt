@@ -1,0 +1,8 @@
+algorithm LinearMerge(v₁, …, vₙ)
+  input: every variable of the task once, in merge order
+  output: the next pair of factors to merge, at each call
+  yield (atomic factor of v₁, atomic factor of v₂)
+  composite ← the product just built
+  for i in 3, …, n do
+    yield (composite, atomic factor of v_i)
+    composite ← the product just built              ▷ grows by one variable per merge

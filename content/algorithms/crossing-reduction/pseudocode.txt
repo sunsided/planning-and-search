@@ -1,0 +1,23 @@
+algorithm ReduceCrossings(R, k)
+  input: routes R on the routing graph, at most k rounds
+  output: the number of replaced route sections
+  replaced ← 0
+  for round in 1, …, k do
+    CHANGES ← ∅                              ▷ found on the routes as they were at the round start
+    for each (a, b) in pairs of routes that share a vertex do
+      for each (x, y) in ⟨(a, b), (b, a)⟩ do
+        if x ∉ CHANGES and y ∉ CHANGES and required-crossings(R[x], R[y]) ≥ 2 then
+          u, v ← first and last vertex of R[x] that R[y] also visits
+          c ← R[x] with its section from u to v replaced by the section of R[y]
+          if simple(c) and crossings(c, R) < crossings(R[x], R) then
+            CHANGES[x] ← c                   ▷ a route changes at most once per round
+    if CHANGES = ∅ then
+      break
+    for each (x, c) in CHANGES do
+      R[x] ← c
+      replaced ← replaced + 1
+  return replaced
+function required-crossings(a, b)
+  ▷ one per shared stretch whose two ends put a and b on different sides,
+  ▷ plus one per shared vertex that both pass straight through, perpendicular
+  return count of such stretches and vertices

@@ -1,0 +1,24 @@
+{
+	"description": "NAMOA*dr-mvh is NAMOA*dr with a *multi-valued heuristic* (MVH): a set of lower-bound cost vectors per state, not only one. Several estimates can break the order that dimensionality reduction needs. To keep that order, each label is bound to one estimate of its state, and each (state, estimate) pair has its own set of expanded labels. A successor is generated for each estimate of the next state that stays consistent with the current one. This is NAMOA*dr on the graph of (state, estimate) pairs, so it is exact for a consistent MVH, but that graph can be much larger than the original.",
+	"papers": [
+		{
+			"authors": "Maya Wolff, Ariel Felner, Oren Salzman",
+			"title": "Bridging Multi-Valued Heuristics and Dimensionality Reduction in Multi-Objective Search",
+			"year": 2026,
+			"venue": null,
+			"doi": null,
+			"arxiv": "2606.20644",
+			"url": null,
+			"role": "introduces"
+		}
+	],
+	"lineage": [
+		{
+			"slug": "namoa-star-dr",
+			"name": null,
+			"relation": "builds-on",
+			"source": "multiobjective-search, src/namoa_mvh.rs: \"This is exactly NAMOA*dr on the graph of (state, estimate) pairs ... the implementation runs namoa_star_dr's engine on that graph\""
+		}
+	],
+	"trace": null
+}

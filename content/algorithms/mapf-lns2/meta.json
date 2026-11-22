@@ -1,0 +1,30 @@
+{
+	"description": "MAPF-LNS2 finds a plan without collisions for many agents quickly, by repair. It starts from a plan by prioritized planning in which agents may still collide: each agent takes the path with the fewest collisions with the agents planned before it. Then it repeats one step until no two paths collide: it picks a small group of agents (the *neighbourhood*, 8 by default), replans them one by one with SIPPS, a safe-interval planner that minimizes collisions, and keeps the new paths only if the number of colliding agent pairs did not grow. Adaptive weights choose among three ways to pick the group (collision-based, failure-based and random), and a seed makes each run reproducible. It is fast on crowded maps, but it is neither optimal nor complete, so always give it a budget.",
+	"papers": [
+		{
+			"authors": "Jiaoyang Li, Zhe Chen, Daniel Harabor, Peter J. Stuckey, Sven Koenig",
+			"title": "MAPF-LNS2: Fast Repairing for Multi-Agent Path Finding via Large Neighborhood Search",
+			"year": 2022,
+			"venue": "Proceedings of the AAAI Conference on Artificial Intelligence",
+			"doi": "10.1609/aaai.v36i9.21266",
+			"arxiv": null,
+			"url": null,
+			"role": "introduces"
+		}
+	],
+	"lineage": [
+		{
+			"slug": null,
+			"name": "Large neighbourhood search",
+			"relation": "builds-on",
+			"source": "MAPF-LNS2: Fast Repairing for Multi-Agent Path Finding via Large Neighborhood Search"
+		},
+		{
+			"slug": null,
+			"name": "Prioritized planning",
+			"relation": "builds-on",
+			"source": "mapf-search, src/lns2.rs: \"The initial plan comes from prioritized planning in a random order\""
+		}
+	],
+	"trace": null
+}

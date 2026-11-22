@@ -1,0 +1,27 @@
+{
+	"description": "Crossing reduction removes crossings between routed connectors that are not necessary. The *required crossings* of two routes are the crossings that every drawing of their paths must have. When a pair must cross two or more times, one route takes over the other's path between their first and last shared vertex. The change stays only if the route has no repeated vertex and its total of required crossings gets strictly lower, so the process always stops. It is a local heuristic: it does not check channel capacity, and a changed route can be longer.",
+	"papers": [
+		{
+			"authors": "Tim Hegemann, Alexander Wolff",
+			"title": "A Simple Pipeline for Orthogonal Graph Drawing",
+			"year": 2023,
+			"venue": "Graph Drawing and Network Visualization (GD 2023), LNCS",
+			"doi": "10.1007/978-3-031-49275-4_12",
+			"arxiv": "2309.01671",
+			"url": null,
+			"role": "applies"
+		},
+		{
+			"authors": "Tim Dwyer, Kim Marriott, Michael Wybrow",
+			"title": "Integrating Edge Routing into Force-Directed Layout",
+			"year": 2007,
+			"venue": "Graph Drawing (GD 2006), LNCS",
+			"doi": null,
+			"arxiv": null,
+			"url": "https://link.springer.com/chapter/10.1007/978-3-540-70904-6_3",
+			"role": "analyses"
+		}
+	],
+	"lineage": [],
+	"trace": null
+}

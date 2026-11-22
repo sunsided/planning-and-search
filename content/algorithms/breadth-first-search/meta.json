@@ -1,0 +1,6 @@
+{
+	"description": "Breadth-first search (BFS) explores a state space level by level from the start: first all states one step away, then all states two steps away, and so on. It keeps the frontier in a first-in, first-out queue and visits each state at most once. So the first goal it reaches has the fewest steps of all paths to a goal. BFS is complete on finite spaces and optimal in the number of steps, but it ignores action costs; when steps have different costs, use Dijkstra's algorithm or A*.",
+	"papers": [],
+	"lineage": [],
+	"trace": "grid/bfs"
+}

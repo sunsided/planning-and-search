@@ -1,0 +1,16 @@
+algorithm Differential-heuristic(LANDMARKS)
+  input: landmark states LANDMARKS, a graph with N objectives and a finite reachable part
+  output: a function estimate(v, t) that bounds the cost from v to the goal t
+  for each L in LANDMARKS do
+    for i in 1, …, N do
+      d-from[L][i] ← dijkstra(L, objective i)            ▷ d_i(L, x) for every x
+      d-to[L][i] ← dijkstra-backward(L, objective i)     ▷ d_i(x, L) for every x
+function estimate(v, t)
+  for i in 1, …, N do
+    h_i ← 0
+    for each L in LANDMARKS do                 ▷ terms without a path are left out
+      if d_i(L, t) and d_i(L, v) are known then
+        h_i ← max(h_i, d_i(L, t) − d_i(L, v))  ▷ triangle inequality
+      if d_i(v, L) and d_i(t, L) are known then
+        h_i ← max(h_i, d_i(v, L) − d_i(t, L))
+  return (h_1, …, h_N)

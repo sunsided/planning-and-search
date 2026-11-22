@@ -1,0 +1,16 @@
+algorithm Dissimilar-paths(s₀, goal, cost, k, m)
+  input: start s₀, goal test goal, scalar edge cost, number of paths k, overlap limit m
+  output: up to k loopless paths, each sharing at most m edges with every other one
+  KEPT ← []
+  OPEN ← {[s₀]}                                ▷ ordered by (cost, edge sequence)
+  while OPEN ≠ ∅ and |KEPT| < k do
+    π ← extract-min(OPEN)
+    s ← last state of π
+    if goal(s) then
+      if |edges(π) ∩ edges(κ)| ≤ m for every κ in KEPT then
+        append(KEPT, π)                        ▷ greedy: the cheapest dissimilar one
+      continue
+    for each (e, s′, c) in edges-out(s) do
+      if s′ ∉ π then                           ▷ loopless
+        insert(OPEN, π extended by e to s′, cost(π) + c)
+  return KEPT

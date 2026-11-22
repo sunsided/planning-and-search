@@ -1,0 +1,17 @@
+{
+	"description": "Rip-up and reroute repairs routes that conflict, for example when too many connectors use one channel (the free space between obstacles). It removes (*rips up*) the routes in a conflict and routes them again, while the other routes stay in place. The new routes can then avoid the crowded areas, and the step repeats until no conflict is left or a limit is reached. In `connector-routing`, `route_all` does this inside PathFinder, with edge costs that grow on contested channels. It does not guarantee an optimal or conflict-free result, so `route_all` reports the overuse that is left.",
+	"papers": [
+		{
+			"authors": "Larry McMurchie, Carl Ebeling",
+			"title": "PathFinder: A Negotiation-Based Performance-Driven Router for FPGAs",
+			"year": 1995,
+			"venue": "ACM Third International Symposium on Field-Programmable Gate Arrays (FPGA '95)",
+			"doi": "10.1145/201310.201328",
+			"arxiv": null,
+			"url": null,
+			"role": "applies"
+		}
+	],
+	"lineage": [],
+	"trace": null
+}

@@ -1,0 +1,23 @@
+algorithm LabelReduction(F, i, j, c)
+  input: active factors F, the pair i, j about to be merged, label costs c
+  output: F with combinable labels combined
+  reduce(F, i, c)
+  reduce(F, j, c)
+  return F
+procedure reduce(F, i, c)
+  for each factor Θ in F ∖ {Θ_i} do
+    for each label l do
+      class_Θ[l] ← id-of(transitions of l in Θ)     ▷ local equivalence in Θ
+  for each representative label l do
+    key[l] ← (c(l), ⟨class_Θ[l] : Θ ∈ F ∖ {Θ_i}⟩)
+  for each group G of representatives with equal key do
+    r ← first label of G
+    for each operator o with rep[o] ∈ G do
+      rep[o] ← r                                    ▷ r keeps its operator id and cost
+  for each factor Θ in F do
+    relabel(Θ, rep)                                 ▷ replace labels, drop duplicate transitions
+procedure expand(Θ, rep)                            ▷ after the last merge
+  T ← ∅
+  for each transition (s, r, t) of Θ do
+    T ← T ∪ {(s, l, t) : rep[l] = r}                 ▷ one transition per operator of r
+  transitions(Θ) ← T

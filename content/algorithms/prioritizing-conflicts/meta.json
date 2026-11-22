@@ -1,0 +1,24 @@
+{
+	"description": "Prioritizing conflicts is an improvement to CBS: it chooses which conflict to split, so that the constraint tree stays small. A conflict is *cardinal* for an agent if every cheapest path of that agent under its constraints passes through it, so each child that forbids it raises the agent's cost. CBS reads this from the agent's *MDD* (multi-valued decision diagram: all its cheapest paths, layered by time): the conflict is cardinal for the agent if the conflicting vertex (for a swap, both ends) is the only MDD node at that time. CBS splits a conflict that is cardinal for both agents first, then one that is cardinal for one agent (*semi-cardinal*), then the rest, the earliest within each class. Any choice of conflict keeps CBS optimal, so this changes only the speed.",
+	"papers": [
+		{
+			"authors": "Eli Boyarski, Ariel Felner, Roni Stern, Guni Sharon, David Tolpin, Oded Betzalel, Eyal Shimony",
+			"title": "ICBS: Improved Conflict-Based Search Algorithm for Multi-Agent Pathfinding",
+			"year": 2015,
+			"venue": "Proceedings of the Twenty-Fourth International Joint Conference on Artificial Intelligence (IJCAI 2015)",
+			"doi": null,
+			"arxiv": null,
+			"url": "https://ijcai.org/proceedings/2015/0110.pdf",
+			"role": "introduces"
+		}
+	],
+	"lineage": [
+		{
+			"slug": "cbs",
+			"name": null,
+			"relation": "builds-on",
+			"source": "mapf-search, src/cbs.rs: \"Conflict-based search ... with the ICBS improvements (Boyarski et al. 2015)\""
+		}
+	],
+	"trace": null
+}

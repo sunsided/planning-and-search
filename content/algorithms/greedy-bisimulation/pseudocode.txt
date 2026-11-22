@@ -1,0 +1,23 @@
+algorithm GreedyBisimulation(Θ, c, N)
+  input: factor Θ with states S and transitions T, label costs c, size limit N ≥ 1
+  output: a block for each state of Θ, at most N blocks
+  h ← goal-distances(Θ, c)
+  T-OPT ← ∅
+  for each (s, l, t) in T do
+    if h[s] ≠ ∞ and h[s] = c(l) + h[t] then          ▷ the move starts an optimal path
+      T-OPT ← T-OPT ∪ {(s, l, t)}
+  for each s in S do
+    block[s] ← id-of(h[s] = ∞, h[s], goal(s))
+  if number-of-blocks(block) > N then
+    for each s in S do
+      block[s] ← min(block[s], N − 1)                ▷ combine the farthest blocks
+  repeat
+    for each s in S do
+      sig[s] ← (block[s], {(l, block[t]) : (s, l, t) ∈ T-OPT})
+    new ← id-of(sig)
+    if number-of-blocks(new) > N then
+      return split-at-limit(block, new, N)          ▷ as in exact bisimulation
+    changed ← number-of-blocks(new) > number-of-blocks(block)
+    block ← new
+  until not changed
+  return block

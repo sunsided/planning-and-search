@@ -1,0 +1,14 @@
+algorithm Diffusion(N, r, k, f)
+  input: ring size N, deme radius r, children per mating k, cost function f
+  output: the cheapest individual found
+  P[0 … N−1] ← N random individuals, each evaluated by f
+  repeat
+    for each i in 0, …, N − 1 do                  ▷ ring order, updated in place
+      D ← {P[(i ± d) mod N] : d ∈ 1, …, r}         ▷ the neighbours of i
+      q ← linear-ranking(D)
+      c ← the cheapest of k children of P[i] and q ▷ crossover at a rate, mutation, repair
+      w, b ← the worst and best cost in D ∪ {P[i]}
+      if f(c) < w and (f(P[i]) > b or f(c) < f(P[i])) then   ▷ local elitist
+        P[i] ← c
+  until budget exhausted or stagnated              ▷ no deme best improved, or no acceptance
+  return the cheapest individual evaluated

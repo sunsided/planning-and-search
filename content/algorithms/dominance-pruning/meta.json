@@ -1,0 +1,24 @@
+{
+	"description": "Dominance pruning removes search nodes in decoupled search, where each node holds a center state and a *price* (cheapest cost) for every reachable leaf state. A new node is pruned if a stored node with the same center *dominates* it: the stored node can do all that the new one can, at no higher total cost. The basic test compares prices directly; stronger tests compare only the leaf states that can still matter (the *frontier*), lower prices that cannot pay off (*effective prices*), or let a leaf state stand in for another that it *simulates*. Without such pruning, prices can grow forever along center cycles, so the search may not stop on unsolvable tasks; with it the search terminates and stays optimal.",
+	"papers": [
+		{
+			"authors": "Álvaro Torralba, Daniel Gnad, Patrick Dubbert, Jörg Hoffmann",
+			"title": "On State-Dominance Criteria in Fork-Decoupled Search",
+			"year": 2016,
+			"venue": "International Joint Conference on Artificial Intelligence (IJCAI)",
+			"doi": null,
+			"arxiv": null,
+			"url": "https://www.ijcai.org/proceedings/2016/462",
+			"role": "introduces"
+		}
+	],
+	"lineage": [
+		{
+			"slug": "decoupled-search",
+			"name": null,
+			"relation": "builds-on",
+			"source": "On State-Dominance Criteria in Fork-Decoupled Search"
+		}
+	],
+	"trace": null
+}

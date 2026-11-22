@@ -1,0 +1,31 @@
+algorithm BOBA*(s₀, t)
+  input: start state s₀, goal state t, edges with two costs and their predecessors
+  output: one path for every Pareto-optimal cost vector
+  h-fwd, h-bwd ← cost-bounded-searches(s₀, t)   ▷ four searches: exact distance per objective
+  F ← BOA*-search(s₀ to t, order (f₁, f₂), heuristic h-fwd)
+  B ← BOA*-search(t to s₀ on reversed edges, order (f₂, f₁), heuristic h-bwd)
+  repeat
+    for each ⟨D, E⟩ in ⟨⟨F, B⟩, ⟨B, F⟩⟩ do
+      if not step(D) then
+        return merge(solutions(F), solutions(B))   ▷ every solution is found
+      if D just expanded a state s for the first time, at primary cost g then
+        raise-secondary-heuristic(E, s, g)     ▷ heuristic tuning
+      primary-bound(E) ← secondary cost of the last solution of D
+  until false
+function step(D)
+  if OPEN(D) = ∅ or the least primary f in OPEN(D) ≥ primary-bound(D) then
+    return false                               ▷ this direction is done
+  ⟨s, g⟩ ← extract-min(OPEN(D))
+  if not dominated(D, s, g) then               ▷ as in BOA*
+    g2-min(D)[s] ← secondary cost of g
+    if s has a known primary-optimal completion then   ▷ early solution update
+      π ← path-to(s, g) joined with that completion
+      if secondary cost of π < that of the last solution of D then
+        add-solution(D, π)
+      if the completion is optimal in both costs then
+        return true                            ▷ no need to expand s
+    if s is the target of D then
+      add-solution(D, path-to(s, g))
+    else
+      expand(D, s, g)
+  return true

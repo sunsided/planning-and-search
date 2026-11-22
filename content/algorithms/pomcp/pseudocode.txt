@@ -1,0 +1,37 @@
+algorithm POMCP(B, n, c, γ, D)
+  input: particle belief B, number of simulations n, exploration constant c, discount γ, depth limit D
+  output: the root action with the highest average return
+  T ← tree with the root history h₀                ▷ or the subtree kept from the last decision
+  for i in 1, …, n do
+    s ← a random particle of B
+    PATH ← ⟨⟩
+    R ← descend(s, PATH)
+    back-up(PATH, R)
+  return argmax over a of Q(h₀, a)
+function descend(s, PATH)
+  h ← h₀
+  for d in 0, …, D − 1 do
+    if h is unexpanded then
+      expand(T, h)                               ▷ adds one action node per action
+      return roll-out(s, d)
+    a ← argmax over a of Q(h, a) + c · √(ln N(h) / N(h, a))   ▷ untried actions first
+    s′, o, r, terminal ← step(s, a)              ▷ one sample of the generative model
+    append(PATH, ⟨h, a, r⟩)
+    if terminal then
+      return 0
+    h, s ← child(h, a, o), s′                    ▷ the history extended by a and o
+  return 0
+procedure back-up(PATH, R)
+  for each ⟨h, a, r⟩ in PATH, deepest first do
+    R ← r + γ · R
+    N(h), N(h, a) ← N(h) + 1, N(h, a) + 1
+    Q(h, a) ← Q(h, a) + (R − Q(h, a)) / N(h, a)
+function roll-out(s, d)
+  R, w ← 0, 1
+  while d < D do
+    s, o, r, terminal ← step(s, rollout-policy(s))
+    R ← R + w · r
+    if terminal then
+      break
+    w, d ← w · γ, d + 1
+  return R

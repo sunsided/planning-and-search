@@ -1,0 +1,18 @@
+algorithm Choose-Conflict(n)
+  input: a CBS node n with its paths and constraints
+  output: the conflict that CBS splits at n
+  best ← nil
+  for each κ in conflicts(n.paths) do        ▷ earliest first
+    k ← 0
+    for each agent a in agents-of(κ) do
+      if cardinal-for(a, κ, n) then
+        k ← k + 1
+    if best = nil or k > class then
+      best, class ← κ, k                     ▷ 2: cardinal, 1: semi-cardinal, 0: other
+  return best
+function cardinal-for(a, κ, n)
+  M ← mdd(a, cost(n.paths[a]), n.constraints[a])  ▷ every cheapest path of a, by time
+  for each (v, t) in cells-of(κ, a) do       ▷ a vertex, or both ends of a swap, as a crosses it
+    if nodes(M, t) ≠ {v} then
+      return false
+  return true

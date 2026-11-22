@@ -1,0 +1,25 @@
+algorithm Fringe-Search(S₀, goal, h)
+  input: start states S₀, goal test goal, admissible heuristic h
+  output: a cheapest path to a goal, or failure
+  for each s in S₀ do
+    g[s] ← 0
+  NOW, LATER ← S₀, ∅
+  θ ← min { h(s) : s ∈ S₀ }
+  while true do
+    while NOW ≠ ∅ do
+      s ← pop-head(NOW)
+      if g[s] + h(s) > θ then
+        append(LATER, s)                       ▷ deferred to the next iteration
+        continue
+      if goal(s) then
+        return path-to(s)
+      for each (s′, c) in successors(s) do
+        if g[s] + c < g[s′] then               ▷ g of an unseen state is ∞
+          g[s′] ← g[s] + c
+          parent[s′] ← s
+          remove(NOW ∪ LATER, s′)              ▷ lazily, by a fresh ticket
+          push-head(NOW, s′)
+    if LATER = ∅ then
+      return failure
+    θ ← min { g[s] + h(s) : s ∈ LATER }
+    NOW, LATER ← LATER, ∅

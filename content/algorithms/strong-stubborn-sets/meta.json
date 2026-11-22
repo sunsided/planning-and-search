@@ -1,0 +1,24 @@
+{
+	"description": "Strong stubborn sets are a *partial-order reduction*: they skip actions whose order relative to others does not matter, so the search explores fewer equivalent paths. In decoupled search, a task splits into a *center* and *leaves*, and the search branches only over *global* actions (those not confined to one leaf); the set starts from the actions that can achieve a missing goal fact. It then adds the actions that can enable members that are not applicable and the actions that *interfere* with applicable members (one's effect breaks the other's precondition, or their effects conflict). Only the applicable global actions in the set are expanded. Under duplicate detection the pruned search stays complete and optimal.",
+	"papers": [
+		{
+			"authors": "Daniel Gnad, Jörg Hoffmann, Martin Wehrle",
+			"title": "Strong Stubborn Set Pruning for Star-Topology Decoupled State Space Search",
+			"year": 2019,
+			"venue": "Journal of Artificial Intelligence Research",
+			"doi": "10.1613/jair.1.11576",
+			"arxiv": null,
+			"url": null,
+			"role": "introduces"
+		}
+	],
+	"lineage": [
+		{
+			"slug": "decoupled-search",
+			"name": null,
+			"relation": "builds-on",
+			"source": "Strong Stubborn Set Pruning for Star-Topology Decoupled State Space Search"
+		}
+	],
+	"trace": null
+}

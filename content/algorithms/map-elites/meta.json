@@ -1,0 +1,17 @@
+{
+	"description": "MAP-Elites looks for many good solutions that behave differently, not for one best solution (*quality diversity*). The user gives a few behaviour measures (*descriptors*), and the algorithm splits their range into a grid of cells; each cell keeps its cheapest solution so far, its *elite*. Each step picks a random elite, changes it by crossover with a second elite and by mutation (each with a set probability), and puts the child into the cell of its descriptor if that cell is empty or the child is strictly cheaper. The result is a map of the best cost found in each region of behaviour, for example plans that differ in length and risk. It gives no optimality guarantee for any cell; more evaluations fill and improve more cells.",
+	"papers": [
+		{
+			"authors": "Jean-Baptiste Mouret, Jeff Clune",
+			"title": "Illuminating search spaces by mapping elites",
+			"year": 2015,
+			"venue": "arXiv preprint",
+			"doi": null,
+			"arxiv": "1504.04909",
+			"url": null,
+			"role": "introduces"
+		}
+	],
+	"lineage": [],
+	"trace": null
+}

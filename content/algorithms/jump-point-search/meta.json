@@ -1,0 +1,24 @@
+{
+	"description": "Jump Point Search (JPS) finds a cheapest path on a uniform-cost 8-connected grid, usually with far fewer expansions than A*. It is A* over *jump points*: from a cell reached in some direction, it tries only the *natural* neighbours and the *forced* neighbours, which are cells that a wall next to the path makes reachable only through this cell. Each try *jumps*: it walks on in that direction without opening the cells in between, and stops at the goal, at a cell with a forced neighbour, or, on a diagonal, at a cell from which a straight jump stops. The skipped cells have an equally cheap path through the jump points, so the search stays optimal. In the crate, moves may not cut corners, costs are exact octile distances, and the result lists only the start, the jump points and the goal.",
+	"papers": [
+		{
+			"authors": "Daniel Harabor, Alban Grastien",
+			"title": "Online Graph Pruning for Pathfinding On Grid Maps",
+			"year": 2011,
+			"venue": "AAAI Conference on Artificial Intelligence",
+			"doi": "10.1609/aaai.v25i1.7994",
+			"arxiv": null,
+			"url": null,
+			"role": "introduces"
+		}
+	],
+	"lineage": [
+		{
+			"slug": "a-star",
+			"name": null,
+			"relation": "builds-on",
+			"source": "heuristic-search, src/grid/jps.rs: \"JPS is A* over jump points\"; \"The search runs a_star on a private jump graph whose nodes are (cell, direction) pairs\""
+		}
+	],
+	"trace": null
+}

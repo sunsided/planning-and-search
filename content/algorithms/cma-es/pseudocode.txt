@@ -1,0 +1,26 @@
+algorithm CMA-ES(m, σ, f)
+  input: initial mean m, initial step size σ, cost function f
+  output: the best point found when a termination criterion fires
+  C ← I
+  B, D ← I, I
+  p_σ, p_c ← 0, 0
+  g ← 0
+  repeat
+    for k in 1, …, λ do                              ▷ ask
+      z_k ← N(0, I)
+      y_k ← B · D · z_k
+      x_k ← m + σ · y_k
+    rank the x_k by f(x_k)                           ▷ tell
+    ⟨y⟩ ← ∑ w_i · y_i:λ over the μ best              ▷ positive weights only
+    m ← m + c_m · σ · ⟨y⟩
+    p_σ ← (1 − c_σ) · p_σ + √(c_σ (2 − c_σ) μ_eff) · B · ⟨z⟩
+    h_σ ← 1 if ‖p_σ‖ is not too long, else 0
+    p_c ← (1 − c_c) · p_c + h_σ · √(c_c (2 − c_c) μ_eff) · ⟨y⟩
+    w°_i ← w_i, or w_i · n / ‖z_i:λ‖² for a negative w_i   ▷ active weights
+    C ← decay · C + c₁ · p_c · p_cᵀ + c_μ · ∑ w°_i · y_i:λ · y_i:λᵀ
+    σ ← σ · exp((c_σ / d_σ) · (‖p_σ‖ / E‖N(0, I)‖ − 1))
+    g ← g + 1
+    if g is a multiple of the eigen interval then   ▷ lazy, Appendix B.2
+      B, D ← eigendecomposition-of(C)                ▷ C = B D² Bᵀ
+  until a termination criterion fires or budget exhausted
+  return the cheapest point evaluated

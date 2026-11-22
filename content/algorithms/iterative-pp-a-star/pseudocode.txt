@@ -1,0 +1,15 @@
+algorithm Iterative-PP-A*(s₀, goal, h, schedule)
+  input: start s₀, goal test goal, heuristic h consistent in both costs
+  input: falling tolerances from schedule, for example 0.01, 0.001, 0.0001, 0
+  output: fronts with falling approximation factors
+  SOLUTIONS ← ∅
+  best ← ∞
+  for each ε in schedule do
+    if a run is done and the budget is spent then
+      return SOLUTIONS, best
+    R ← PP-A*(s₀, goal, h, ε on both objectives)   ▷ from scratch: nothing is reused
+    if this is the first run or ε < best then
+      SOLUTIONS ← R
+      best ← ε
+      report(SOLUTIONS, ε)
+  return SOLUTIONS, best                       ▷ exact when the schedule ends at 0

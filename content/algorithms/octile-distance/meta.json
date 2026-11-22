@@ -1,0 +1,6 @@
+{
+	"description": "The octile distance is the length of a cheapest path between two cells of an 8-connected grid with no obstacles. A straight move costs 1 and a diagonal move costs √2. With `dx` and `dy` the differences in the two coordinates, the distance is `(max(dx, dy) − min(dx, dy)) + min(dx, dy) · √2`. It never overestimates on any 8-connected grid, so it is *admissible*, and it is also *consistent*. The heuristic-search crate keeps the cost as `a + b√2` with integer `a` and `b` and compares two costs exactly, without rounding. Use it as the heuristic for A* or JPS on 8-connected grids.",
+	"papers": [],
+	"lineage": [],
+	"trace": null
+}

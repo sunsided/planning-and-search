@@ -1,0 +1,17 @@
+{
+	"description": "Rosenbrock's method is a local search for a minimum of a function of real variables, and it uses no derivatives. It keeps `n` orthonormal search directions, each with its own step length, and tries one step along each direction in turn: on success (the cost is not worse) it keeps the new point and multiplies the step by `α = 3`; on failure it reverses the step and multiplies it by `β = 0.5`. When every direction has had at least one success and one failure, it turns the first direction towards the total progress of this phase, builds the other directions from it by Gram-Schmidt orthogonalisation, and resets the steps. Thus the directions follow long, curved valleys of the cost function. It finds a local minimum only, so here it is the local searcher of the memetic algorithm (as in HyGLEAM), under an evaluation cap.",
+	"papers": [
+		{
+			"authors": "H. H. Rosenbrock",
+			"title": "An Automatic Method for Finding the Greatest or Least Value of a Function",
+			"year": 1960,
+			"venue": "The Computer Journal",
+			"doi": "10.1093/comjnl/3.3.175",
+			"arxiv": null,
+			"url": null,
+			"role": "introduces"
+		}
+	],
+	"lineage": [],
+	"trace": null
+}

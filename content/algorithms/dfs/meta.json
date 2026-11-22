@@ -1,0 +1,6 @@
+{
+	"description": "Depth-first search always follows the newest successor first, so it goes deep before it goes wide. `dfs` keeps every state it has seen, so it expands each state at most once and is *complete* on finite graphs (it finds a path if one exists). It returns some path, not a short or cheap one. Goals are tested when they are generated. Use it to check if a goal can be reached; use breadth-first search or Dijkstra's algorithm when path length or cost matters.",
+	"papers": [],
+	"lineage": [],
+	"trace": null
+}

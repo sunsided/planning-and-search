@@ -1,0 +1,37 @@
+{
+	"description": "Bisimulation is a shrink strategy for merge-and-shrink: it groups the states of a factor (one transition system of the factored task) that behave alike. Two states are *bisimilar* when both are goal states or both are not, and every label leads them into the same group. The crate starts with groups of equal goal distance and splits each group by the `(label, target group)` pairs of its states (*signature refinement*), until no group splits. On plain SAS+ tasks without a size limit, the final heuristic is then perfect: it equals the optimal cost on every state (every reachable state, with pruning). With `max_states`, it stops splitting at the limit, and the heuristic stays admissible (it never overestimates).",
+	"papers": [
+		{
+			"authors": "Klaus Dräger, Bernd Finkbeiner, Andreas Podelski",
+			"title": "Directed Model Checking with Distance-Preserving Abstractions",
+			"year": 2006,
+			"venue": "Model Checking Software (SPIN 2006), Lecture Notes in Computer Science",
+			"doi": "10.1007/11691617_2",
+			"arxiv": null,
+			"url": null,
+			"role": "introduces"
+		},
+		{
+			"authors": "Raz Nissim, Jörg Hoffmann, Malte Helmert",
+			"title": "Computing Perfect Heuristics in Polynomial Time: On Bisimulation and Merge-and-Shrink Abstraction in Optimal Planning",
+			"year": 2011,
+			"venue": "Proceedings of the Twenty-Second International Joint Conference on Artificial Intelligence (IJCAI 2011)",
+			"doi": null,
+			"arxiv": null,
+			"url": "https://www.ijcai.org/Proceedings/11/Papers/331.pdf",
+			"role": "extends"
+		},
+		{
+			"authors": "Malte Helmert, Patrik Haslum, Jörg Hoffmann, Raz Nissim",
+			"title": "Merge-and-Shrink Abstraction: A Method for Generating Lower Bounds in Factored State Spaces",
+			"year": 2014,
+			"venue": "Journal of the ACM",
+			"doi": "10.1145/2559951",
+			"arxiv": null,
+			"url": null,
+			"role": "extends"
+		}
+	],
+	"lineage": [],
+	"trace": null
+}

@@ -1,0 +1,20 @@
+algorithm OperatorCounting(s, G)
+  input: state s, goal facts G
+  output: an admissible estimate, or ∞ for a dead end
+  CUTS ← lm-cut-landmarks(s)
+  if CUTS = failure then
+    return ∞
+  LP ← minimize ∑ cost(o) · Y_o over operators o, with Y_o ≥ 0
+  for each fact f of a state variable do
+    PROD ← operators with an effect that sets f and no precondition on f
+    CONS ← operators that require f and always change its variable
+    low ← [f ∈ G] − [f ∈ s]                   ▷ [x] is 1 if x holds, else 0
+    add-constraint(LP, ∑ Y_o over PROD − ∑ Y_o over CONS ≥ low)
+  for each cut C in CUTS do
+    add-constraint(LP, ∑ Y_o over o ∈ C ≥ 1)  ▷ an action landmark
+  v ← solve(LP)
+  if the LP is infeasible then
+    return ∞                                  ▷ no plan fits: a dead end
+  if v = failure then
+    return lm-cut(s)                          ▷ the solver gave up
+  return max(⌈v⌉, lm-cut(s))                  ▷ after a small relative tolerance

@@ -1,0 +1,30 @@
+{
+	"description": "`minDispESTNU` makes an extended dispatchable network of a simple temporal network with uncertainty (STNU) smaller. Its input comes from Morris's dispatchable variant and has ordinary edges plus *waits*, which tell a point to wait a given time unless an uncertain duration has already ended. The algorithm adds *stand-in* edges that every outcome implies, filters dominated ordinary edges, and then removes the stand-ins and each wait that an ordinary path or another wait implies. `temporal-control` leaves out the paper's diamond stand-ins, because its executor does not propagate along waits. So the result is smaller than Morris's but not proven minimal, and only simulation shows that it is dispatchable.",
+	"papers": [
+		{
+			"authors": "Luke Hunsberger, Roberto Posenato",
+			"title": "Converting Simple Temporal Networks with Uncertainty into Minimal Equivalent Dispatchable Form",
+			"year": 2024,
+			"venue": "ICAPS 2024",
+			"doi": "10.1609/icaps.v34i1.31487",
+			"arxiv": null,
+			"url": null,
+			"role": "introduces"
+		}
+	],
+	"lineage": [
+		{
+			"slug": "morris-2014-backpropagation",
+			"name": null,
+			"relation": "builds-on",
+			"source": "temporal-control, docs/design.md: \"Minimal (default): Morris2014 followed by minDispESTNU (Hunsberger and Posenato, ICAPS 2024)\""
+		},
+		{
+			"slug": "dominated-edge-filtering",
+			"name": null,
+			"relation": "builds-on",
+			"source": "temporal-control, src/stnu/min_disp.rs: \"STN dispatchability of the ordinary edges plus stand-ins: MinimalNetwork::dispatchable (minimal network and dominated-edge filtering, rigid components tied to a leader)\""
+		}
+	],
+	"trace": null
+}

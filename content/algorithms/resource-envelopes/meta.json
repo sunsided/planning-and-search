@@ -1,0 +1,30 @@
+{
+	"description": "A resource envelope bounds the level of a resource over every schedule that the start windows of a flexible plan allow. At each tick, the lower envelope is the lowest level that any schedule can reach and the upper envelope the highest. The verdict is *Safe* (every schedule stays inside the limits), *Possible* (some schedule may break a limit) or *Certain* (every schedule breaks it). For independent windows, the sum of each activity's own extremes gives the tightest envelope. When *precedences* (\"this start comes at least so long after that one\") link activities, one *minimum cut* in a flow graph gives their joint extreme exactly; with rates or uncertain durations this holds only within a node budget, and above it the result stays safe but may report a false alarm.",
+	"papers": [
+		{
+			"authors": "Nicola Muscettola",
+			"title": "Computing the Envelope for Stepwise-Constant Resource Allocations",
+			"year": 2002,
+			"venue": "CP 2002, Lecture Notes in Computer Science",
+			"doi": "10.1007/3-540-46135-3_10",
+			"arxiv": null,
+			"url": null,
+			"role": "introduces"
+		}
+	],
+	"lineage": [
+		{
+			"slug": null,
+			"name": "Layered minimum cut for convex priors (Ishikawa 2003)",
+			"relation": "combines",
+			"source": "resource-timeline, src/envelope/cut.rs: \"the maximum of sum f_p(x_p) is a minimum cut in a layered graph (Ishikawa, 2003)\" (H. Ishikawa, Exact optimization for Markov random fields with convex priors, IEEE TPAMI 2003)"
+		},
+		{
+			"slug": "floyd-warshall",
+			"name": null,
+			"relation": "combines",
+			"source": "resource-timeline, src/envelope/precedence.rs: \"All-pairs shortest paths (Floyd-Warshall) give the tightest window of each start\""
+		}
+	],
+	"trace": null
+}

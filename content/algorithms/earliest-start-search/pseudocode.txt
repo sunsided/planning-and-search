@@ -1,0 +1,27 @@
+algorithm Earliest-Start(P, DEMANDS, e, l, max-checks)
+  input: plan P of timelines, the demands of one activity relative to its start, start window [e, l]
+  output: the earliest start in [e, l] at which the activity fits, or nil
+  s ← smallest start ≥ e at which no demand precedes its timeline start
+  checks ← 0
+  while s ≠ nil and s ≤ l do
+    if checks = max-checks then
+      error "search exhausted"
+    checks ← checks + 1
+    s′ ← next-candidate(s)                        ▷ where a demand tick meets a change tick or target
+    if rates are involved then
+      hi ← l if s′ = nil, else min(s′ − 1, l)
+      found ← earliest-in(s, hi)
+      if found ≠ nil then
+        return found
+    else if fits(P, DEMANDS, s) then
+      return s                                    ▷ the answer is constant on the piece
+    s ← s′
+  return nil
+function earliest-in(lo, hi)
+  K ← [0, hi − lo]                                ▷ offsets from lo
+  for each level v that must stay within [min, max] on the piece do
+    v₀, slope ← v at lo, v at lo + 1 minus v at lo   ▷ v is affine in the start here
+    K ← {k ∈ K : min ≤ v₀ + slope · k ≤ max}       ▷ one floor or ceiling division
+  if K = ∅ then
+    return nil
+  return lo + min(K)

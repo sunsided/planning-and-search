@@ -1,0 +1,25 @@
+algorithm InterleavedHyperedge(T)
+  input: ports T of one net, separated orthogonal visibility graph G′
+  output: a tree over edges of G′ that connects every port of T
+  for each t in T do
+    add-route({t})                           ▷ a sub-route; its nodes enter FRONTIER at cost 0
+  BRIDGES ← ∅
+  while FRONTIER ≠ ∅ or BRIDGES ≠ ∅ do
+    if BRIDGES = ∅ or 2 · min-cost(FRONTIER) < min-cost(BRIDGES) then
+      (c, n, owner) ← extract-min(FRONTIER)
+      if n is not reached and owner is alive then
+        reach(n, c, owner)
+        for each (m, w) in edges(G′, n) do
+          if m is not reached then
+            insert(FRONTIER, (c + w, m, owner))
+          else if owner[m] ≠ owner then
+            insert(BRIDGES, (c + w + cost[m], n, m))
+    else
+      (c, a, b) ← extract-min(BRIDGES)
+      if fresh(c, a, b) then                 ▷ both owners alive, cost still current
+        S ← merge(route(a), route(b), path-to(a), path-to(b), edge(a, b))
+        if S holds every port of T then
+          return improve(prune-leaves(S))
+        forget(owner[a], owner[b])
+        add-route(S)                         ▷ grow again from all of S at cost 0
+  return failure

@@ -1,0 +1,34 @@
+{
+	"description": "Merge-and-shrink builds an *abstraction* of a planning task: a smaller transition system that maps groups of real states to one abstract state. It starts with one small transition system (a *factor*) per state variable. Then it repeatedly picks two factors, *shrinks* them by merging equivalent abstract states until their product fits a size limit, and *merges* them into their synchronized product. The goal distances in the last factor never overestimate the true cost (they are *admissible*), so A* with this heuristic finds cheapest plans. With exact bisimulation shrinking and no size limit, the heuristic is perfect on tasks without conditional effects and derived variables.",
+	"papers": [
+		{
+			"authors": "Malte Helmert, Patrik Haslum, Jörg Hoffmann, Raz Nissim",
+			"title": "Merge-and-Shrink Abstraction: A Method for Generating Lower Bounds in Factored State Spaces",
+			"year": 2014,
+			"venue": "Journal of the ACM",
+			"doi": "10.1145/2559951",
+			"arxiv": null,
+			"url": null,
+			"role": "introduces"
+		},
+		{
+			"authors": "Silvan Sievers, Malte Helmert",
+			"title": "Merge-and-Shrink: A Compositional Theory of Transformations of Factored Transition Systems",
+			"year": 2021,
+			"venue": "Journal of Artificial Intelligence Research",
+			"doi": "10.1613/jair.1.12557",
+			"arxiv": null,
+			"url": null,
+			"role": "extends"
+		}
+	],
+	"lineage": [
+		{
+			"slug": "pattern-database",
+			"name": null,
+			"relation": "generalizes",
+			"source": "Merge-and-Shrink Abstraction: A Method for Generating Lower Bounds in Factored State Spaces (abstract: \"a more general class of abstractions, strictly dominating pattern databases in theory\")"
+		}
+	],
+	"trace": null
+}

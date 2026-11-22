@@ -1,0 +1,40 @@
+{
+	"description": "IW(k) is breadth-first search with *novelty pruning*. Each state is described by integer *features*, such as the facts that hold in it, and the *novelty* of a state is the size of the smallest set of its features that no earlier state had all at once. IW(k) drops every non-goal state with novelty greater than `k`, so it expands at most `O(n^k)` states for `n` features, however large the state space is. The *width* of a problem is, roughly, the smallest `k` for which IW(k) finds a shortest plan (all actions cost 1); with a larger width, IW(k) can fail. *Iterated width* (`iterated_width`) runs IW(1), IW(2), … until one succeeds, which suits large state spaces where no heuristic is at hand.",
+	"papers": [
+		{
+			"authors": "Nir Lipovetzky, Hector Geffner",
+			"title": "Width and Serialization of Classical Planning Problems",
+			"year": 2012,
+			"venue": "ECAI 2012 (Frontiers in Artificial Intelligence and Applications)",
+			"doi": "10.3233/978-1-61499-098-7-540",
+			"arxiv": null,
+			"url": null,
+			"role": "introduces"
+		},
+		{
+			"authors": "Nir Lipovetzky, Miquel Ramírez, Hector Geffner",
+			"title": "Classical Planning with Simulators: Results on the Atari Video Games",
+			"year": 2015,
+			"venue": "IJCAI 2015",
+			"doi": null,
+			"arxiv": null,
+			"url": "https://ijcai.org/proceedings/2015/230",
+			"role": "applies"
+		}
+	],
+	"lineage": [
+		{
+			"slug": "breadth-first-search",
+			"name": null,
+			"relation": "builds-on",
+			"source": "width-search, src/iw.rs: \"IW(k): breadth-first search that prunes every generated state whose novelty exceeds `k`\""
+		},
+		{
+			"slug": "novelty-pruning",
+			"name": null,
+			"relation": "builds-on",
+			"source": "width-search, src/iw.rs: IW(k) keeps a `NoveltyTable` and skips each state whose novelty exceeds `k`"
+		}
+	],
+	"trace": null
+}

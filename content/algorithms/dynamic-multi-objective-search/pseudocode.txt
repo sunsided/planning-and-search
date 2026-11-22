@@ -1,0 +1,27 @@
+algorithm Dynamic-search-repair(e)
+  input: a changed edge e = (u, v): added, re-costed or removed
+  input: live labels L[s] per state, the Pareto set of path costs from the start
+  output: L equal again to the Pareto sets of a new search
+  ▷ the first search is the label-correcting loop below, started from the start label
+  AFFECTED ← {v}
+  for each label l whose last edge is e do
+    for each label m in the subtree of l do    ▷ the labels built on e
+      kill(m)
+      AFFECTED ← AFFECTED ∪ {state(m)}
+  QUEUE ← []
+  for each s in AFFECTED do                    ▷ re-seed from the predecessors
+    for each edge (p, s, c) into s with not goal(p) do
+      for each l in L[p] do
+        QUEUE ← QUEUE ∪ insert(s, cost(l) + c, l)
+  while QUEUE ≠ [] do                          ▷ label correcting from there
+    l ← pop-front(QUEUE)
+    if alive(l) and not goal(state(l)) then
+      for each (s′, c) in successors(state(l)) do
+        QUEUE ← QUEUE ∪ insert(s′, cost(l) + c, l)
+function insert(s, g, parent)
+  if the cost of some l in L[s] weakly dominates g then
+    return []                                  ▷ no new label
+  remove from L[s] the labels whose cost g weakly dominates
+  l ← new label ⟨s, g, parent⟩
+  L[s] ← L[s] ∪ {l}
+  return [l]

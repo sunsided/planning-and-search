@@ -1,0 +1,37 @@
+algorithm MOLRTDP(s₀, goal, H, b, ε, λ)
+  input: initial state s₀, goal test goal, heuristic H (a set of cost vectors), cost bound b, tolerance ε, margin λ
+  output: value sets V and one deterministic proper policy per vertex of V[s₀]
+  V[s] ← H(s) for each state s when it is first reached
+  while not solved(s₀) do
+    TRIAL ← ⟨⟩
+    s ← s₀
+    while not solved(s) do                       ▷ goal states count as solved
+      append(TRIAL, s)
+      back-up(s)                                 ▷ the MOVI backup over value sets
+      if V[s] holds only b then                  ▷ a dead end, or a trap that reached b
+        break
+      A ← greedy actions of s with an unsolved successor
+      if A = ∅ then
+        break
+      a ← a uniformly random action of A
+      s ← sample(successors(s, a))
+    while TRIAL ≠ ⟨⟩ do
+      if not check-solved(pop(TRIAL), ε) then
+        break
+  return V, extract-policies(V, s₀)
+function check-solved(s, ε)
+  consistent ← true
+  OPEN ← ⟨s⟩ if s is unsolved, else ⟨⟩
+  CLOSED ← ⟨⟩
+  while OPEN ≠ ⟨⟩ do
+    t ← pop(OPEN)
+    append(CLOSED, t)
+    if back-up(t) > ε then                       ▷ the Hausdorff change of V[t]
+      consistent ← false
+      continue
+    push-unsolved-successors(t, OPEN)            ▷ under every greedy action of t
+  if consistent then
+    label-solved(CLOSED)
+  else
+    back-up-reversed(CLOSED)                     ▷ last visited first
+  return consistent

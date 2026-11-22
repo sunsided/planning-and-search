@@ -1,0 +1,24 @@
+{
+	"description": "Informed RRT* is RRT* with focused sampling. Once a path of cost `c` exists, only states `x` with `d(start, x) + d(x, goal) < c` can lie on a cheaper path; for path length this *informed set* is a *prolate hyperspheroid*, an ellipsoid with the start and the goal as foci. Informed RRT* samples this set directly, so the chance to improve the path does not fade in large spaces or in high dimensions. It keeps the guarantees of RRT* (probabilistic completeness and asymptotic optimality) and converges faster. In `sampling-planning` it is the `informed` option of `RrtStar`; `ProlateHyperspheroid` draws the uniform samples in Euclidean spaces, and other spaces fall back to rejection sampling.",
+	"papers": [
+		{
+			"authors": "Jonathan D. Gammell, Siddhartha S. Srinivasa, Timothy D. Barfoot",
+			"title": "Informed RRT*: Optimal Sampling-based Path Planning Focused via Direct Sampling of an Admissible Ellipsoidal Heuristic",
+			"year": 2014,
+			"venue": "IEEE/RSJ International Conference on Intelligent Robots and Systems (IROS)",
+			"doi": "10.1109/IROS.2014.6942976",
+			"arxiv": "1404.2334",
+			"url": null,
+			"role": "introduces"
+		}
+	],
+	"lineage": [
+		{
+			"slug": "rrt-star",
+			"name": null,
+			"relation": "builds-on",
+			"source": "Informed RRT*: Optimal Sampling-based Path Planning Focused via Direct Sampling of an Admissible Ellipsoidal Heuristic: \"We present the algorithm as a simple modification to RRT*\""
+		}
+	],
+	"trace": null
+}

@@ -1,0 +1,29 @@
+algorithm RedBlack(s, G, B)
+  input: state s, goal facts G, black variables B
+  output: the cost of a red-black plan, or ∞ for a dead end
+  π ← relaxed-plan(s)                         ▷ the h_FF plan
+  if π = failure then
+    return ∞
+  R ← the facts of s                          ▷ red facts only grow
+  b ← the values of s on B                    ▷ one value per black variable
+  PLAN ← ⟨⟩
+  for each o in π do
+    for each v in B with pre(o)[v] ≠ b[v] do
+      if not move-black(v, pre(o)[v]) then
+        return cost(π)                        ▷ fall back to h_FF
+    apply(o)
+  for each v in B with G[v] ≠ b[v] do
+    if not move-black(v, G[v]) then
+      return cost(π)
+  return cost(PLAN)
+function move-black(v, d)
+  p ← cheapest-dtg-path(v, b[v], d, R)        ▷ arcs whose red preconditions are in R
+  if p = nil then
+    return false
+  for each o in p do
+    apply(o)                                  ▷ a DAG painting first moves black parents
+  return true
+procedure apply(o)
+  R ← R ∪ the red effects of o
+  b ← b with the black effects of o
+  PLAN ← PLAN · ⟨o⟩

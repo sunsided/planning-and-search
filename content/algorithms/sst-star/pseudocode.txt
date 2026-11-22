@@ -1,0 +1,14 @@
+algorithm SST*(x₀, δ-BN, δ-s, ξ, K₀)
+  input: start state x₀, initial radii δ-BN and δ-s, shrink factor ξ in (0, 1), first epoch K₀
+  output: a sequence of trajectories whose cost converges to the optimum
+  T ← SST tree with root x₀
+  j ← 0; K ← K₀                                   ▷ epoch j lasts K iterations
+  repeat
+    for i in 1, …, K do
+      SST-Step(T, δ-BN, δ-s)                    ▷ one iteration of SST
+    yield cheapest trajectory to a goal node of T
+    δ-BN ← ξ · δ-BN
+    δ-s ← ξ · δ-s
+    j ← j + 1
+    K ← ⌊(1 + ln j) · ξ^(−(d + l + 1) j) · K₀⌋    ▷ d: state, l: control dimension
+  until the iteration budget is spent

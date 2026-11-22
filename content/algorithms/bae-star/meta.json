@@ -1,0 +1,27 @@
+{
+	"description": "BAE* (Bidirectional A* with error) searches forwards from the start and backwards from the goal at the same time, and finds a cheapest path. Each side orders its states by `b = 2g + h − h_opposite`: `h` estimates the distance to the side's target, and `h_opposite` the distance back to its own origin. The term `g − h_opposite` is the heuristic's *error* on the path so far, so `b` grows where the heuristic was too low. The search stops once the two smallest `b` values add up to at least `2μ`, with `μ` the cost of the best path through a state that both sides reached; with a *consistent* heuristic (one that never drops by more than an edge's cost along that edge), `μ` is then optimal. Shperberg et al. (2025) call DIBBS identical to BAE*; in this crate, `bae_star` differs from `dibbs` only in its side choice: it expands the side with fewer open states.",
+	"papers": [
+		{
+			"authors": "S. K. Sadhukhan",
+			"title": "Bidirectional heuristic search based on error estimate",
+			"year": 2013,
+			"venue": "CSI Journal of Computing",
+			"doi": null,
+			"arxiv": null,
+			"url": null,
+			"role": "introduces"
+		},
+		{
+			"authors": "Shahaf S. Shperberg, Natalie Morad, Lior Siag, Ariel Felner, Dor Atzmon",
+			"title": "Bidirectional Bounded-Suboptimal Heuristic Search with Consistent Heuristics",
+			"year": 2025,
+			"venue": null,
+			"doi": null,
+			"arxiv": "2511.10272",
+			"url": null,
+			"role": "extends"
+		}
+	],
+	"lineage": [],
+	"trace": null
+}

@@ -1,0 +1,40 @@
+{
+	"description": "HyGLEAM is a *memetic algorithm*: an evolutionary algorithm that also improves some children by a local search. Here the evolutionary part is GLEAM's diffusion model, and the local searchers are random-mutation hill climbing or, for real parameters, Rosenbrock's rotating-coordinates method. The best setting is problem-dependent, so HyGLEAM adapts two choices while it runs: how often a child is improved (the *frequency*) and how many evaluations one local search may use (the *intensity*). Each choice is a small set of levels with probabilities, and the levels that gave the largest relative cost gain per evaluation get more probability. A *Lamarckian* run writes the improved genome back; a *Baldwinian* run keeps only its improved cost. Use it when local search pays off but its right amount is unknown; it is a heuristic with no optimality guarantee.",
+	"papers": [
+		{
+			"authors": "Wilfried Jakob, Christian Blume, Georg Bretthauer",
+			"title": "Towards a Generally Applicable Self-Adapting Hybridization of Evolutionary Algorithms",
+			"year": 2004,
+			"venue": "Genetic and Evolutionary Computation – GECCO 2004",
+			"doi": "10.1007/978-3-540-24854-5_81",
+			"arxiv": null,
+			"url": null,
+			"role": "introduces"
+		},
+		{
+			"authors": "Wilfried Jakob",
+			"title": "Applying Evolutionary Algorithms Successfully: A Guide Gained from Real-world Applications",
+			"year": 2021,
+			"venue": null,
+			"doi": null,
+			"arxiv": "2107.11300",
+			"url": null,
+			"role": "surveys"
+		}
+	],
+	"lineage": [
+		{
+			"slug": "gleam-diffusion-model",
+			"name": null,
+			"relation": "combines",
+			"source": "evolutionary-planning, src/diffusion.rs: \"Runs HyGLEAM: the diffusion model with `memetic` local search on the best offspring of every mating\""
+		},
+		{
+			"slug": "rosenbrock-method",
+			"name": null,
+			"relation": "combines",
+			"source": "evolutionary-planning, src/memetic.rs: \"Rosenbrock's rotating-coordinates method (Rosenbrock 1960), HyGLEAM's local searcher for real parameters\""
+		}
+	],
+	"trace": null
+}

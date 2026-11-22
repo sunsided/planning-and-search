@@ -1,0 +1,18 @@
+algorithm Dfp(F, c)
+  input: active factors F (at least two), label costs c
+  output: the pair of factors to merge next
+  for each factor Θ in F do
+    h ← goal-distances(Θ, c)
+    for each label l do
+      rank_Θ[l] ← min {h[t] : (s, l, t) ∈ T_Θ, h[t] ≠ ∞}   ▷ ∞ if there is none
+      if l has only self-loops, on every state of Θ then
+        rank_Θ[l] ← ∞                                ▷ the label does not move Θ
+    relevant_Θ ← some state of Θ is not a goal state
+  best ← nil
+  for each pair (Θ, Θ′) in F, Θ before Θ′ do
+    score ← min over labels l of max(rank_Θ[l], rank_Θ′[l])
+    key ← (not (relevant_Θ or relevant_Θ′), score, index of Θ, index of Θ′)
+    if best = nil or key < key[best] then
+      best ← (Θ, Θ′)
+      key[best] ← key
+  return best

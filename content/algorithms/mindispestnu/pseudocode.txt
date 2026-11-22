@@ -1,0 +1,18 @@
+algorithm minDispESTNU(E, WAITS, LINKS)
+  input: ordinary edges E and waits WAITS of a dispatchable ESTNU, contingent links (A, x, y, C)
+  output: an equivalent dispatchable ESTNU with fewer edges and waits
+  S ← {(A, C, y), (C, A, −x) for each link (A, x, y, C)}   ▷ stand-in edges
+  for each wait (V, A, C, −v) in WAITS with −v < −x do
+    S ← S ∪ {(V, A, −x)}
+  for round in 1, …, |LINKS| do
+    D ← all-pairs distances of E ∪ S
+    for each wait (V, A, C, −v) in WAITS do
+      if y − v < D(V, C) then
+        S ← S ∪ {(V, C, y − v)}                  ▷ VAC rule
+  E′ ← dispatchable(minimal-network(E ∪ S))       ▷ dominated-edge filtering
+  E′ ← E′ ∖ S                                     ▷ other edges imply the stand-ins that remain
+  D ← all-pairs distances of E ∪ S
+  for each wait ω = (V, A, C, −v) in WAITS do
+    if D(V, A) ≤ −v or D(V, C) < 0 or another wait implies ω then
+      WAITS ← WAITS ∖ {ω}                         ▷ a dominated wait
+  return E′, WAITS

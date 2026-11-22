@@ -1,0 +1,24 @@
+{
+	"description": "Theta* finds short *any-angle* paths on a grid: paths of straight segments between cell centres, not only along grid edges. It runs A* over the 8-connected moves with the Euclidean distance as heuristic. When it reaches a cell `s′` from `s`, it tests whether `s′` can see the parent of `s`. If it can, `s′` takes that parent as its own, so the path skips `s` in one straight line. The path is not always the shortest any-angle path, but it is never longer than the cheapest 8-connected path. Use it for natural-looking paths for robots and game characters.",
+	"papers": [
+		{
+			"authors": "Alex Nash, Kenny Daniel, Sven Koenig, Ariel Felner",
+			"title": "Theta*: Any-Angle Path Planning on Grids",
+			"year": 2007,
+			"venue": "Proceedings of the Twenty-Second AAAI Conference on Artificial Intelligence",
+			"doi": null,
+			"arxiv": null,
+			"url": "https://cdn.aaai.org/AAAI/2007/AAAI07-187.pdf",
+			"role": "introduces"
+		}
+	],
+	"lineage": [
+		{
+			"slug": "a-star",
+			"name": null,
+			"relation": "builds-on",
+			"source": "heuristic-search, src/grid/theta.rs: \"Both are A* over the 8-connected moves of a LineOfSight grid that lets a path leave the grid edges\""
+		}
+	],
+	"trace": null
+}

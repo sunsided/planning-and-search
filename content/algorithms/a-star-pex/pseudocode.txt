@@ -1,0 +1,32 @@
+algorithm A*pex(s₀, goal, h, ε)
+  input: start s₀, goal test goal, consistent heuristic h, tolerance ε_i per objective i
+  output: paths that cover the Pareto front within 1 + ε_i in every objective i
+  OPEN ← {⟨apex 0, representative [s₀]⟩}       ▷ ordered by f = apex + h, lexicographically
+  SOLUTIONS ← ∅
+  while OPEN ≠ ∅ do
+    AP ← extract-min(OPEN)
+    s ← state of AP
+    if covered-by-solution(f(AP)) or CLOSED[s] weakly dominates Tr(apex(AP)) then
+      continue                                 ▷ Tr(x) drops the first objective of x
+    CLOSED[s] ← CLOSED[s] ∪ {Tr(apex(AP))}
+    if goal(s) then
+      merge-or-add(SOLUTIONS, AP)
+      continue
+    for each (s′, c) in successors(s) do
+      AP′ ← ⟨apex(AP) + c, representative of AP extended to s′⟩
+      if not covered-by-solution(f(AP′)) and not CLOSED[s′] weakly dominates Tr(apex(AP′)) then
+        merge-or-add(OPEN, AP′)
+  return the representatives of SOLUTIONS, without dominated ones
+function covered-by-solution(f)
+  for each S in SOLUTIONS do
+    if g_i(rep(S)) ≤ (1 + ε_i) · f_i for every objective i but the first then
+      apex(S) ← min(apex(S), f)                ▷ component-wise; keeps covering later merges
+      return true
+  return false
+procedure merge-or-add(L, AP)
+  for each AP″ in L at the state of AP do      ▷ in SOLUTIONS: any goal pair
+    M ← ⟨min(apex(AP), apex(AP″)), representative picked by the merge rule⟩
+    if g_i(rep(M)) + h_i ≤ (1 + ε_i) · (apex_i(M) + h_i) for every i then   ▷ ε-bounded
+      replace AP″ by M in L
+      return
+  add AP to L

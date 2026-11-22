@@ -1,0 +1,24 @@
+{
+	"description": "The DG heuristic is an admissible lower bound for the high level of CBS that is at least as strong as the CG heuristic. Two agents are *dependent* when their MDDs (the layered sets of all their cheapest paths) contain no pair of paths without a conflict. The heuristic builds the *dependency graph*, with an edge for each dependent pair, and returns a lower bound on its minimum vertex cover. A cardinal conflict always makes a pair dependent, so DG has every edge of CG and more; the other pairs need a joint search over the two MDDs. `cbs` uses DG by default (`CbsHeuristic::Dg`), for the sum of costs only.",
+	"papers": [
+		{
+			"authors": "Jiaoyang Li, Ariel Felner, Eli Boyarski, Hang Ma, Sven Koenig",
+			"title": "Improved Heuristics for Multi-Agent Path Finding with Conflict-Based Search",
+			"year": 2019,
+			"venue": "International Joint Conference on Artificial Intelligence (IJCAI)",
+			"doi": "10.24963/ijcai.2019/63",
+			"arxiv": null,
+			"url": null,
+			"role": "introduces"
+		}
+	],
+	"lineage": [
+		{
+			"slug": "cg-heuristic",
+			"name": null,
+			"relation": "generalizes",
+			"source": "mapf-search, docs/design.md: \"A cardinal conflict implies dependence ... The bound is the same vertex cover as CG's, over a superset of its edges.\""
+		}
+	],
+	"trace": null
+}

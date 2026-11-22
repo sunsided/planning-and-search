@@ -1,0 +1,23 @@
+algorithm max-leaves(Π)
+  input: planning task Π
+  output: a strict-star factoring with the most mobile leaves found
+  G ← causal-graph(Π)
+  best ← nil
+  for each I in maximum-independent-sets(G) do  ▷ up to 16, within a work budget
+    LEAVES ← { {v} : v ∈ I }
+    LEAVES ← maximize-flexibility(LEAVES)
+    LEAVES ← { L ∈ LEAVES : L is mobile }  ▷ drop frozen leaves
+    LEAVES ← maximize-flexibility(LEAVES)
+    if best = nil or mobile(LEAVES) > mobile(best) then
+      best ← LEAVES
+  return (variables not in best, best)
+function maximize-flexibility(LEAVES)
+  best ← LEAVES
+  repeat
+    next ← best-extension(LEAVES)          ▷ move one center variable adjacent to exactly one leaf into it, within 2^16 states; most mobile leaves wins
+    if next ≠ nil then
+      LEAVES ← next
+      if mobile(LEAVES) ≥ mobile(best) then
+        best ← LEAVES                      ▷ on ties the later round, with larger leaves
+  until next = nil
+  return best

@@ -1,0 +1,24 @@
+algorithm GA(N, e, p-cross, p-mut, f)
+  input: population size N, elites e, crossover and mutation rates, cost function f
+  output: the best genome found when the budget ends
+  P ← N genomes from initialize(), each evaluated by f
+  repeat
+    P′ ← the e cheapest members of P              ▷ elitism
+    while |P′| < N do
+      a, b ← select(P, 2)
+      if random() < p-cross then
+        c₁, c₂ ← crossover(a, b)
+      else
+        c₁, c₂ ← a, b
+      for each c in ⟨c₁, c₂⟩ do
+        if random() < p-mut then
+          mutate(c)
+        repair(c)
+        add (c, f(c)) to P′
+    P ← P′
+  until budget exhausted
+  return the cheapest genome evaluated
+procedure SteadyStateStep(P)
+  a, b ← select(P, 2)
+  for each c in breed(a, b) do                    ▷ crossover, mutation, repair as above
+    replace the worst member of P by (c, f(c))    ▷ optionally only if cheaper

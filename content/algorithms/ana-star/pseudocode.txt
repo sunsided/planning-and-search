@@ -1,0 +1,24 @@
+algorithm ANA*(s₀, goal, h)
+  input: start s₀, goal test goal, admissible heuristic h
+  output: a series of cheaper and cheaper paths; the last one is optimal
+  G ← ∞                                        ▷ cost of the incumbent
+  g[s₀] ← 0
+  OPEN ← {s₀}
+  while OPEN ≠ ∅ do
+    s ← the state of OPEN with the best priority
+    remove(OPEN, s)                            ▷ priority: smallest h while G = ∞, else largest e
+    if goal(s) then
+      G ← g[s]
+      incumbent ← s
+      remove every s′ with g[s′] + h(s′) ≥ G from OPEN
+      on-solution(path-to(s), min of g + h over OPEN)
+      continue
+    for each (s′, c) in successors(s) do
+      if g[s] + c < g[s′] then                 ▷ reopens closed states
+        g[s′] ← g[s] + c
+        parent[s′] ← s
+        if g[s′] + h(s′) < G then
+          insert(OPEN, s′)
+  return path-to(incumbent), or failure if there is none
+function e(s)
+  return (G − g[s]) / h(s)                     ▷ the slack left below G per unit of h

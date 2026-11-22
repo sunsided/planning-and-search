@@ -1,0 +1,24 @@
+{
+	"description": "Decoupled search splits a task into a *center* and *leaves*, and leaf reduction removes leaf transitions that this search never needs. It uses the *leaf simulation* of dominance pruning: leaf state `y` simulates `x` if `y` can do all that `x` can, at no higher cost. A transition `x -a-> x′` is *superfluous* if `x` simulates `x′`, or if another transition from `x`, with weaker center preconditions and no higher cost, reaches a state that simulates `x′`. Leaf states that only removed transitions reach become unreachable, and actions without transitions can be dropped from the task for heuristics. The removal order keeps the reduction sound, so the search stays optimal and stores fewer states.",
+	"papers": [
+		{
+			"authors": "Álvaro Torralba, Daniel Gnad, Patrick Dubbert, Jörg Hoffmann",
+			"title": "On State-Dominance Criteria in Fork-Decoupled Search",
+			"year": 2016,
+			"venue": "Extended technical report of the IJCAI 2016 paper, Saarland University",
+			"doi": null,
+			"arxiv": null,
+			"url": "https://fai.cs.uni-saarland.de/hoffmann/papers/ijcai16b-tr.pdf",
+			"role": "introduces"
+		}
+	],
+	"lineage": [
+		{
+			"slug": "dominance-pruning",
+			"name": null,
+			"relation": "builds-on",
+			"source": "decoupled-search, README.md: \"Optional simulation-based leaf reduction (`Config::reduce_leaves`, the superfluous-transition rule of the paper's technical report ...)\", next to the dominance criteria of Torralba, Gnad, Dubbert and Hoffmann 2016"
+		}
+	],
+	"trace": null
+}

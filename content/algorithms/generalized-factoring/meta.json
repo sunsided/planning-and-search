@@ -1,0 +1,24 @@
+{
+	"description": "A *factoring* splits the variables of a planning task into a *center* and *leaves* for decoupled search. A generalized factoring drops the star shape: leaves may read and write each other, and the center may be empty. Every operator that is not confined to one leaf and the center becomes a *global* action, which the search branches over, so the search stays sound, complete and optimal. The candidate leaves are the sets of variables that some operator changes. The paper picks leaves with an integer program; the crate approximates it greedily, smallest candidates first, and keeps a candidate only if it and all earlier leaves stay *mobile* (have at least one leaf action).",
+	"papers": [
+		{
+			"authors": "Daniel Gnad, Álvaro Torralba, Daniel Fišer",
+			"title": "Beyond Stars – Generalized Topologies for Decoupled Search",
+			"year": 2022,
+			"venue": "International Conference on Automated Planning and Scheduling (ICAPS)",
+			"doi": "10.1609/icaps.v32i1.19791",
+			"arxiv": null,
+			"url": null,
+			"role": "introduces"
+		}
+	],
+	"lineage": [
+		{
+			"slug": null,
+			"name": "Star factorings",
+			"relation": "generalizes",
+			"source": "Beyond Stars – Generalized Topologies for Decoupled Search"
+		}
+	],
+	"trace": null
+}

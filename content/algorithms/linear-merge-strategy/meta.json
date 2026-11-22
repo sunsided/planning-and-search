@@ -1,0 +1,17 @@
+{
+	"description": "The linear merge strategy merges the factors of a merge-and-shrink abstraction in a fixed order of variables. It merges the first two variables, then merges the result with the third variable, and so on: `((v0 ⊗ v1) ⊗ v2) ⊗ …`, where `⊗` is the synchronized product of two factors. So each merge adds exactly one atomic factor (the transition system of one variable) to one growing composite factor. The order is the only choice; `LinearMerge::in_variable_order` uses the task's variable order. It is simple and predictable, but it cannot merge two composite factors, as non-linear strategies such as DFP can.",
+	"papers": [
+		{
+			"authors": "Malte Helmert, Patrik Haslum, Jörg Hoffmann",
+			"title": "Flexible Abstraction Heuristics for Optimal Sequential Planning",
+			"year": 2007,
+			"venue": "Proceedings of the Seventeenth International Conference on Automated Planning and Scheduling (ICAPS 2007)",
+			"doi": null,
+			"arxiv": null,
+			"url": "https://cdn.aaai.org/ICAPS/2007/ICAPS07-023.pdf",
+			"role": "introduces"
+		}
+	],
+	"lineage": [],
+	"trace": null
+}

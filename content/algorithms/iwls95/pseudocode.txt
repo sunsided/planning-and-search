@@ -1,0 +1,23 @@
+algorithm IWLS95 schedule(Q, X)
+  input: conjuncts Q of one operator relation, smoothing variables X
+  output: an order of Q for the relational product with early quantification
+  order ← ⟨⟩
+  if Q has a precondition conjunct on untouched variables then
+    move it from Q to the end of order
+  while Q ≠ ∅ do
+    M ← largest variable level of a smoothing variable in Q
+    for each c in Q do
+      v ← number of smoothing variables that only c still mentions
+      w ← number of smoothing variables in the support of c
+      x ← number of smoothing variables still mentioned by Q
+      y ← number of next-state variables c introduces
+      z ← number of next-state variables Q still introduces
+      m ← largest level of a smoothing variable of c
+      benefit[c] ← 2·v/w + w/x + y/z + m/M      ▷ a ratio with denominator 0 is 0
+    c ← the conjunct with the largest benefit  ▷ ties: smaller support
+    move c from Q to the end of order
+  return order
+function image(S, order)
+  for each cluster K of consecutive conjuncts in order do
+    S ← ∃ (current bits no later cluster mentions). S ∧ K
+  return S with next bits renamed to current bits

@@ -1,0 +1,19 @@
+algorithm Labelled-Closure(D, W, LINKS)
+  input: ordinary edges D (n × n), upper-case edges W (n × k, W[x][c] is x → A_c labelled c), contingent links (A_c, l_c, u_c, C_c)
+  output: an extended dispatchable network (D, W), or not DC
+  repeat
+    floyd-warshall(D)                                  ▷ no-case rule
+    if D[i][i] < 0 for some i then
+      return not DC
+    for each x and each link c do                      ▷ upper-case rule
+      W[x][c] ← min(W[x][c], min over y of D[x][y] + W[y][c])
+    for each link d and each link c ≠ d with W[C_d][c] < 0 do
+      W[A_d][c] ← min(W[A_d][c], l_d + W[C_d][c])      ▷ cross-case rule
+    for each link d and each y with D[C_d][y] < 0 do
+      D[A_d][y] ← min(D[A_d][y], l_d + D[C_d][y])      ▷ lower-case rule
+    for each x and each link c with W[x][c] ≥ −l_c do
+      D[x][A_c] ← min(D[x][A_c], W[x][c])              ▷ label removal
+    if D and W read as ordinary edges have a negative cycle then
+      return not DC                                    ▷ all-max projection
+  until no entry of D or W changed
+  return (D, W)

@@ -1,0 +1,25 @@
+algorithm MOVI(s₀, goal, b, ε, λ)
+  input: initial state s₀, goal test goal, cost bound b, tolerance ε, coverage margin λ
+  output: value sets V and one deterministic proper policy per vertex of V[s₀]
+  S ← every state reachable from s₀
+  V[s] ← {0} for each s in S
+  repeat
+    r ← 0
+    for each s in S, last first, with not goal(s) do   ▷ Gauss-Seidel, in place
+      r ← max(r, back-up(s))
+  until r < ε
+  return V, extract-policies(V, s₀)
+function back-up(s)
+  for each action a of s do
+    Q[a] ← {c(s, a)}                             ▷ c(s, a) is a cost vector
+    for each (s′, p) in outcomes(s, a) do
+      Q[a] ← CCS_λ(Q[a] ⊕_b p · V[s′])          ▷ set sum; a sum that is not ≤ b becomes b
+  v ← CCS_λ(∪ over a of Q[a])                    ▷ each vector keeps the action that made it
+  r ← hausdorff(V[s], v)
+  V[s] ← v
+  return r
+function extract-policies(V, s₀)
+  for each vector v in V[s₀] do
+    w ← a weight for which v is the best vector at s₀
+    π_v[s] ← the action of the vector u in V[s] with the smallest w · u, for each s
+  return every π_v that is proper, with its evaluated cost vector

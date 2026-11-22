@@ -1,0 +1,17 @@
+{
+	"description": "RTA* (Real-Time A*) moves an agent toward a goal while it plans only one step ahead. It moves to the successor `s′` with the smallest `c(s, s′) + h(s′)`, like LRTA*. But it stores the *second-best* value for the state it leaves: the cost to come back and try the best alternative. So the agent avoids going back and forth within one trial. These stored values can overestimate, so the table is not admissible and repeated trials need not converge; use LRTA* to learn across trials.",
+	"papers": [
+		{
+			"authors": "Richard E. Korf",
+			"title": "Real-time heuristic search",
+			"year": 1990,
+			"venue": "Artificial Intelligence",
+			"doi": "10.1016/0004-3702(90)90054-4",
+			"arxiv": null,
+			"url": null,
+			"role": "introduces"
+		}
+	],
+	"lineage": [],
+	"trace": null
+}

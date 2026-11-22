@@ -1,0 +1,23 @@
+algorithm Symbolic BFS(I, G, T)
+  input: initial state set I, goal set G, operator relations T
+  output: a plan with the fewest operators, or failure
+  L₀ ← I
+  R ← L₀                                       ▷ all states reached so far
+  i ← 0
+  while Lᵢ ∩ G = ∅ do
+    Lᵢ₊₁ ← (⋃ over o in T of image(o, Lᵢ)) ∖ R ▷ only new states
+    if Lᵢ₊₁ = ∅ then
+      return failure
+    R ← R ∪ Lᵢ₊₁
+    i ← i + 1
+  return reconstruct(L₀, …, Lᵢ, G, T)
+function reconstruct(L₀, …, Lₙ, G, T)
+  s ← pick-state(Lₙ ∩ G)
+  plan ← ⟨⟩
+  for k in n, …, 1 do
+    for each o in T do
+      if preimage(o, {s}) ∩ Lₖ₋₁ ≠ ∅ then
+        s ← pick-state(preimage(o, {s}) ∩ Lₖ₋₁)
+        plan ← ⟨o⟩ · plan
+        break
+  return plan

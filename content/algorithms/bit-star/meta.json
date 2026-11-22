@@ -1,0 +1,40 @@
+{
+	"description": "BIT* (Batch Informed Trees) joins graph search and random sampling. It treats a batch of random samples as an implicit *random geometric graph* (RGG), in which each sample links to its near neighbours, and searches it like A*: in order of the estimated cost of a solution through each edge, `g + c_hat + h_hat`. It checks an edge for collisions only when that edge comes out on top and can still improve the solution. When no edge can improve the current solution, BIT* removes the states that cannot help, draws a new batch from the *informed set* (the states that can lie on a cheaper path), and searches again while it keeps its tree. It is *anytime*, probabilistically complete and asymptotically optimal: it returns a path early, the path cost never increases, and it converges to the optimum.",
+	"papers": [
+		{
+			"authors": "Jonathan D. Gammell, Siddhartha S. Srinivasa, Timothy D. Barfoot",
+			"title": "Batch Informed Trees (BIT*): Sampling-based Optimal Planning via the Heuristically Guided Search of Implicit Random Geometric Graphs",
+			"year": 2015,
+			"venue": "IEEE International Conference on Robotics and Automation (ICRA)",
+			"doi": "10.1109/ICRA.2015.7139620",
+			"arxiv": "1405.5848",
+			"url": null,
+			"role": "introduces"
+		},
+		{
+			"authors": "Jonathan D. Gammell, Timothy D. Barfoot, Siddhartha S. Srinivasa",
+			"title": "Batch Informed Trees (BIT*): Informed Asymptotically Optimal Anytime Search",
+			"year": 2020,
+			"venue": "The International Journal of Robotics Research",
+			"doi": "10.1177/0278364919890396",
+			"arxiv": "1707.01888",
+			"url": null,
+			"role": "extends"
+		}
+	],
+	"lineage": [
+		{
+			"slug": "lpa-star",
+			"name": null,
+			"relation": "builds-on",
+			"source": "Batch Informed Trees (BIT*): Sampling-based Optimal Planning via the Heuristically Guided Search of Implicit Random Geometric Graphs: \"an extension of incremental graph-search techniques, such as Lifelong Planning A* (LPA*), to continuous problem domains\""
+		},
+		{
+			"slug": "rrt-star",
+			"name": null,
+			"relation": "generalizes",
+			"source": "sampling-planning, src/informed/bit_star.rs: \"With one batch of infinitely many samples it would be Lifelong-Planning A* on the RGG; with batches of one sample it behaves like RRT*\""
+		}
+	],
+	"trace": null
+}

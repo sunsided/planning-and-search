@@ -1,0 +1,24 @@
+{
+	"description": "Disjoint splitting is a way for CBS to split a conflict so that the two subtrees share no solution. For a conflict between agents `a` and `b`, CBS picks one agent `i`. One child forbids the conflict to `i` with a *negative constraint*; the other child requires it of `i` with a *positive constraint* (\"`i` must be at `v` at time `t`\"), which forbids the conflict to every other agent. No plan lies below both children, so CBS does less duplicate work and stays optimal. `mapf-search` picks as `i` the agent whose MDD forces it through the conflict, if exactly one does, and uses the required vertices as landmarks in the low level; select it with `Splitting::Disjoint`.",
+	"papers": [
+		{
+			"authors": "Jiaoyang Li, Daniel Harabor, Peter J. Stuckey, Ariel Felner, Hang Ma, Sven Koenig",
+			"title": "Disjoint Splitting for Multi-Agent Path Finding with Conflict-Based Search",
+			"year": 2019,
+			"venue": "International Conference on Automated Planning and Scheduling (ICAPS)",
+			"doi": "10.1609/icaps.v29i1.3487",
+			"arxiv": null,
+			"url": null,
+			"role": "introduces"
+		}
+	],
+	"lineage": [
+		{
+			"slug": "cbs",
+			"name": null,
+			"relation": "builds-on",
+			"source": "mapf-search, src/cbs.rs: \"Disjoint splitting (Li et al. 2019): one child forbids the conflict to one agent, the other requires it of that agent with a positive constraint\""
+		}
+	],
+	"trace": null
+}

@@ -1,0 +1,30 @@
+{
+	"description": "Symbolic merge-and-shrink builds an abstraction heuristic whose abstract states (*classes*) are BDDs over the bits of the variables merged so far. A linear strategy merges one variable at a time, goal variables first, and splits each class by the values of the new variable. When the classes need more BDD nodes than a limit, classes with equal goal distance merge first, then the classes with the smallest distances. The final goal distances are exact in the final abstraction, so the heuristic never overestimates; without a limit, it is the perfect heuristic `h*`. Use it with BDDA* or as a SymBA* perimeter.",
+	"papers": [
+		{
+			"authors": "Álvaro Torralba, Carlos Linares López, Daniel Borrajo",
+			"title": "Symbolic Merge-and-Shrink for Cost-Optimal Planning",
+			"year": 2013,
+			"venue": "Proceedings of the Twenty-Third International Joint Conference on Artificial Intelligence (IJCAI)",
+			"doi": null,
+			"arxiv": null,
+			"url": "https://www.ijcai.org/proceedings/2013/352",
+			"role": "introduces"
+		}
+	],
+	"lineage": [
+		{
+			"slug": "merge-and-shrink",
+			"name": null,
+			"relation": "builds-on",
+			"source": "Symbolic Merge-and-Shrink for Cost-Optimal Planning"
+		},
+		{
+			"slug": "linear-merge-strategy",
+			"name": null,
+			"relation": "builds-on",
+			"source": "symbolic-search, src/model/merge_and_shrink.rs: \"Merge strategy. Linear: goal variables first, then the others, each group by ascending id\""
+		}
+	],
+	"trace": null
+}

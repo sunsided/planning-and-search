@@ -1,0 +1,26 @@
+algorithm NAMOA*(s₀, goal, h)
+  input: start state s₀, goal test goal, admissible vector heuristic h
+  output: one path per Pareto-optimal cost vector
+  G_op[s₀] ← {0}, G_cl[s] ← ∅ for every state s   ▷ open and closed g vectors
+  OPEN ← {⟨s₀, 0⟩}                       ▷ by f = g + h, lexicographic
+  SOLUTIONS ← ∅
+  while OPEN ≠ ∅ do
+    ⟨s, g⟩ ← extract-min(OPEN)
+    if g ∉ G_op[s] then
+      continue                           ▷ removed by a dominating label
+    G_op[s] ← G_op[s] ∖ {g}
+    if a solution weakly dominates g + h(s) or a vector in G_cl[s] weakly dominates g then
+      continue
+    G_cl[s] ← G_cl[s] ∪ {g}
+    if goal(s) then
+      SOLUTIONS ← SOLUTIONS ∪ {path-to(s, g)}
+      continue
+    for each (s′, c) in successors(s) do
+      g′ ← g + c
+      if a solution weakly dominates g′ + h(s′) then
+        continue
+      if a vector in G_op[s′] ∪ G_cl[s′] weakly dominates g′ then
+        continue
+      G_op[s′] ← {x ∈ G_op[s′] : g′ does not dominate x} ∪ {g′}
+      insert(OPEN, ⟨s′, g′⟩, parent: ⟨s, g⟩)
+  return SOLUTIONS

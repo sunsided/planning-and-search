@@ -1,0 +1,22 @@
+algorithm Pareto-Spanning-Trees(V, E)
+  input: nodes V, undirected edges E = e₁, …, e_m with cost vectors
+  output: one spanning tree per Pareto-optimal cost vector
+  FRONT ← ∅
+  Branch(1, ∅)
+  return FRONT
+procedure Branch(i, T)
+  if T has |V| − 1 edges then
+    if no tree in FRONT weakly dominates cost(T) then
+      add T to FRONT, drop the trees in FRONT that T dominates
+    return
+  if i > m then
+    return
+  lb ← cost(T)
+  for each objective k do                   ▷ cheapest completion per objective
+    lb_k ← lb_k + kruskal-completion(T, e_i, …, e_m, k)
+  if a tree in FRONT weakly dominates lb then
+    return                                  ▷ prune
+  if e_i joins two components of T then
+    Branch(i + 1, T ∪ {e_i})                ▷ take e_i
+  if T ∪ {e_(i+1), …, e_m} still connects V then
+    Branch(i + 1, T)                        ▷ leave e_i out

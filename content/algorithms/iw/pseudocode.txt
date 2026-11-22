@@ -1,0 +1,25 @@
+algorithm IW(s₀, k)
+  input: initial state s₀, width bound k
+  output: a shortest plan to a goal state if the width is at most k, else a plan or failure
+  NOVELTY ← empty novelty table for feature sets of size ≤ k
+  evaluate-and-insert(NOVELTY, features(s₀))
+  if goal(s₀) then
+    return empty plan
+  OPEN ← queue ⟨s₀⟩
+  while OPEN ≠ ∅ do
+    s ← pop-front(OPEN)
+    for each (a, s′) in successors(s) do
+      w ← evaluate-and-insert(NOVELTY, features(s′))   ▷ nil when the novelty is above k
+      if w = nil and not goal(s′) then
+        continue                                     ▷ prune: nothing new in s′
+      parent[s′] ← (s, a)
+      if goal(s′) then
+        return plan-to(s′)
+      push-back(OPEN, s′)
+  return failure
+function iterated-width(s₀, k-max)
+  for k in 1, …, k-max do
+    π ← IW(s₀, k)
+    if π ≠ failure then
+      return π
+  return failure

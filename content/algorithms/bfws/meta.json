@@ -1,0 +1,24 @@
+{
+	"description": "Best-First Width Search (BFWS) is a greedy best-first search that ranks states first by novelty `w` and then by *goal count* `#g`, the number of goal conditions a state does not satisfy. It computes novelty in a separate table for each value of `#g`, so a state that satisfies one more goal can count as new again. A state with novelty above `k` is not pruned: it gets the value `k + 1` and waits behind all states of lower novelty. With duplicate detection, BFWS is complete on finite state spaces, but its plans are not optimal. Use it for planning tasks with conjunctive goals (\"collect every key\"), where IW alone would need a large width.",
+	"papers": [
+		{
+			"authors": "Nir Lipovetzky, Hector Geffner",
+			"title": "Best-First Width Search: Exploration and Exploitation in Classical Planning",
+			"year": 2017,
+			"venue": "Proceedings of the AAAI Conference on Artificial Intelligence",
+			"doi": "10.1609/aaai.v31i1.11027",
+			"arxiv": null,
+			"url": null,
+			"role": "introduces"
+		}
+	],
+	"lineage": [
+		{
+			"slug": "novelty-pruning",
+			"name": null,
+			"relation": "builds-on",
+			"source": "width-search, src/bfws.rs: \"best-first search ordered by novelty (computed separately for each goal-count value `#g`, capped at `k + 1`)\""
+		}
+	],
+	"trace": null
+}

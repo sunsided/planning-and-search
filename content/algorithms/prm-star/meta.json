@@ -1,0 +1,24 @@
+{
+	"description": "PRM* builds a probabilistic roadmap like PRM does, but each new node connects to the older nodes within a radius that shrinks as the graph grows: `r(n) = γ (ln n / n)^(1/d)`, where `n` counts the nodes and `d` is the dimension. The k-nearest form connects to the `⌈k ln n⌉` nearest nodes instead. If `γ` is above a bound that depends on the dimension and the free volume (or `k` above `e (1 + 1/d)`), the cost of the best path in the graph converges to the optimal cost (*asymptotic optimality*). Each node still has only about `ln n` neighbours, so the graph grows at nearly the cost of plain PRM. Use it when you query one environment many times and want paths that get better with more samples.",
+	"papers": [
+		{
+			"authors": "Sertac Karaman, Emilio Frazzoli",
+			"title": "Sampling-based algorithms for optimal motion planning",
+			"year": 2011,
+			"venue": "The International Journal of Robotics Research",
+			"doi": "10.1177/0278364911406761",
+			"arxiv": "1105.1186",
+			"url": null,
+			"role": "introduces"
+		}
+	],
+	"lineage": [
+		{
+			"slug": "prm",
+			"name": null,
+			"relation": "builds-on",
+			"source": "sampling-planning, src/roadmaps/prm.rs: \"With `Connection::Star` the roadmap is PRM*, whose query cost converges to the optimum as it grows\""
+		}
+	],
+	"trace": null
+}

@@ -1,0 +1,15 @@
+algorithm Add-Constraint(D, u, v, lo, hi)
+  input: closed distance matrix D of a consistent STN, a new constraint lo ≤ t_v − t_u ≤ hi
+  output: accepted with D updated, or rejected with a negative cycle
+  if D[v][u] + hi < 0 or D[u][v] − lo < 0 or hi − lo < 0 then
+    return rejected(negative-cycle(STN plus the constraint))   ▷ D stays unchanged
+  D′ ← copy(D)
+  add-edge(D′, u, v, hi)                   ▷ a missing bound adds no edge
+  add-edge(D′, v, u, −lo)
+  D ← D′                                   ▷ replace D only on success
+  return accepted
+procedure add-edge(D, u, v, w)
+  if w < D[u][v] then
+    for each a in V do
+      for each b in V do
+        D[a][b] ← min(D[a][b], D[a][u] + w + D[v][b])   ▷ row u and column v stay fixed

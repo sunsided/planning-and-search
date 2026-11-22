@@ -1,0 +1,13 @@
+{
+	"description": "Incremental STN consistency keeps the all-pairs distance matrix of a simple temporal network (STN) up to date while constraints arrive one by one. A new edge `u → v` of weight `w` closes a negative cycle exactly when `D[v][u] + w < 0`. The check rejects such a constraint, leaves the network unchanged and explains the conflict. Otherwise each entry becomes `min(D[a][b], D[a][u] + w + D[v][b])`, which costs `O(n²)` per constraint instead of `O(n³)` for a new Floyd-Warshall run. The matrix is always the *minimal network* (the tightest interval of every pair), so a planner that adds constraints one at a time gets each answer at once.",
+	"papers": [],
+	"lineage": [
+		{
+			"slug": "bellman-ford",
+			"name": null,
+			"relation": "builds-on",
+			"source": "temporal-control, src/stn/incremental.rs: explain_rejection \"Builds the negative-cycle explanation for a rejected constraint\" by running bellman_ford::run on the network extended by that constraint"
+		}
+	],
+	"trace": null
+}

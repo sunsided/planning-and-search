@@ -1,0 +1,27 @@
+{
+	"description": "h^max estimates the cost from a state to the goal of a planning task. It uses the *delete relaxation*: a fact that becomes true stays true, so operators never undo each other. The cost of a fact is the cost of the cheapest operator that adds it, plus the cost of that operator's most expensive precondition; the estimate is the cost of the most expensive goal fact. h^max never overestimates (it is *admissible*), so A* with it finds cheapest plans, but its estimates are often low. Decoupled search keeps a *price* (cheapest cost) for each reached leaf state; there, each fact starts at the cheapest price of a reached leaf state that contains it.",
+	"papers": [
+		{
+			"authors": "Blai Bonet, Héctor Geffner",
+			"title": "Planning as heuristic search",
+			"year": 2001,
+			"venue": "Artificial Intelligence",
+			"doi": "10.1016/S0004-3702(01)00108-4",
+			"arxiv": null,
+			"url": null,
+			"role": "introduces"
+		},
+		{
+			"authors": "Daniel Gnad, Jörg Hoffmann",
+			"title": "Beating LM-Cut with h^max (Sometimes): Fork-Decoupled State Space Search",
+			"year": 2015,
+			"venue": "International Conference on Automated Planning and Scheduling (ICAPS)",
+			"doi": "10.1609/icaps.v25i1.13705",
+			"arxiv": null,
+			"url": null,
+			"role": "applies"
+		}
+	],
+	"lineage": [],
+	"trace": null
+}

@@ -1,0 +1,40 @@
+{
+	"description": "A *factoring* splits the variables of a planning task into a *center* and *leaves* for decoupled search. The X-shape factoring combines two kinds of leaves in the *causal graph*, which has an arc from `u` to `v` when some operator reads or writes `u` and writes `v`. First, every small sink component (a strongly connected component that no arc leaves) becomes a fork leaf. Then every small source component (one that no arc enters) without an arc into a fork leaf becomes an inverted-fork leaf. Every leaf touches only the center, so the result is a *strict star*.",
+	"papers": [
+		{
+			"authors": "Daniel Gnad, Jörg Hoffmann, Carmel Domshlak",
+			"title": "From Fork Decoupling to Star-Topology Decoupling",
+			"year": 2015,
+			"venue": "Symposium on Combinatorial Search (SoCS)",
+			"doi": null,
+			"arxiv": null,
+			"url": "https://ojs.aaai.org/index.php/SOCS/article/view/18348",
+			"role": "introduces"
+		},
+		{
+			"authors": "Daniel Gnad, Valerie Poser, Jörg Hoffmann",
+			"title": "Beyond Forks: Finding and Ranking Star Factorings for Decoupled Search",
+			"year": 2017,
+			"venue": "International Joint Conference on Artificial Intelligence (IJCAI)",
+			"doi": "10.24963/ijcai.2017/602",
+			"arxiv": null,
+			"url": null,
+			"role": "extends"
+		}
+	],
+	"lineage": [
+		{
+			"slug": "fork-factoring",
+			"name": null,
+			"relation": "combines",
+			"source": "decoupled-search, src/factoring.rs: \"The paper runs the fork strategy and then the inverted-fork strategy on the fork center\""
+		},
+		{
+			"slug": "inverted-fork-factoring",
+			"name": null,
+			"relation": "combines",
+			"source": "decoupled-search, src/factoring.rs: \"The paper runs the fork strategy and then the inverted-fork strategy on the fork center\""
+		}
+	],
+	"trace": null
+}

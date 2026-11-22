@@ -1,0 +1,24 @@
+{
+	"description": "Focal search (A*ε) finds a path that costs at most `w` times the optimum (it is *bounded-suboptimal*). It keeps the open states ordered by `f = g + h`, where `h` is *admissible*: it never overestimates the remaining cost. The *focal list* holds the open states with `f ≤ w · f_min`, where `f_min` is the smallest `f` that is open. Focal search expands the focal state with the smallest value of a second, free *focal key*, which in the crate may depend on the whole path, for example the number of conflicts in multi-agent path finding. With `w = 1` it is A* that breaks ties by the focal key.",
+	"papers": [
+		{
+			"authors": "Judea Pearl, Jin H. Kim",
+			"title": "Studies in Semi-Admissible Heuristics",
+			"year": 1982,
+			"venue": "IEEE Transactions on Pattern Analysis and Machine Intelligence",
+			"doi": "10.1109/tpami.1982.4767270",
+			"arxiv": null,
+			"url": null,
+			"role": "introduces"
+		}
+	],
+	"lineage": [
+		{
+			"slug": "a-star",
+			"name": null,
+			"relation": "generalizes",
+			"source": "heuristic-search, src/bounded.rs: \"With Weight::ONE it is A* with the focal key as tie-breaker among equal f\""
+		}
+	],
+	"trace": null
+}

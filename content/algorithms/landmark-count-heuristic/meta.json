@@ -1,0 +1,40 @@
+{
+	"description": "The landmark count heuristic estimates the distance to the goal as the number of landmarks still to achieve. A *landmark* is a fact that is true at some point of every plan. The crate gives two forms: `LandmarkCount` finds the landmarks again in each state, and `LandmarkTracker` finds them once at the start and records along each search path which landmarks the path has already reached (as in the LAMA planner). One operator can reach several landmarks, so the count can overestimate: it is not admissible. It ignores operator costs and is a strong guide for satisficing search.",
+	"papers": [
+		{
+			"authors": "Silvia Richter, Malte Helmert, Matthias Westphal",
+			"title": "Landmarks Revisited",
+			"year": 2008,
+			"venue": "AAAI Conference on Artificial Intelligence",
+			"doi": null,
+			"arxiv": null,
+			"url": "https://cdn.aaai.org/AAAI/2008/AAAI08-155.pdf",
+			"role": "introduces"
+		},
+		{
+			"authors": "Silvia Richter, Matthias Westphal",
+			"title": "The LAMA Planner: Guiding Cost-Based Anytime Planning with Landmarks",
+			"year": 2010,
+			"venue": "Journal of Artificial Intelligence Research",
+			"doi": "10.1613/jair.2972",
+			"arxiv": null,
+			"url": null,
+			"role": "extends"
+		}
+	],
+	"lineage": [
+		{
+			"slug": "h-1-landmarks",
+			"name": null,
+			"relation": "builds-on",
+			"source": "planning-heuristics, src/landmarks/heuristics.rs: `LandmarkCount` counts \"the fact landmarks of the state\" from `Relaxation::landmarks`"
+		},
+		{
+			"slug": "rhw-landmarks",
+			"name": null,
+			"relation": "builds-on",
+			"source": "planning-heuristics, src/landmarks/tracking.rs: the landmark graph is computed once \"for example with `Relaxation::rhw_landmarks`\""
+		}
+	],
+	"trace": null
+}

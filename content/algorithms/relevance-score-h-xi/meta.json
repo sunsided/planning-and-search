@@ -1,0 +1,17 @@
+{
+	"description": "The relevance score `h_Ξ` estimates how important each fact is for reaching the goal. It builds a *backtracking tree* from the goal: below each fact are the operators that achieve it, and below each operator are its preconditions. A random agent walks this tree: at a fact it picks one achiever, at an operator it takes all preconditions. The score of a fact is the chance that the agent visits it. In a state, the tree drops each fact that already holds, with everything below it, and `h_Ξ` is the sum of the scores in the tree that remains. The tree is explored once, by random dives; `h_Ξ` is 0 exactly in goal states, not admissible, and works as a landmark-like guide for satisficing search.",
+	"papers": [
+		{
+			"authors": "Oliver Kim, Mohan Sridharan",
+			"title": "Relevance Score: A Landmark-Like Heuristic for Planning",
+			"year": 2024,
+			"venue": "arXiv preprint",
+			"doi": null,
+			"arxiv": "2403.07510",
+			"url": null,
+			"role": "introduces"
+		}
+	],
+	"lineage": [],
+	"trace": null
+}

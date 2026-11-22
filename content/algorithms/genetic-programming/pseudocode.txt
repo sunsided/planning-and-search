@@ -1,0 +1,30 @@
+algorithm GP(grammar, d-min, d-max, f)
+  input: symbol arities grammar, depth range d-min … d-max, cost function f of a program
+  output: the cheapest program found when the budget ends
+  P ← programs from RampedHalfAndHalf(grammar, d-min, d-max)
+  repeat                                          ▷ a GA loop over program trees
+    a, b ← select(P, 2)
+    c₁, c₂ ← SubtreeCrossover(a, b)
+    for each c in ⟨c₁, c₂⟩ do
+      SubtreeMutation(c), or PointMutation(c)
+      add (c, f(c)) to the next population
+  until budget exhausted
+  return the cheapest program evaluated
+function RampedHalfAndHalf(grammar, d-min, d-max)
+  d ← uniform in d-min … d-max
+  full ← true or false with equal probability
+  return generate(d, full)
+function generate(d, full)
+  if d = 0 or (not full and random() < share of terminals in grammar) then
+    return ⟨a random terminal⟩
+  g ← a random function
+  return ⟨g, generate(d − 1, full) for each of the arity(g) children⟩
+function SubtreeCrossover(a, b)
+  i, j ← a crossover point in a and in b         ▷ an inner node with probability 0.9
+  c₁ ← a with the subtree at i replaced by the subtree of b at j
+  c₂ ← b with the subtree at j replaced by the subtree of a at i
+  if c₁ breaks the depth or size limit then
+    c₁ ← a
+  if c₂ breaks the depth or size limit then
+    c₂ ← b
+  return c₁, c₂

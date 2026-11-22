@@ -1,0 +1,16 @@
+algorithm iLAO*(s₀, goal, h, ε)
+  input: initial state s₀, goal test goal, heuristic h, tolerance ε
+  output: values V and a greedy policy π that is ε-consistent on its envelope
+  V[s₀] ← h(s₀)
+  repeat
+    expanded ← false
+    r ← 0
+    for each s in a depth-first pass from s₀ over greedy arcs π, in postorder do
+      if goal(s) then
+        continue
+      if s is unexpanded then
+        expand(s)                                ▷ new successors s′ get V[s′] ← h(s′)
+        expanded ← true                          ▷ the pass does not descend below a tip
+      r ← max(r, back-up(s))                     ▷ updates V[s] and π[s], returns the change
+  until not expanded and r < ε and check-solved(s₀, ε)
+  return V, π

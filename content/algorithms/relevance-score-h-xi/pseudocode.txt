@@ -1,0 +1,23 @@
+algorithm RelevanceScore(s, G, T)
+  input: state s, goal facts G, backtracking tree T explored once from G
+  output: h_Ξ(s), or ∞ for a relaxed dead end
+  if G is relaxed-unreachable from s then
+    return ∞
+  h ← 0
+  for each fact l do
+    h ← h + xi(l, root(T))
+  return round(h)
+function xi(l, n)
+  if n is labelled l then
+    return 1
+  KIDS ← the children of n not labelled with a fact true in s
+  if n is a fact node then
+    if KIDS = ∅ then
+      return 0
+    return ∑ xi(l, c) over c ∈ KIDS / |KIDS|  ▷ the agent picks one achiever
+  return 1 − ∏ (1 − xi(l, c)) over c ∈ KIDS   ▷ a rule takes every condition
+procedure explore(T, ρ, N)
+  repeat
+    n ← a frontier node of T, chosen with probability ∝ ξ(n)
+    dive(T, n)                                ▷ add children, step to one ∝ ξ, to a leaf
+  until frontier(T) = ∅ or (|T| ≥ N and frontier-mass(T) ≤ ρ · explored-mass(T))

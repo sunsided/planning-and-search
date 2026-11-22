@@ -1,0 +1,34 @@
+{
+	"description": "LM-cut is an admissible heuristic for cost-optimal planning: it never overestimates the cost to the goal. It finds *disjunctive action landmarks*, sets of operators of which every plan must use at least one. In each round it computes h^max, takes the operators that cross a *cut* between the state and the most expensive goal facts, and charges that set the cost of its cheapest operator. It then lowers the costs of these operators by that amount and repeats until h^max of the goal is 0; the estimate is the sum of all charges. The estimate is never below h^max and is often much higher, so A* with LM-cut expands fewer states.",
+	"papers": [
+		{
+			"authors": "Malte Helmert, Carmel Domshlak",
+			"title": "Landmarks, Critical Paths and Abstractions: What's the Difference Anyway?",
+			"year": 2009,
+			"venue": "International Conference on Automated Planning and Scheduling (ICAPS)",
+			"doi": "10.1609/icaps.v19i1.13370",
+			"arxiv": null,
+			"url": null,
+			"role": "introduces"
+		},
+		{
+			"authors": "Gabriele Röger, Florian Pommerening, Malte Helmert",
+			"title": "Optimal Planning in the Presence of Conditional Effects: Extending LM-Cut with Context Splitting",
+			"year": 2014,
+			"venue": "European Conference on Artificial Intelligence (ECAI)",
+			"doi": "10.3233/978-1-61499-419-0-765",
+			"arxiv": null,
+			"url": null,
+			"role": "extends"
+		}
+	],
+	"lineage": [
+		{
+			"slug": "h-max",
+			"name": null,
+			"relation": "builds-on",
+			"source": "planning-heuristics, src/lm_cut.rs: \"compute `h_max` and, for every rule, its *precondition choice*\"; the type is \"Admissible, and never below `h_max`\""
+		}
+	],
+	"trace": null
+}

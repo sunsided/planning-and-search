@@ -1,0 +1,8 @@
+algorithm Ideal-point(GOALS)
+  input: goal states GOALS, a graph with N objectives and a finite reachable part
+  output: an estimate h(v) = (h_1(v), …, h_N(v)) for every state v that reaches a goal
+  for i in 1, …, N do
+    d_i ← dijkstra-backward(GOALS, objective i)   ▷ from all goals at once, on reversed edges
+  for each state v that the backward searches reached do
+    h(v) ← (d_1(v), …, d_N(v))                 ▷ exact per objective, so a lower bound
+  return h                                     ▷ no estimate: v reaches no goal and is pruned

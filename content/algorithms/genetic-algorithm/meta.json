@@ -1,0 +1,6 @@
+{
+	"description": "A genetic algorithm (GA) searches over any kind of candidate solution, the *genome*, for one with low cost. It keeps a population, picks parents by a *selection* scheme that prefers cheap genomes (for example a tournament), combines two parents by *crossover*, changes the children at random by *mutation*, and may *repair* children that break constraints. A generational GA replaces the whole population each generation but copies the best few unchanged (*elitism*); a steady-state GA puts each new child in place of the worst individual. The operators carry the problem knowledge, so the same loop works for bit strings, real vectors, permutations, paths or plans. It is a heuristic: it gives the best solution found within the budget, with no optimality guarantee.",
+	"papers": [],
+	"lineage": [],
+	"trace": null
+}

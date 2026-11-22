@@ -1,0 +1,34 @@
+algorithm SPARS2(Δ, δ, t, M, k)
+  input: guard range Δ, near-sample range δ, stretch t, failure limit M, near samples k
+  output: a sparse roadmap S
+  S ← empty graph
+  failures ← 0
+  while failures < M do
+    q ← sample()
+    if state-valid(q) then
+      V ← guards of S within Δ that see q, closest first
+      if V = ∅ then
+        add-guard(S, q)                          ▷ coverage
+      else if not check-connectivity(q, V) and not check-interface(q, V) then
+        Check-Quality(q, first(V))
+    if S changed then
+      failures ← 0
+    else
+      failures ← failures + 1
+  return S
+procedure Check-Quality(q, v)
+  R ← ∅
+  for j in 1, …, k do
+    σ ← sample-near(q, δ)                        ▷ valid and reachable from q
+    if σ = nil then
+      continue
+    r ← closest guard that sees σ
+    if r = nil then
+      add-guard(S, σ)                            ▷ coverage
+      return
+    if r ≠ v then
+      update-pair-points(v, q, r, σ)             ▷ keeps the closer border point
+      update-pair-points(r, σ, v, q)
+      R ← R ∪ {r}
+  for each u in {v} ∪ R do
+    test-add-path(u)                             ▷ shortcut if a path via u is over t× too long

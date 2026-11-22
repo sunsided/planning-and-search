@@ -1,0 +1,29 @@
+algorithm LPA*(s₀, s-goal, h)
+  input: start vertex s₀, goal vertex s-goal, consistent heuristic h
+  output: a cheapest path from s₀ to s-goal, again after each batch of edge changes
+  rhs[s₀] ← 0                                  ▷ every other g and rhs starts at ∞
+  U ← {s₀}                                     ▷ inconsistent vertices, ordered by key
+  repeat
+    compute()
+    yield path-to(s-goal), or failure if g[s-goal] = ∞
+    for each edge (u, v) whose cost changed do  ▷ edge-changed
+      update-vertex(v)
+  until no more changes
+function key(s)
+  return ⟨min(g[s], rhs[s]) + h(s), min(g[s], rhs[s])⟩   ▷ compared lexicographically
+procedure update-vertex(v)
+  if v ≠ s₀ then
+    rhs[v] ← min of g[u] + c over (u, c) in predecessors(v)
+  remove(U, v)
+  if g[v] ≠ rhs[v] then
+    insert(U, v, key(v))
+procedure compute()
+  while min-key(U) < key(s-goal) or rhs[s-goal] ≠ g[s-goal] do
+    u ← extract-min(U)
+    if g[u] > rhs[u] then                      ▷ overconsistent: settle it
+      g[u] ← rhs[u]
+    else                                       ▷ underconsistent: reset it
+      g[u] ← ∞
+      update-vertex(u)
+    for each (v, c) in successors(u) do
+      update-vertex(v)

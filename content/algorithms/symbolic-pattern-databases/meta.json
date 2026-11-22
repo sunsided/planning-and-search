@@ -1,0 +1,30 @@
+{
+	"description": "A symbolic pattern database is a planning heuristic computed with BDDs (*binary decision diagrams*). A *pattern* is a subset of the task variables, and the task is projected onto it: all other variables are removed, which gives a much smaller task. A blind backward Dijkstra in this projection runs to the end and stores the goal distances as one BDD per value `h`. A state gets the distance of its projection, and a state whose projection cannot reach the goal is a dead end. The heuristic is *admissible* (it never overestimates) and *consistent* (it drops by at most the cost of each operator), so it suits BDDA* and other optimal searches.",
+	"papers": [
+		{
+			"authors": "Stefan Edelkamp",
+			"title": "Symbolic Pattern Databases in Heuristic Search Planning",
+			"year": 2002,
+			"venue": "Proceedings of the Sixth International Conference on Artificial Intelligence Planning Systems (AIPS)",
+			"doi": null,
+			"arxiv": null,
+			"url": "https://cdn.aaai.org/AIPS/2002/AIPS02-028.pdf",
+			"role": "introduces"
+		}
+	],
+	"lineage": [
+		{
+			"slug": "pattern-database",
+			"name": null,
+			"relation": "builds-on",
+			"source": "Symbolic Pattern Databases in Heuristic Search Planning"
+		},
+		{
+			"slug": "symbolic-dijkstra",
+			"name": null,
+			"relation": "builds-on",
+			"source": "symbolic-search, docs/design.md: \"A PDB is a blind backward Dijkstra to exhaustion in the projection\""
+		}
+	],
+	"trace": null
+}

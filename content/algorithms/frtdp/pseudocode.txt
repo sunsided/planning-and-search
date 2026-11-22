@@ -1,0 +1,26 @@
+algorithm FRTDP(s₀, goal, h_L, h_U, ε)
+  input: initial state s₀, goal test goal, lower and upper heuristics h_L ≤ V* ≤ h_U, tolerance ε
+  output: bounds L ≤ V* ≤ U and a policy π greedy on U
+  L[s], U[s] ← h_L(s), h_U(s) for each state s when it is first reached
+  D ← 10                                         ▷ depth limit, grows by k_D = 1.1
+  while U[s₀] − L[s₀] > ε do
+    TRAIL ← ⟨⟩
+    s ← s₀
+    ρ ← 1                                        ▷ probability of the path so far
+    for d in 0, 1, 2, … do
+      append(TRAIL, s)
+      a ← back-up(s)                             ▷ backs up L and U, returns the L-greedy action
+      prio[s] ← min(U[s] − L[s] − ε/2, max over s′ of P(s′ | s, a) · prio[s′])
+      track(Δ · ρ, d)                            ▷ Δ: change of the backup; early or late part of the trial
+      if a = nil or U[s] − L[s] − ε/2 ≤ 0 or d ≥ D then
+        break
+      s′ ← the successor with the highest P(s′ | s, a) · prio[s′]
+      ρ ← ρ · P(s′ | s, a)
+      s ← s′
+    while TRAIL ≠ ⟨⟩ do
+      back-up(pop(TRAIL))
+    if the late updates were at least as good as the early ones then
+      D ← D · k_D
+    if U[s₀] − L[s₀] did not shrink then
+      brtdp-trial()                              ▷ the crate's guard against a stall
+  return L, U, π

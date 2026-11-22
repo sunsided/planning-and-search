@@ -1,0 +1,28 @@
+algorithm PP-A*(s₀, goal, h, ε₁, ε₂)
+  input: start s₀, goal test goal, consistent heuristic h, tolerances ε₁, ε₂
+  output: paths covering the Pareto set within 1 + ε in each objective
+  ▷ a pair ⟨tl, br⟩: paths to one state, smallest c₁ and smallest c₂
+  ▷ apex(pp) ← (c₁(tl), c₂(br)); bounded when c₁(br) ≤ (1 + ε₁) · c₁(tl)
+  OPEN ← {⟨s₀, tl: empty path, br: empty path⟩}   ▷ by apex f, lexicographic
+  g₂-min[s] ← ∞ for every state s
+  SOLUTIONS ← ∅
+  while OPEN ≠ ∅ do
+    pp ← extract-min(OPEN)
+    if g₂(pp.br) ≥ g₂-min[pp.s] or (1 + ε₂) · f₂(pp.br) ≥ c₂(last of SOLUTIONS) then
+      continue
+    g₂-min[pp.s] ← g₂(pp.br)
+    if goal(pp.s) then
+      if merge(last of SOLUTIONS, pp) is bounded then
+        replace the last of SOLUTIONS by the merged pair
+      else
+        append pp to SOLUTIONS
+      continue
+    for each (s′, c) in successors(pp.s) do
+      pp′ ← ⟨s′, tl: pp.tl + c, br: pp.br + c⟩
+      if g₂(pp′.br) ≥ g₂-min[s′] or (1 + ε₂) · f₂(pp′.br) ≥ c₂(last of SOLUTIONS) then
+        continue
+      if an open pair q at s′ has merge(q, pp′) bounded then
+        replace q by merge(q, pp′) in OPEN
+      else
+        insert(OPEN, pp′)
+  return the br path of each pair in SOLUTIONS

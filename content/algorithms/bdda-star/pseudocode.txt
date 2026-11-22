@@ -1,0 +1,21 @@
+algorithm BDDA*(I, G, T, H)
+  input: initial state set I, goal set G, relations T grouped by cost, heuristic H as sets H_h
+  output: a cheapest plan if H is admissible, or failure
+  file(I, 0)
+  CLOSED ← ∅                                   ▷ pairs (g, set)
+  while OPEN ≠ ∅ do
+    (g, S) ← pop-min(OPEN)                     ▷ smallest g + h, ties to larger g
+    S ← S ∖ (states closed at a cost ≤ g)
+    if S = ∅ then
+      continue
+    if S ∩ G ≠ ∅ then
+      return reconstruct(S ∩ G, g)
+    CLOSED ← CLOSED ∪ {(g, S)}
+    for each (c, T_c) in T do
+      file(image(T_c, S), g + c)
+  return failure
+procedure file(S, g)
+  for each (h, H_h) in H do
+    if S ∩ H_h ≠ ∅ then
+      insert(OPEN, key ⟨g + h, g⟩, S ∩ H_h)
+  ▷ states in no H_h are dead ends and are dropped

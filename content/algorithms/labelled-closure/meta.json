@@ -1,0 +1,34 @@
+{
+	"description": "The labelled closure decides *dynamic controllability* of a simple temporal network with uncertainty (STNU). An STNU is dynamically controllable when some strategy meets every constraint for all durations that nature picks, while it learns each duration only when it ends. Each uncertain duration (a *contingent link*) adds a lower-case edge for its shortest outcome and an upper-case edge for its longest one. The algorithm applies five derivation rules to an ordinary distance matrix and an upper-case matrix until nothing changes, and a negative cycle at any round means that the network is not controllable. No bound on the number of rounds is proven, so `temporal-control` keeps it as a slow reference for its faster checkers.",
+	"papers": [
+		{
+			"authors": "Paul Morris, Nicola Muscettola",
+			"title": "Temporal Dynamic Controllability Revisited",
+			"year": 2005,
+			"venue": "AAAI 2005",
+			"doi": null,
+			"arxiv": null,
+			"url": "https://cdn.aaai.org/AAAI/2005/AAAI05-189.pdf",
+			"role": "introduces"
+		},
+		{
+			"authors": "Paul Morris",
+			"title": "A Structural Characterization of Temporal Dynamic Controllability",
+			"year": 2006,
+			"venue": "CP 2006, Lecture Notes in Computer Science",
+			"doi": "10.1007/11889205_28",
+			"arxiv": null,
+			"url": null,
+			"role": "analyses"
+		}
+	],
+	"lineage": [
+		{
+			"slug": "floyd-warshall",
+			"name": null,
+			"relation": "builds-on",
+			"source": "temporal-control, src/stnu/closure.rs: \"No-case: Floyd-Warshall on D. A negative diagonal entry means not DC.\""
+		}
+	],
+	"trace": null
+}

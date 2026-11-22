@@ -1,0 +1,34 @@
+{
+	"description": "Bypass is an option of CBS that sometimes avoids a split. When CBS splits a node, it first looks at the children it just built. If a child is as cheap for its replanned agent as the parent and has strictly fewer conflicts, the parent takes over that child's paths and goes back into the open list instead of being split. The parent keeps its own constraints, so no solution is lost and CBS stays optimal. Use it to keep the constraint tree small when many cheapest paths exist; in `mapf-search` it is the `bypass` field of `CbsConfig`.",
+	"papers": [
+		{
+			"authors": "Eli Boyarski, Ariel Felner, Guni Sharon, Roni Stern",
+			"title": "Don't Split, Try To Work It Out: Bypassing Conflicts in Multi-Agent Pathfinding",
+			"year": 2015,
+			"venue": "International Conference on Automated Planning and Scheduling (ICAPS)",
+			"doi": "10.1609/icaps.v25i1.13725",
+			"arxiv": null,
+			"url": "https://ojs.aaai.org/index.php/ICAPS/article/view/13725",
+			"role": "introduces"
+		},
+		{
+			"authors": "Eli Boyarski, Ariel Felner, Roni Stern, Guni Sharon, David Tolpin, Oded Betzalel, Eyal Shimony",
+			"title": "ICBS: Improved Conflict-Based Search Algorithm for Multi-Agent Pathfinding",
+			"year": 2015,
+			"venue": "International Joint Conference on Artificial Intelligence (IJCAI)",
+			"doi": null,
+			"arxiv": null,
+			"url": "https://ijcai.org/proceedings/2015/0110.pdf",
+			"role": "applies"
+		}
+	],
+	"lineage": [
+		{
+			"slug": "cbs",
+			"name": null,
+			"relation": "builds-on",
+			"source": "mapf-search, src/cbs.rs: \"Bypass (Boyarski et al. 2015): when a child is as cheap for its replanned agent as the parent and has fewer conflicts, take over its paths instead of splitting.\""
+		}
+	],
+	"trace": null
+}

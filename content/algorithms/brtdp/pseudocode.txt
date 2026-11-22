@@ -1,0 +1,20 @@
+algorithm BRTDP(s₀, goal, h_L, h_U, ε, τ)
+  input: initial state s₀, goal test goal, lower and upper heuristics h_L ≤ V* ≤ h_U, tolerance ε, trial constant τ
+  output: bounds L ≤ V* ≤ U and a policy π greedy on U
+  L[s], U[s] ← h_L(s), h_U(s) for each state s when it is first reached
+  while U[s₀] − L[s₀] > ε do
+    TRAIL ← ⟨⟩
+    s ← s₀
+    repeat
+      append(TRAIL, s)
+      a ← back-up(s)                             ▷ backs up L and U, returns the L-greedy action
+      if a = nil then
+        break
+      w[s′] ← P(s′ | s, a) · (U[s′] − L[s′]) for each successor s′
+      if ∑ w < (U[s₀] − L[s₀]) / τ then
+        break
+      s ← sample a successor s′ with weight w[s′]
+    until goal(s)
+    while TRAIL ≠ ⟨⟩ do
+      back-up(pop(TRAIL))
+  return L, U, π

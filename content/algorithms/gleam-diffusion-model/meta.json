@@ -1,0 +1,24 @@
+{
+	"description": "The diffusion model of GLEAM is a genetic algorithm with a structured population. The individuals sit on a ring, and each one mates only inside its *deme*: itself and a few neighbours on each side, typically 7 to 11 in all. In each generation every individual in turn picks a partner from its deme by linear ranking, produces a few children by crossover and mutation, and keeps the best child. That child replaces the individual if an acceptance rule allows it; the default, *local elitist*, asks the child to beat the worst of the deme, and also the individual itself when that individual is the best of the deme. Because demes overlap, good genes spread slowly around the ring, niches can form, and the search converges early less often than with one freely mixing population. Two stagnation counters (no deme best improved, no child accepted) end the run; it is a heuristic with no optimality guarantee.",
+	"papers": [
+		{
+			"authors": "Wilfried Jakob",
+			"title": "Applying Evolutionary Algorithms Successfully: A Guide Gained from Real-world Applications",
+			"year": 2021,
+			"venue": null,
+			"doi": null,
+			"arxiv": "2107.11300",
+			"url": null,
+			"role": "surveys"
+		}
+	],
+	"lineage": [
+		{
+			"slug": "genetic-algorithm",
+			"name": null,
+			"relation": "builds-on",
+			"source": "evolutionary-planning, src/diffusion.rs: \"The diffusion-model GA; the Operators::selection picks the partner within the deme (linear ranking is GLEAM's choice)\""
+		}
+	],
+	"trace": null
+}

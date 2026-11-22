@@ -1,0 +1,23 @@
+algorithm Depth-limited DFS(s₀, goal, limit)
+  input: start state s₀, goal test goal, depth limit limit
+  output: a path of at most limit edges, a cutoff, or failure
+  if goal(s₀) then
+    return ⟨s₀⟩
+  PATH ← ⟨s₀⟩                                  ▷ the only states kept in memory
+  cut ← false
+  while PATH ≠ ⟨⟩ do
+    s ← last(PATH)
+    s′ ← next untried successor of s, or nil
+    if s′ = nil then
+      pop(PATH)                                ▷ backtrack
+    else if s′ ∈ PATH then
+      skip                                     ▷ no cycles on the current path
+    else if |PATH| > limit then                ▷ s′ would lie |PATH| edges deep
+      cut ← true                               ▷ a goal may lie deeper
+    else if goal(s′) then
+      return PATH followed by s′
+    else
+      push(PATH, s′)
+  if cut then
+    return cutoff
+  return failure

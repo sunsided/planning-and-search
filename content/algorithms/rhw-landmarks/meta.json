@@ -1,0 +1,24 @@
+{
+	"description": "RHW landmark extraction finds landmarks by working back from the goal. A *landmark* is a fact, or a set of facts of which one must hold, that is true at some point of every plan. For each landmark it looks at the *possible first achievers*: the operators that add it and that can run before it holds. A precondition that all of them share is a new landmark; preconditions on one variable can form a *disjunctive* landmark; and values that every path through a variable's domain transition graph passes are landmarks too. It also records the orderings between landmarks (greedy-necessary, natural and reasonable), which LAMA-style search uses.",
+	"papers": [
+		{
+			"authors": "Silvia Richter, Malte Helmert, Matthias Westphal",
+			"title": "Landmarks Revisited",
+			"year": 2008,
+			"venue": "AAAI Conference on Artificial Intelligence",
+			"doi": null,
+			"arxiv": null,
+			"url": "https://cdn.aaai.org/AAAI/2008/AAAI08-155.pdf",
+			"role": "introduces"
+		}
+	],
+	"lineage": [
+		{
+			"slug": null,
+			"name": "Ordered landmarks (Hoffmann, Porteous & Sebastia 2004)",
+			"relation": "builds-on",
+			"source": "planning-heuristics, src/landmarks/ordered.rs: \"Landmark graphs with disjunctive landmarks and typed orderings, and the reasonable orderings (Hoffmann, Porteous & Sebastia 2004)\""
+		}
+	],
+	"trace": null
+}

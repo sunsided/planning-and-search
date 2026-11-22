@@ -1,0 +1,40 @@
+{
+	"description": "NAMOA* is A* for several objectives: it finds one path for every Pareto-optimal cost vector. A cost vector is *Pareto-optimal* when no other path is as cheap in every objective and cheaper in one. Each state keeps the cost vectors of its open labels and of its expanded labels. A new label survives only if no open label, expanded label or solution weakly dominates it, and it removes the open labels it dominates. With a heuristic that never overestimates in any objective (*admissible*), the result is the full Pareto set; with the zero heuristic, NAMOA* is the multi-objective label-setting algorithm of Martins.",
+	"papers": [
+		{
+			"authors": "Lawrence Mandow, José Luis Pérez de la Cruz",
+			"title": "A New Approach to Multiobjective A* Search",
+			"year": 2005,
+			"venue": "International Joint Conference on Artificial Intelligence (IJCAI)",
+			"doi": null,
+			"arxiv": null,
+			"url": "https://ijcai.org/proceedings/2005/96",
+			"role": "introduces"
+		},
+		{
+			"authors": "Lawrence Mandow, José Luis Pérez de la Cruz",
+			"title": "Multiobjective A* search with consistent heuristics",
+			"year": 2010,
+			"venue": "Journal of the ACM",
+			"doi": "10.1145/1754399.1754400",
+			"arxiv": null,
+			"url": null,
+			"role": "analyses"
+		}
+	],
+	"lineage": [
+		{
+			"slug": "a-star",
+			"name": null,
+			"relation": "generalizes",
+			"source": "A New Approach to Multiobjective A* Search; multiobjective-search, src/namoa.rs: \"NAMOA*: multi-objective A* with per-state Pareto frontiers\""
+		},
+		{
+			"slug": null,
+			"name": "Multi-objective label setting (Martins)",
+			"relation": "generalizes",
+			"source": "multiobjective-search, src/namoa.rs: \"With ZeroHeuristic this is the multi-objective label-setting algorithm (Martins 1984)\""
+		}
+	],
+	"trace": null
+}

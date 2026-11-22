@@ -1,0 +1,27 @@
+{
+	"description": "VPSC (Variable Placement with Separation Constraints) finds the positions closest to the desired ones, in the least-squares sense, so that every constraint `x_r − x_l ≥ gap` holds. Variables joined by constraints that hold exactly (*active* constraints) form a *block*, which moves as one to the mean of its desired positions. It merges blocks along the most violated constraint until no constraint is violated. Then it splits a block where the two halves want to move apart (a negative *Lagrange multiplier*), and repeats. In `connector-routing`, `Placement::Project` uses it to place nudged segments, with exact rational arithmetic.",
+	"papers": [
+		{
+			"authors": "Tim Dwyer, Kim Marriott, Peter J. Stuckey",
+			"title": "Fast Node Overlap Removal",
+			"year": 2006,
+			"venue": "Graph Drawing (GD 2005), LNCS",
+			"doi": "10.1007/11618058_15",
+			"arxiv": null,
+			"url": null,
+			"role": "introduces"
+		},
+		{
+			"authors": "Michael Wybrow, Kim Marriott, Peter J. Stuckey",
+			"title": "Orthogonal Connector Routing",
+			"year": 2010,
+			"venue": "Graph Drawing (GD 2009), LNCS",
+			"doi": "10.1007/978-3-642-11805-0_22",
+			"arxiv": null,
+			"url": null,
+			"role": "applies"
+		}
+	],
+	"lineage": [],
+	"trace": null
+}

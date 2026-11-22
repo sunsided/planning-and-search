@@ -1,0 +1,30 @@
+algorithm Morris-DC(G)
+  input: labelled distance graph G in normal form, each link with its own activation node
+  output: DC, or not DC
+  for each negative node s in G do                ▷ a node with a negative incoming edge
+    if not backprop(s) then
+      return not DC                               ▷ the call stack gives a semi-reducible negative cycle
+  return DC
+function backprop(s)
+  if status[s] = active then
+    return false                                  ▷ a cycle of negative paths
+  if status[s] = done then
+    return true
+  status[s] ← active
+  dist[x] ← ∞ for every node x                   ▷ dist and Q are local to this call
+  for each negative edge (x, s, w) into s do
+    dist[x] ← min(dist[x], w)
+  Q ← nodes with finite dist                      ▷ ordered by dist; extract-min is a linear scan
+  while Q ≠ ∅ do
+    u ← extract-min(Q)
+    if dist[u] ≥ 0 then
+      add-edge(G, u, s, dist[u])                  ▷ a derived ordinary edge, not extended
+      continue
+    if u is a negative node and not backprop(u) then
+      return false
+    for each non-negative edge (v, u, e) into u do
+      if not unsuitable(v, u, s) and dist[u] + e < dist[v] then
+        dist[v] ← dist[u] + e                     ▷ unsuitable: the lower-case edge of s's own label
+        insert-or-update(Q, v)
+  status[s] ← done
+  return true

@@ -1,0 +1,21 @@
+algorithm Focal-Search(S₀, goal, h, key, w)
+  input: start states S₀, goal test goal, admissible heuristic h, focal key key, weight w ≥ 1
+  output: a path to a goal that costs at most w times the optimum, or failure
+  for each s in S₀ do
+    g[s] ← 0
+    k[s] ← key-start(s)
+    insert(OPEN, s)                            ▷ ordered by f = g + h
+  while OPEN ≠ ∅ do
+    f-min ← min { g[s] + h(s) : s ∈ OPEN }
+    FOCAL ← { s ∈ OPEN : g[s] + h(s) ≤ w · f-min }
+    s ← the state of FOCAL with the smallest k[s]     ▷ ties: smaller f, then larger g
+    remove(OPEN, s)
+    if goal(s) then
+      return path-to(s)
+    for each (a, s′, c) in successors(s) do
+      if g[s] + c < g[s′] then
+        g[s′] ← g[s] + c
+        parent[s′] ← s
+        k[s′] ← key-extend(k[s], s, a, c, s′)        ▷ the key follows the best path
+        insert-or-update(OPEN, s′)                   ▷ reopens a closed state
+  return failure

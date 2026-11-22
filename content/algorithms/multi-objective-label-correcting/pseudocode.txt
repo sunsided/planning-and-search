@@ -1,0 +1,20 @@
+algorithm Label-Correcting(s₀, goal)
+  input: start state s₀, goal test goal, non-negative cost vectors on the edges
+  output: one path per Pareto-optimal cost vector
+  LABELS[s₀] ← {⟨s₀, 0⟩}                  ▷ non-dominated labels per state
+  Q ← queue with s₀                        ▷ first in, first out
+  while Q ≠ ∅ do
+    s ← pop-front(Q)
+    NEW ← labels of LABELS[s] added since the last visit of s
+    for each ℓ in NEW do
+      if goal(s) then
+        continue                           ▷ goal labels are kept, not extended
+      if a goal label weakly dominates ℓ.g then
+        continue
+      for each (s′, c) in successors(s) do
+        ℓ′ ← ⟨s′, ℓ.g + c, parent: ℓ⟩
+        if no label in LABELS[s′] weakly dominates ℓ′.g then
+          LABELS[s′] ← {m ∈ LABELS[s′] : ℓ′.g does not dominate m.g} ∪ {ℓ′}
+          if s′ ∉ Q then
+            push-back(Q, s′)
+  return non-dominated labels at goal states, as paths

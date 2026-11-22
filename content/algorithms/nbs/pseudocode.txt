@@ -1,0 +1,23 @@
+algorithm NBS(s₀, goal, h_F, h_B)
+  input: start s₀, goal test goal, admissible h_F (cost to a goal) and h_B (cost from s₀)
+  output: a cheapest path from s₀ to a goal, or failure
+  WAIT_F ← {s₀}                                ▷ waiting queues are ordered by f
+  WAIT_B ← the goal states
+  READY_F ← ∅                                  ▷ ready queues are ordered by g
+  READY_B ← ∅
+  μ ← ∞                                        ▷ cost of the cheapest meet found
+  CLB ← 0                                      ▷ current lower bound
+  while both sides have open states and CLB < μ do
+    for each side d in F, B do
+      move every state with f_d ≤ CLB from WAIT_d to READY_d
+    if READY_F ≠ ∅ and READY_B ≠ ∅ and min-g(READY_F) + min-g(READY_B) ≤ CLB then
+      u ← extract-min(READY_F)
+      v ← extract-min(READY_B)
+      expand(u, F)                             ▷ children go to WAIT_F
+      expand(v, B)                             ▷ predecessors go to WAIT_B
+      μ ← min(μ, cheapest g_F + g_B of a state seen on both sides)
+    else
+      CLB ← smallest lb(u, v) of any open pair  ▷ lb = max(f_F(u), f_B(v), g_F(u) + g_B(v))
+  if μ < ∞ then
+    return path through the cheapest meet
+  return failure

@@ -1,0 +1,24 @@
+{
+	"description": "The set-additive heuristic h^sa works like `h_add`, but each fact keeps a set of operators (a relaxed plan) instead of a number. An operator offers its effect the union of the sets of its preconditions, plus itself. Each fact keeps its cheapest offer, and the estimate is the total cost of the union of the goal facts' sets. So an operator that two subgoals need is counted once, not twice, and h^sa is never above `h_add`. It is not admissible; use it to guide satisficing search, for example greedy best-first search.",
+	"papers": [
+		{
+			"authors": "Emil Keyder, Héctor Geffner",
+			"title": "Heuristics for Planning with Action Costs Revisited",
+			"year": 2008,
+			"venue": "European Conference on Artificial Intelligence (ECAI)",
+			"doi": "10.3233/978-1-58603-891-5-588",
+			"arxiv": null,
+			"url": null,
+			"role": "introduces"
+		}
+	],
+	"lineage": [
+		{
+			"slug": "h-add",
+			"name": null,
+			"relation": "builds-on",
+			"source": "planning-heuristics, src/set_additive.rs: \"like `h_add`, but each fact carries a relaxed plan, a *set* of operators, instead of a cost\""
+		}
+	],
+	"trace": null
+}

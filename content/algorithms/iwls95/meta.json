@@ -1,0 +1,17 @@
+{
+	"description": "IWLS95 orders the parts of a conjunctively partitioned transition relation. In *conjunctive partitioning*, an operator relation is a conjunction of small BDDs, and the image conjoins them one by one and removes (*quantifies*) each variable as soon as no later part mentions it. This *early quantification* keeps the intermediate BDDs small, but only with a good order. IWLS95 picks the next part by the weighted score `2·v/w + w/x + y/z + m/M`, which rewards parts that let many variables be quantified now and parts whose variables sit deep in the BDD variable order. Every order gives the same image; only the size of the intermediate BDDs changes.",
+	"papers": [
+		{
+			"authors": "R. K. Ranjan, A. Aziz, R. K. Brayton, B. Plessier, C. Pixley",
+			"title": "Efficient BDD algorithms for FSM synthesis and verification",
+			"year": 1995,
+			"venue": "International Workshop on Logic Synthesis (IWLS 1995)",
+			"doi": null,
+			"arxiv": null,
+			"url": null,
+			"role": "introduces"
+		}
+	],
+	"lineage": [],
+	"trace": null
+}

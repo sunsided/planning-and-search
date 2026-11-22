@@ -1,0 +1,25 @@
+algorithm Lazy-Theta*(s₀, s-goal)
+  input: start cell s₀, goal cell s-goal of a grid with line of sight
+  output: an any-angle path from s₀ to s-goal, or failure
+  g[s₀] ← 0
+  parent[s₀] ← s₀
+  OPEN ← {s₀}                                  ▷ ordered by f = g + d(s, s-goal)
+  CLOSED ← ∅
+  while OPEN ≠ ∅ do
+    s ← extract-min(OPEN)
+    CLOSED ← CLOSED ∪ {s}
+    repair-parent(s)
+    if s = s-goal then
+      return path-to(s)
+    for each neighbour s′ of s with s′ ∉ CLOSED do
+      p ← parent[s]
+      if g[p] + d(p, s′) < g[s′] then           ▷ d: Euclidean distance
+        g[s′] ← g[p] + d(p, s′)
+        parent[s′] ← p                         ▷ assumed; checked on expansion
+        insert-or-update(OPEN, s′, g[s′] + d(s′, s-goal))
+  return failure
+procedure repair-parent(s)
+  if not line-of-sight(parent[s], s) then
+    n ← the expanded neighbour of s with the smallest g[n] + d(n, s)
+    parent[s] ← n
+    g[s] ← g[n] + d(n, s)

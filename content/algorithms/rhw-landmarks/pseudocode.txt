@@ -1,0 +1,31 @@
+algorithm RhwLandmarks(s, G)
+  input: state s, goal facts G
+  output: landmarks with orderings, or failure
+  LM ← ∅
+  ORD ← ∅
+  QUEUE ← ∅
+  for each g in G do
+    add-landmark({g}, nil, nil)
+  while QUEUE ≠ ∅ do
+    L ← pop(QUEUE)
+    A ← first-achievers(L, s)                 ▷ rules adding L, possible before L holds
+    if A = ∅ then
+      return failure
+    for each fact p in the conditions of every a ∈ A do
+      add-landmark({p}, L, greedy-necessary)
+    for each variable v with a condition in every a ∈ A do
+      D ← the values of v those conditions name
+      if 2 ≤ |D| ≤ 4 and no fact of D holds in s then
+        add-landmark(D, L, greedy-necessary)   ▷ disjunctive landmark
+    if L = {v = d} then
+      for each value d′ on every DTG path of v from s[v] to d do
+        add-landmark({v = d′}, L, natural)
+  drop-disjunctions-with-fact-landmarks(LM)
+  return LM, ORD
+procedure add-landmark(X, L, kind)
+  if X ∉ LM then
+    LM ← LM ∪ {X}
+    if X does not hold in s then
+      push(QUEUE, X)
+  if L ≠ nil then
+    ORD ← ORD ∪ {(X, L, kind)}

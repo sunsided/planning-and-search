@@ -1,0 +1,22 @@
+algorithm NAMOA*dr-mvh(s₀, goal, H)
+  input: start state s₀, goal test goal, consistent multi-valued heuristic H
+  output: one path per Pareto-optimal cost vector
+  ▷ NAMOA*dr on pairs (s, η): state s with one bound estimate η ∈ H(s)
+  return NAMOA*dr(root, goal-pair, bound-estimate)
+function successors-pair(⟨s, η⟩)
+  OUT ← ∅
+  if ⟨s, η⟩ = root then
+    for each η₀ in H(s₀) do
+      OUT ← OUT ∪ {(⟨s₀, η₀⟩, 0)}         ▷ fan out to every start estimate
+    return OUT
+  for each (s′, c) in successors(s) do
+    for each η′ in H(s′) do
+      if η ≤ c + η′ then                  ▷ path-consistent choice
+        OUT ← OUT ∪ {(⟨s′, η′⟩, c)}
+  return OUT
+function bound-estimate(⟨s, η⟩)
+  if ⟨s, η⟩ = root then
+    return component-wise minimum of H(s₀)
+  return η
+function goal-pair(⟨s, η⟩)
+  return ⟨s, η⟩ ≠ root and goal(s)

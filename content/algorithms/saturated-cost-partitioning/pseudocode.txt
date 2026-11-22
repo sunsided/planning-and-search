@@ -1,0 +1,17 @@
+algorithm saturated-cost-partitioning(A, order, cost)
+  input: abstractions A₁, …, A_k, an order of their indices, operator costs cost
+  output: goal distances h_i and a cost function sat_i for each abstraction
+  remaining ← cost
+  for each i in order do
+    h_i ← goal-distances(A_i, remaining)
+    for each operator o do
+      sat_i[o] ← max({h_i[a] − h_i[b] : (a, o, b) ∈ T_i, h_i[a] ≠ ∞, h_i[b] ≠ ∞} ∪ {0})
+      remaining[o] ← remaining[o] − sat_i[o]          ▷ left for later abstractions
+  for each i not in order do
+    sat_i ← 0                                         ▷ zero costs: only detects dead ends
+    h_i ← goal-distances(A_i, sat_i)
+  return h, sat
+function value(s)
+  return ∑ over i of h_i[α_i(s)]                      ▷ ∞ (a dead end) if any term is ∞
+function max-over-orders(s, ORDERS)
+  return max over each order in ORDERS of value(s) under that order

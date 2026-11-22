@@ -1,0 +1,38 @@
+algorithm A-BOA*ε(s₀, goal, h, d)
+  input: start s₀, goal test goal, heuristic h consistent in both costs, divisor d ≥ 2
+  output: fronts with strictly falling approximation factors, the last one exact
+  π-tl ← lexicographic optimum in the order (c₁, c₂)
+  π-br ← lexicographic optimum in the order (c₂, c₁)
+  ILIST ← [⟨π-tl, π-br, {[s₀]}⟩]                ▷ intervals between neighbouring solutions
+  report(corners of ILIST, max ε̂ over ILIST)
+  while some interval of ILIST has ε̂ > 0 do
+    I ← the interval of ILIST with the largest ε̂(I)
+    replace I in ILIST by refine(I, ε̂(I) / d)   ▷ ε = 1 while ε̂(I) is infinite
+    if max ε̂ over ILIST fell then
+      report(corners of ILIST, max ε̂ over ILIST)
+  return corners of ILIST                      ▷ the exact Pareto front
+function refine(⟨π-tl, π-br, Π⟩, ε)
+  OPEN, KEPT, PARTS ← Π, ∅, []                ▷ OPEN ordered by f = g + h, lexicographically
+  g2-min[s] ← ∞ for every state s
+  π-tmp, best ← π-tl, ∞                        ▷ best: g₂ of the last solution found here
+  while OPEN ≠ ∅ do
+    π ← extract-min(OPEN)
+    if pruned(π) then
+      continue
+    g2-min[end(π)] ← g₂(π)
+    if goal(end(π)) then
+      append(PARTS, ⟨π-tmp, π, KEPT⟩)
+      π-tmp, best, KEPT ← π, g₂(π), ∅
+    else
+      for each extension π′ of π by one edge do
+        if not pruned(π′) then
+          insert(OPEN, π′)
+  append(PARTS, ⟨π-tmp, π-br, KEPT⟩)
+  return PARTS
+function pruned(π)
+  if f₁(π) ≥ f₁(π-br) or f₂(π) ≥ f₂(π-tl) or g₂(π) ≥ g2-min[end(π)] or f₂(π) ≥ best then
+    return true                                ▷ dominated
+  if best ≤ (1 + ε) · f₂(π) then
+    KEPT ← KEPT ∪ {π}                          ▷ pruned only by the tolerance: kept for later
+    return true
+  return false

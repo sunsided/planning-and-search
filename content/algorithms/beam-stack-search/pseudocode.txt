@@ -1,0 +1,35 @@
+algorithm Beam-stack search(s₀, goal, h, width)
+  input: start s₀, goal test goal, admissible heuristic h, beam width width ≥ 1
+  output: better and better paths; the last is optimal once the stack is empty
+  U ← ∞                                        ▷ cost of the best path so far
+  LAYER[0] ← {s₀}
+  STACK ← ⟨[0, ∞)⟩                              ▷ item d: the f interval [low, high) for layer d + 1
+  d ← 0
+  repeat
+    while LAYER[d] ≠ ∅ do
+      [low, high) ← STACK[d]
+      NEXT ← ∅
+      for each s in LAYER[d] with f(s) < U, in order of f = g + h do
+        if goal(s) then
+          U ← g[s]
+          on-solution(path-to(s))              ▷ a goal is not expanded
+        else
+          for each (s′, c) in successors(s) do
+            if low ≤ g[s] + c + h(s′) < min(high, U) and no copy of s′ with g ≤ g[s] + c is in memory then
+              NEXT ← NEXT ∪ {s′ with g = g[s] + c}
+      remove the states with f ≥ U from NEXT
+      if NEXT holds more than width states then
+        f-cut ← the width-th smallest f in NEXT
+        STACK[d] ← [low, smallest f in NEXT above f-cut)
+        NEXT ← the states of NEXT with f ≤ f-cut   ▷ keep ties at the width
+      LAYER[d + 1] ← NEXT
+      push(STACK, [0, ∞))
+      d ← d + 1
+    while STACK ≠ ∅ and high of top(STACK) ≥ U do
+      pop(STACK)
+    if STACK = ∅ then
+      return path-to the best goal, or failure if U = ∞
+    d ← |STACK| − 1
+    STACK[d] ← [high of STACK[d], U)            ▷ the f values this layer pruned
+    drop every layer below d
+  until false

@@ -1,0 +1,17 @@
+algorithm RobustRrt(x₀, X₀, n, β)
+  input: nominal start x₀, start set X₀, number of iterations n, goal bias β
+  output: a nominal path whose reachable sets are proven safe and end inside the goal, or failure
+  T ← tree with root (x₀, X₀)
+  for i in 1, …, n do
+    if random() < β then
+      x-rand ← goal-center()
+    else
+      x-rand ← sample()
+    v ← nearest(T, x-rand)                ▷ by nominal state
+    control, x-new ← steer(nominal(v), x-rand)
+    COVER, X-new ← propagate(set(v), control)  ▷ sets over the whole edge, and its end set
+    if X-new ≠ nil and COVER ≠ ∅ and check-sets(COVER) = Safe then
+      w ← add(T, (x-new, X-new), parent: v, control)
+      if goal-containment(X-new) = Inside then
+        return path-to(w)
+  return failure

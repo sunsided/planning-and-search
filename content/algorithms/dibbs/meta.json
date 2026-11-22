@@ -1,0 +1,17 @@
+{
+	"description": "DIBBS (Dynamically Improved Bounds Bidirectional Search) searches from the start and from the goals at the same time, and finds a cheapest path. Each side orders its states by `b = 2g + h − h_opposite`: `h` estimates the distance to the side's target, and `h_opposite` the distance back to its own origin. So `b` grows on paths where a heuristic was too low, and the lower bound on the optimal cost improves as the search runs. The side with the smaller `b_min` expands next, and the search stops when `b_min_F + b_min_B ≥ 2μ`, with `μ` the cost of the cheapest path through a state that both sides reached. With *consistent* heuristics (an estimate never drops by more than the edge cost along an edge) the path is optimal.",
+	"papers": [
+		{
+			"authors": "E. C. Sewell, S. H. Jacobson",
+			"title": "Dynamically improved bounds bidirectional search",
+			"year": 2021,
+			"venue": "Artificial Intelligence",
+			"doi": "10.1016/j.artint.2020.103405",
+			"arxiv": null,
+			"url": null,
+			"role": "introduces"
+		}
+	],
+	"lineage": [],
+	"trace": null
+}

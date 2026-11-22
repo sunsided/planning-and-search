@@ -1,0 +1,19 @@
+algorithm Envelope-Check(T, ACTS)
+  input: timeline T with fixed impacts and limits, flexible activities a with start windows [e_a, l_a]
+  output: Safe, or Possible or Certain with the tick and the activities involved
+  first ← nil
+  for each t in evaluation-ticks(T, ACTS) do      ▷ every shape change and the tick before
+    lo, hi ← level(T, t), level(T, t)
+    for each a in ACTS not linked by a precedence do
+      lo ← lo + min of profile(a, u) over u in [t − l_a, t − e_a]
+      hi ← hi + max of profile(a, u) over u in [t − l_a, t − e_a]
+    lo ← lo + coupled-extreme(t, min)             ▷ closure or layered minimum cut
+    hi ← hi + coupled-extreme(t, max)
+    for each limit [min, max] that applies at t do
+      if lo > max or hi < min then
+        return Certain(t)                         ▷ every schedule breaks it
+      if first = nil and (lo < min or hi > max) then
+        first ← t                                 ▷ some schedule may break it
+  if first = nil then
+    return Safe
+  return Possible(first)

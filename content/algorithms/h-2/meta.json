@@ -1,0 +1,24 @@
+{
+	"description": "h² is an admissible heuristic for classical planning: it never overestimates the cost to the goal. It estimates the cost to reach each single fact and each *pair* of facts. A set of more than two facts costs as much as its most expensive pair. Because it looks at pairs, h² sees some delete effects: two facts that cannot be true together cost more than each one alone. It is at least `h_max` and is a good choice for optimal search on small and medium tasks, but its memory grows with the square of the number of facts.",
+	"papers": [
+		{
+			"authors": "Patrik Haslum, Héctor Geffner",
+			"title": "Admissible Heuristics for Optimal Planning",
+			"year": 2000,
+			"venue": "International Conference on Artificial Intelligence Planning and Scheduling (AIPS)",
+			"doi": null,
+			"arxiv": null,
+			"url": "https://cdn.aaai.org/AIPS/2000/AIPS00-015.pdf",
+			"role": "introduces"
+		}
+	],
+	"lineage": [
+		{
+			"slug": "h-max",
+			"name": null,
+			"relation": "generalizes",
+			"source": "planning-heuristics, src/h2.rs: \"The `h²` heuristic (Haslum & Geffner 2000): `h^m` with `m = 2`\"; src/additive_max.rs names `h_max` as the case `m = 1`"
+		}
+	],
+	"trace": null
+}

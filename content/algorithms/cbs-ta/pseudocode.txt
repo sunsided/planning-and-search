@@ -1,0 +1,20 @@
+algorithm CBS-TA(agents, candidates)
+  input: agents with start vertices, candidate goals per agent
+  output: a conflict-free plan, optimal over all assignments, or failure
+  RANKED ← murty-ranking(cost-matrix(agents, candidates))   ▷ cheapest assignment first
+  OPEN ← ∅                                     ▷ nodes of every tree, one order
+  repeat
+    while RANKED ≠ ∅ and (OPEN = ∅ or cost(peek(RANKED)) < min-key(OPEN)) do
+      σ ← next(RANKED)
+      r ← root(σ)                              ▷ plan each agent to its goal under σ
+      if r ≠ nil then
+        insert(OPEN, r)
+    if OPEN = ∅ then
+      return failure
+    n ← extract-min(OPEN)
+    c ← choose-conflict(n.paths)
+    if c = nil then
+      return n.paths
+    for each m in children(n, c) do             ▷ split and replan as in CBS
+      insert(OPEN, m)
+  until false

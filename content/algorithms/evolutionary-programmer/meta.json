@@ -1,0 +1,30 @@
+{
+	"description": "The evolutionary programmer builds a path planner by evolution instead of by hand. A genome is a short bit string (18 bits here) that encodes a whole genetic algorithm for path planning: its selection operator and parameter, elitism, crossover and mutation rates, population size, the size of the detour search, and a generational or steady-state scheme. To score a genome, the method decodes it, runs that planner on a set of training graphs with a fixed evaluation budget and fixed seeds, and takes the mean excess of the found path length over the shortest length from Dijkstra's algorithm. A *meta-GA* with linear-ranking selection then evolves these bit strings. Use it to tune a planner for a family of maps; the result is the best configuration found for the training maps, not a guarantee for new ones.",
+	"papers": [
+		{
+			"authors": "Jiabin Lou, Rong Ding, Wenjun Wu",
+			"title": "Evolutionary Programmer: Autonomously Creating Path Planning Programs based on Evolutionary Algorithms",
+			"year": 2022,
+			"venue": null,
+			"doi": null,
+			"arxiv": "2204.02970",
+			"url": null,
+			"role": "introduces"
+		}
+	],
+	"lineage": [
+		{
+			"slug": "ga-path-planning",
+			"name": null,
+			"relation": "builds-on",
+			"source": "evolutionary-planning, src/programmer.rs: \"a meta-GA evolves bit strings that encode complete path-planning GAs\"; the decoded planner uses CommonVertex, Reroute and RemoveLoops"
+		},
+		{
+			"slug": "genetic-algorithm",
+			"name": null,
+			"relation": "builds-on",
+			"source": "Evolutionary Programmer: Autonomously Creating Path Planning Programs based on Evolutionary Algorithms: \"a 64-bit sequence is presented to represent path planner and then evolved with the modified Genetic Algorithm\""
+		}
+	],
+	"trace": null
+}

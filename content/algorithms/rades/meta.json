@@ -1,0 +1,24 @@
+{
+	"description": "RADES is a differential evolution method that minimises a function of real variables in a box. *Differential evolution* adds a scaled difference of two members, `F (x_r1 − x_r2)`, to a base vector to build a *mutant*, mixes the mutant coordinate by coordinate with a reference vector (binomial crossover), and keeps the trial only if it is strictly cheaper than its target; RADES uses the best member as the base. It picks `r1` and `r2` with a rank bias, so cheaper members are chosen more often, and it keeps the successful trials in an *archive* of at most `|P|` members (a random member leaves when it is full). Each target counts its failures in a row; after more than `Q` of them, its trials come from the archive instead of the population, which moves the search to other good regions. It has no convergence guarantee; Parque uses it to tune the paths of several robots at an intersection.",
+	"papers": [
+		{
+			"authors": "Victor Parque",
+			"title": "A Hybrid Evolutionary Approach for Multi Robot Coordinated Planning at Intersections",
+			"year": 2024,
+			"venue": "The Twelfth International Symposium on Computing and Networking (CANDAR 2024)",
+			"doi": null,
+			"arxiv": "2412.01082",
+			"url": null,
+			"role": "introduces"
+		}
+	],
+	"lineage": [
+		{
+			"slug": "differential-evolution",
+			"name": null,
+			"relation": "builds-on",
+			"source": "evolutionary-planning, src/de/rades.rs: \"RADES, rank-based differential evolution with a successful archive (Parque 2024, equations (5)–(11))\""
+		}
+	],
+	"trace": null
+}

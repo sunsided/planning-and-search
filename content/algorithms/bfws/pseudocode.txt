@@ -1,0 +1,26 @@
+algorithm BFWS(s₀, k)
+  input: initial state s₀, width bound k
+  output: a plan to a goal state, or failure
+  if goal(s₀) then
+    return empty plan
+  SEEN ← {s₀}
+  OPEN ← {s₀}                        ▷ ordered by ⟨w, g⟩, then by generation order
+  w[s₀] ← novelty(s₀)
+  while OPEN ≠ ∅ do
+    s ← extract-min(OPEN)
+    for each (a, s′) in successors(s) do
+      if s′ ∈ SEEN then
+        continue
+      SEEN ← SEEN ∪ {s′}
+      parent[s′] ← (s, a)
+      w[s′] ← novelty(s′)
+      if goal(s′) then
+        return plan-to(s′)
+      insert(OPEN, s′, ⟨w[s′], unsatisfied-goals(s′)⟩)
+  return failure
+function novelty(s)
+  g ← unsatisfied-goals(s)
+  w ← evaluate-and-insert(TABLE[g], features(s))   ▷ one table per value of g
+  if w = nil then
+    w ← k + 1                        ▷ kept, but behind every lower novelty
+  return w

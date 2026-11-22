@@ -1,0 +1,36 @@
+{
+	"description": "MO-CBS solves multi-agent path finding when every move and wait costs a vector of several objectives, such as time and risk. It returns the *Pareto-optimal front*: one plan for each cost vector that no other plan beats in every objective. It extends CBS: the low level returns all Pareto-optimal paths of one agent under its constraints (with BOA* or NAMOA*dr), the roots are all combinations of the agents' Pareto-optimal paths, and a split makes one child for each Pareto-optimal path of the constrained agent. The high level pops nodes in lexicographic cost order and drops each node whose cost a found solution *weakly dominates* (is at least as good in every objective). When the open list is empty, the found set is the exact front; the tree-by-tree form MO-CBS-t, the default, builds the roots one at a time.",
+	"papers": [
+		{
+			"authors": "Zhongqiang Ren, Sivakumar Rathinam, Howie Choset",
+			"title": "A Conflict-Based Search Framework for Multi-Objective Multi-Agent Path Finding",
+			"year": 2021,
+			"venue": "arXiv preprint",
+			"doi": null,
+			"arxiv": "2101.03805",
+			"url": null,
+			"role": "introduces"
+		}
+	],
+	"lineage": [
+		{
+			"slug": "cbs",
+			"name": null,
+			"relation": "generalizes",
+			"source": "mapf-search, src/mo_cbs.rs: \"MO-CBS generalizes … cbs\""
+		},
+		{
+			"slug": "boa-star",
+			"name": null,
+			"relation": "combines",
+			"source": "mapf-search, docs/design.md: \"MO-CBS-b: BOA*-st low level, two objectives\""
+		},
+		{
+			"slug": "namoa-star-dr",
+			"name": null,
+			"relation": "combines",
+			"source": "mapf-search, docs/design.md: \"MO-CBS-n: NAMOA*dr-st low level\""
+		}
+	],
+	"trace": null
+}

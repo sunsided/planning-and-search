@@ -1,0 +1,24 @@
+{
+	"description": "IPOP-CMA-ES minimises a function of real variables by running CMA-ES many times. Each run starts from a new random mean in the search box. When a run stops by itself, for example because it has converged or stagnated, the next run uses a population that is `factor` times larger (by default two times). A larger population searches more globally, so the restarts help on functions with many local minima (*multimodal* functions). The method has no optimality guarantee: it returns the best point found when the evaluation budget or the restart limit ends it.",
+	"papers": [
+		{
+			"authors": "A. Auger, N. Hansen",
+			"title": "A Restart CMA Evolution Strategy With Increasing Population Size",
+			"year": 2005,
+			"venue": "2005 IEEE Congress on Evolutionary Computation",
+			"doi": "10.1109/CEC.2005.1554902",
+			"arxiv": null,
+			"url": null,
+			"role": "introduces"
+		}
+	],
+	"lineage": [
+		{
+			"slug": "cma-es",
+			"name": null,
+			"relation": "builds-on",
+			"source": "evolutionary-planning, src/cmaes.rs: \"IPOP-CMA-ES (Auger and Hansen 2005): independent restarts with the population size multiplied by `factor` each time\""
+		}
+	],
+	"trace": null
+}

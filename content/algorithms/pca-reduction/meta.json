@@ -1,0 +1,24 @@
+{
+	"description": "PCA reduction replaces a *zonotope* (a center plus a list of generator vectors) by one with fewer generators that still contains it. It picks the generators to drop in the same way as Girard reduction, by the metric `‖g‖₁ − ‖g‖∞`. Then it finds the *principal axes* of the dropped generators `D`: the eigenvectors of `D Dᵀ`. It encloses the dropped part in a box that is aligned with these axes, not with the coordinate axes. The result contains every point of the original set, and it is tighter than Girard's box when the dropped generators point in similar directions, at the cost of one eigendecomposition.",
+	"papers": [
+		{
+			"authors": "Anna-Kathrin Kopetzki, Bastian Schürmann, Matthias Althoff",
+			"title": "Methods for order reduction of zonotopes",
+			"year": 2017,
+			"venue": "2017 IEEE 56th Annual Conference on Decision and Control (CDC)",
+			"doi": "10.1109/CDC.2017.8264508",
+			"arxiv": null,
+			"url": "https://mediatum.ub.tum.de/1379661",
+			"role": "introduces"
+		}
+	],
+	"lineage": [
+		{
+			"slug": "girard-reduction",
+			"name": null,
+			"relation": "builds-on",
+			"source": "polyzonotope, src/reduce.rs: \"Both pick the generators to drop the same way: those with the smallest `‖g‖₁ − ‖g‖∞` ... (Girard 2005)\"; Pca \"Encloses them in a box aligned with their principal axes, the eigenvectors of `G Gᵀ`\""
+		}
+	],
+	"trace": null
+}

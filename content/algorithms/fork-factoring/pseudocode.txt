@@ -1,0 +1,10 @@
+algorithm fork(Π)
+  input: planning task Π
+  output: a factoring with center C and leaves
+  G ← causal-graph(Π)                      ▷ arc u → v if an operator reads or writes u and writes v
+  LEAVES ← ∅
+  for each strongly connected component K of G do
+    if no arc leaves K and states(K) ≤ 2^16 then
+      LEAVES ← LEAVES ∪ {K}                ▷ a sink component depends only on the center
+  C ← variables of Π not in any leaf
+  return (C, LEAVES)

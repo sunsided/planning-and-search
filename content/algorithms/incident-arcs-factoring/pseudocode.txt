@@ -1,0 +1,13 @@
+algorithm incident-arcs(Π)
+  input: planning task Π
+  output: a strict-star factoring with center C and leaves
+  G ← causal-graph(Π)
+  ORDER ← variables sorted by incoming plus outgoing arcs in G, most first
+  C ← ∅
+  best ← nil
+  for each v in ORDER do
+    C ← C ∪ {v}
+    LEAVES ← { K : K a weakly connected component of G without C, states(K) ≤ 2^16 }
+    if best = nil or mobile(LEAVES) > mobile(leaves of best) then
+      best ← (C, LEAVES)                   ▷ mobile: leaves with at least one leaf action
+  return best

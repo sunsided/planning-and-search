@@ -1,0 +1,14 @@
+algorithm Canonical PDB heuristic(C, max-subsets)
+  input: collection C of patterns, cap max-subsets on maximal additive subsets
+  output: an admissible heuristic as sets H_h, one per value h
+  for each P in C do
+    h_P ← pdb(P)
+  E ← {(P, Q) : no operator affects a variable of P and a variable of Q}
+  A ← maximal-cliques((C, E))                  ▷ Bron–Kerbosch with pivoting
+  if |A| > max-subsets then
+    return max over P in C of h_P
+  h ← blind heuristic with h = 0 everywhere
+  for each clique K in A do
+    h_K ← ∑ over P in K of h_P                 ▷ dead in one addend means dead
+    h ← max(h, h_K)
+  return h

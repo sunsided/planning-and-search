@@ -1,0 +1,22 @@
+algorithm CBS(agents, objective)
+  input: agents with start and goal vertices, objective (sum of costs or makespan)
+  output: a conflict-free plan with the optimal objective value, or failure
+  for each agent i do
+    root.paths[i] ← replan(i, ∅)               ▷ space-time A*
+    if root.paths[i] = nil then
+      return failure
+  root.constraints ← ∅
+  OPEN ← {root}                                ▷ ordered by cost + heuristic, then conflicts
+  while OPEN ≠ ∅ do
+    n ← extract-min(OPEN)
+    c ← choose-conflict(n.paths)               ▷ cardinal first, then semi-cardinal
+    if c = nil then
+      return n.paths
+    for each constraint k in split(c) do        ▷ one constraint per child
+      m ← copy(n)
+      m.constraints ← n.constraints ∪ {k}
+      for each agent j in affected(k, m.paths) do
+        m.paths[j] ← replan(j, m.constraints)
+      if no replanned path is nil then
+        insert(OPEN, m)
+  return failure                               ▷ the tree ran empty

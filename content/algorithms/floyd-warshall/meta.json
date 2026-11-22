@@ -1,0 +1,27 @@
+{
+	"description": "Floyd-Warshall computes the shortest-path distance between every pair of vertices in `O(n³)` time. Round `k` lets every path pass through vertex `k`: `D[i][j] ← min(D[i][j], D[i][k] + D[k][j])`. For a consistent simple temporal network (STN), these distances give the *minimal network*: each pair of time points gets the tightest interval `[−D[j][i], D[i][j]]`, and every value in that interval occurs in some valid schedule. A negative entry on the diagonal shows a negative cycle, so the network is inconsistent. `temporal-control` stops at the first negative diagonal entry, which keeps the distances exact.",
+	"papers": [
+		{
+			"authors": "Robert W. Floyd",
+			"title": "Algorithm 97: Shortest path",
+			"year": 1962,
+			"venue": "Communications of the ACM",
+			"doi": "10.1145/367766.368168",
+			"arxiv": null,
+			"url": null,
+			"role": "introduces"
+		},
+		{
+			"authors": "Rina Dechter, Itay Meiri, Judea Pearl",
+			"title": "Temporal constraint networks",
+			"year": 1991,
+			"venue": "Artificial Intelligence",
+			"doi": "10.1016/0004-3702(91)90006-6",
+			"arxiv": null,
+			"url": null,
+			"role": "applies"
+		}
+	],
+	"lineage": [],
+	"trace": null
+}

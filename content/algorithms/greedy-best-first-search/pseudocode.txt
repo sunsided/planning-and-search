@@ -1,0 +1,15 @@
+algorithm GBFS(s₀, goal, h)
+  input: start state s₀, goal test goal, heuristic h
+  output: a path to a goal state, or failure
+  OPEN ← {s₀}                              ▷ ordered by h alone
+  SEEN ← {s₀}
+  while OPEN ≠ ∅ do
+    s ← extract-min(OPEN)
+    if goal(s) then
+      return path-to(s)
+    for each (s′, c) in successors(s) do
+      if s′ ∉ SEEN then                    ▷ a known state is never reopened
+        SEEN ← SEEN ∪ {s′}
+        parent[s′] ← s
+        insert(OPEN, s′, h(s′))
+  return failure

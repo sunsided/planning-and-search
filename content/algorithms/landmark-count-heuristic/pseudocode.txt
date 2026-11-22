@@ -1,0 +1,24 @@
+algorithm LandmarkTracker(s₀, G)
+  input: start state s₀, goal facts G
+  output: per search node, the number of landmarks still to achieve
+  LM, ORD ← rhw-landmarks(s₀)
+  add-reasonable-orderings(LM, ORD)
+  return {l ∈ LM : holds(l, s₀)}             ▷ the accepted set of the root
+function on-expand(ACC, s′)
+  ACC′ ← ACC
+  for each l in LM ∖ ACC do
+    if holds(l, s′) and every l″ ordered before l is in ACC then
+      ACC′ ← ACC′ ∪ {l}
+  return ACC′
+function merge(ACC₁, ACC₂)
+  return ACC₁ ∩ ACC₂                          ▷ two paths reach one state
+function estimate(ACC, s)
+  n ← 0
+  for each l in LM do
+    if l ∉ ACC then
+      n ← n + 1
+    else if not holds(l, s) and required-again(l, ACC) then
+      n ← n + 1
+  return n
+function required-again(l, ACC)
+  return (l is a single goal fact) or ∃ l′ ∉ ACC with (l, l′, greedy-necessary) ∈ ORD

@@ -1,0 +1,33 @@
+algorithm M*(v₀, h)
+  input: joint start state v₀, heuristic h (sum of the agents' distances to their goals)
+  output: a cheapest joint plan, or failure if none exists
+  g[v₀] ← 0
+  C[v₀] ← ∅                                  ▷ the collision set of each joint state
+  OPEN ← {v₀}                                ▷ ordered by f = g + h
+  while OPEN ≠ ∅ do
+    v ← extract-min(OPEN)
+    if goal(v) then
+      return path-to(v)
+    for each v′ in limited-successors(v, C[v]) do
+      if collides(v, v′) then
+        back-propagate(v, colliders(v, v′))  ▷ v′ is not stored
+        continue
+      BACK[v′] ← BACK[v′] ∪ {v}
+      back-propagate(v, C[v′])
+      if g[v] + cost(v, v′) < g[v′] then
+        g[v′] ← g[v] + cost(v, v′)
+        parent[v′] ← v
+        insert-or-update(OPEN, v′, g[v′] + h(v′))
+  return failure                             ▷ the joint space is finite: a proof
+function limited-successors(v, K)
+  ▷ agents in K branch over every move; every other agent takes its policy move
+  return {v′ : v′_i = policy_i(v_i) for each agent i ∉ K}
+procedure back-propagate(v, K)
+  W ← {(v, K)}
+  while W ≠ ∅ do
+    (u, K) ← remove-any(W)
+    if K ⊈ C[u] then
+      C[u] ← C[u] ∪ K
+      insert-or-update(OPEN, u, g[u] + h(u)) ▷ reopen u with its larger set
+      for each w in BACK[u] do
+        W ← W ∪ {(w, C[u])}

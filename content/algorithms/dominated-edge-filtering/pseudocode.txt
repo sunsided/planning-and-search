@@ -1,0 +1,19 @@
+algorithm Dispatchable(D)
+  input: the minimal network D of a consistent STN
+  output: a dispatchable network with fewer edges
+  K ← ∅
+  for each rigid component R do            ▷ D[i][j] + D[j][i] = 0 for all i, j in R
+    lead[R] ← earliest member of R, lowest index on ties
+    for each m in R ∖ {lead[R]} do
+      K ← K ∪ {(lead[R], m, D[lead[R]][m]), (m, lead[R], D[m][lead[R]])}
+  L ← the set of leaders
+  for each a in L do
+    for each c in L ∖ {a} with D[a][c] < ∞ do
+      if not dominated(a, c) then
+        K ← K ∪ {(a, c, D[a][c])}
+  K ← K ∪ copy-leader-edges(K)              ▷ to the members at offset 0 from their leader
+  return K
+function dominated(a, c)
+  if D[a][c] ≥ 0 then                      ▷ upper-dominated by a non-negative b → c
+    return ∃ b ∈ L ∖ {a, c} : D[b][c] ≥ 0 ∧ D[a][b] + D[b][c] = D[a][c]
+  return ∃ b ∈ L ∖ {a, c} : D[a][b] < 0 ∧ D[a][b] + D[b][c] = D[a][c]   ▷ lower-dominated by a negative a → b

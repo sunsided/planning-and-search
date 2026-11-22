@@ -1,0 +1,22 @@
+algorithm FPTAS-constrained(s₀, goal, b, ε)
+  input: start s₀, goal test goal, budget b, tolerance ε (capped at 2)
+  output: a path with second cost ≤ b and first cost ≤ (1 + ε) · optimum, or failure
+  n ← number of states reachable from s₀        ▷ goals are not expanded
+  δ ← ε / (2 (n − 1))                           ▷ box k holds first costs in [t_k, t_(k+1))
+  BOX[s₀][box(0)] ← ⟨s₀, (0, 0)⟩                ▷ t_(k+1) = max(t_k + 1, ⌊t_k (1 + δ)⌋)
+  FRONTIER ← {⟨s₀, (0, 0)⟩}
+  for round in 1, …, n − 1 do                  ▷ Bellman-Ford rounds
+    NEXT ← ∅
+    for each label ⟨s, g⟩ in FRONTIER with not goal(s) do
+      for each (s′, c) in successors(s) do
+        g′ ← g + c
+        k ← box(g′₁)
+        if g′₂ ≤ b and (BOX[s′][k] is empty or g′₂ < g₂ of BOX[s′][k]) then
+          BOX[s′][k] ← ⟨s′, g′⟩                 ▷ one label per box: the least second cost
+          NEXT ← NEXT ∪ {⟨s′, g′⟩}
+    if NEXT = ∅ then
+      break
+    FRONTIER ← NEXT
+  if no goal state has a label then
+    return failure
+  return path-to(the lexicographically least label in BOX over all goal states)

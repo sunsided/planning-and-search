@@ -1,0 +1,6 @@
+{
+	"description": "Path shortcutting shortens a path that a planner found, for example a jagged RRT path. It replaces a piece of the path by one direct motion when that motion is valid. The greedy form, `shortcut`, jumps from each kept state to the furthest later state it can reach directly, so it only removes states. The random form, `shortcut_random`, picks two random points along the path and splices in the direct motion between them if it is valid and cheaper, so it also cuts corners. Both never return a more expensive path, but the result is only locally better, not optimal; a `max_edge` bound limits the length of the new edges.",
+	"papers": [],
+	"lineage": [],
+	"trace": null
+}

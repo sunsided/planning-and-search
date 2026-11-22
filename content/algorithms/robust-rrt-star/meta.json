@@ -1,0 +1,30 @@
+{
+	"description": "Robust RRT* is the RRT* form of Robust-RRT: its nodes carry *reachable sets* (every state that the system can be in there), and it keeps only edges that are proven safe. Each new node takes the cheapest neighbour with a proven-safe edge as its parent. Then each neighbour that is cheaper to reach through the new node moves under it (*rewiring*), but only if the whole moved subtree, with its new sets, is proven safe again, no node in it costs more and no node loses the goal. The best cost never increases. It converges to an optimum only under extra conditions, for example an unbounded rewire budget, exact steering and edge proofs that depend on the end points alone.",
+	"papers": [
+		{
+			"authors": "Sertac Karaman, Emilio Frazzoli",
+			"title": "Sampling-based algorithms for optimal motion planning",
+			"year": 2011,
+			"venue": "The International Journal of Robotics Research",
+			"doi": "10.1177/0278364911406761",
+			"arxiv": "1105.1186",
+			"url": null,
+			"role": "analyses"
+		}
+	],
+	"lineage": [
+		{
+			"slug": "rrt-star",
+			"name": null,
+			"relation": "builds-on",
+			"source": "robust-planning, src/robust_rrt_star.rs: \"Each iteration extends the tree like RobustRrt, then improves it like RRT* (Karaman and Frazzoli 2011)\""
+		},
+		{
+			"slug": "robust-rrt",
+			"name": null,
+			"relation": "builds-on",
+			"source": "robust-planning, src/robust_rrt_star.rs: \"Robust RRT*: an RRT* whose nodes carry the reachable set they are reached with. Each iteration extends the tree like RobustRrt\""
+		}
+	],
+	"trace": null
+}

@@ -1,0 +1,23 @@
+algorithm BOA*ε(s₀, goal, h, ε)
+  input: start state s₀, goal test goal, heuristic h consistent in both costs, tolerance ε ≥ 0
+  output: Pareto-optimal paths that cover the front within 1 + ε in the second cost
+  g2-min[s] ← ∞ for every state s
+  g2-best ← ∞                                  ▷ g₂ of the last solution
+  SOLUTIONS ← ∅
+  OPEN ← {⟨s₀, (0, 0)⟩}                        ▷ ordered by f = g + h, lexicographically
+  while OPEN ≠ ∅ do
+    ⟨s, g⟩ ← extract-min(OPEN)
+    if g₂ ≥ g2-min[s] or covered(g₂ + h₂(s)) then
+      continue
+    g2-min[s] ← g₂
+    if goal(s) then
+      SOLUTIONS ← SOLUTIONS ∪ {path-to(s, g)}
+      g2-best ← g₂
+      continue
+    for each (s′, c) in successors(s) do
+      g′ ← g + c
+      if g′₂ < g2-min[s′] and not covered(g′₂ + h₂(s′)) then
+        insert(OPEN, ⟨s′, g′⟩, g′ + h(s′))
+  return SOLUTIONS
+function covered(f₂)
+  return g2-best ≤ (1 + ε) · f₂                ▷ the only change to BOA*; ε = 0 is BOA*

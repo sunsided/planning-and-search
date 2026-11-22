@@ -1,0 +1,17 @@
+algorithm Dubins-Path(p, q, ρ)
+  input: start pose p = (x, y, θ), goal pose q, minimum turning radius ρ
+  output: the shortest forward path from p to q with turning radius at least ρ
+  d ← |q.xy − p.xy| / ρ                       ▷ normalize: unit turning radius
+  φ ← atan2(q.y − p.y, q.x − p.x)
+  α ← (p.θ − φ) mod 2π
+  β ← (q.θ − φ) mod 2π
+  if d ≈ 0 and α ≈ β then
+    return straight line of length d · ρ
+  best ← nil
+  for each word w in LSL, RSR, RSL, LSR, RLR, LRL do
+    (t, s, u) ← segment-lengths(w, d, α, β)   ▷ closed form; nil if w is infeasible
+    if (t, s, u) ≠ nil and t + s + u < length of best then
+      best ← (w, t, s, u)
+  return best, with each segment length scaled by ρ
+  ▷ L, R: arcs of radius ρ to the left or right; S: a straight segment
+  ▷ LSL and RSR always exist, so best is never nil

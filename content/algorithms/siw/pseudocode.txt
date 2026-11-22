@@ -1,0 +1,17 @@
+algorithm SIW(s₀, k-max)
+  input: initial state s₀, largest width k-max
+  output: a plan to a goal state, or failure
+  s ← s₀
+  π ← empty plan
+  while not goal(s) do
+    g ← unsatisfied-goals(s)
+    π′ ← failure
+    for k in 1, …, k-max do         ▷ each run starts with an empty novelty table
+      π′, s′ ← iw-from(s, k, subgoal: goal(x) or unsatisfied-goals(x) < g)
+      if π′ ≠ failure then
+        break
+    if π′ = failure then
+      return failure                 ▷ no subgoal within width k-max
+    π ← π · π′
+    s ← s′
+  return π

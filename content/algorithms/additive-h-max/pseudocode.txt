@@ -1,0 +1,18 @@
+algorithm AdditiveHMax(s, PARTS)
+  input: state s, a partition PARTS of the operators
+  output: an admissible estimate, or ∞ for a dead end
+  h ← 0
+  for each P in PARTS do
+    for each operator o do
+      if o ∈ P then
+        c_P[o] ← cost(o)
+      else
+        c_P[o] ← 0                          ▷ paid by another part
+    v ← h-max(s, c_P)
+    if v = ∞ then
+      return ∞
+    h ← h + v
+  return h
+function h-max(s, c)
+  cost ← generalized-dijkstra(s, c)          ▷ a fact costs c[o] + max over pre(o)
+  return max over goal facts g of cost[g]

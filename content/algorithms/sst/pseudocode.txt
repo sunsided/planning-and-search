@@ -1,0 +1,31 @@
+algorithm SST(x₀, n, δ-BN, δ-s)
+  input: start state x₀, iterations n, selection radius δ-BN, pruning radius δ-s
+  output: the cheapest trajectory to the goal region found, or failure
+  T ← tree with root x₀
+  cost[x₀] ← 0
+  ACTIVE ← {x₀}
+  W ← {x₀}                                      ▷ witnesses; rep(x₀) = x₀
+  for i in 1, …, n do
+    x-rand ← sample()                            ▷ the goal center with a small bias
+    x-sel ← cheapest node of ACTIVE within δ-BN of x-rand, else nearest(ACTIVE, x-rand)
+    u ← sample-control()
+    k ← uniform(1, k-max)
+    x-new ← propagate(x-sel, u, k)               ▷ checks every integration step
+    if x-new ≠ nil then
+      c ← cost[x-sel] + duration(k)
+      w ← nearest(W, x-new)
+      x-old ← nil
+      if d(w, x-new) > δ-s then
+        w ← new-witness(W, x-new)
+      else if c < cost[rep(w)] then
+        x-old ← rep(w)
+      else
+        continue                                 ▷ a cheaper node already holds w
+      add(T, x-new, parent: x-sel)
+      cost[x-new] ← c
+      rep(w) ← x-new
+      ACTIVE ← ACTIVE ∪ {x-new}
+      if x-old ≠ nil then
+        ACTIVE ← ACTIVE ∖ {x-old}
+        free-inactive-branch(T, x-old)           ▷ drops inactive leaves upward
+  return cheapest trajectory to a goal node of T, or failure if there is none

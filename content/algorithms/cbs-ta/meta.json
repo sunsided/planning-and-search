@@ -1,0 +1,30 @@
+{
+	"description": "CBS with Task Assignment (CBS-TA) solves path finding when each agent has a set of candidate goals and every agent must end at a different one. It finds the assignment and the paths together, and the plan is optimal over all assignments, for the sum of costs or the makespan. CBS-TA searches a forest: one CBS constraint tree per assignment, all in one open list. The assignments come cheapest first from Murty's ranking over the Hungarian method, and a tree opens only when its assignment is cheaper than the best open node, so most possible trees are never built. Use it for fleets of robots that pick their targets from a shared pool.",
+	"papers": [
+		{
+			"authors": "Wolfgang Hönig, Scott Kiesel, Andrew Tinka, Joseph W. Durham, Nora Ayanian",
+			"title": "Conflict-Based Search with Optimal Task Assignment",
+			"year": 2018,
+			"venue": "International Conference on Autonomous Agents and Multiagent Systems (AAMAS)",
+			"doi": "10.65109/iwjs4760",
+			"arxiv": null,
+			"url": null,
+			"role": "introduces"
+		}
+	],
+	"lineage": [
+		{
+			"slug": "cbs",
+			"name": null,
+			"relation": "generalizes",
+			"source": "mapf-search, docs/design.md: \"Plain CBS is the forest with one tree, agent i at goal i.\""
+		},
+		{
+			"slug": null,
+			"name": "Murty's ranking of assignments",
+			"relation": "combines",
+			"source": "mapf-search, docs/design.md: \"assignment.rs ranks the assignments of the cost matrix ... with Murty's partitioning over the Hungarian method\""
+		}
+	],
+	"trace": null
+}

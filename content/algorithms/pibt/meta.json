@@ -1,0 +1,27 @@
+{
+	"description": "PIBT moves all agents one time step at a time until every agent stands at its goal. In each step, agents choose their next vertex in order of priority, and an agent's priority grows with each step it spends away from its goal. An agent tries its own vertex and its neighbours, nearest to its goal first. If a lower-priority agent stands on the chosen vertex, that agent *inherits* the priority and must move first; if it cannot move, the first agent tries its next choice (*backtracking*). Each step is cheap, so PIBT is very fast, but it gives no quality guarantee and is not complete: agents can push each other in circles on some graphs.",
+	"papers": [
+		{
+			"authors": "Keisuke Okumura, Manao Machida, Xavier Défago, Yasumasa Tamura",
+			"title": "Priority Inheritance with Backtracking for Iterative Multi-agent Path Finding",
+			"year": 2019,
+			"venue": "Proceedings of the Twenty-Eighth International Joint Conference on Artificial Intelligence (IJCAI 2019)",
+			"doi": "10.24963/ijcai.2019/76",
+			"arxiv": null,
+			"url": null,
+			"role": "introduces"
+		},
+		{
+			"authors": "Keisuke Okumura, Manao Machida, Xavier Défago, Yasumasa Tamura",
+			"title": "Priority inheritance with backtracking for iterative multi-agent path finding",
+			"year": 2022,
+			"venue": "Artificial Intelligence",
+			"doi": "10.1016/j.artint.2022.103752",
+			"arxiv": null,
+			"url": null,
+			"role": "extends"
+		}
+	],
+	"lineage": [],
+	"trace": null
+}

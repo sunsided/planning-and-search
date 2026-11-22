@@ -1,0 +1,13 @@
+{
+	"description": "IDA* with a transposition table is IDA* that searches below a state at most once per iteration and path cost. A *transposition* is a state that more than one path reaches; plain IDA* searches below it again along each of those paths. The table stores, for the current iteration, the smallest `g` from which each recorded state was searched, and the search skips a state that it reaches again from a `g` that is not smaller, because the earlier visit had at least as much of the threshold left. Solutions stay optimal with an *admissible* heuristic. The table has a fixed number of slots and a new entry overwrites an old one, so memory stays bounded and a lost entry only repeats work; use it on graphs with many transpositions, such as grids and permutation puzzles.",
+	"papers": [],
+	"lineage": [
+		{
+			"slug": "ida-star",
+			"name": null,
+			"relation": "builds-on",
+			"source": "heuristic-search, src/depth_first.rs: \"IDA* with a bounded transposition table of capacity states: ida_star that searches below a state at most once per iteration and path cost\""
+		}
+	],
+	"trace": null
+}

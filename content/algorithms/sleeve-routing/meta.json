@@ -1,0 +1,36 @@
+{
+	"description": "Sleeve routing finds smooth any-angle routes around rectangular obstacles, not only horizontal and vertical ones. It splits the free space into triangles with a *constrained Delaunay triangulation*, which keeps every obstacle side as a triangle edge. Dijkstra's algorithm over neighbouring free triangles picks a *sleeve*, a corridor of triangles from source to target. The funnel algorithm then pulls the route tight inside the sleeve, so it bends only at obstacle corners. The route is the shortest one inside its sleeve, but not always the shortest overall.",
+	"papers": [
+		{
+			"authors": "Lev Nachmanson, Xiaoji Chen",
+			"title": "Browsing Large Graphs with Tile Pyramids and Sleeve Routing in the Browser",
+			"year": 2026,
+			"venue": null,
+			"doi": null,
+			"arxiv": "2605.17498",
+			"url": null,
+			"role": "introduces"
+		}
+	],
+	"lineage": [
+		{
+			"slug": "dijkstras-algorithm",
+			"name": null,
+			"relation": "combines",
+			"source": "connector-routing, src/sleeve.rs: \"Dijkstra over the dual graph of the triangulation ... picks a sleeve\""
+		},
+		{
+			"slug": null,
+			"name": "Funnel algorithm",
+			"relation": "combines",
+			"source": "connector-routing, src/sleeve.rs: \"The funnel algorithm then pulls the route taut inside the sleeve\""
+		},
+		{
+			"slug": null,
+			"name": "Constrained Delaunay triangulation",
+			"relation": "builds-on",
+			"source": "connector-routing, src/sleeve.rs: \"smooth any-angle routes through a constrained Delaunay triangulation of the free space\""
+		}
+	],
+	"trace": null
+}

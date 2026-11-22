@@ -1,0 +1,15 @@
+algorithm CG(n)
+  input: a constraint-tree node n with the MDD of each conflicting agent
+  output: a lower bound on the rise of the sum of costs below n
+  E ← ∅
+  for each conflict (i, j, v, t) of n do
+    if is-cardinal(MDD_i, v, t) and is-cardinal(MDD_j, v, t) then
+      E ← E ∪ {(i, j)}
+  return vertex-cover-bound(E)
+function is-cardinal(M, v, t)
+  return level t of M holds only v              ▷ for a swap: both ends
+function vertex-cover-bound(E)
+  k ← size of a greedy maximal matching of E    ▷ a lower bound on the cover
+  while k < 12 and not has-cover(E, k) do      ▷ exact search is exponential in k
+    k ← k + 1
+  return k                                     ▷ every smaller size was ruled out

@@ -1,0 +1,16 @@
+algorithm reduce-leaf(L, ⪯)
+  input: leaf L with its leaf actions, leaf simulation ⪯ (x ⪯ y: y can do all that x can, at no higher cost)
+  output: the set of removed leaf transitions
+  REMOVED ← ∅
+  for each leaf state x of L do
+    for each transition (x, a, x′) of a leaf action a do
+      if x′ ⪯ x then
+        REMOVED ← REMOVED ∪ {(x, a)}       ▷ staying in x is as good
+        continue
+      for each transition (x, b, y′) with b ≠ a do
+        if replaces(b, y′, a, x′) and (b < a or not replaces(a, x′, b, y′)) then
+          REMOVED ← REMOVED ∪ {(x, a)}     ▷ the index order keeps one of two mutual replacements
+          break
+  return REMOVED                           ▷ leaf closure then skips them; unreachable states stay unreached
+function replaces(b, y′, a, x′)
+  return cost(b) ≤ cost(a) and center-pre(b) ⊆ center-pre(a) and x′ ⪯ y′

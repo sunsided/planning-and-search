@@ -1,0 +1,28 @@
+algorithm Bidirectional Dijkstra(s₀, GOALS)
+  input: start s₀, a set of goal states GOALS, non-negative edge costs
+  output: a cheapest path from s₀ to a goal, or failure
+  gF[s₀] ← 0
+  OPEN-F ← {s₀}                                ▷ ordered by gF; unseen g are ∞
+  gB[t] ← 0 for each t in GOALS
+  OPEN-B ← GOALS                               ▷ ordered by gB
+  μ ← ∞                                        ▷ cost of the cheapest meet
+  while OPEN-F ≠ ∅ and OPEN-B ≠ ∅ do
+    if min-g(OPEN-F) + min-g(OPEN-B) ≥ μ then
+      break
+    if min-g(OPEN-F) ≤ min-g(OPEN-B) then
+      expand(OPEN-F, successors, gF, gB)
+    else
+      expand(OPEN-B, predecessors, gB, gF)
+  if μ = ∞ then
+    return failure
+  return join(path from s₀ to m, path from m to a goal)
+procedure expand(OPEN, next, g, g-other)
+  s ← extract-min(OPEN)
+  for each (s′, c) in next(s) do
+    if g[s] + c < g[s′] then
+      g[s′] ← g[s] + c
+      parent[s′] ← s
+      insert-or-update(OPEN, s′, g[s′])
+      if g[s′] + g-other[s′] < μ then
+        μ ← g[s′] + g-other[s′]
+        m ← s′                                 ▷ the meeting state

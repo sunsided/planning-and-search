@@ -1,0 +1,24 @@
+{
+	"description": "Incremental poly-line routing finds short any-angle routes around rectangular obstacles and keeps them current while a user edits the diagram. The *visibility graph* joins every pair of obstacle corners and connector ends whose straight segment enters no obstacle. A* over this graph, with the straight-line distance as its estimate, finds the cheapest route; optional penalties charge bends, turn angles and crossings. Each pair that is not visible remembers one obstacle that blocks it, so removing that obstacle retests only its pairs. After each change, the router reports the connectors that are now invalid or may get a cheaper route.",
+	"papers": [
+		{
+			"authors": "Michael Wybrow, Kim Marriott, Peter J. Stuckey",
+			"title": "Incremental Connector Routing",
+			"year": 2006,
+			"venue": "Graph Drawing (GD 2005), LNCS",
+			"doi": "10.1007/11618058_40",
+			"arxiv": null,
+			"url": null,
+			"role": "introduces"
+		}
+	],
+	"lineage": [
+		{
+			"slug": "a-star",
+			"name": null,
+			"relation": "builds-on",
+			"source": "connector-routing, src/polyline.rs: \"Routes are A* searches with the Euclidean lower bound\""
+		}
+	],
+	"trace": null
+}

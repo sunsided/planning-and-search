@@ -1,0 +1,17 @@
+{
+	"description": "SIP-MOSP finds the exact Pareto set of paths with many threads that do not wait for each other (*asynchronous*). Search workers expand labels from private queues, each with its own objective order. They prune children against *snapshots*: published, read-only copies of a state's frontier and of the goal frontier. One update worker owns each state; it alone changes that state's exact frontier, checks each candidate again if its snapshot is old, and publishes the next version. Snapshots are a sorted, indexed base plus a short list of recent additions, so most checks are fast and the result does not depend on thread timing.",
+	"papers": [
+		{
+			"authors": "Xiaoqing Xu, Ning Zhang, Liuyihui Qian, Xiaojun Liu, Juan Wu, Hong Tang",
+			"title": "Asynchronous Parallel Search for Exact Multi-Objective Shortest Paths with Versioned Frontier Snapshots and Indexed Dominance Pruning",
+			"year": 2026,
+			"venue": null,
+			"doi": null,
+			"arxiv": "2609.11944",
+			"url": null,
+			"role": "introduces"
+		}
+	],
+	"lineage": [],
+	"trace": null
+}

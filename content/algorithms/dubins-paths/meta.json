@@ -1,0 +1,27 @@
+{
+	"description": "A Dubins path is the shortest path between two *poses* (a position and a heading) for a car that drives only forward and cannot turn tighter than a minimum radius. Dubins proved that such a path has at most three pieces: arcs of the minimum radius to the left (L) or right (R) and straight lines (S). So it is enough to compute the six words LSL, RSR, RSL, LSR, RLR and LRL in closed form and keep the shortest one. In `sampling-planning`, `Dubins` is a state space whose distance is this length and whose interpolation follows the path; `DubinsPath` holds the word and its three segment lengths. The distance is not symmetric, so use it with planners that measure from tree nodes toward targets, such as RRT, RRT* and SST.",
+	"papers": [
+		{
+			"authors": "L. E. Dubins",
+			"title": "On Curves of Minimal Length with a Constraint on Average Curvature, and with Prescribed Initial and Terminal Positions and Tangents",
+			"year": 1957,
+			"venue": "American Journal of Mathematics",
+			"doi": "10.2307/2372560",
+			"arxiv": null,
+			"url": null,
+			"role": "introduces"
+		},
+		{
+			"authors": "Andrei M. Shkel, Vladimir Lumelsky",
+			"title": "Classification of the Dubins set",
+			"year": 2001,
+			"venue": "Robotics and Autonomous Systems",
+			"doi": "10.1016/s0921-8890(00)00127-5",
+			"arxiv": null,
+			"url": null,
+			"role": "analyses"
+		}
+	],
+	"lineage": [],
+	"trace": null
+}

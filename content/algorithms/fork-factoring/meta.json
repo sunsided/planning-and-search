@@ -1,0 +1,27 @@
+{
+	"description": "A *factoring* splits the variables of a planning task into a *center* and *leaves* for decoupled search. The fork factoring uses the *causal graph*, which has an arc from variable `u` to `v` when some operator reads or writes `u` and writes `v`. Every *sink component* of this graph (a strongly connected component that no arc leaves) becomes a leaf, if it has at most 2^16 states; all other variables form the center. Each leaf then depends only on the center, and no leaf affects the center, so all operators on a leaf are priced inside it. It suits tasks like logistics, where many packages depend on shared vehicles.",
+	"papers": [
+		{
+			"authors": "Daniel Gnad, Jörg Hoffmann",
+			"title": "Beating LM-Cut with h^max (Sometimes): Fork-Decoupled State Space Search",
+			"year": 2015,
+			"venue": "International Conference on Automated Planning and Scheduling (ICAPS)",
+			"doi": "10.1609/icaps.v25i1.13705",
+			"arxiv": null,
+			"url": null,
+			"role": "introduces"
+		},
+		{
+			"authors": "Daniel Gnad, Valerie Poser, Jörg Hoffmann",
+			"title": "Beyond Forks: Finding and Ranking Star Factorings for Decoupled Search",
+			"year": 2017,
+			"venue": "International Joint Conference on Artificial Intelligence (IJCAI)",
+			"doi": "10.24963/ijcai.2017/602",
+			"arxiv": null,
+			"url": null,
+			"role": "extends"
+		}
+	],
+	"lineage": [],
+	"trace": null
+}

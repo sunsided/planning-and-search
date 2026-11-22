@@ -1,0 +1,24 @@
+{
+	"description": "A pattern database (PDB) is a heuristic built from a smaller copy of the task. The *pattern* is a subset of the state variables; the *projection* keeps only those variables and ignores all others. Every real transition maps to a transition of the projection with the same cost, or to no move at all, so the cheapest cost to a goal in the projection never exceeds the real cost: the heuristic is *admissible*. The PDB computes these goal distances once, with a backward Dijkstra search from the abstract goal states, and stores them in a table; during search each state costs one table lookup. A larger pattern gives better estimates, but the table grows with the product of the variable domain sizes.",
+	"papers": [
+		{
+			"authors": "Joseph C. Culberson, Jonathan Schaeffer",
+			"title": "Pattern Databases",
+			"year": 1998,
+			"venue": "Computational Intelligence",
+			"doi": "10.1111/0824-7935.00065",
+			"arxiv": null,
+			"url": null,
+			"role": "introduces"
+		}
+	],
+	"lineage": [
+		{
+			"slug": "dijkstras-algorithm",
+			"name": null,
+			"relation": "builds-on",
+			"source": "sas-plus, src/lts.rs: goal_distances (\"Cheapest cost to reach a goal state from each state\") runs dijkstra over the reversed transitions from the goal states"
+		}
+	],
+	"trace": null
+}

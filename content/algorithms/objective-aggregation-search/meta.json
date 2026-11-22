@@ -1,0 +1,17 @@
+{
+	"description": "Objective-aggregation search finds the Pareto-optimal paths when the objectives of a solution are not plain sums of edge costs. A path carries `M` *hidden* costs, extended along each edge by a monotone function `F_ext` (for example a sum or a maximum). A second monotone function `F_agg` maps the hidden costs to the `K` objectives that the user compares. The search orders the open list by `F_agg(g + h)`, prunes labels at a state by full dominance on the hidden `g`, and prunes against solutions on the aggregated costs. The result is the exact aggregated Pareto set, or with tolerances `ε` a set that covers it within `1 + ε` per objective.",
+	"papers": [
+		{
+			"authors": "Hadar Peer, Eyal Weiss, Ron Alterovitz, Oren Salzman",
+			"title": "Generalizing Multi-Objective Search via Objective-Aggregation Functions",
+			"year": 2025,
+			"venue": null,
+			"doi": null,
+			"arxiv": "2509.22085",
+			"url": null,
+			"role": "introduces"
+		}
+	],
+	"lineage": [],
+	"trace": null
+}

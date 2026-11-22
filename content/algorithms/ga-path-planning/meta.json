@@ -1,0 +1,13 @@
+{
+	"description": "GA path planning searches a short path from a start to a goal vertex in a graph or a grid with a genetic algorithm. Each genome is a *simple path*: a path that visits no vertex twice. Random depth-first searches create the first paths. Crossover cuts two parents at a vertex they share and swaps the tails; mutation replaces a stretch of a path by a random detour; repair cuts any loop that this creates. The cost is the sum of the edge costs. It finds good paths, but unlike Dijkstra's algorithm or A* it does not guarantee a shortest one; it is useful as a test bed or when the cost of a path is not a sum of edge costs.",
+	"papers": [],
+	"lineage": [
+		{
+			"slug": "genetic-algorithm",
+			"name": null,
+			"relation": "specializes",
+			"source": "evolutionary-planning, src/graph_path.rs: \"Searches a short path with a generational GA (elitism two, tournament three, shared-vertex crossover, reroute mutation, loop removal)\""
+		}
+	],
+	"trace": null
+}

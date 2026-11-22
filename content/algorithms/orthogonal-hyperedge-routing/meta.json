@@ -1,0 +1,24 @@
+{
+	"description": "Orthogonal hyperedge routing connects a net of three or more ports with one tree of horizontal and vertical segments (a *rectilinear Steiner tree*). Its graph gives every vertex of the orthogonal visibility graph a horizontal and a vertical copy, joined by an edge that costs one bend. Heuristic 1 grows shortest-path trees from all ports at once and joins them with the cheapest links, as in Kruskal's method. Heuristic 2 grows and joins in turns, so later growth reuses the merged tree at no cost. A final step shifts straight runs only when that makes the tree strictly cheaper; the result is good but not proven optimal.",
+	"papers": [
+		{
+			"authors": "Michael Wybrow, Kim Marriott, Peter J. Stuckey",
+			"title": "Orthogonal Hyperedge Routing",
+			"year": 2012,
+			"venue": "Diagrammatic Representation and Inference (Diagrams 2012), LNCS",
+			"doi": "10.1007/978-3-642-31223-6_10",
+			"arxiv": null,
+			"url": null,
+			"role": "introduces"
+		}
+	],
+	"lineage": [
+		{
+			"slug": "orthogonal-visibility-graph",
+			"name": null,
+			"relation": "builds-on",
+			"source": "connector-routing, src/hyperedge.rs: \"Both heuristics of the paper run on the *separated* orthogonal visibility graph\""
+		}
+	],
+	"trace": null
+}

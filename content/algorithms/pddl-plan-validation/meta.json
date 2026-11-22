@@ -1,0 +1,27 @@
+{
+	"description": "PDDL plan validation checks that a sequence of actions solves a planning problem written in PDDL. It starts in the initial state and runs the plan one step at a time. For each step it grounds the action with its objects, checks the precondition in the current state, and then applies all effects at once: deleted atoms go out, added atoms come in, and numeric fluents change. After the last step, the goal must hold. The check is exact and stops at the first failing step, so it also tells you *why* a plan fails; use it to test the output of any classical or numeric planner.",
+	"papers": [
+		{
+			"authors": "Richard Howey, Derek Long, Maria Fox",
+			"title": "VAL: automatic plan validation, continuous effects and mixed initiative planning using PDDL",
+			"year": 2004,
+			"venue": "16th IEEE International Conference on Tools with Artificial Intelligence (ICTAI)",
+			"doi": "10.1109/ICTAI.2004.120",
+			"arxiv": null,
+			"url": null,
+			"role": "introduces"
+		},
+		{
+			"authors": "Maria Fox, Derek Long",
+			"title": "PDDL2.1: An Extension to PDDL for Expressing Temporal Planning Domains",
+			"year": 2003,
+			"venue": "Journal of Artificial Intelligence Research",
+			"doi": "10.1613/jair.1129",
+			"arxiv": null,
+			"url": null,
+			"role": "applies"
+		}
+	],
+	"lineage": [],
+	"trace": null
+}

@@ -1,0 +1,20 @@
+algorithm decoupled-stubborn-set(s)
+  input: decoupled state s
+  output: the global actions to expand in s
+  if s is a goal state then
+    A ← goal-frontier(s)                   ▷ actions that can still lower a leaf goal price
+  else
+    A ← necessary-enabling(goal, s)        ▷ achievers of the first goal part s does not reach
+  QUEUE ← A
+  while QUEUE ≠ ∅ do
+    o ← pop(QUEUE)
+    if pre(o) is not reached in s then
+      NEW ← necessary-enabling(pre(o), s)
+    else
+      NEW ← interfering(o)                 ▷ conflicting effects or a broken precondition, consistent with pre(o)
+      for each leaf L where o has a precondition do
+        NEW ← NEW ∪ reached-enabling(o, L, s)  ▷ leaf moves from reached states that can reach pre(o) on L
+    for each o′ in NEW ∖ A do
+      A ← A ∪ {o′}
+      push(QUEUE, o′)
+  return { o ∈ A : o is a global action applicable in s }

@@ -1,0 +1,40 @@
+algorithm AD*(s₀, t, h, w)
+  input: start s₀ (it moves), fixed goal t, consistent heuristic h(a, b), weight w ≥ 1
+  output: after each call, a path that costs at most w times the optimum
+  km, rhs[t] ← 0, 0                            ▷ g and rhs of an unseen vertex are ∞
+  ▷ key(s) = ⟨m + ε · h(s₀, s) + km, m⟩ with m = min(g[s], rhs[s]); ε = w if g[s] > rhs[s], else 1
+  U ← {t}                                      ▷ ordered by key
+  repeat
+    U ← U ∪ INCONS                             ▷ re-keys all of U only when w dropped
+    INCONS, CLOSED ← ∅, ∅
+    compute()
+    yield path-from(s₀)                        ▷ the caller may lower w (set_weight)
+    if the start moved to s′ then
+      km ← km + w · h(s₀, s′)
+      s₀ ← s′
+    for each changed edge (u, v) do
+      update-vertex(u)
+  until s₀ = t
+procedure update-vertex(u)
+  if u ≠ t then
+    rhs[u] ← min of c + g[v] over (v, c) in successors(u)
+  remove(U, u)
+  if g[u] ≠ rhs[u] and u ∈ CLOSED then
+    INCONS ← INCONS ∪ {u}                      ▷ waits for the next call
+  else if g[u] ≠ rhs[u] then
+    insert(U, u, key(u))
+procedure compute()
+  while top-key(U) < key(s₀) or rhs[s₀] ≠ g[s₀] do
+    u ← top(U)
+    if top-key(U) < key(u) then
+      update-key(U, u, key(u))                 ▷ the start moved since u was queued
+      continue
+    if g[u] > rhs[u] then
+      g[u] ← rhs[u]
+      remove(U, u)
+      CLOSED ← CLOSED ∪ {u}
+    else
+      g[u] ← ∞
+      update-vertex(u)
+    for each p in predecessors(u) do
+      update-vertex(p)

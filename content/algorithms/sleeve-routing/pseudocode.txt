@@ -1,0 +1,31 @@
+algorithm SleeveRoute(s, t)
+  input: points s and t, constrained Delaunay triangulation D of the frame (obstacle sides are edges)
+  output: a taut any-angle route from s to t, or failure
+  if straight-is-free(s, t) then
+    return ⟨s, t⟩
+  X ← exits(s)              ▷ s, or the nearest free vertices along walls of touching boxes
+  T ← dijkstra(dual(D), X)  ▷ free triangles only; edges weighted by centroid distance
+  if no triangle at t is reached in T then
+    return failure
+  σ ← triangles on the T path to t          ▷ the sleeve
+  return walk-to(X) followed by funnel(s, t, portals(σ))
+function funnel(s, t, P)
+  ▷ P lists the shared triangle edges as (left, right) in the direction of travel
+  G ← ⟨(s, s)⟩ ++ P ++ ⟨(t, t)⟩
+  path ← ⟨s⟩
+  apex, l, r ← s, s, s
+  i ← 1
+  while i < |G| do
+    (pl, pr) ← G[i]
+    if orient(apex, r, pr) ≥ 0 then         ▷ pr does not widen the right side
+      if apex = r or orient(apex, l, pr) < 0 then
+        r ← pr
+      else
+        apex ← l                            ▷ the sides cross: l is a corner of the route
+        append(path, l)
+        r, i ← apex, index(l) + 1
+        continue
+    ▷ the left side is tightened the same way, mirrored
+    i ← i + 1
+  append(path, t)
+  return path

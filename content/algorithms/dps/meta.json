@@ -1,0 +1,24 @@
+{
+	"description": "DPS (Dynamic Potential Search) finds a path that costs at most `w` times the optimum (it is *bounded-suboptimal*). It needs one *admissible* heuristic `h`, which never overestimates the remaining cost. Among the open states with `f = g + h ≤ w · f_min`, where `f_min` is the smallest `f` that is open, it expands the state with the largest *potential* `(w · f_min − g) / h`: the state most likely to lead to a solution within the bound. The potential changes when `f_min` changes, so the crate groups the open states by their `(g, h)` pair and scans the groups at each expansion. Use it for bounded-suboptimal search when you have no second estimate, in particular with small integer edge costs.",
+	"papers": [
+		{
+			"authors": "Daniel Gilon, Ariel Felner, Roni Stern",
+			"title": "Dynamic Potential Search — A New Bounded Suboptimal Search",
+			"year": 2016,
+			"venue": "Symposium on Combinatorial Search (SoCS)",
+			"doi": null,
+			"arxiv": null,
+			"url": "https://ojs.aaai.org/index.php/SOCS/article/view/18392",
+			"role": "introduces"
+		}
+	],
+	"lineage": [
+		{
+			"slug": null,
+			"name": "Potential Search",
+			"relation": "builds-on",
+			"source": "Dynamic Potential Search — A New Bounded Suboptimal Search: \"we modify PS to work within the framework of bounded suboptimal search and introduce Dynamic Potential Search\""
+		}
+	],
+	"trace": null
+}

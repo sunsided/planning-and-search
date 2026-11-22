@@ -1,0 +1,37 @@
+algorithm D* Lite(s₀, t, h)
+  input: start s₀ (it moves), fixed goal t, consistent heuristic h(a, b)
+  output: a cheapest path from the current start to t after every change
+  km ← 0                                       ▷ g and rhs of an unseen vertex are ∞
+  rhs[t] ← 0
+  insert(U, t, key(t))
+  repeat
+    compute()
+    yield path-from(s₀)                        ▷ follow tight edges towards t
+    if the start moved to s′ then              ▷ move_start
+      km ← km + h(s₀, s′)
+      s₀ ← s′
+    for each changed edge (u, v) do            ▷ edge_changed
+      update-vertex(u)
+  until s₀ = t
+function key(s)
+  return ⟨min(g[s], rhs[s]) + h(s₀, s) + km, min(g[s], rhs[s])⟩
+procedure update-vertex(u)
+  if u ≠ t then
+    rhs[u] ← min of c + g[v] over (v, c) in successors(u)
+  remove(U, u)
+  if g[u] ≠ rhs[u] then
+    insert(U, u, key(u))
+procedure compute()
+  while top-key(U) < key(s₀) or rhs[s₀] ≠ g[s₀] do
+    u ← top(U)
+    if top-key(U) < key(u) then
+      update-key(U, u, key(u))                 ▷ km made the stored key stale
+      continue
+    if g[u] > rhs[u] then
+      g[u] ← rhs[u]
+      remove(U, u)
+    else
+      g[u] ← ∞
+      update-vertex(u)
+    for each p in predecessors(u) do
+      update-vertex(p)

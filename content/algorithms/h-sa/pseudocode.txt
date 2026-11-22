@@ -1,0 +1,20 @@
+algorithm HSetAdd(s, G)
+  input: state s, goal facts G
+  output: the cost of a relaxed plan, or ∞ for a dead end
+  for each fact f do
+    if f ∈ s then
+      plan[f] ← ∅
+    else
+      plan[f] ← nil
+  repeat
+    changed ← false
+    for each rule (C → f) of an operator o do
+      if plan[c] ≠ nil for every c ∈ C then
+        offer ← {o} ∪ ⋃ plan[c] over c ∈ C
+        if plan[f] = nil or cost(offer) < cost(plan[f]) then
+          plan[f] ← offer
+          changed ← true
+  until not changed
+  if plan[g] = nil for some g ∈ G then
+    return ∞
+  return cost(⋃ plan[g] over g ∈ G)          ▷ cost(P) = ∑ cost(o) over o ∈ P

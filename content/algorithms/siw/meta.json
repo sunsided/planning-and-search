@@ -1,0 +1,24 @@
+{
+	"description": "Serialized Iterated Width (SIW) reaches the goal one part at a time. From the current state it runs IW(1), IW(2), … up to a bound `max_k` until it finds a state with fewer unsatisfied goals. It appends that subplan, moves to the new state, and starts again with empty novelty tables. SIW is fast when the goals can be reached one after another, each with low width, but it is neither complete nor optimal: it fails when no next subgoal is reachable within `max_k`, for example in a dead end that an earlier subplan left. This version accepts any drop in the goal count; LAPKT's SIW also keeps the goals it already reached, so its plans can be shorter.",
+	"papers": [
+		{
+			"authors": "Nir Lipovetzky, Hector Geffner",
+			"title": "Width and Serialization of Classical Planning Problems",
+			"year": 2012,
+			"venue": "ECAI 2012 (Frontiers in Artificial Intelligence and Applications)",
+			"doi": "10.3233/978-1-61499-098-7-540",
+			"arxiv": null,
+			"url": null,
+			"role": "introduces"
+		}
+	],
+	"lineage": [
+		{
+			"slug": "iw",
+			"name": null,
+			"relation": "builds-on",
+			"source": "width-search, src/siw.rs: \"From the current state it runs IW(1), IW(2), ... up to `max_k` until a state with fewer unsatisfied goals (`#g`) is found\""
+		}
+	],
+	"trace": null
+}

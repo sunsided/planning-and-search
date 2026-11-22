@@ -1,0 +1,27 @@
+{
+	"description": "The reference-point method returns Pareto-optimal paths one at a time, the closest to a target first. The user gives an *aspiration point* `r` (the costs they hope for) and positive weights `w`. Closeness is the *achievement* `max_i w_i · (c_i − r_i)`, a weighted Chebyshev distance. The search is best-first on the achievement of `f = g + h`, a lower bound because the achievement is monotone. Each call of `next` continues the same search, and `aim` moves the point or the weights without lost work, so a person can steer the search interactively.",
+	"papers": [
+		{
+			"authors": "Andrzej P. Wierzbicki",
+			"title": "The Use of Reference Objectives in Multiobjective Optimization",
+			"year": 1980,
+			"venue": "Lecture Notes in Economics and Mathematical Systems",
+			"doi": "10.1007/978-3-642-48782-8_32",
+			"arxiv": null,
+			"url": null,
+			"role": "introduces"
+		},
+		{
+			"authors": "José Craveirinha, João Clímaco, Rita Girão-Silva, Marta Pascoal",
+			"title": "Multiobjective Path Problems and Algorithms in Telecommunication Network Design—Overview and Trends",
+			"year": 2024,
+			"venue": "Algorithms",
+			"doi": "10.3390/a17060222",
+			"arxiv": null,
+			"url": null,
+			"role": "surveys"
+		}
+	],
+	"lineage": [],
+	"trace": null
+}

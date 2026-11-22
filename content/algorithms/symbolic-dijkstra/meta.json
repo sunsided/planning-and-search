@@ -1,0 +1,24 @@
+{
+	"description": "Symbolic Dijkstra is uniform-cost search over sets of states stored as BDDs (*binary decision diagrams*). It keeps one open set per path cost `g`, expands the set with the smallest `g`, and files the successors through operators of cost `c` under `g + c`; zero-cost operators refill the set that is being expanded. The first expanded set that contains a goal state gives a cheapest plan, and an empty open list proves that no plan exists. The bidirectional form searches forward from the start and backward from the goal, and stops when the best meeting of the two sides is proven optimal. Use it for cost-optimal planning when no good heuristic is at hand.",
+	"papers": [
+		{
+			"authors": "Álvaro Torralba, Vidal Alcázar, Peter Kissmann, Stefan Edelkamp",
+			"title": "Efficient symbolic search for cost-optimal planning",
+			"year": 2017,
+			"venue": "Artificial Intelligence",
+			"doi": "10.1016/j.artint.2016.10.001",
+			"arxiv": null,
+			"url": null,
+			"role": "analyses"
+		}
+	],
+	"lineage": [
+		{
+			"slug": "dijkstras-algorithm",
+			"name": null,
+			"relation": "builds-on",
+			"source": "symbolic-search, src/search.rs: forward_dijkstra is \"Symbolic Dijkstra (uniform-cost search) forward from the initial state\""
+		}
+	],
+	"trace": null
+}

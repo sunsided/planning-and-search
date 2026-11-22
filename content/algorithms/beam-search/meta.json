@@ -1,0 +1,13 @@
+{
+	"description": "Beam search explores a graph layer by layer, like breadth-first search, but keeps only the `width` states with the smallest `f = g + h` in each layer. So each layer costs at most `width` expansions; `beam_search` still remembers every state it generated and never expands one twice. It is *incomplete* (it can fail when a path exists) and not optimal. When it finds no goal after the width dropped a state, it reports a cutoff, not that no path exists. Use it when a good path fast matters more than the best path; use beam-stack search when you need a guarantee.",
+	"papers": [],
+	"lineage": [
+		{
+			"slug": "breadth-first-search",
+			"name": null,
+			"relation": "builds-on",
+			"source": "heuristic-search, src/beam.rs: \"beam_search, breadth-first with a fixed beam width and incomplete\""
+		}
+	],
+	"trace": null
+}

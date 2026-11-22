@@ -1,0 +1,18 @@
+algorithm PRM(n, r)
+  input: number of samples n, connection radius r (or a fixed k nearest)
+  output: a roadmap G that answers many queries
+  G ← empty graph
+  for i in 1, …, n do
+    x ← sample()
+    if state-valid(x) then
+      X-NEAR ← nodes of G within r of x       ▷ or the k nearest nodes
+      add-node(G, x)
+      for each y in X-NEAR do
+        if motion-valid(y, x) then
+          add-edge(G, y, x, d(y, x))
+  return G
+function Query(G, x-start, goal)
+  input: roadmap G, start state x-start, goal region goal
+  output: a cheapest path in G from x-start to goal, or failure
+  E ← connect-endpoints(G, x-start, center(goal))   ▷ valid motions to the neighbours
+  return dijkstra(G ∪ E, x-start, goal)    ▷ ends at a node in goal or at its center; G does not change

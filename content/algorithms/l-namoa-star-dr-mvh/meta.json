@@ -1,0 +1,24 @@
+{
+	"description": "L-NAMOA\\*dr-mvh finds the exact Pareto front with a *multi-valued heuristic* (MVH), which gives a set of estimate vectors per state instead of one. The MVH must be *admissible*: for every path from a state to a goal, some estimate is no worse than that path's cost in every objective; it need not be consistent. Each path uses the smallest estimate (in lexicographic order) that no solution dominates, and moves to the next estimate when a solution later dominates it. Like NAMOA\\*dr, it skips the first objective in its dominance checks at a state, but it does a full check when a closed path there has a larger first cost. Use it with MVHs that are not consistent, such as the ones a backward A\\*pex builds.",
+	"papers": [
+		{
+			"authors": "Maya Wolff, Ariel Felner, Oren Salzman",
+			"title": "Bridging Multi-Valued Heuristics and Dimensionality Reduction in Multi-Objective Search",
+			"year": 2026,
+			"venue": null,
+			"doi": null,
+			"arxiv": "2606.20644",
+			"url": null,
+			"role": "introduces"
+		}
+	],
+	"lineage": [
+		{
+			"slug": "namoa-star-dr",
+			"name": null,
+			"relation": "builds-on",
+			"source": "multiobjective-search, src/namoa_mvh/lazy.rs: \"L-NAMOA*dr-mvh: NAMOA*dr with an admissible multi-valued heuristic and lazy dimensionality reduction.\""
+		}
+	],
+	"trace": null
+}

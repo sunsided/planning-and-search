@@ -1,0 +1,6 @@
+{
+	"description": "Greedy best-first search always expands the open state with the lowest heuristic value `h`, the estimated cost to the goal. It ignores the cost `g` of the path so far, and it does not reopen a state when it finds a cheaper path to it. It stops at the first goal it finds, so the solution is valid but not necessarily cheapest (it is *satisficing*, not optimal). With duplicate detection on a finite state space it always finds a solution if one exists (it is *complete*). Use it when a fast solution matters more than its cost; with a good heuristic such as h^FF it often expands far fewer states than A*.",
+	"papers": [],
+	"lineage": [],
+	"trace": "grid/greedy"
+}

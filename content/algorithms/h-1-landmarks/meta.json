@@ -1,0 +1,27 @@
+{
+	"description": "A *landmark* is a fact that is true at some point of every plan. This method finds fact landmarks in the delete relaxation, where facts stay true once reached. Each fact gets a label: the facts that every relaxed path to it makes true no later than the fact itself. A fact of the state has itself as label; an operator offers its effect the union of its preconditions' labels plus the effect; a fact keeps the intersection of all its offers. The landmarks are the goal facts and their labels, and each fact in a label is *naturally ordered* before that landmark. The result is sound for the real task and feeds landmark heuristics such as the landmark count and landmark cost partitioning.",
+	"papers": [
+		{
+			"authors": "Lin Zhu, Robert Givan",
+			"title": "Landmark Extraction via Planning Graph Propagation",
+			"year": 2003,
+			"venue": "ICAPS Doctoral Consortium",
+			"doi": null,
+			"arxiv": null,
+			"url": null,
+			"role": "introduces"
+		},
+		{
+			"authors": "Emil Keyder, Silvia Richter, Malte Helmert",
+			"title": "Sound and Complete Landmarks for And/Or Graphs",
+			"year": 2010,
+			"venue": "European Conference on Artificial Intelligence (ECAI)",
+			"doi": "10.3233/978-1-60750-606-5-335",
+			"arxiv": null,
+			"url": null,
+			"role": "extends"
+		}
+	],
+	"lineage": [],
+	"trace": null
+}

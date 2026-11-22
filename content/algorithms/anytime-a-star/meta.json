@@ -1,0 +1,30 @@
+{
+	"description": "Anytime A* is Gnad and Hoffmann's Anytime Fork-Root A* for decoupled search. There a task splits into a *center* and *leaves*, the search branches only over *global* actions (those not confined to one leaf), and each node keeps the *price* (cheapest cost) of every reachable leaf state. The open list is ordered by `g` plus a *root* heuristic, which estimates only the cost of the remaining global actions. A second, admissible heuristic over the whole remaining cost prunes every node that cannot beat the best solution found so far. The search stops when the open-list key plus the least possible leaf goal price reaches the best solution cost, and the plan is then optimal if both heuristics never overestimate what they estimate.",
+	"papers": [
+		{
+			"authors": "Daniel Gnad, Jörg Hoffmann",
+			"title": "Beating LM-Cut with h^max (Sometimes): Fork-Decoupled State Space Search",
+			"year": 2015,
+			"venue": "International Conference on Automated Planning and Scheduling (ICAPS)",
+			"doi": "10.1609/icaps.v25i1.13705",
+			"arxiv": null,
+			"url": null,
+			"role": "introduces"
+		}
+	],
+	"lineage": [
+		{
+			"slug": "a-star",
+			"name": null,
+			"relation": "builds-on",
+			"source": "decoupled-search, src/search.rs: \"A* ordered by `g` plus the `root` heuristic, which estimates only the cost of the remaining global actions\""
+		},
+		{
+			"slug": "decoupled-search",
+			"name": null,
+			"relation": "builds-on",
+			"source": "decoupled-search, src/search.rs: \"Anytime decoupled A* (Gnad and Hoffmann's Anytime Fork-Root A*, ICAPS 2015, generalised to star factorings)\""
+		}
+	],
+	"trace": null
+}

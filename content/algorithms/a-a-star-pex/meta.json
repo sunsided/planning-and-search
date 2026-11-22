@@ -1,0 +1,24 @@
+{
+	"description": "A-A\\*pex is an *anytime* form of A\\*pex: it gives a usable front early and makes it better while it runs. Each iteration runs A\\*pex with the next, smaller tolerance `ε` from a schedule. Paths that a pruning or a merge dropped, but that can still lead to a Pareto-optimal solution, go to a list, and the next iteration starts from them instead of from the start state. After each iteration the solutions approximate the Pareto front within `1 + ε`; when an iteration drops no such path, they are the exact front and the search stops. The crate has the paper's four variants: reuse, reuse-enh (more pruning by earlier representatives), restart, and hybrid (restart first, then reuse).",
+	"papers": [
+		{
+			"authors": "Han Zhang, Oren Salzman, Ariel Felner, Carlos Hernández Ulloa, Sven Koenig",
+			"title": "A-A*pex: Efficient Anytime Approximate Multi-Objective Search",
+			"year": 2024,
+			"venue": "International Symposium on Combinatorial Search (SoCS)",
+			"doi": "10.1609/socs.v17i1.31556",
+			"arxiv": null,
+			"url": null,
+			"role": "introduces"
+		}
+	],
+	"lineage": [
+		{
+			"slug": "a-star-pex",
+			"name": null,
+			"relation": "builds-on",
+			"source": "multiobjective-search, src/apex/anytime.rs: \"A-A*pex: anytime A*pex that reuses its search effort across tolerance iterations\""
+		}
+	],
+	"trace": null
+}

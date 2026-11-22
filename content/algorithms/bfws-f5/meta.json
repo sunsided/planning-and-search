@@ -1,0 +1,30 @@
+{
+	"description": "BFWS-f5 is BFWS with a finer novelty measure: it keeps one novelty table for each pair of goal count `#g` and relaxed-plan count `#r`. A *relaxed plan* is a plan for the task with all delete effects removed; with the `sas-plus` adapter it comes from the best supporters of h^add. `#r` counts how many facts of the current relaxed plan the path to a state has made true, and the relaxed plan is computed again at each state where `#g` drops. The open list is still ordered by `⟨w, #g⟩`. Like BFWS, it is complete on finite state spaces but not optimal, and the `#r` guidance can save many expansions on planning tasks.",
+	"papers": [
+		{
+			"authors": "Nir Lipovetzky, Hector Geffner",
+			"title": "Best-First Width Search: Exploration and Exploitation in Classical Planning",
+			"year": 2017,
+			"venue": "Proceedings of the AAAI Conference on Artificial Intelligence",
+			"doi": "10.1609/aaai.v31i1.11027",
+			"arxiv": null,
+			"url": null,
+			"role": "introduces"
+		}
+	],
+	"lineage": [
+		{
+			"slug": "bfws",
+			"name": null,
+			"relation": "builds-on",
+			"source": "width-search, src/bfws.rs: bfws_r is \"like [`bfws`], but novelty is computed separately for each pair of `#g` and `#r`\""
+		},
+		{
+			"slug": "h-add",
+			"name": null,
+			"relation": "builds-on",
+			"source": "width-search, src/sas.rs: \"The relaxed plan is extracted from `h_add` best supporters\""
+		}
+	],
+	"trace": null
+}

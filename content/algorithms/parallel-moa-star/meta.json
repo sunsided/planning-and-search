@@ -1,0 +1,17 @@
+{
+	"description": "Parallel MOA* finds the exact Pareto set of paths with one thread per objective. Thread `i` runs a lexicographic multi-objective A* with objective `i` first and the others in cyclic order. A thread finds its solutions in increasing order of its lead objective. So each solution tells the other threads that every Pareto-optimal cost below it in that objective is already known. The threads share these solutions as *multi-level upper bounds*: a solution cost drops one objective each time another thread passes it, and finally becomes a scalar bound that every thread prunes against. The search stops when the first thread ends, and the non-dominated union of all solutions is the Pareto set; it needs a consistent heuristic.",
+	"papers": [
+		{
+			"authors": "Saman Ahmadi, Nathan R. Sturtevant, Andrea Raith, Daniel Harabor, Mahdi Jalili",
+			"title": "Parallelizing Multi-objective A* Search",
+			"year": 2025,
+			"venue": null,
+			"doi": null,
+			"arxiv": "2503.10075",
+			"url": null,
+			"role": "introduces"
+		}
+	],
+	"lineage": [],
+	"trace": null
+}

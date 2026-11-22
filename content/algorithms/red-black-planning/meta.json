@@ -1,0 +1,44 @@
+{
+	"description": "Red-black planning relaxes only some variables of a planning task. *Red* variables are delete-relaxed: once they reach a value, they keep it. *Black* variables keep their real behaviour and have one value at a time. The heuristic takes the `h_FF` relaxed plan and runs it under these rules; when a black variable has the wrong value, it inserts a cheapest path through that variable's domain transition graph (*plan repair*). The cost of the repaired plan is `h_RB`. With this default repair it is never below `h_FF`, equal to it when all variables are red, and not admissible. A `Painting` chooses the black variables; use it for satisficing search where `h_FF` ignores important deletes.",
+	"papers": [
+		{
+			"authors": "Michael Katz, Jörg Hoffmann, Carmel Domshlak",
+			"title": "Who Said We Need to Relax All Variables?",
+			"year": 2013,
+			"venue": "International Conference on Automated Planning and Scheduling (ICAPS)",
+			"doi": "10.1609/icaps.v23i1.13548",
+			"arxiv": null,
+			"url": null,
+			"role": "introduces"
+		},
+		{
+			"authors": "Michael Katz, Jörg Hoffmann, Carmel Domshlak",
+			"title": "Red-Black Relaxed Plan Heuristics",
+			"year": 2013,
+			"venue": "AAAI Conference on Artificial Intelligence",
+			"doi": "10.1609/aaai.v27i1.8644",
+			"arxiv": null,
+			"url": null,
+			"role": "extends"
+		},
+		{
+			"authors": "Carmel Domshlak, Jörg Hoffmann, Michael Katz",
+			"title": "Red-black planning: A new systematic approach to partial delete relaxation",
+			"year": 2015,
+			"venue": "Artificial Intelligence",
+			"doi": "10.1016/j.artint.2014.12.008",
+			"arxiv": null,
+			"url": null,
+			"role": "extends"
+		}
+	],
+	"lineage": [
+		{
+			"slug": "h-ff",
+			"name": null,
+			"relation": "generalizes",
+			"source": "planning-heuristics, src/red_black.rs: \"`h_RB >= h_FF`, with equality when every variable is red\"; docs/design.md: \"`Painting::all_red` gives `h_FF`\""
+		}
+	],
+	"trace": null
+}

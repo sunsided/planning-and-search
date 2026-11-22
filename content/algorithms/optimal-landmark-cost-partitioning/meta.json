@@ -1,0 +1,24 @@
+{
+	"description": "Optimal landmark cost partitioning gives each pending landmark a value `c_l` and maximizes their sum with a linear program (*LP*). A *landmark* is a fact that is true at some point of every plan. The LP has one constraint per operator: the values of the landmarks it achieves add up to at most its cost. So the sum never overestimates the cost of a plan (it is *admissible*), and it is never below the uniform partitioning. The crate solves one LP per state with the pure-Rust `microlp` (feature `lp`); it suits optimal search on small tasks and comparisons, while LM-cut is much cheaper per state.",
+	"papers": [
+		{
+			"authors": "Erez Karpas, Carmel Domshlak",
+			"title": "Cost-Optimal Planning with Landmarks",
+			"year": 2009,
+			"venue": "International Joint Conference on Artificial Intelligence (IJCAI)",
+			"doi": null,
+			"arxiv": null,
+			"url": "https://www.ijcai.org/Proceedings/09/Papers/288.pdf",
+			"role": "introduces"
+		}
+	],
+	"lineage": [
+		{
+			"slug": "uniform-landmark-cost-partitioning",
+			"name": null,
+			"relation": "builds-on",
+			"source": "planning-heuristics, src/landmarks/optimal.rs: `OptimalLandmarkCost` wraps `UniformLandmarkCost`, whose \"landmarks, achiever index and costs are reused, and its estimate is the floor of this one\""
+		}
+	],
+	"trace": null
+}

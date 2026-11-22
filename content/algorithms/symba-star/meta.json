@@ -1,0 +1,34 @@
+{
+	"description": "SymBA* is a cost-optimal planner that runs symbolic bidirectional Dijkstra and adds heuristics only when the search gets hard. When the next set of one side grows past a node limit, that side first runs a search in an *abstraction*: a smaller task that drops variables or low bits of variables. This abstract search runs in the opposite direction and gives a *perimeter* heuristic: closed abstract states get their exact distance, all others the smallest open cost. The heuristic never overestimates, so the bidirectional stop bound stays valid and the plan is optimal; an abstract search that grows too large is frozen, and a coarser one starts. With a budget, the search can stop early and report the best plan so far and a lower bound.",
+	"papers": [
+		{
+			"authors": "Álvaro Torralba, Vidal Alcázar, Daniel Borrajo, Peter Kissmann, Stefan Edelkamp",
+			"title": "SymBA*: A Symbolic Bidirectional A* Planner",
+			"year": 2014,
+			"venue": "Proceedings of the International Planning Competition (IPC 2014)",
+			"doi": null,
+			"arxiv": null,
+			"url": null,
+			"role": "introduces"
+		},
+		{
+			"authors": "Álvaro Torralba, Carlos Linares López, Daniel Borrajo",
+			"title": "Abstraction Heuristics for Symbolic Bidirectional Search",
+			"year": 2016,
+			"venue": "Proceedings of the Twenty-Fifth International Joint Conference on Artificial Intelligence (IJCAI)",
+			"doi": null,
+			"arxiv": null,
+			"url": "https://www.ijcai.org/proceedings/2016/463",
+			"role": "extends"
+		}
+	],
+	"lineage": [
+		{
+			"slug": "symbolic-dijkstra",
+			"name": null,
+			"relation": "builds-on",
+			"source": "symbolic-search, src/model/symba.rs: \"Both concrete frontiers start blind, so the search is bidirectional Dijkstra until a frontier grows past the frontier node limit\""
+		}
+	],
+	"trace": null
+}

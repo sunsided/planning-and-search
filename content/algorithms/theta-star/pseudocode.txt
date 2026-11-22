@@ -1,0 +1,22 @@
+algorithm Theta*(s₀, s-goal)
+  input: start cell s₀, goal cell s-goal of a grid with line-of-sight tests
+  output: an any-angle path of straight segments between cell centres, or failure
+  g[s₀] ← 0
+  parent[s₀] ← s₀
+  OPEN ← {s₀}                                  ▷ ordered by g + d(s, s-goal), d Euclidean
+  while OPEN ≠ ∅ do
+    s ← extract-min(OPEN)
+    if s = s-goal then
+      return path-to(s)                        ▷ the corners, from s₀ to s-goal
+    CLOSED ← CLOSED ∪ {s}
+    for each free 8-neighbour s′ of s, without corner cutting do
+      if s′ ∉ CLOSED then
+        if line-of-sight(parent[s], s′) then   ▷ skip s: one straight segment
+          p ← parent[s]
+        else                                   ▷ the grid edge from s
+          p ← s
+        if g[p] + d(p, s′) < g[s′] then
+          g[s′] ← g[p] + d(p, s′)
+          parent[s′] ← p
+          insert-or-update(OPEN, s′, g[s′] + d(s′, s-goal))
+  return failure

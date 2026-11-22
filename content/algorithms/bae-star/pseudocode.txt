@@ -1,0 +1,28 @@
+algorithm BAE*(s₀, GOALS, hF, hB)
+  input: start s₀, goal states GOALS, consistent heuristics hF (to a goal) and hB (from s₀)
+  output: a cheapest path from s₀ to a goal, or failure
+  gF[s₀] ← 0
+  OPEN-F ← {s₀}                                ▷ ordered by bF = 2 gF + hF − hB
+  gB[t] ← 0 for each t in GOALS
+  OPEN-B ← GOALS                               ▷ ordered by bB = 2 gB + hB − hF
+  μ ← ∞
+  while OPEN-F ≠ ∅ and OPEN-B ≠ ∅ do
+    if min-b(OPEN-F) + min-b(OPEN-B) ≥ 2 μ then
+      break
+    if |OPEN-F| ≤ |OPEN-B| then                ▷ bae_star: the side with fewer open states
+      expand(OPEN-F, successors, gF, gB)
+    else
+      expand(OPEN-B, predecessors, gB, gF)
+  if μ = ∞ then
+    return failure
+  return join(path from s₀ to m, path from m to a goal)
+procedure expand(OPEN, next, g, g-other)
+  s ← extract-min(OPEN)
+  for each (s′, c) in next(s) do
+    if g[s] + c < g[s′] then                   ▷ reopens closed states
+      g[s′] ← g[s] + c
+      parent[s′] ← s
+      insert-or-update(OPEN, s′, 2 g[s′] + h(s′) − h-opposite(s′))
+      if g[s′] + g-other[s′] < μ then
+        μ ← g[s′] + g-other[s′]
+        m ← s′

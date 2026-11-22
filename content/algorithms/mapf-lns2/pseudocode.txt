@@ -1,0 +1,20 @@
+algorithm MAPF-LNS2(agents, N, γ)
+  input: agents with starts and goals, neighbourhood size N, reaction factor γ
+  output: a plan without collisions; the caller's budget may stop it first
+  P ← ∅
+  for each agent i in random-order(agents) do
+    P[i] ← sipps(i, P)                       ▷ fewest collisions with the paths in P
+  w ← ⟨1, 1, 1⟩                              ▷ weights: collision-based, failure-based, random
+  while colliding-pairs(P) > 0 do
+    m ← draw-by-weight(w)
+    A ← neighborhood(m, P, N)                ▷ at most N distinct agents
+    P-old ← P
+    c⁻ ← colliding-pairs(P)
+    P ← P ∖ paths-of(A)
+    for each agent i in random-order(A) do
+      P[i] ← sipps(i, P)                     ▷ against every other current path
+    c⁺ ← colliding-pairs(P)
+    if c⁺ > c⁻ then
+      P ← P-old
+    w[m] ← γ · max(0, c⁻ − c⁺) + (1 − γ) · w[m]
+  return P

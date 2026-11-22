@@ -1,0 +1,24 @@
+{
+	"description": "NSGA-III adapts NSGA-II to problems with three or more objectives (*many-objective* problems). It keeps the non-dominated sorting of NSGA-II, but it replaces crowding distance with *reference points*: evenly spread points on a simplex (Das-Dennis points), each of which defines a direction in objective space. When the last front fits only partly, the algorithm normalises the objectives (ideal point, extreme points and the intercepts of the hyperplane through them), assigns each member to the nearest reference line by perpendicular distance, and fills the free slots from the least used reference points first. This keeps the population spread along the whole front where crowding distance stops working. Parents mate uniformly at random, as in the original; there is no convergence guarantee.",
+	"papers": [
+		{
+			"authors": "Kalyanmoy Deb, Himanshu Jain",
+			"title": "An Evolutionary Many-Objective Optimization Algorithm Using Reference-Point-Based Nondominated Sorting Approach, Part I: Solving Problems With Box Constraints",
+			"year": 2014,
+			"venue": "IEEE Transactions on Evolutionary Computation",
+			"doi": "10.1109/TEVC.2013.2281535",
+			"arxiv": null,
+			"url": null,
+			"role": "introduces"
+		}
+	],
+	"lineage": [
+		{
+			"slug": "nsga-ii",
+			"name": null,
+			"relation": "builds-on",
+			"source": "evolutionary-planning, src/nsga3.rs: \"NSGA-III (Deb and Jain 2014): NSGA-II's non-dominated sorting with reference-point based niching instead of crowding\""
+		}
+	],
+	"trace": null
+}

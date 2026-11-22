@@ -1,0 +1,22 @@
+algorithm h-max(s, O, G)
+  input: state s, operators O, goal facts G
+  output: a lower bound on the cost from s to G, or ∞ if G is unreachable
+  for each fact p do
+    c[p] ← ∞
+  for each fact p in s do
+    c[p] ← seed(p)                         ▷ 0; on a decoupled state, the fact's leaf price
+  OPEN ← facts of s                        ▷ ordered by c
+  for each o in O with pre(o) = ∅ do
+    relax(o, OPEN)
+  while OPEN ≠ ∅ do
+    p ← extract-min(OPEN)
+    for each o in O with p ∈ pre(o) do
+      if ∀ q ∈ pre(o): c[q] < ∞ then
+        relax(o, OPEN)
+  return max { c[g] : g ∈ G }
+procedure relax(o, OPEN)
+  k ← cost(o) + max { c[q] : q ∈ pre(o) }  ▷ the max of ∅ is 0
+  for each p′ in eff(o) do
+    if k < c[p′] then
+      c[p′] ← k
+      insert-or-update(OPEN, p′, k)

@@ -1,0 +1,27 @@
+{
+	"description": "Linear system reachability computes sets that contain every state of `x′ = A x + B u`, when the start state is in a set `X` and the input `u(t)` can be any signal with values in a *zonotope* `U` (a center plus a list of generator vectors). Each time step of length `r` gives two sets: the *time-point* set at the end of the step, and the *time-interval* set for every moment during the step. The time-point set is `e^{Ar} X` plus the effect of the input; a truncated Taylor series gives the matrix exponential, and an interval matrix bounds the terms it cuts off. The time-interval set encloses the convex hull of `X` and its successor, plus correction terms for the curve between them. Every set is a *sound over-approximation* (it contains all true states, and possibly more), so use it to prove that a linear model stays safe, and as the inner step of nonlinear methods.",
+	"papers": [
+		{
+			"authors": "Antoine Girard",
+			"title": "Reachability of Uncertain Linear Systems Using Zonotopes",
+			"year": 2005,
+			"venue": "Hybrid Systems: Computation and Control (HSCC), Lecture Notes in Computer Science",
+			"doi": "10.1007/978-3-540-31954-2_19",
+			"arxiv": null,
+			"url": null,
+			"role": "introduces"
+		},
+		{
+			"authors": "Matthias Althoff",
+			"title": "Reachability Analysis and its Application to the Safety Assessment of Autonomous Cars",
+			"year": 2010,
+			"venue": "Dissertation, Technische Universität München",
+			"doi": null,
+			"arxiv": null,
+			"url": "https://mediatum.ub.tum.de/1287517",
+			"role": "extends"
+		}
+	],
+	"lineage": [],
+	"trace": null
+}

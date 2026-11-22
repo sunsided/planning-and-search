@@ -1,0 +1,44 @@
+{
+	"description": "An FPTAS (*fully polynomial-time approximation scheme*) gives an answer within a factor `1 + ε` of the optimum, in time polynomial in the input size and in `1 / ε`. This one solves the constrained shortest path: the lowest first cost among paths whose second cost is within a budget. It runs `n − 1` Bellman-Ford rounds over the `n` reachable states, and each state keeps at most one path per box of first costs: the one with the smallest second cost. The boxes grow by the factor `1 + ε / (2 (n − 1))`, so the path it returns fits the budget and has a first cost at most `1 + ε` times the optimum (`ε` is capped at 2, and `ε = 0` is exact). Use it when exact search keeps too many labels, because the number of labels here stays polynomial.",
+	"papers": [
+		{
+			"authors": "Arthur Warburton",
+			"title": "Approximation of Pareto Optima in Multiple-Objective, Shortest-Path Problems",
+			"year": 1987,
+			"venue": "Operations Research",
+			"doi": "10.1287/opre.35.1.70",
+			"arxiv": null,
+			"url": null,
+			"role": "introduces"
+		},
+		{
+			"authors": "George Tsaggouris, Christos Zaroliagis",
+			"title": "Multiobjective Optimization: Improved FPTAS for Shortest Paths and Non-Linear Objectives with Applications",
+			"year": 2009,
+			"venue": "Theory of Computing Systems",
+			"doi": "10.1007/s00224-007-9096-4",
+			"arxiv": null,
+			"url": null,
+			"role": "extends"
+		},
+		{
+			"authors": "José Craveirinha, João Clímaco, Rita Girão-Silva, Marta Pascoal",
+			"title": "Multiobjective Path Problems and Algorithms in Telecommunication Network Design—Overview and Trends",
+			"year": 2024,
+			"venue": "Algorithms",
+			"doi": "10.3390/a17060222",
+			"arxiv": null,
+			"url": null,
+			"role": "surveys"
+		}
+	],
+	"lineage": [
+		{
+			"slug": "bellman-ford",
+			"name": null,
+			"relation": "builds-on",
+			"source": "multiobjective-search, src/fptas.rs: \"The reachable graph ... is relaxed in n - 1 Bellman-Ford rounds.\""
+		}
+	],
+	"trace": null
+}

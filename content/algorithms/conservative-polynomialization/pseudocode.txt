@@ -1,0 +1,20 @@
+algorithm Conservative-Polynomialization(X, U, f, r, κ, d, ρ)
+  input: start set X, input zonotope U, dynamics x′ = f(x, u), step r, growth factor κ, degree cap d, order ρ
+  output: time-point set X′ and time-interval set R for one step, or failure
+  x*, z* ← linearization-point(X, U, f, r)  ▷ as in conservative linearization
+  A, B ← jacobian(f, z*)
+  w ← f(z*) − A x* − B center(U)
+  s ← (X ⊕ (−x_m), 0)                    ▷ start of each trajectory relative to the middle x_m
+  Ψ_s ← exact-plus(quadratic-map(½ · hessian(f, z*), s), cubic-map(⅙ · third-derivatives(f, z*), s))  ▷ shares the factors of s
+  Ψ_s ← reduce(cap-degree(Ψ_s, d), ρ)    ▷ static error, keeps the factors of X
+  Y ← {(x, Ψ_s(x), x) for x ∈ X}         ▷ augmented start: state, static error, copy of x
+  Ψ ← {0}                                ▷ guessed box for the dynamic error
+  for attempt in 1, …, max-iterations do
+    Y′, R_Y ← linear-step(Y, augmented(A), B U ⊕ w ⊕ Ψ, r)  ▷ x′ = A x + v, v′ = 0
+    R ← reduce(project(R_Y), ρ)
+    δ ← drift(R_Y)                       ▷ change of the state during the step
+    Ψ-true ← dynamic-error(f, z*, s, δ, R, U)  ▷ cross terms, cubic change, Lagrange remainder
+    if Ψ-true ⊆ Ψ then
+      return project(Y′), R
+    Ψ ← widen(Ψ, Ψ-true, κ)
+  return failure

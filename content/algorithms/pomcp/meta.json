@@ -1,0 +1,24 @@
+{
+	"description": "POMCP (*partially observable Monte-Carlo planning*) chooses the next action when the planner cannot see the true state. Its *belief* is a list of sampled states (particles). Each simulation takes one particle and walks down a tree of action and observation histories with the UCB1 rule, then runs a rollout from a new history and averages the discounted reward back up the path. It maximizes discounted reward, needs only a simulator, and gives no bound on how far the action is from optimal. Between decisions, it keeps the subtree of what happened, and `update_belief` filters the particles with the new observation.",
+	"papers": [
+		{
+			"authors": "David Silver, Joel Veness",
+			"title": "Monte-Carlo Planning in Large POMDPs",
+			"year": 2010,
+			"venue": "Advances in Neural Information Processing Systems (NeurIPS)",
+			"doi": null,
+			"arxiv": null,
+			"url": "https://papers.nips.cc/paper_files/paper/2010/hash/edfbe1afcf9246bb0d40eb4d8027d90f-Abstract.html",
+			"role": "introduces"
+		}
+	],
+	"lineage": [
+		{
+			"slug": null,
+			"name": "UCT",
+			"relation": "builds-on",
+			"source": "stochastic-search, src/pomcp.rs: \"Partially observable Monte-Carlo planning (POMCP, Silver and Veness 2010): UCT over action-observation histories\""
+		}
+	],
+	"trace": null
+}

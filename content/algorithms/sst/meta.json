@@ -1,0 +1,24 @@
+{
+	"description": "Stable Sparse RRT (SST) plans for systems that you can only simulate forward: you apply a control for some time and see where the system goes. Each step selects the cheapest *active* node near a random sample, applies a random control for a random duration, and checks every integration step for collisions. SST keeps the new node only if it is the cheapest node near its *witness*, a point that stands for a small ball of radius `δ_s`; the node it beats becomes inactive, and SST deletes inactive leaves, so the tree stays sparse. SST needs no steering function, and it is *asymptotically near-optimal*: with more iterations, the chance to find a path within a bounded factor of the optimal cost goes to one.",
+	"papers": [
+		{
+			"authors": "Yanbo Li, Zakary Littlefield, Kostas E. Bekris",
+			"title": "Asymptotically optimal sampling-based kinodynamic planning",
+			"year": 2016,
+			"venue": "The International Journal of Robotics Research",
+			"doi": "10.1177/0278364915614386",
+			"arxiv": "1407.2896",
+			"url": null,
+			"role": "introduces"
+		}
+	],
+	"lineage": [
+		{
+			"slug": "rrt",
+			"name": null,
+			"relation": "builds-on",
+			"source": "sampling-planning, src/kinodynamic/sst.rs: \"SST: an RRT-like tree grown by random forward propagation, kept sparse by witnesses\""
+		}
+	],
+	"trace": null
+}

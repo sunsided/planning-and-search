@@ -1,0 +1,30 @@
+{
+	"description": "AD* (Anytime Dynamic A*) plans when time is short and the world changes. Like D* Lite, it searches backwards from the goal, so its work stays valid while the start moves and edge costs change. Like ARA*, it multiplies the heuristic by a weight `w ≥ 1`, and with a *consistent* heuristic (one that never drops by more than an edge's cost along that edge) each `compute` returns a path that costs at most `w` times the optimum. A lower `w` on the next call improves the path, and `w = 1` gives an optimal one. Use it for a robot that must move now and refine its plan while it senses new obstacles.",
+	"papers": [
+		{
+			"authors": "Maxim Likhachev, Dave Ferguson, Geoff Gordon, Anthony Stentz, Sebastian Thrun",
+			"title": "Anytime Dynamic A*: An Anytime, Replanning Algorithm",
+			"year": 2005,
+			"venue": "Proceedings of the Fifteenth International Conference on Automated Planning and Scheduling (ICAPS 2005)",
+			"doi": null,
+			"arxiv": null,
+			"url": "https://cdn.aaai.org/ICAPS/2005/ICAPS05-027.pdf",
+			"role": "introduces"
+		}
+	],
+	"lineage": [
+		{
+			"slug": "d-star-lite",
+			"name": null,
+			"relation": "combines",
+			"source": "Anytime Dynamic A*: An Anytime, Replanning Algorithm: \"Given the strong similarities between D* Lite and ARA*, it seems appropriate to look at whether the two could be combined into a single anytime, incremental replanning algorithm\""
+		},
+		{
+			"slug": "ara-star",
+			"name": null,
+			"relation": "combines",
+			"source": "Anytime Dynamic A*: An Anytime, Replanning Algorithm: \"Given the strong similarities between D* Lite and ARA*, it seems appropriate to look at whether the two could be combined into a single anytime, incremental replanning algorithm\""
+		}
+	],
+	"trace": null
+}

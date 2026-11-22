@@ -1,0 +1,23 @@
+algorithm Minsum-Maxmin(s₀, goal, h)
+  input: start state s₀, goal test goal, consistent heuristic h on the cost
+  output: one path per Pareto-optimal pair (cost, bottleneck)
+  OPEN ← {⟨s₀, g: 0, b: ∞⟩}           ▷ by g + h(s) ascending, then b descending
+  b-best[s] ← nil for every state s    ▷ widest bottleneck taken at s so far
+  b-sol ← nil                          ▷ widest bottleneck of a solution so far
+  SOLUTIONS ← ∅
+  while OPEN ≠ ∅ do
+    ℓ ← extract-min(OPEN)
+    if b-best[ℓ.s] ≠ nil and b-best[ℓ.s] ≥ ℓ.b then
+      continue                         ▷ an earlier label at s is as wide
+    if b-sol ≠ nil and b-sol ≥ ℓ.b then
+      continue                         ▷ an earlier solution is as wide
+    b-best[ℓ.s] ← ℓ.b
+    if goal(ℓ.s) then
+      SOLUTIONS ← SOLUTIONS ∪ {path-to(ℓ)}
+      b-sol ← ℓ.b
+      continue
+    for each (s′, c, k) in successors(ℓ.s) do   ▷ cost c, capacity k
+      b′ ← min(ℓ.b, k)
+      if (b-best[s′] = nil or b-best[s′] < b′) and (b-sol = nil or b-sol < b′) then
+        insert(OPEN, ⟨s′, g: ℓ.g + c, b: b′, parent: ℓ⟩)
+  return SOLUTIONS

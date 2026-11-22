@@ -1,0 +1,32 @@
+algorithm Symbolic Dijkstra(I, G, T)
+  input: initial state set I, goal set G, relations T grouped by cost
+  output: a cheapest plan, or failure
+  OPEN[0] ← I                                  ▷ one state set per cost g
+  CLOSED ← ∅
+  while some OPEN[g] ≠ ∅ do
+    g ← smallest cost with OPEN[g] ≠ ∅
+    S ← OPEN[g] ∖ CLOSED                      ▷ drop states closed at a cost ≤ g
+    OPEN[g] ← ∅
+    if S = ∅ then
+      continue
+    if S ∩ G ≠ ∅ then
+      return reconstruct(S ∩ G, g)
+    CLOSED ← CLOSED ∪ S
+    for each (c, T_c) in T do
+      OPEN[g + c] ← OPEN[g + c] ∪ image(T_c, S)  ▷ c = 0 refills the bucket of g
+  return failure
+function bidirectional(I, G, T)
+  input: initial state set I, goal set G, relations T grouped by cost
+  output: a cheapest plan, or failure
+  F ← frontier forward from I with image
+  B ← frontier backward from G with preimage
+  best ← ∞
+  while F or B has open states do
+    if best ≤ max(f-min(F), f-min(B), g-min(F) + g-min(B)) then
+      break
+    D ← the frontier whose next set has fewer BDD nodes
+    expand-one-bucket(D)
+    best ← min(best, cheapest-meeting(F, B))   ▷ new sets meet the other side
+  if best = ∞ then
+    return failure
+  return join(forward-plan(F), backward-plan(B))

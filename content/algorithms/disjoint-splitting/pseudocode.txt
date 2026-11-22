@@ -1,0 +1,16 @@
+algorithm Disjoint-Split(n, c)
+  input: a constraint-tree node n, a conflict c between agents a and b at (v, t)
+  output: two children whose subtrees share no solution
+  if exactly one of a, b is forced through c by its MDD then
+    i ← that agent
+  else
+    i ← min(a, b)
+  neg ← copy(n)
+  neg.constraints ← n.constraints ∪ {i not at v at t}
+  neg.paths[i] ← replan(i, neg.constraints)
+  pos ← copy(n)
+  pos.constraints ← n.constraints ∪ {i at v at t}   ▷ keeps the path of i
+  for each agent j ≠ i do
+    if pos.paths[j] breaks implied-for(i at v at t, j) then
+      pos.paths[j] ← replan(j, pos.constraints)   ▷ j must avoid v at t
+  return {neg, pos}                            ▷ drop a child if a replan fails

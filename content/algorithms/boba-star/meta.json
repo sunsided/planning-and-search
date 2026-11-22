@@ -1,0 +1,24 @@
+{
+	"description": "BOBA\\* is a bidirectional search for two objectives: it runs two BOA\\* searches toward each other. The forward search starts at the start and orders paths by the first cost; the backward search starts at the goal on reversed edges and orders them by the second cost. The last solution of each search bounds the other search's primary cost, so the two share the Pareto front and stop where they meet. Its heuristics are exact single-objective distances from four cost-bounded searches, or heuristics from the caller, and it adds the paper's *early solution update* and *heuristic tuning*. The result is the exact Pareto front; the crate alternates the two directions, or runs them in threads with the `parallel` feature.",
+	"papers": [
+		{
+			"authors": "Saman Ahmadi, Guido Tack, Daniel Harabor, Philip Kilby",
+			"title": "Bi-Objective Search with Bi-Directional A*",
+			"year": 2021,
+			"venue": "European Symposium on Algorithms (ESA), LIPIcs 204",
+			"doi": null,
+			"arxiv": "2105.11888",
+			"url": "https://drops.dagstuhl.de/entities/document/10.4230/LIPIcs.ESA.2021.3",
+			"role": "introduces"
+		}
+	],
+	"lineage": [
+		{
+			"slug": "boa-star",
+			"name": null,
+			"relation": "builds-on",
+			"source": "multiobjective-search, src/boba.rs: \"BOBA* runs two BOA* searches with opposite directions and opposite objective orders.\""
+		}
+	],
+	"trace": null
+}

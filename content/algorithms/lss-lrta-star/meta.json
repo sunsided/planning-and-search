@@ -1,0 +1,30 @@
+{
+	"description": "LSS-LRTA* (Local Search Space LRTA*) is a real-time search that looks further ahead than LRTA*. In each step it runs A* from the agent's state for at most `n` expansions. Then it runs Dijkstra's algorithm backwards from the A* open list and sets each expanded state's value to its cheapest cost to that frontier. The agent moves along the A* path to the best open state and plans again. From an admissible table the values stay admissible. A larger `n` gives better moves for more work per step.",
+	"papers": [
+		{
+			"authors": "Sven Koenig, Xiaoxun Sun",
+			"title": "Comparing real-time and incremental heuristic search for real-time situated agents",
+			"year": 2009,
+			"venue": "Autonomous Agents and Multi-Agent Systems",
+			"doi": "10.1007/s10458-008-9061-x",
+			"arxiv": null,
+			"url": null,
+			"role": "introduces"
+		}
+	],
+	"lineage": [
+		{
+			"slug": "lrta-star",
+			"name": null,
+			"relation": "builds-on",
+			"source": "heuristic-search, src/real_time/lookahead.rs: \"With a lookahead of one it is lrta_star with a different move rule\""
+		},
+		{
+			"slug": "a-star",
+			"name": null,
+			"relation": "combines",
+			"source": "heuristic-search, src/real_time/lookahead.rs: \"Each step runs A* from the current state for at most lookahead expansions\" and sets values \"computed by Dijkstra's algorithm backwards from the open list\""
+		}
+	],
+	"trace": null
+}

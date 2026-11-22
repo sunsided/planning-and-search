@@ -1,0 +1,23 @@
+algorithm anytime-A*(Π, F, h-root, h-fork)
+  input: task Π, factoring F, root heuristic h-root (cost of the remaining global actions), admissible heuristic h-fork
+  output: a cheapest plan, or failure
+  m ← ∑ over leaves of the cheapest leaf-action cost from the initial to a goal leaf state  ▷ global moves free, center ignored
+  s₀ ← initial decoupled state, with closed leaves
+  g[s₀] ← 0
+  OPEN ← {s₀}                              ▷ ordered by g + h-root, leaf facts at price 0
+  U ← goal-cost(s₀)                        ▷ ∞ unless s₀ is a goal state
+  while OPEN ≠ ∅ do
+    s ← extract-min(OPEN)
+    if g[s] + h-root(s) + m ≥ U then
+      break
+    for each global action a applicable in s do
+      s′ ← successor(s, a)                 ▷ transfer and close the leaves
+      g[s′] ← g[s] + cost(a)
+      if s′ is dominated or g[s′] + h-fork(s′) ≥ U then
+        continue
+      parent[s′] ← (s, a)
+      insert(OPEN, s′, g[s′] + h-root(s′))
+      U ← min(U, goal-cost(s′))            ▷ g plus the leaf goal prices; a better plan tightens the bound
+  if U = ∞ then
+    return failure
+  return plan-to(the goal state with cost U)

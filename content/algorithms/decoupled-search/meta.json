@@ -1,0 +1,44 @@
+{
+	"description": "Decoupled search solves planning tasks whose variables split into a *center* and several *leaves* that interact mostly through the center (a *star topology*). A *leaf action* changes one leaf and reads only that leaf and the center; the search branches over the other, *global* actions only. Each node, a *decoupled state*, holds a center state and, per leaf, the *price* of each reachable leaf state: the cheapest cost of leaf actions that reach it along the path. This removes the interleavings of independent leaf moves, which can shrink the search space exponentially. The result is an ordinary sequential plan, optimal under uniform-cost search or A* with an admissible heuristic.",
+	"papers": [
+		{
+			"authors": "Daniel Gnad, Jörg Hoffmann",
+			"title": "Beating LM-Cut with h^max (Sometimes): Fork-Decoupled State Space Search",
+			"year": 2015,
+			"venue": "International Conference on Automated Planning and Scheduling (ICAPS)",
+			"doi": "10.1609/icaps.v25i1.13705",
+			"arxiv": null,
+			"url": null,
+			"role": "introduces"
+		},
+		{
+			"authors": "Daniel Gnad, Jörg Hoffmann, Carmel Domshlak",
+			"title": "From Fork Decoupling to Star-Topology Decoupling",
+			"year": 2015,
+			"venue": "Symposium on Combinatorial Search (SoCS)",
+			"doi": null,
+			"arxiv": null,
+			"url": "https://ojs.aaai.org/index.php/SOCS/article/view/18348",
+			"role": "extends"
+		},
+		{
+			"authors": "Daniel Gnad, Jörg Hoffmann",
+			"title": "Star-Topology Decoupled State Space Search",
+			"year": 2018,
+			"venue": "Artificial Intelligence",
+			"doi": "10.1016/j.artint.2017.12.004",
+			"arxiv": null,
+			"url": null,
+			"role": "extends"
+		}
+	],
+	"lineage": [
+		{
+			"slug": null,
+			"name": "Fork-decoupled search",
+			"relation": "generalizes",
+			"source": "From Fork Decoupling to Star-Topology Decoupling"
+		}
+	],
+	"trace": null
+}

@@ -1,0 +1,31 @@
+algorithm ARA*(s₀, goal, h, w₁ ≥ w₂ ≥ … ≥ w_k)
+  input: start s₀, goal test goal, heuristic h, a falling weight schedule
+  output: one solution per weight, each within its weight of the optimum
+  g[s₀] ← 0
+  OPEN ← {s₀}
+  INCONS ← ∅
+  incumbent ← nil                              ▷ goals are recognised on generation
+  for each w in w₁, …, w_k do
+    OPEN ← OPEN ∪ INCONS
+    INCONS ← ∅
+    CLOSED ← ∅
+    order OPEN by g + w · h
+    while OPEN ≠ ∅ and cost(incumbent) > min key of OPEN do
+      s ← extract-min(OPEN)
+      CLOSED ← CLOSED ∪ {s}
+      for each (s′, c) in successors(s) do
+        if g[s] + c < g[s′] then
+          g[s′] ← g[s] + c
+          parent[s′] ← s
+          if goal(s′) then
+            incumbent ← s′
+          else if s′ ∈ CLOSED and w ≠ w_k then
+            INCONS ← INCONS ∪ {s′}             ▷ parked, not reopened now
+          else
+            insert(OPEN, s′, g[s′] + w · h(s′))
+    lb ← min of g + h over OPEN ∪ INCONS
+    if the incumbent improved in this search then
+      on-solution(path-to(incumbent), lb)
+    if lb ≥ cost(incumbent) then
+      return path-to(incumbent)
+  return path-to(incumbent), or failure if there is none

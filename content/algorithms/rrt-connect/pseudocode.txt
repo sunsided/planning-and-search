@@ -1,0 +1,28 @@
+algorithm RRT-Connect(x-start, goal, n)
+  input: start state x-start, goal region goal, number of iterations n
+  output: a path from x-start into goal, or failure
+  A ← tree with root x-start
+  B ← tree with root center(goal)              ▷ its edges are traveled toward the root
+  for i in 1, …, n do
+    x-rand ← sample()
+    x-new ← Extend(A, nearest(A, x-rand), x-rand)
+    if x-new ≠ nil then
+      if A is the start tree and goal(x-new) then
+        return path-to(x-new)
+      x-meet ← Connect(B, x-new)
+      if x-meet ≠ nil then
+        return join(path-to(x-new), path-to(x-meet))
+    A, B ← B, A                                ▷ swap the trees every step
+  return failure
+function Extend(T, x-from, x)
+  x-new ← steer(x-from, x)                     ▷ at most one step long
+  if motion-valid(x-from, x-new) then          ▷ in travel direction
+    add(T, x-new, parent: x-from)
+    return x-new
+  return nil
+function Connect(T, x)
+  x-cur ← nearest(T, x)
+  repeat
+    x-cur ← Extend(T, x-cur, x)                ▷ greedily, from the newest node
+  until x-cur = nil or d(x-cur, x) = 0
+  return x-cur                                  ▷ nil if an obstacle blocked the way

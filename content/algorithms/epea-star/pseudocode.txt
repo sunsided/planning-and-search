@@ -1,0 +1,27 @@
+algorithm EPEA*(s₀, h)
+  input: joint start state s₀ of all agents, heuristic h (sum of the agents' distances)
+  output: a cheapest conflict-free joint plan, or failure
+  g[s₀] ← 0
+  F[s₀] ← h(s₀)
+  OPEN ← {s₀}                                  ▷ ordered by F, ties to the smaller h
+  while OPEN ≠ ∅ do
+    s ← extract-min(OPEN)
+    if goal(s) then
+      return path-to(s)
+    Δ ← F[s] − (g[s] + h(s))                     ▷ the rise of f to generate now
+    for each joint step a in osf(s, Δ) do        ▷ only steps with that rise, no collisions
+      s′ ← apply(s, a)
+      if g[s] + cost(a) < g[s′] then
+        g[s′] ← g[s] + cost(a)
+        F[s′] ← g[s′] + h(s′)
+        parent[s′] ← s
+        insert-or-update(OPEN, s′)
+    Δ′ ← next-rise(s, Δ)                         ▷ smallest achievable rise above Δ
+    if Δ′ ≠ nil then
+      F[s] ← g[s] + h(s) + Δ′
+      insert(OPEN, s)                          ▷ s is expanded again later
+  return failure                               ▷ the joint space is finite
+function osf(s, Δ)
+  ▷ sort each agent's moves by their own rise 1 + d(next) − d(here), 0 to finish;
+  ▷ depth-first over the agents, keep combinations whose rises sum to Δ
+  return the joint steps without a shared vertex or a swap

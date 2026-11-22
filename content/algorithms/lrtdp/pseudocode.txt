@@ -1,0 +1,34 @@
+algorithm LRTDP(s₀, goal, h, ε)
+  input: initial state s₀, goal test goal, heuristic h, tolerance ε
+  output: values V and a greedy policy π that is ε-consistent on its envelope
+  V[s] ← h(s) for each state s when it is first reached
+  while not solved(s₀) do
+    s ← s₀
+    TRIAL ← ⟨⟩
+    while not solved(s) do                       ▷ goal states count as solved
+      append(TRIAL, s)
+      back-up(s)                                 ▷ V[s] ← min over a of Q(s, a)
+      if π[s] = nil then                         ▷ a dead end ends the trial
+        break
+      s ← sample(successors(s, π[s]))
+    while TRIAL ≠ ⟨⟩ do
+      s ← pop(TRIAL)
+      if not check-solved(s, ε) then
+        break
+  return V, π
+function check-solved(s, ε)
+  consistent ← true
+  OPEN ← ⟨s⟩ if s is unsolved, else ⟨⟩
+  CLOSED ← ⟨⟩
+  while OPEN ≠ ⟨⟩ do
+    t ← pop(OPEN)
+    append(CLOSED, t)
+    if residual(t) > ε then                      ▷ |V[t] − min over a of Q(t, a)|
+      consistent ← false
+      continue
+    push-unvisited-successors(t, OPEN)           ▷ unsolved successors under π[t] not seen yet
+  if consistent then
+    label-solved(CLOSED)                         ▷ freezes their greedy actions
+  else
+    back-up-reversed(CLOSED)                     ▷ last visited first
+  return consistent

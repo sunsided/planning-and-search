@@ -1,0 +1,24 @@
+{
+	"description": "VPI-RTDP keeps a lower bound `L` and an upper bound `U` on `V*`, the optimal expected cost of each state. Trials follow the action that is greedy on `L`. While some successor has a large gap `U − L`, a trial samples by probability times gap, as BRTDP does. Then it samples by the *value of perfect information* (VPI): how much the choice at the current state could improve if a successor's value were known. The run stops when `U − L ≤ ε` at the start, and the policy is greedy on `U`; use it when the bounds are informative and only some successors can change the decision.",
+	"papers": [
+		{
+			"authors": "Scott Sanner, Robby Goetschalckx, Kurt Driessens, Guy Shani",
+			"title": "Bayesian Real-Time Dynamic Programming",
+			"year": 2009,
+			"venue": "International Joint Conference on Artificial Intelligence (IJCAI)",
+			"doi": null,
+			"arxiv": null,
+			"url": "https://www.ijcai.org/proceedings/2009/297",
+			"role": "introduces"
+		}
+	],
+	"lineage": [
+		{
+			"slug": "brtdp",
+			"name": null,
+			"relation": "builds-on",
+			"source": "stochastic-search, src/bounds/vpi.rs: \"VPI-RTDP (Sanner, Goetschalckx, Driessens and Shani 2009) differs from brtdp only in how trials pick states\""
+		}
+	],
+	"trace": null
+}

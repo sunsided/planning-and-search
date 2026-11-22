@@ -1,0 +1,24 @@
+{
+	"description": "The constrained shortest path is the path with the lowest first cost whose second cost (a *resource*, such as fuel or delay) stays within a budget. The crate solves it with the pruning of BOA\\*: it expands paths in lexicographic order of `f = g + h`, drops a path when `f2` is above the budget, and drops a path when an earlier path at the same state had a second cost no larger. The first goal path that it expands is optimal, and among equal first costs it has the smallest second cost. It returns nothing when no path fits the budget. The heuristic must be consistent in both costs and zero on every goal.",
+	"papers": [
+		{
+			"authors": "José Craveirinha, João Clímaco, Rita Girão-Silva, Marta Pascoal",
+			"title": "Multiobjective Path Problems and Algorithms in Telecommunication Network Design—Overview and Trends",
+			"year": 2024,
+			"venue": "Algorithms",
+			"doi": "10.3390/a17060222",
+			"arxiv": null,
+			"url": null,
+			"role": "surveys"
+		}
+	],
+	"lineage": [
+		{
+			"slug": "boa-star",
+			"name": null,
+			"relation": "builds-on",
+			"source": "multiobjective-search, src/constrained.rs: \"solved here by BOA*'s pruning with the budget as an extra bound, stopping at the first solution\""
+		}
+	],
+	"trace": null
+}

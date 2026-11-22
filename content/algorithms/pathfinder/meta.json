@@ -1,0 +1,30 @@
+{
+	"description": "PathFinder routes many connectors together by *negotiated congestion*: connectors compete for channels (stretches of free space between obstacles) of limited capacity, and the ones with alternatives move away. Each iteration routes the connectors one by one with A*, and an edge costs more where its channel would be over capacity. After each iteration, the *history* cost of every overused channel grows and the *present* penalty doubles. Later iterations rip up and reroute only the connectors on an overused channel, until none is overused or an iteration limit is reached. It is a heuristic with no optimality guarantee; it reports the overuse that is left.",
+	"papers": [
+		{
+			"authors": "Larry McMurchie, Carl Ebeling",
+			"title": "PathFinder: A Negotiation-Based Performance-Driven Router for FPGAs",
+			"year": 1995,
+			"venue": "ACM Third International Symposium on Field-Programmable Gate Arrays (FPGA '95)",
+			"doi": "10.1145/201310.201328",
+			"arxiv": null,
+			"url": null,
+			"role": "introduces"
+		}
+	],
+	"lineage": [
+		{
+			"slug": "a-star",
+			"name": null,
+			"relation": "builds-on",
+			"source": "connector-routing, src/global.rs: \"Every connector is routed with the single-connector A* over the orthogonal visibility graph, with edge costs raised where channels are over capacity\""
+		},
+		{
+			"slug": "rip-up-and-reroute",
+			"name": null,
+			"relation": "combines",
+			"source": "connector-routing, src/global.rs: \"later iterations rip up and reroute those on an overused resource\""
+		}
+	],
+	"trace": null
+}

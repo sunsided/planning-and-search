@@ -1,0 +1,36 @@
+algorithm RUL2021(G, LINKS)
+  input: LO-graph G, contingent links (A, x, y, C), each with its upper-case edge E = (C, −y, A)
+  output: DC, or not DC
+  h ← bellman-ford-potential(G)
+  if h = failure then
+    return not DC
+  status[E] ← unstarted for every upper-case edge E
+  for each upper-case edge E do
+    if not rul-bp(E) then
+      return not DC
+  return DC
+function rul-bp(E)
+  if status[E] = started then
+    return false                                  ▷ a cycle of interruptions
+  if status[E] = done then
+    return true
+  status[E] ← started
+  dist[X] ← ∞ for every node X                   ▷ local to this call
+  Q ← tails of ordinary edges into C              ▷ keyed h(X) + δ(X, C)
+  repeat
+    ok, I ← phase-1(E, Q, dist)                   ▷ Relax⁻, Lower⁻; accumulates dist, inserts no edge
+    if not ok then
+      return false                                ▷ a negative CC loop, or a started edge met
+    for each unstarted upper-case edge E′ activated at a point of I do
+      if not rul-bp(E′) then
+        return false
+    Q ← I, keyed by the updated potential h       ▷ resume from the interruptions
+  until I = ∅
+  if phase 1 found a CC loop shorter than y − x and fwd-prop-ndc(E, dist) then
+    return false
+  for each X ≠ C with y − x ≤ dist[X] < ∞ do
+    insert-edge(G, X, A, dist[X] − y)             ▷ only length-preserving Upper⁻ edges
+  if not update-potential(G, h, A) then
+    return false
+  status[E] ← done
+  return true

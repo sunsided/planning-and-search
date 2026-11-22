@@ -1,0 +1,17 @@
+{
+	"description": "An evolution strategy (ES) minimises a function of real variables with a population of μ parents. Each of λ children mixes ρ parents (*recombination*), changes its own step sizes by a random log-normal factor, and then adds Gaussian noise with those step sizes. With comma selection, (μ/ρ,λ), the μ best children become the next parents; with plus selection, (μ/ρ+λ), parents and children compete together, so the best point is never lost. Because each child carries its step sizes, good step sizes survive with good points (*self-adaptation*); one step size per coordinate copes with badly scaled problems. Use it for continuous problems without gradients; it is a heuristic with no optimality guarantee.",
+	"papers": [
+		{
+			"authors": "Hans-Georg Beyer, Hans-Paul Schwefel",
+			"title": "Evolution strategies – A comprehensive introduction",
+			"year": 2002,
+			"venue": "Natural Computing",
+			"doi": "10.1023/A:1015059928466",
+			"arxiv": null,
+			"url": null,
+			"role": "surveys"
+		}
+	],
+	"lineage": [],
+	"trace": null
+}

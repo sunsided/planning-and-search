@@ -1,0 +1,24 @@
+{
+	"description": "PBS finds a plan for many agents quickly by searching over priorities between agents. A node of its search tree holds a partial *priority order* (which agents must give way to which) and one path per agent: the cheapest path that avoids the paths of all agents above it. For the earliest conflict between agents `a` and `b`, PBS makes two children, \"`a` above `b`\" and \"`b` above `a`\". Each child replans the new lower agent, then every agent below it that now collides with an agent above it. The search is depth-first and tries the cheaper child first; it is neither optimal nor complete, so use it when a good plan is needed fast.",
+	"papers": [
+		{
+			"authors": "Hang Ma, Daniel Harabor, Peter J. Stuckey, Jiaoyang Li, Sven Koenig",
+			"title": "Searching with Consistent Prioritization for Multi-Agent Path Finding",
+			"year": 2019,
+			"venue": "Proceedings of the AAAI Conference on Artificial Intelligence",
+			"doi": "10.1609/aaai.v33i01.33017643",
+			"arxiv": null,
+			"url": null,
+			"role": "introduces"
+		}
+	],
+	"lineage": [
+		{
+			"slug": "space-time-a-star",
+			"name": null,
+			"relation": "builds-on",
+			"source": "mapf-search, src/pbs.rs: each replan calls low_level::plan (the space-time A*) for \"The cheapest path of agent that avoids the paths of higher\""
+		}
+	],
+	"trace": null
+}

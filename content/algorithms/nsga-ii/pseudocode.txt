@@ -1,0 +1,24 @@
+algorithm NSGA-II(f, n)
+  input: objectives f with a constraint violation, population size n
+  output: the first front of the final population
+  P ← n random genomes, evaluated
+  repeat
+    rank, crowd ← rank-and-crowd(P)
+    Q ← ∅
+    while |Q| < n do
+      a ← tournament(P, rank, crowd)             ▷ lower rank wins, then larger crowding
+      b ← tournament(P, rank, crowd)
+      Q ← Q ∪ evaluate(mutate(crossover(a, b)))
+    P ← environmental-selection(P ∪ Q, n)
+  until the budget is spent
+  return first front of P
+function environmental-selection(R, n)
+  S ← ∅
+  for each front F_k in non-dominated-sort(R) do    ▷ by constrained domination
+    if |S| + |F_k| ≤ n then
+      S ← S ∪ F_k
+    else
+      d ← crowding-distance(F_k)
+      S ← S ∪ the n − |S| members of F_k with the largest d
+      return S
+  return S

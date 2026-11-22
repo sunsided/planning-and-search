@@ -1,0 +1,20 @@
+algorithm LSS-LRTA*(s₀, goal, H, n)
+  input: start state s₀, goal test goal, learned table H, lookahead of n ≥ 1 expansions
+  output: the path travelled to a goal, or failure; H keeps what it learned
+  s ← s₀
+  while not goal(s) do
+    CLOSED, OPEN, t ← lookahead(s, n)          ▷ A* by g + H, at most n expansions
+    for each x in CLOSED do
+      H[x] ← ∞
+    D ← OPEN, each state o keyed by H[o]        ▷ Dijkstra backwards from the frontier
+    while D ≠ ∅ do
+      o ← extract-min(D)
+      for each explored edge (x, o, c) with x ∈ CLOSED do
+        if c + H[o] < H[x] then
+          H[x] ← c + H[o]
+          insert-or-update(D, x, H[x])
+    if t = nil then                            ▷ OPEN ran empty: CLOSED stays at ∞, dead ends
+      return failure
+    move along the A* path from s to t         ▷ t: the goal A* selected, or the best open state
+    s ← t
+  return the path travelled

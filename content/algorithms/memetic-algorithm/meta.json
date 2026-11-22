@@ -1,0 +1,46 @@
+{
+	"description": "A memetic algorithm is an evolutionary algorithm that also improves some offspring by local search. Here a genetic algorithm or the GLEAM diffusion model breeds each child, and with some probability (the *frequency*) a local searcher improves it within an evaluation cap (the *intensity*): random-mutation hill climbing for any genome, or Rosenbrock's method for real vectors. In *Lamarckian* mode the improved genome replaces the child; in *Baldwinian* mode the child keeps its genome and takes only the better cost. Frequency and intensity are fixed, or adapted as in HyGLEAM: each is a small set of levels, and the probabilities move towards the levels that gave the largest relative gain per evaluation. Local search often speeds up convergence on smooth problems, but the hybrid is still a heuristic with no optimality guarantee.",
+	"papers": [
+		{
+			"authors": "Wilfried Jakob",
+			"title": "Applying Evolutionary Algorithms Successfully: A Guide Gained from Real-world Applications",
+			"year": 2021,
+			"venue": "arXiv preprint",
+			"doi": null,
+			"arxiv": "2107.11300",
+			"url": null,
+			"role": "surveys"
+		},
+		{
+			"authors": "Wilfried Jakob, Christian Blume, Georg Bretthauer",
+			"title": "Towards a Generally Applicable Self-Adapting Hybridization of Evolutionary Algorithms",
+			"year": 2004,
+			"venue": "Genetic and Evolutionary Computation – GECCO 2004, LNCS 3102",
+			"doi": "10.1007/978-3-540-24854-5_81",
+			"arxiv": null,
+			"url": null,
+			"role": "extends"
+		}
+	],
+	"lineage": [
+		{
+			"slug": "genetic-algorithm",
+			"name": null,
+			"relation": "combines",
+			"source": "evolutionary-planning, src/memetic.rs: \"A [`Memetic`] hybrid plugs into [`Ga::run_memetic`]\""
+		},
+		{
+			"slug": "rmhc",
+			"name": null,
+			"relation": "combines",
+			"source": "evolutionary-planning, docs/design.md: \"`LocalSearch<G>` improves a genome under an evaluation cap. Provided: RMHC (any genome with a mutation) and Rosenbrock's method (real vectors).\""
+		},
+		{
+			"slug": "rosenbrock-method",
+			"name": null,
+			"relation": "combines",
+			"source": "evolutionary-planning, docs/design.md: \"`LocalSearch<G>` improves a genome under an evaluation cap. Provided: RMHC (any genome with a mutation) and Rosenbrock's method (real vectors).\""
+		}
+	],
+	"trace": null
+}

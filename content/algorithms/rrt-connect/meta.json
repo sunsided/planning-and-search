@@ -1,0 +1,24 @@
+{
+	"description": "RRT-Connect grows two rapidly-exploring random trees, one from the start and one from the goal, and tries to join them. Each step extends one tree a single step towards a random sample. Then it greedily steers the other tree towards the new node, step after step, until it reaches the node or hits an obstacle. The trees swap roles after every step. RRT-Connect is *probabilistically complete* and often finds a path much faster than RRT, but it does not improve the path; shorten the result afterwards, for example with path shortcutting.",
+	"papers": [
+		{
+			"authors": "J. J. Kuffner, S. M. LaValle",
+			"title": "RRT-connect: An efficient approach to single-query path planning",
+			"year": 2000,
+			"venue": "IEEE International Conference on Robotics and Automation (ICRA 2000)",
+			"doi": "10.1109/ROBOT.2000.844730",
+			"arxiv": null,
+			"url": null,
+			"role": "introduces"
+		}
+	],
+	"lineage": [
+		{
+			"slug": "rrt",
+			"name": null,
+			"relation": "builds-on",
+			"source": "sampling-planning, src/trees/rrt_connect.rs: \"RRT-Connect: bidirectional RRT with a greedy connect step (Kuffner and LaValle 2000)\""
+		}
+	],
+	"trace": null
+}

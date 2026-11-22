@@ -1,0 +1,34 @@
+{
+	"description": "Rolling-horizon evolutionary planning (RHEA) chooses actions online with a *forward model*: a function that gives the next state and the step cost of an action. At each decision it evolves action sequences of a fixed length (the *horizon*), scores each by rolling it out through the model and summing the step costs (optionally discounted), and then executes only the first action of the best sequence. With *shift buffering*, the next decision starts from the best sequences shifted by one step and padded with a random action, so earlier work is kept. With a population of one, the evolution is random-mutation hill climbing (RMHC); larger populations use elitism, binary tournaments, uniform crossover and point mutation. It spends a fixed number of evaluations per decision and gives no optimality guarantee; use it when you can simulate the system fast, as in real-time games or model-based control.",
+	"papers": [
+		{
+			"authors": "Diego Perez, Spyridon Samothrakis, Simon Lucas, Philipp Rohlfshagen",
+			"title": "Rolling horizon evolution versus tree search for navigation in single-player real-time games",
+			"year": 2013,
+			"venue": "Proceedings of the 15th annual conference on Genetic and evolutionary computation (GECCO 2013)",
+			"doi": "10.1145/2463372.2463413",
+			"arxiv": null,
+			"url": null,
+			"role": "introduces"
+		},
+		{
+			"authors": "Thor V. A. N. Olesen, Dennis T. T. Nguyen, Rasmus Berg Palm, Sebastian Risi",
+			"title": "Evolutionary Planning in Latent Space",
+			"year": 2020,
+			"venue": "arXiv preprint",
+			"doi": null,
+			"arxiv": "2011.11293",
+			"url": null,
+			"role": "applies"
+		}
+	],
+	"lineage": [
+		{
+			"slug": "rmhc",
+			"name": null,
+			"relation": "generalizes",
+			"source": "evolutionary-planning, src/rhea.rs: \"with random-mutation hill climbing (RMHC) as the population-of-one case\""
+		}
+	],
+	"trace": null
+}

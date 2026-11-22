@@ -1,0 +1,22 @@
+algorithm LHB-Update(s, h, k)
+  input: sample state s, learned heuristic table h, expansion limit k
+  output: the table h with new values around s
+  G ← the search graph of A* from s with heuristic h   ▷ at most k expansions, stops at a goal
+  Q ← ∅                                        ▷ ordered by v
+  for each n in G do
+    if n has no children in G then
+      v[n] ← h(n)                              ▷ a leaf keeps its old value
+      insert(Q, n)
+    else
+      v[n] ← ∞
+  while Q ≠ ∅ do                               ▷ Dijkstra backwards from the leaves
+    n ← extract-min(Q)
+    for each edge (p, n) of G with cost c do
+      if v[n] + c < v[p] then
+        v[p] ← v[n] + c
+        insert-or-update(Q, p)
+  for each n in G that has children in G or is a goal do
+    if goal(n) then
+      v[n] ← 0
+    h(n) ← v[n]                                ▷ ∞ marks a dead end
+  return h

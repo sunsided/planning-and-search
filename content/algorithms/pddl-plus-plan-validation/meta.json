@@ -1,0 +1,34 @@
+{
+	"description": "PDDL+ plan validation checks a timed plan in a world that also changes by itself. A *process* runs while its precondition holds and changes fluents at a constant rate; an *event* fires at the first instant its precondition holds. Between two plan happenings, the validator splits time into segments with a fixed set of running processes, so every fluent changes linearly in each segment. It finds the exact time at which a process starts or stops or an event becomes enabled at the first root of a linear condition. Enabled events fire together and the check repeats, so one event can trigger the next (a *cascade*). Dynamics that are not linear are reported as unsupported, never as valid.",
+	"papers": [
+		{
+			"authors": "Maria Fox, Derek Long",
+			"title": "Modelling Mixed Discrete-Continuous Domains for Planning",
+			"year": 2006,
+			"venue": "Journal of Artificial Intelligence Research",
+			"doi": "10.1613/jair.2044",
+			"arxiv": null,
+			"url": null,
+			"role": "introduces"
+		},
+		{
+			"authors": "Richard Howey, Derek Long, Maria Fox",
+			"title": "VAL: automatic plan validation, continuous effects and mixed initiative planning using PDDL",
+			"year": 2004,
+			"venue": "16th IEEE International Conference on Tools with Artificial Intelligence (ICTAI)",
+			"doi": "10.1109/ICTAI.2004.120",
+			"arxiv": null,
+			"url": null,
+			"role": "applies"
+		}
+	],
+	"lineage": [
+		{
+			"slug": "temporal-plan-validation",
+			"name": null,
+			"relation": "generalizes",
+			"source": "pddl-validate, src/validator/temporal/pddl_plus.rs: \"A process runs while its precondition holds and adds its linear rates to those of the running durative actions\""
+		}
+	],
+	"trace": null
+}

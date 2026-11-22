@@ -1,0 +1,22 @@
+algorithm Informed-RRT*(x₀, x-goal, n, γ)
+  input: start state x₀, goal center x-goal, number of iterations n, radius constant γ
+  output: the cheapest path to the goal region found, or failure
+  T ← tree with root x₀
+  c-best ← ∞
+  for i in 1, …, n do
+    if c-best < ∞ then
+      x-rand ← sample-informed(x₀, x-goal, c-best)   ▷ from the prolate hyperspheroid
+    else
+      x-rand ← sample()
+    x-new ← extend-and-rewire(T, x-rand, γ)    ▷ one RRT* step
+    c-best ← min over goal nodes x_g of T of cost[x_g]   ▷ rewiring can lower it
+  return path-to(cheapest goal node of T), or failure if there is none
+function sample-informed(a, b, c)
+  ▷ uniform over {x : d(a, x) + d(x, b) ≤ c}
+  r₁ ← c / 2
+  r₂ ← √(c² − d(a, b)²) / 2
+  y ← uniform sample of the unit ball
+  x ← (a + b) / 2 + rotate-onto(b − a, diag(r₁, r₂, …, r₂) · y)
+  if x is outside the sampling box then
+    return sample-informed(a, b, c)            ▷ rejection keeps it uniform
+  return x

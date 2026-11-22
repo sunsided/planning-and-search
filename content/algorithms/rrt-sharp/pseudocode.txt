@@ -1,0 +1,32 @@
+algorithm RRT#(x₀, n)
+  input: start state x₀, number of iterations n
+  output: the shortest path to the goal region in the graph, or failure
+  G ← graph with vertex x₀
+  g[x₀], lmc[x₀] ← 0, 0
+  Q ← ∅                                        ▷ ordered by lmc + h
+  for i in 1, …, n do
+    x-rand ← sample()                          ▷ with a small goal bias
+    x-near ← nearest(G, x-rand)
+    x-new ← steer(x-near, x-rand)
+    if motion-valid(x-near, x-new) then
+      g[x-new], lmc[x-new] ← ∞, ∞
+      link(G, x-new, x-near, near(G, x-new))   ▷ unchecked edges, both ways
+      for each edge (u, x-new) by increasing g[u] + c(u, x-new) do
+        if edge-valid(u, x-new) then            ▷ checked once, then cached
+          lmc[x-new] ← g[u] + c(u, x-new)
+          parent[x-new] ← u
+          break
+      enqueue-if-promising(Q, x-new)
+      Replan()
+  return path-to(x-best), or failure if there is none
+procedure Replan()
+  while Q ≠ ∅ and min-key(Q) < g[x-best] do    ▷ g[x-best] is ∞ before a solution
+    u ← extract-min(Q)
+    g[u] ← lmc[u]
+    if goal(u) and g[u] < g[x-best] then
+      x-best ← u
+    for each (u, v, c) in out-edges(u) do
+      if g[u] + c < lmc[v] and edge-valid(u, v) then
+        lmc[v] ← g[u] + c
+        parent[v] ← u
+        enqueue-if-promising(Q, v)              ▷ only if lmc < g and lmc + h < g[x-best]

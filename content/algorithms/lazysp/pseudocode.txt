@@ -1,0 +1,14 @@
+algorithm LazySP(s₀, goal, h, evaluate, select)
+  input: start state s₀, goal test goal, heuristic h, true-cost evaluator evaluate, edge selector select
+  output: a cheapest path under the true costs, or failure
+  EVALUATED ← ∅                                ▷ edges with a known true cost w[e]
+  for round in 0, 1, 2, … do
+    P ← a-star(s₀, goal, h, cost)              ▷ cost(e) = w[e] if e ∈ EVALUATED, else lazy-cost(e)
+    if P = failure then
+      return failure                           ▷ infeasible edges (w[e] = ∞) are left out
+    U ← the edges of P not in EVALUATED
+    if U = ∅ then
+      return P
+    for each e in select(U, round) do          ▷ forward, reverse, alternate, bisection or all
+      w[e] ← evaluate(e)
+      EVALUATED ← EVALUATED ∪ {e}

@@ -1,0 +1,6 @@
+{
+	"description": "Earliest-start search finds the first start time in a window at which an activity fits on every resource timeline of a plan. A *timeline* tracks one resource level over integer ticks, and the activity fits when no level leaves its allowed range. The answer can only change where a tick of the activity meets a change tick or a target of a timeline, so the search walks the pieces between these candidate starts and does not test each tick. Without rates, the levels are step functions, and one check at the start of a piece decides the whole piece. With rates, each level is a linear function of the start inside a piece, so the search solves the inequalities in closed form, and the cost does not grow with the window length.",
+	"papers": [],
+	"lineage": [],
+	"trace": null
+}

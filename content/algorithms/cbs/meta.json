@@ -1,0 +1,34 @@
+{
+	"description": "Conflict-Based Search (CBS) finds a collision-free plan for many agents with an optimal sum of costs or makespan. Its high level searches a *constraint tree*: each node holds constraints such as \"agent `i` must not be at vertex `v` at time `t`\" and one cheapest path per agent under them. CBS expands the cheapest node, picks one conflict between two paths and splits it into two children, each of which forbids the conflict to one of the two agents. The low level, a space-time A*, then replans only that agent. CBS is optimal and fast when agents interact little; `cbs` turns on all improvements (conflict priorities, bypass, the DG heuristic, disjoint splitting, a conflict avoidance table), and `cbs_with` selects them one by one.",
+	"papers": [
+		{
+			"authors": "Guni Sharon, Roni Stern, Ariel Felner, Nathan R. Sturtevant",
+			"title": "Conflict-based search for optimal multi-agent pathfinding",
+			"year": 2015,
+			"venue": "Artificial Intelligence",
+			"doi": "10.1016/j.artint.2014.11.006",
+			"arxiv": null,
+			"url": null,
+			"role": "introduces"
+		},
+		{
+			"authors": "Eli Boyarski, Ariel Felner, Roni Stern, Guni Sharon, David Tolpin, Oded Betzalel, Eyal Shimony",
+			"title": "ICBS: Improved Conflict-Based Search Algorithm for Multi-Agent Pathfinding",
+			"year": 2015,
+			"venue": "International Joint Conference on Artificial Intelligence (IJCAI)",
+			"doi": null,
+			"arxiv": null,
+			"url": "https://ijcai.org/proceedings/2015/0110.pdf",
+			"role": "extends"
+		}
+	],
+	"lineage": [
+		{
+			"slug": "space-time-a-star",
+			"name": null,
+			"relation": "builds-on",
+			"source": "mapf-search, docs/design.md: \"The low level is heuristic_search::astar over the time-expanded graph\""
+		}
+	],
+	"trace": null
+}

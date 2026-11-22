@@ -1,0 +1,37 @@
+algorithm L-NAMOA*dr-mvh(s₀, goal, H)
+  input: start s₀, goal test goal, admissible multi-valued heuristic H (a set of vectors per state)
+  output: one path for every Pareto-optimal cost vector
+  SOLS ← ∅                                     ▷ truncated costs of the solutions
+  PATHS ← ∅
+  OPEN ← {⟨s₀, 0, choose-h(s₀, 0)⟩}            ▷ ordered by f = g + h, lexicographically
+  while OPEN ≠ ∅ do
+    ⟨s, g, h⟩ ← extract-min(OPEN)
+    if SOLS weakly dominates Tr(g + h) then      ▷ Tr(x) drops the first objective of x
+      h′ ← choose-h(s, g)                      ▷ lazy: bind the next estimate, keep the path
+      if h′ ≠ nil then
+        insert(OPEN, ⟨s, g, h′⟩, g + h′)
+      continue
+    if local-dom-check(s, g) then
+      continue
+    G-TR[s], G-CL[s] ← G-TR[s] ∪ {Tr(g)}, G-CL[s] ∪ {g}
+    max-g₁[s] ← max(max-g₁[s], g₁)
+    if goal(s) then
+      SOLS ← SOLS ∪ {Tr(g)}
+      PATHS ← PATHS ∪ {path-to(s, g)}
+      continue
+    for each (s′, c) in successors(s) do
+      h′ ← choose-h(s′, g + c)
+      if h′ ≠ nil and not local-dom-check(s′, g + c) then
+        insert(OPEN, ⟨s′, g + c, h′⟩, g + c + h′)
+  return PATHS
+function choose-h(s, g)
+  for each h in H(s), in lexicographic order do
+    if not SOLS weakly dominates Tr(g + h) then
+      return h
+  return nil                                   ▷ every completion is dominated
+function local-dom-check(s, g)
+  if not G-TR[s] weakly dominates Tr(g) then
+    return false
+  if max-g₁[s] ≤ g₁ then
+    return true                                ▷ the truncated answer is safe
+  return G-CL[s] weakly dominates g            ▷ otherwise a full check

@@ -1,0 +1,27 @@
+algorithm OneBendSearch(s, t)
+  input: source port s, target port t, orthogonal visibility graph G of the scene
+  output: a route from s to t with low length and bend cost
+  N ← hugging-headings(scene) ∪ endpoint-nodes(s, t)   ▷ (corner, heading along a side)
+  OPEN ← start-states(s)                     ▷ ordered by f = g + estimate(n, t)
+  while OPEN ≠ ∅ do
+    n ← extract-min(OPEN)
+    if arrives(n, t) then                     ▷ at t, moving against one of its directions
+      return path-to(n)
+    for each (m, c) in one-bend-successors(n) do
+      if g[n] + c < g[m] then
+        g[m] ← g[n] + c
+        parent[m] ← n
+        insert-or-update(OPEN, m)
+  return ovg-route(s, t)                      ▷ fallback: A* over G itself
+function one-bend-successors(n)
+  ▷ edges are made on demand by walking G; the quadratic edge set is never stored
+  S ← ∅
+  for each b in ⟨point(n)⟩ ++ ray(G, point(n), heading(n)) do
+    if b ≠ point(n) and ((b, heading(n)) ∈ N or arrives((b, heading(n)), t)) then
+      S ← S ∪ {((b, heading(n)), length-cost(n, b))}             ▷ straight, no bend
+    if b ≠ point(n) or may-bend-in-place(n) then   ▷ not at the start, not after an empty leg
+      for each p in perpendicular(heading(n)) do
+        for each w in ⟨b⟩ ++ ray(G, b, p) do       ▷ w = b: an empty second leg
+          if (w, p) ∈ N or (w ≠ b and arrives((w, p), t)) then
+            S ← S ∪ {((w, p), length-cost(n, b, w) + bend-penalty)}
+  return S

@@ -1,0 +1,13 @@
+{
+	"description": "Bidirectional BFS finds a path with the fewest edges. It runs breadth-first search forwards from the start and backwards from the goals, one whole layer at a time, and stops when a new layer meets the other side. `bidirectional_bfs` always grows the smaller frontier and returns the shortest meet of that layer. Edge costs do not guide the search; the reported cost is the sum of the costs along the returned path. On graphs where each state has many successors, it expands far fewer states than one-sided breadth-first search, but it needs the predecessors of each state.",
+	"papers": [],
+	"lineage": [
+		{
+			"slug": "breadth-first-search",
+			"name": null,
+			"relation": "builds-on",
+			"source": "heuristic-search, src/bidirectional/bfs.rs: \"Bidirectional breadth-first search: the path with the fewest edges … it expands far fewer states than bfs\""
+		}
+	],
+	"trace": null
+}

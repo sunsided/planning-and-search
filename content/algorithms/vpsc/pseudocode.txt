@@ -1,0 +1,22 @@
+algorithm Project(d, C)
+  input: desired positions d (nil for a fixed node), constraints C of the form x_r − x_l ≥ gap
+  output: positions x as close to d as possible (least squares) that satisfy every constraint
+  B ← one block per node                    ▷ each node has offset 0 in its block
+  satisfy(B, C)
+  a ← most-negative-multiplier(B)
+  while a ≠ nil do
+    split(B, a)                             ▷ the two halves of a would rather move apart
+    satisfy(B, C)
+    a ← most-negative-multiplier(B)
+  return round(x[n] = position(block(n)) + offset[n] for every node n)
+procedure satisfy(B, C)
+  while some constraint between two blocks is violated do
+    c ← most-violated(C)
+    merge(block(left(c)), block(right(c)), c)   ▷ shift offsets so c holds with equality
+function position(b)
+  if b has a fixed node n then
+    return fixed[n] − offset[n]
+  return mean of d[n] − offset[n] over the nodes n of b
+function multiplier(a)
+  ▷ the right side of a: nodes linked to right(a) by the other active constraints
+  return ∑ over n in right-side(a) of x[n] − d[n]

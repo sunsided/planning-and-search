@@ -1,0 +1,16 @@
+algorithm RTA*(s₀, goal, H)
+  input: start state s₀, goal test goal, table H (starts as a heuristic h)
+  output: the path travelled to a goal, or failure
+  s ← s₀
+  while not goal(s) do
+    E ← {(s′, c + H[s′]) : (s′, c) in successors(s), H[s′] < ∞}
+    if E = ∅ then                              ▷ every successor is a dead end
+      H[s] ← ∞
+      return failure
+    (s-best, f₁) ← entry of E with the smallest value   ▷ the first on ties
+    if |E| ≥ 2 then
+      H[s] ← second-smallest value in E        ▷ the cost to come back and try the next best
+    else
+      H[s] ← f₁                                ▷ a single live successor is not a dead end
+    s ← s-best                                 ▷ move one step and record it
+  return the path travelled

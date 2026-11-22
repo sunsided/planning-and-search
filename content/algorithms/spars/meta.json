@@ -1,0 +1,24 @@
+{
+	"description": "SPARS builds a sparse *spanner*: a small graph whose paths are nearly as short as those of a much larger graph. It keeps a dense graph `D`, a k-nearest PRM* over every valid sample, next to the sparse graph of a few *guards*; each guard covers the states it sees within a range `Δ`. A new sample joins `D`, and it changes the sparse graph only for one of four reasons: no guard sees it (*coverage*), it joins two components (*connectivity*), it links two neighbouring guards (*interface*), or a dense path shows that a sparse path is more than `t` times too long (*quality*). Construction stops after many samples in a row change nothing. With high probability, the paths then cost at most about `t` times the optimum plus a term in `Δ` (*asymptotic near-optimality*); use SPARS when a full PRM* takes too much memory or query time.",
+	"papers": [
+		{
+			"authors": "Andrew Dobson, Kostas E. Bekris",
+			"title": "Sparse roadmap spanners for asymptotically near-optimal motion planning",
+			"year": 2014,
+			"venue": "The International Journal of Robotics Research",
+			"doi": "10.1177/0278364913498292",
+			"arxiv": null,
+			"url": null,
+			"role": "introduces"
+		}
+	],
+	"lineage": [
+		{
+			"slug": "prm-star",
+			"name": null,
+			"relation": "builds-on",
+			"source": "sampling-planning, src/roadmaps/spars.rs: \"SPARS: an incremental sparse roadmap spanner that keeps a dense k-nearest PRM* graph next to the sparse one\""
+		}
+	],
+	"trace": null
+}

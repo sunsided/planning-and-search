@@ -1,0 +1,34 @@
+{
+	"description": "BOA\\* finds one path for every Pareto-optimal cost vector from a start to a goal when each edge has two costs. A path is *Pareto-optimal* when no other path is at least as good in both costs and better in one. BOA\\* expands paths in lexicographic order of `f = g + h`: first by `f1`, then by `f2`. With a *consistent* heuristic (one that never drops by more than an edge's cost along that edge), BOA\\* drops a path when its `g2` or its `f2` cannot improve on the paths it already expanded; each test takes constant time. Use it for exact two-objective routing; with a zero heuristic it is a bi-objective Dijkstra search.",
+	"papers": [
+		{
+			"authors": "Carlos Hernández Ulloa, William Yeoh, Jorge A. Baier, Han Zhang, Luis Suazo, Sven Koenig",
+			"title": "A Simple and Fast Bi-Objective Search Algorithm",
+			"year": 2020,
+			"venue": "International Conference on Automated Planning and Scheduling (ICAPS)",
+			"doi": "10.1609/icaps.v30i1.6655",
+			"arxiv": null,
+			"url": null,
+			"role": "introduces"
+		},
+		{
+			"authors": "Carlos Hernández, William Yeoh, Jorge A. Baier, Han Zhang, Luis Suazo, Sven Koenig, Oren Salzman",
+			"title": "Simple and efficient bi-objective search algorithms via fast dominance checks",
+			"year": 2023,
+			"venue": "Artificial Intelligence",
+			"doi": "10.1016/j.artint.2022.103807",
+			"arxiv": null,
+			"url": null,
+			"role": "extends"
+		}
+	],
+	"lineage": [
+		{
+			"slug": "a-star",
+			"name": null,
+			"relation": "builds-on",
+			"source": "multiobjective-search, src/boa.rs: \"BOA*: bi-objective A* search.\""
+		}
+	],
+	"trace": null
+}

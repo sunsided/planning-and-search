@@ -1,0 +1,24 @@
+{
+	"description": "RTAA* (Real-Time Adaptive A*) is a real-time search with the same lookahead and moves as LSS-LRTA*: A* from the agent's state for at most `n` expansions, then a move toward the best open state. Its learning step is cheaper. With `f` the `g + h` of the state where A* stopped, each expanded state `s` gets the value `f − g(s)`, with no second search. These values are lower than or equal to those of LSS-LRTA*, so it learns less per step but each step costs less. From an admissible table the values stay admissible.",
+	"papers": [
+		{
+			"authors": "Sven Koenig, Maxim Likhachev",
+			"title": "Real-time adaptive A*",
+			"year": 2006,
+			"venue": "Proceedings of the Fifth International Joint Conference on Autonomous Agents and Multiagent Systems (AAMAS)",
+			"doi": "10.1145/1160633.1160682",
+			"arxiv": null,
+			"url": null,
+			"role": "introduces"
+		}
+	],
+	"lineage": [
+		{
+			"slug": "lss-lrta-star",
+			"name": null,
+			"relation": "builds-on",
+			"source": "heuristic-search, src/real_time/lookahead.rs: \"The lookahead and the moves are those of lss_lrta_star. The update is cheaper\""
+		}
+	],
+	"trace": null
+}

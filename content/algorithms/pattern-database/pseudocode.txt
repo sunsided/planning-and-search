@@ -1,0 +1,14 @@
+algorithm PatternDatabase(task, P)
+  input: an SAS+ task, a pattern P of state variables
+  output: a heuristic h that maps a state to a goal distance, or ∞
+  P ← P ∖ derived-variables(task)
+  T ← ∅                                        ▷ transitions of the projection
+  for each o in operators(task) do
+    for each a in abstract-states(P) matching pre(o) do
+      for each a′ in outcomes(o, a) do         ▷ an effect with a condition outside P may or may not fire
+        T ← T ∪ {(a, o, a′)}
+  G ← {a ∈ abstract-states(P) : goal(task) holds in a}
+  dist ← dijkstra(reverse(T), G, cost)         ▷ goal_distances
+  return h
+function h(s)
+  return dist[rank(s, P)]                      ▷ ∞ for an abstract dead end

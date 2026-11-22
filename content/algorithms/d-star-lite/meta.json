@@ -1,0 +1,24 @@
+{
+	"description": "D* Lite keeps a cheapest path to a fixed goal while the start moves, for example for a robot that drives and finds new obstacles. It searches backwards from the goal, so a start move does not make its search tree invalid. Each vertex has `g`, its cost to the goal, and `rhs`, a one-step lookahead from its successors; a vertex with `g ≠ rhs` is *inconsistent* and goes on the queue. After an edge changes, only the affected vertices are repaired, and a start move adds `h(old, new)` to an offset `km` instead of computing all queue keys again. With a *consistent* heuristic (its estimate never drops by more than the edge cost along an edge), each `compute` returns a cheapest path from the current start.",
+	"papers": [
+		{
+			"authors": "Sven Koenig, Maxim Likhachev",
+			"title": "D* Lite",
+			"year": 2002,
+			"venue": "Proceedings of the Eighteenth National Conference on Artificial Intelligence (AAAI-02)",
+			"doi": null,
+			"arxiv": null,
+			"url": "https://cdn.aaai.org/AAAI/2002/AAAI02-072.pdf",
+			"role": "introduces"
+		}
+	],
+	"lineage": [
+		{
+			"slug": "lpa-star",
+			"name": null,
+			"relation": "builds-on",
+			"source": "D* Lite: \"Building on LPA*, we therefore present D* Lite\""
+		}
+	],
+	"trace": null
+}

@@ -1,0 +1,40 @@
+{
+	"description": "BDDA* is A* over sets of states stored as BDDs (*binary decision diagrams*). The heuristic is a partition of the states into one BDD per value `h`, so one intersection evaluates it on a whole set. Open sets are expanded by smallest `g + h`, ties to the larger `g`, and a state is opened again only when it is found at a lower cost. So the plan is cheapest whenever the heuristic is *admissible* (it never overestimates), and states that the heuristic marks as dead ends are dropped. With the blind heuristic `h = 0`, BDDA* is symbolic Dijkstra.",
+	"papers": [
+		{
+			"authors": "Stefan Edelkamp, Frank Reffel",
+			"title": "OBDDs in heuristic search",
+			"year": 1998,
+			"venue": "KI-98: Advances in Artificial Intelligence, LNCS 1504",
+			"doi": "10.1007/BFb0095430",
+			"arxiv": null,
+			"url": null,
+			"role": "introduces"
+		},
+		{
+			"authors": "Álvaro Torralba, Vidal Alcázar, Peter Kissmann, Stefan Edelkamp",
+			"title": "Efficient symbolic search for cost-optimal planning",
+			"year": 2017,
+			"venue": "Artificial Intelligence",
+			"doi": "10.1016/j.artint.2016.10.001",
+			"arxiv": null,
+			"url": null,
+			"role": "extends"
+		}
+	],
+	"lineage": [
+		{
+			"slug": "symbolic-dijkstra",
+			"name": null,
+			"relation": "generalizes",
+			"source": "symbolic-search, docs/design.md: \"Dijkstra is BDDA* with the blind partition {h = 0: ⊤}\""
+		},
+		{
+			"slug": "a-star",
+			"name": null,
+			"relation": "builds-on",
+			"source": "symbolic-search, src/search.rs: astar is \"BDDA*: symbolic A* forward from the initial state\""
+		}
+	],
+	"trace": null
+}

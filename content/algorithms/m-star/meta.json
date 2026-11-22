@@ -1,0 +1,40 @@
+{
+	"description": "M* finds an optimal plan for many agents with A* in their joint space, but it keeps that space small (*subdimensional expansion*). Each agent follows its own shortest path (its *individual policy*) until it collides with another agent. The colliding agents join the *collision set* of the state, and M* passes that set back to all predecessors; only agents in a state's collision set branch over all their moves. Recursive M* (rM*) keeps separate groups of colliding agents and plans each group with its own, smaller M*, and operator decomposition (OD-M*, ODrM*) lets branching agents move one at a time. The plan is optimal for sum of costs or makespan, and because the joint space is finite, M* also proves that an instance has no solution.",
+	"papers": [
+		{
+			"authors": "Glenn Wagner, Howie Choset",
+			"title": "Subdimensional expansion for multirobot path planning",
+			"year": 2015,
+			"venue": "Artificial Intelligence",
+			"doi": "10.1016/j.artint.2014.11.001",
+			"arxiv": null,
+			"url": null,
+			"role": "introduces"
+		},
+		{
+			"authors": "Cornelia Ferner, Glenn Wagner, Howie Choset",
+			"title": "ODrM* optimal multirobot path planning in low dimensional search spaces",
+			"year": 2013,
+			"venue": "2013 IEEE International Conference on Robotics and Automation",
+			"doi": "10.1109/ICRA.2013.6631119",
+			"arxiv": null,
+			"url": null,
+			"role": "extends"
+		}
+	],
+	"lineage": [
+		{
+			"slug": "a-star",
+			"name": null,
+			"relation": "builds-on",
+			"source": "mapf-search, src/mstar.rs: \"A* in the joint space of all agents with subdimensional expansion\""
+		},
+		{
+			"slug": null,
+			"name": "Operator decomposition",
+			"relation": "combines",
+			"source": "mapf-search, src/mstar/state.rs: \"operator decomposition (Standley 2010; Ferner, Wagner and Choset 2013)\""
+		}
+	],
+	"trace": null
+}

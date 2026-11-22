@@ -1,0 +1,24 @@
+algorithm RouteAll(C, G, k)
+  input: connectors C on the orthogonal visibility graph G, at most k iterations
+  output: one route per connector, the overuse left and the certain crossings
+  C ← sort(C)                         ▷ by decreasing port distance, ties by index
+  history[r] ← 0                      ▷ for every resource r: a (slab, gap) channel cross-section
+  present ← p₀
+  for i in 1, …, k do
+    U ← connectors c with route[c] = nil or route[c] on an overused resource
+    if U = ∅ then
+      break
+    for each c in U do                ▷ in the order of C
+      rip-up(route[c])                ▷ frees its tracks and straight passes
+      route[c] ← a-star(G, c, congestion-cost)
+      commit(route[c])
+    if overuse() = 0 then
+      break
+    for each r in resources do
+      history[r] ← history[r] + Δh · over[r]
+    present ← 2 · present
+  return route, overuse(), crossings()
+function congestion-cost(e)
+  ▷ over[r] counts this connector too; capacity[r] = ⌊height[r] / separation⌋ + 1
+  ▷ plus a crossing penalty for passing straight through a perpendicular straight pass
+  return ∑ over r in resources(e) of base[r] · (1 + history[r]) · (1 + present · over[r])

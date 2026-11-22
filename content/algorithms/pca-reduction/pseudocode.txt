@@ -1,0 +1,16 @@
+algorithm PCA-Reduction(Z, ρ)
+  input: zonotope Z = ⟨c, G⟩ with p generators in n dimensions, order ρ ≥ 1
+  output: a zonotope that encloses Z and has at most ⌊ρ · n⌋ generators
+  if p ≤ ρ · n then
+    return Z
+  for each generator g in G do
+    m[g] ← ‖g‖₁ − ‖g‖∞                    ▷ the same choice as Girard reduction
+  sort-descending(G, m)
+  k ← ⌊ρ · n⌋ − n
+  K ← the first k generators of G        ▷ kept unchanged
+  D ← matrix of the other p − k generators
+  U ← eigenvectors(D · Dᵀ)               ▷ principal axes u₁, …, u_n of D
+  for i in 1, …, n do
+    r_i ← ∑ over g ∈ D of |u_iᵀ g|        ▷ box radius along axis u_i
+  B ← U · diag(r₁, …, r_n)               ▷ a box turned onto the principal axes
+  return ⟨c, K ∪ columns(B)⟩

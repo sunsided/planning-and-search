@@ -1,0 +1,24 @@
+{
+	"description": "PP-A* finds a small set of paths that covers the Pareto set of a two-objective problem within a factor `1 + ε` in each objective. It searches over *path pairs*: two paths to one state, one with the smallest first cost and one with the smallest second cost. The *apex* of a pair, made of these two smallest costs, is a lower bound for all paths that the pair stands for. A new pair merges into an open pair at the same state when the merged pair stays within the tolerance, so near-equal paths share one entry. With `ε = 0` it returns the same costs as BOA*; it needs a consistent heuristic.",
+	"papers": [
+		{
+			"authors": "Boris Goldin, Oren Salzman",
+			"title": "Approximate Bi-Criteria Search by Efficient Representation of Subsets of the Pareto-Optimal Frontier",
+			"year": 2021,
+			"venue": "International Conference on Automated Planning and Scheduling (ICAPS)",
+			"doi": "10.1609/icaps.v31i1.15957",
+			"arxiv": "2006.10302",
+			"url": null,
+			"role": "introduces"
+		}
+	],
+	"lineage": [
+		{
+			"slug": "boa-star",
+			"name": null,
+			"relation": "builds-on",
+			"source": "multiobjective-search, src/pp_a.rs: \"The search is BOA* over path pairs, ordered by the apex f\""
+		}
+	],
+	"trace": null
+}

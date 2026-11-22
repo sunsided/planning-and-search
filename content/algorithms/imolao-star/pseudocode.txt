@@ -1,0 +1,14 @@
+algorithm iMOLAO*(s₀, goal, H, b, ε, λ)
+  input: initial state s₀, goal test goal, heuristic H (a set of cost vectors), cost bound b, tolerance ε, margin λ
+  output: value sets V and one deterministic proper policy per vertex of V[s₀]
+  V[s₀] ← H(s₀)
+  while true do
+    N ← states reachable from s₀ under every greedy action, in depth-first preorder
+    tips ← N has an unexpanded non-goal state
+    r ← 0
+    for each s in N, last first do               ▷ a postorder on the depth-first tree
+      if s is unexpanded then
+        expand(s)                                ▷ new successors s′ get V[s′] ← H(s′)
+      r ← max(r, back-up(s))                     ▷ the MOVI backup over value sets
+    if not tips and r < ε and the pass left N unchanged then
+      return V, extract-policies(V, s₀)

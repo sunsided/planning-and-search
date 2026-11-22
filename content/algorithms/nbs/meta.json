@@ -1,0 +1,17 @@
+{
+	"description": "NBS (Near-Optimal Bidirectional Search) searches forward from the start and backward from the goal at the same time. It expands states in pairs, one from each side. The lower bound of a pair `(u, v)` is `max(f_F(u), f_B(v), g_F(u) + g_B(v))`; NBS expands a pair only when that bound is at most the current lower bound, and raises the bound when no such pair is left. It stops when the bound reaches the cost of the cheapest meeting point. With admissible estimates the path is optimal, and NBS never expands more than twice the states that any admissible *front-to-end* bidirectional search (one that estimates the cost to the far end, not to the other frontier) must expand.",
+	"papers": [
+		{
+			"authors": "Jingwei Chen, Robert C. Holte, Sandra Zilles, Nathan R. Sturtevant",
+			"title": "Front-to-End Bidirectional Heuristic Search with Near-Optimal Node Expansions",
+			"year": 2017,
+			"venue": "Proceedings of the Twenty-Sixth International Joint Conference on Artificial Intelligence (IJCAI)",
+			"doi": "10.24963/ijcai.2017/69",
+			"arxiv": null,
+			"url": null,
+			"role": "introduces"
+		}
+	],
+	"lineage": [],
+	"trace": null
+}

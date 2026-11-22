@@ -1,0 +1,24 @@
+algorithm MOEA/D(f, W, t, δ, n_r, g)
+  input: objectives f, weight vectors w₁, …, w_n, neighbourhood size t, mating probability δ, replacement limit n_r, scalarising function g
+  output: an approximation of the Pareto front
+  for i in 1, …, n do
+    B[i] ← the t weight vectors closest to w_i       ▷ includes w_i itself
+    x_i ← random-genome()
+  z ← ideal-point(x₁, …, x_n)                       ▷ the minimum of each objective
+  repeat
+    for i in 1, …, n do
+      if chance(δ) then
+        POOL ← B[i]
+      else
+        POOL ← {1, …, n}
+      y ← mutate(crossover(x_a, x_b)) for random a, b ∈ POOL
+      z ← component-wise min(z, f(y))
+      replaced ← 0
+      for each j in shuffle(POOL) do
+        if replaced = n_r then
+          break
+        if better(y, x_j, w_j, z) then              ▷ lower violation, else g(f(y) | w_j, z) ≤ g(f(x_j) | w_j, z)
+          x_j ← y
+          replaced ← replaced + 1
+  until the budget is spent
+  return non-dominated(x₁, …, x_n)

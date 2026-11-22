@@ -1,0 +1,24 @@
+{
+	"description": "LAO* is heuristic search for stochastic shortest path problems with cycles: it extends AO* (search in AND/OR graphs) to graphs with loops. It keeps the *best partial solution graph*: the states that the greedy policy reaches from the start. In each step it expands one *tip* (an unexpanded state of that graph) and runs value iteration on the tip and its ancestors. When no tip is left and the values settle, the solved check of LRTDP confirms that the policy is ε-consistent on the states it reaches. The crate keeps this one-tip form as a reference; iLAO* gives the same result faster.",
+	"papers": [
+		{
+			"authors": "Eric A. Hansen, Shlomo Zilberstein",
+			"title": "LAO*: A heuristic search algorithm that finds solutions with loops",
+			"year": 2001,
+			"venue": "Artificial Intelligence",
+			"doi": "10.1016/S0004-3702(01)00106-0",
+			"arxiv": null,
+			"url": null,
+			"role": "introduces"
+		}
+	],
+	"lineage": [
+		{
+			"slug": null,
+			"name": "AO*",
+			"relation": "generalizes",
+			"source": "stochastic-search, docs/design.md: \"LAO* (Hansen and Zilberstein 2001) is AO* for cyclic AND/OR graphs\""
+		}
+	],
+	"trace": null
+}

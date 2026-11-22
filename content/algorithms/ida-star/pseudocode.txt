@@ -1,0 +1,28 @@
+algorithm IDA*(s₀, goal, h)
+  input: start state s₀, goal test goal, admissible heuristic h
+  output: a cheapest path to a goal, or failure
+  θ ← h(s₀)
+  P ← ⟨s₀⟩                                     ▷ the current path
+  while true do
+    t ← search(P, 0, θ)
+    if t = found then
+      return P
+    if t = ∞ then
+      return failure
+    θ ← t                                      ▷ the smallest pruned f
+function search(P, g, θ)
+  s ← last(P)
+  if g + h(s) > θ then
+    return g + h(s)
+  if goal(s) then
+    return found
+  t-min ← ∞
+  for each (s′, c) in successors(s) do
+    if s′ ∉ P then                             ▷ skip cycles on the path
+      append(P, s′)
+      t ← search(P, g + c, θ)
+      if t = found then
+        return found
+      t-min ← min(t-min, t)
+      remove-last(P)
+  return t-min

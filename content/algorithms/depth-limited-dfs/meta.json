@@ -1,0 +1,13 @@
+{
+	"description": "Depth-limited DFS is depth-first search that never goes deeper than `limit` edges. It keeps only the current path in memory and skips a successor that is already on that path, so it needs no closed set. It finds some path of at most `limit` edges, not a short or cheap one. If it finds no goal, it says the problem is unsolvable only when the limit cut nothing off; otherwise it reports a cutoff, because a goal can lie deeper. Use it when memory is tight and you know a bound on the path length.",
+	"papers": [],
+	"lineage": [
+		{
+			"slug": "dfs",
+			"name": null,
+			"relation": "builds-on",
+			"source": "heuristic-search, src/depth_first.rs: \"Depth-limited depth-first tree search: a path of at most limit edges\""
+		}
+	],
+	"trace": null
+}
