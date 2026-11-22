@@ -20,7 +20,8 @@ jobs:
   sync:
     name: project sync
     runs-on: ubuntu-latest
-    if: github.repository_owner == 'sunsided'
+    # The token reaches every planning repository; only code from main may use it.
+    if: github.repository_owner == 'sunsided' && github.ref == 'refs/heads/main'
     permissions:
       contents: read
     steps:
