@@ -3,7 +3,9 @@ algorithm Combinatorial-Auction(V, L, k)
   output: at most one winning bundle per agent, with no task in two, of the highest total value
   for each agent a do
     BIDS_a ← the k bundles S of at most L tasks with the highest value-of(V_a, S)   ▷ XOR bids
-  bound[a] ← ∑ over agents b ≥ a of the best value in BIDS_b
+  for each agent a do
+    bound[a] ← ∑ over agents b ≥ a of the best value in BIDS_b
+  bound[n + 1] ← 0                             ▷ no agent left to add value
   best ← nil
   explore(1, 0, ∅)
   return the bundles of best

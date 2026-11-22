@@ -1,7 +1,10 @@
-algorithm CCBBA(i, V, L, D, o, w)
+algorithm CCBBA(i, V, L, D, o, w_solo, w_any)
   input: agent i, valuation V, capacity L, dependency matrix D of each activity
-  input: timeout o, optimistic attempts w (solo, and with a dependency met)
+  input: timeout o, optimistic attempts w_solo (alone) and w_any (with a dependency met)
   output: a bundle for agent i that respects the coupled constraints, once the team settles
+  for each task j do
+    waited[j] ← 0
+    solo[j], any[j] ← w_solo, w_any
   repeat
     enforce()
     bundle phase of CBBA, bidding only on tasks j where eligible(j)
