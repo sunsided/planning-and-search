@@ -1,5 +1,6 @@
 <script lang="ts">
 	import AlgorithmTemplate from '#lib/components/templates/AlgorithmTemplate.svelte';
+	import { parse } from '#lib/richtext.js';
 	import { SITE_NAME, SITE_URL } from '#lib/site.js';
 	import { resolve } from '$app/paths';
 	import type { PageProps } from './$types';
@@ -8,7 +9,10 @@
 	const a = $derived(data.algorithm);
 	const href = (slug: string | null) => (slug ? resolve('/algorithms/[slug]', { slug }) : null);
 	const description = $derived(
-		a.description?.replace(/[`*[\]]|\]\([^)]*\)/g, '') ??
+		(a.description &&
+			parse(a.description)
+				.map((p) => p.value)
+				.join('')) ||
 			`${a.name}, as implemented in ${a.implementations.map((i) => i.crate).join(', ')}.`
 	);
 </script>
