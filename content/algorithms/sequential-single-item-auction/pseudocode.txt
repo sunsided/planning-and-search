@@ -1,0 +1,15 @@
+algorithm Sequential-Auction(V, L, order)
+  input: valuations V₁, …, V_n, capacity L, the tasks in auction order
+  output: one bundle per agent; tasks nobody bids on stay unassigned
+  B_a ← ⟨⟩ for every agent a
+  for each task j in order do
+    if j was auctioned before then
+      continue
+    w, best ← nil, 0
+    for each agent a with |B_a| < L do         ▷ in identifier order
+      g, p ← best-insertion(V_a, B_a, j)       ▷ marginal gain and position
+      if g > best then
+        w, best, pos ← a, g, p                 ▷ strict: ties stay with the smaller agent
+    if w ≠ nil then
+      insert j into B_w at position pos
+  return B₁, …, B_n

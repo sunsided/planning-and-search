@@ -1,0 +1,24 @@
+{
+	"description": "In a combinatorial auction, agents bid on whole bundles of tasks, so they can say that tasks are worth more together. `bundle_bids` lists an agent's most valuable bundles up to a size, each valued by its best build order, and an agent wins at most one of its bids (*XOR bids*). `winner_determination` then picks at most one bundle per agent, with no task in two of them, that maximizes the total value; it is exact, a depth-first branch and bound over agents pruned by each remaining agent's best bid. The problem is NP-hard and the search grows with the number of bids, so plan for a few dozen; with enough bids per agent, `combinatorial` finds the optimal assignment. Like the sequential auction it needs a central auctioneer; use it when synergies between tasks matter and the instance is small, and CBBA when there is no auctioneer.",
+	"papers": [
+		{
+			"authors": "Tuomas Sandholm",
+			"title": "Algorithm for optimal winner determination in combinatorial auctions",
+			"year": 2002,
+			"venue": "Artificial Intelligence",
+			"doi": "10.1016/s0004-3702(01)00159-x",
+			"arxiv": null,
+			"url": null,
+			"role": "introduces"
+		}
+	],
+	"lineage": [
+		{
+			"slug": "dfs",
+			"name": null,
+			"relation": "builds-on",
+			"source": "task-allocation, src/auction/combinatorial.rs: \"This is exact winner determination by depth-first branch and bound over agents\""
+		}
+	],
+	"trace": null
+}

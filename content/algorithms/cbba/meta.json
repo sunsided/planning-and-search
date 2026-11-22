@@ -1,0 +1,37 @@
+{
+	"description": "The consensus-based bundle algorithm (CBBA) lets a team of agents split tasks among themselves without a central planner. Each agent alternates two phases: in the *bundle phase* it greedily adds the task with the highest marginal gain it can still win, bidding that gain as an integer `u64` score, with ties going to the smaller agent id; in the *consensus phase* it merges each neighbour's winner table, task by task, with the published conflict-resolution table. When it learns it was outbid on a task, it drops that task and every task it added after it, since their bids assumed the lost one. Messages carry the sender's whole state with logical clocks, so they may be delayed, lost, duplicated or reordered, and a message older than what the receiver knows of its sender is ignored. With `Replan::Keep` an agent only adds to its bundle, as published in 2009, while `Replan::Full` rebuilds it every round and, with diminishing gains and every task known from the start, settles on a sequential greedy assignment up to tied gains; use CBBA when agents can only talk to whoever they reach, with no auctioneer or central planner.",
+	"papers": [
+		{
+			"authors": "Han-Lim Choi, L. Brunet, J. P. How",
+			"title": "Consensus-Based Decentralized Auctions for Robust Task Allocation",
+			"year": 2009,
+			"venue": "IEEE Transactions on Robotics",
+			"doi": "10.1109/tro.2009.2022423",
+			"arxiv": null,
+			"url": null,
+			"role": "introduces"
+		},
+		{
+			"authors": "Luke Johnson, Sameera Ponda, Han-Lim Choi, Jonathan How",
+			"title": "Asynchronous Decentralized Task Allocation for Dynamic Environments",
+			"year": 2011,
+			"venue": "Infotech@Aerospace 2011",
+			"doi": "10.2514/6.2011-1441",
+			"arxiv": null,
+			"url": null,
+			"role": "extends"
+		},
+		{
+			"authors": "Noam Buckman, Han-Lim Choi, Jonathan P. How",
+			"title": "Partial Replanning for Decentralized Dynamic Task Allocation",
+			"year": 2019,
+			"venue": "AIAA Scitech 2019 Forum",
+			"doi": "10.2514/6.2019-0915",
+			"arxiv": "1806.04836",
+			"url": null,
+			"role": "extends"
+		}
+	],
+	"lineage": [],
+	"trace": null
+}

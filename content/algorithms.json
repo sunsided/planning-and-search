@@ -701,6 +701,21 @@
 		]
 	},
 	{
+		"slug": "combinatorial-auction",
+		"name": "Combinatorial auction",
+		"aliases": ["Winner determination"],
+		"kind": "allocation",
+		"refs": ["Sandholm 2002"],
+		"implementations": [
+			{
+				"crate": "task-allocation",
+				"items": ["combinatorial", "winner_determination"],
+				"feature": null,
+				"summary": "Agents bid on whole bundles, and the auctioneer picks at most one bundle per agent with no task in two, maximizing the total by exact winner determination."
+			}
+		]
+	},
+	{
 		"slug": "conflict-avoidance-table",
 		"name": "Conflict Avoidance Table",
 		"aliases": ["CAT"],
@@ -712,6 +727,21 @@
 				"items": ["CbsConfig"],
 				"feature": null,
 				"summary": "CBS option where the low level returns, among an agent's cheapest paths, one with the fewest conflicts with the other agents' current paths."
+			}
+		]
+	},
+	{
+		"slug": "cbba",
+		"name": "Consensus-based bundle algorithm",
+		"aliases": ["CBBA"],
+		"kind": "allocation",
+		"refs": ["Choi, Brunet and How 2009", "Johnson et al. 2011", "Buckman, Choi and How 2019"],
+		"implementations": [
+			{
+				"crate": "task-allocation",
+				"items": ["cbba::Agent"],
+				"feature": null,
+				"summary": "Each agent builds a bundle greedily from marginal gains and merges its neighbours' winner tables by the published conflict rules, over delayed, lossy and changing links; bundle replanning frees blocked slots."
 			}
 		]
 	},
@@ -795,6 +825,21 @@
 				],
 				"feature": null,
 				"summary": "Named, costed rules applied cheapest first, for hints, difficulty grading and an answer to why a value was removed; generic names, with a domain's own terms through with_name."
+			}
+		]
+	},
+	{
+		"slug": "ccbba",
+		"name": "Coupled-constraint CBBA",
+		"aliases": ["CCBBA"],
+		"kind": "allocation",
+		"refs": ["Whitten, Choi, Johnson and How 2011"],
+		"implementations": [
+			{
+				"crate": "task-allocation",
+				"items": ["ccbba::Agent", "Constraints"],
+				"feature": null,
+				"summary": "CBBA for tasks that need or exclude each other, with pessimistic and optimistic bidding and timing limits between coupled starts on timed routes."
 			}
 		]
 	},
@@ -3548,6 +3593,36 @@
 				"items": ["SccDfp"],
 				"feature": null,
 				"summary": "Merges the variables of each strongly connected component of the causal graph first, then continues with DFP."
+			}
+		]
+	},
+	{
+		"slug": "sequential-greedy-assignment",
+		"name": "Sequential greedy assignment",
+		"aliases": ["Greedy task allocation"],
+		"kind": "allocation",
+		"refs": ["Fisher, Nemhauser and Wolsey 1978"],
+		"implementations": [
+			{
+				"crate": "task-allocation",
+				"items": ["sequential_greedy"],
+				"feature": null,
+				"summary": "With every valuation known, repeatedly gives the most valuable remaining task to the agent that values it most; a reference for the decentralized algorithms and a centralized fallback."
+			}
+		]
+	},
+	{
+		"slug": "sequential-single-item-auction",
+		"name": "Sequential single-item auction",
+		"aliases": ["SSI auction"],
+		"kind": "allocation",
+		"refs": ["Lagoudakis et al. 2005", "Koenig et al. 2006"],
+		"implementations": [
+			{
+				"crate": "task-allocation",
+				"items": ["sequential"],
+				"feature": null,
+				"summary": "An auctioneer offers tasks one at a time in a fixed order; each agent bids its marginal gain given what it already won, and the highest bid wins."
 			}
 		]
 	},

@@ -1,0 +1,27 @@
+{
+	"description": "A sequential single-item auction has a central auctioneer offer the tasks one at a time, here in a fixed order the caller gives; Koenig et al. analyse the variant that offers every remaining task each round and awards the best bid overall. For each task, every agent with room left bids its marginal gain given the tasks it already won, as an integer `u64` score; the highest positive bid wins, ties go to the smaller agent id, and the winner inserts the task at its best position. A task nobody bids on stays unassigned, and the order matters: a task auctioned early can go to an agent that would have been more useful elsewhere. It needs one round of bids per task, fewer than consensus, but every agent must reach the auctioneer. Use it as a baseline, or when a central station is available; use CBBA when there is none.",
+	"papers": [
+		{
+			"authors": "Michail G. Lagoudakis, Evangelos Markakis, David Kempe, Pinar Keskinocak, Anton Kleywegt, Sven Koenig, Craig Tovey, Adam Meyerson, Sonal Jain",
+			"title": "Auction-Based Multi-Robot Routing",
+			"year": 2005,
+			"venue": "Robotics: Science and Systems I",
+			"doi": "10.15607/rss.2005.i.045",
+			"arxiv": null,
+			"url": null,
+			"role": "analyses"
+		},
+		{
+			"authors": "Sven Koenig, Craig Tovey, Michail Lagoudakis, Vangelis Markakis, David Kempe, Pinar Keskinocak, Anton Kleywegt, Adam Meyerson, Sonal Jain",
+			"title": "The Power of Sequential Single-Item Auctions for Agent Coordination",
+			"year": 2006,
+			"venue": "AAAI Conference on Artificial Intelligence (AAAI 2006)",
+			"doi": null,
+			"arxiv": null,
+			"url": "https://cdn.aaai.org/AAAI/2006/AAAI06-266.pdf",
+			"role": "analyses"
+		}
+	],
+	"lineage": [],
+	"trace": null
+}

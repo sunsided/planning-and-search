@@ -1,0 +1,35 @@
+algorithm CCBBA(i, V, L, D, o, w)
+  input: agent i, valuation V, capacity L, dependency matrix D of each activity
+  input: timeout o, optimistic attempts w (solo, and with a dependency met)
+  output: a bundle for agent i that respects the coupled constraints, once the team settles
+  repeat
+    enforce()
+    bundle phase of CBBA, bidding only on tasks j where eligible(j)
+    broadcast the whole state, as in CBBA     ▷ TimedAgent adds every winning bid's start
+    for each message m that arrives do
+      consensus phase of CBBA for m
+  until the team settles                       ▷ not guaranteed: constrained gains do not diminish
+procedure enforce()
+  for each task j in B do
+    if a dependency of j has no winner then
+      waited[j] ← waited[j] + 1
+    else
+      waited[j] ← 0
+  while some task j in B fails do
+    give up j and every task added after it
+    if optimistic(j) and j failed by its timeout or a timing conflict then
+      spend one solo and one any attempt at j     ▷ an exclusion spends none
+function eligible(j)
+  met, required ← dependencies of j with a winner, dependencies of j
+  if met < required then
+    if not mutual(j) then
+      return false                             ▷ pessimistic: wait for every dependency
+    if solo[j] = 0 and (any[j] = 0 or met = 0) then
+      return false                             ▷ attempts used up: bid pessimistically
+  return the bid on j outbids the winner of every task j excludes
+function fails(j)                              ▷ optimistic(j): j is mutual and has attempts left
+  if a dependency of j has no winner and (not optimistic(j) or waited[j] ≥ o) then
+    return true
+  if the winner of a task j excludes outbids i on j then
+    return true
+  return the start of j breaks a timing limit with a partner and j gives way

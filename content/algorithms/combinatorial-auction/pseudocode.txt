@@ -1,0 +1,22 @@
+algorithm Combinatorial-Auction(V, L, k)
+  input: valuations V₁, …, V_n, capacity L, bids per agent k
+  output: at most one winning bundle per agent, with no task in two, of the highest total value
+  for each agent a do
+    BIDS_a ← the k bundles S of at most L tasks with the highest value-of(V_a, S)   ▷ XOR bids
+  bound[a] ← ∑ over agents b ≥ a of the best value in BIDS_b
+  best ← nil
+  explore(1, 0, ∅)
+  return the bundles of best
+procedure explore(a, v, TAKEN)
+  if best ≠ nil and v + bound[a] ≤ value(best) then
+    return                                     ▷ the remaining agents cannot beat best
+  if a > n then
+    best ← the current choice
+    return
+  for each bid b in BIDS_a do
+    if tasks(b) ∩ TAKEN = ∅ then
+      choose b for agent a
+      explore(a + 1, v + value(b), TAKEN ∪ tasks(b))
+  explore(a + 1, v, TAKEN)                     ▷ agent a wins nothing
+function value-of(V, S)
+  return the best total marginal gain over every order that builds S, each task at its best insertion

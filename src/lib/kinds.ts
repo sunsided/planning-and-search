@@ -3,6 +3,7 @@ export const KINDS: Record<string, string> = {
 	search: 'Search',
 	adversarial: 'Game-tree search',
 	constraint: 'Constraint satisfaction',
+	allocation: 'Task allocation',
 	heuristic: 'Heuristics',
 	abstraction: 'Abstractions',
 	pruning: 'Pruning',
