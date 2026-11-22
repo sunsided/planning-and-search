@@ -99,6 +99,7 @@ jobs:
       # captures a minute, hence the pause. Captures finish asynchronously; a failure here
       # never fails the run.
       - name: Wayback Machine
+        if: ${{ !cancelled() }} # independent of IndexNow
         continue-on-error: true
         timeout-minutes: 10
         shell: bash
