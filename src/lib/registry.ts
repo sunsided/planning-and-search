@@ -60,7 +60,7 @@ export const CATEGORIES: Category[] = [
 		slug: 'game-trees',
 		title: 'Game-tree search',
 		blurb:
-			'Choosing a move when an opponent chooses the next one: minimax, alpha-beta and its successors, under a frame budget.',
+			'Choosing a move when an opponent chooses the next one: minimax, alpha-beta and its successors, expectimax for chance, and Monte Carlo tree search, under a frame budget.',
 		hue: 315,
 		crates: ['game-tree-search']
 	},

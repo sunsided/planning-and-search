@@ -161,7 +161,8 @@ export const AUDIENCES: Audience[] = [
 			'pibt',
 			'rhea',
 			'alpha-beta-pruning',
-			'iterative-deepening-alpha-beta'
+			'iterative-deepening-alpha-beta',
+			'monte-carlo-tree-search'
 		]
 	},
 	{
