@@ -54,6 +54,10 @@ export const AUDIENCES: Audience[] = [
 				why: 'Moves fleets of mobile robots or AGVs on a grid or a roadmap graph to their goals without collisions.'
 			},
 			{
+				crate: 'task-allocation',
+				why: 'Splits tasks among robots, rovers or drones without a central planner, over links that drop and delay messages.'
+			},
+			{
 				crate: 'stochastic-search',
 				why: 'Gives a policy when actions have uncertain outcomes, or when the robot acts on noisy sensor readings.'
 			},
@@ -66,7 +70,7 @@ export const AUDIENCES: Audience[] = [
 				why: 'Finds paths on grids and graphs, for example a robot on an occupancy grid.'
 			}
 		],
-		algorithms: ['rrt-connect', 'rrt-star', 'bit-star', 'robust-rrt-star', 'cbs', 'pomcp']
+		algorithms: ['rrt-connect', 'rrt-star', 'bit-star', 'robust-rrt-star', 'cbs', 'pomcp', 'cbba']
 	},
 	{
 		slug: 'spaceflight',
@@ -135,6 +139,10 @@ export const AUDIENCES: Audience[] = [
 			{
 				crate: 'mapf-search',
 				why: 'Moves groups of units through tight corridors, where independent A* per unit deadlocks or collides.'
+			},
+			{
+				crate: 'task-allocation',
+				why: 'Assigns workers, units or squads to jobs whose value depends on what each already holds, deterministically for lockstep and replays.'
 			},
 			{
 				crate: 'evolutionary-planning',
