@@ -7,7 +7,7 @@ name: Deploy
 # Storybook under storybook/.
 #
 # After a deploy that changed the site, the notify job tells IndexNow (Bing, Yandex and
-# others) about every sitemap URL and asks the Wayback Machine to archive the entry pages.
+# others) about every sitemap URL and asks the Wayback Machine to archive the site.
 #
 # One-time setup: Settings → Pages → Source: GitHub Actions.
 
@@ -93,14 +93,30 @@ jobs:
           curl -sS --fail-with-body --max-time 60 -H 'Content-Type: application/json; charset=utf-8' \
             --data @body.json -w 'HTTP %{http_code}\n' https://api.indexnow.org/indexnow
 
-      # Anonymous Save Page Now is slow and rate-limited from shared runner IPs, so a failure
-      # here never fails the run. shortcut: two entry pages only; use SPN2 with archive.org
-      # keys and capture_outlinks to archive every page.
+      # Save Page Now 2 with archive.org S3 keys (archive.org/account/s3.php). The home page
+      # links every crate page and each crate page links its algorithms, so capturing those
+      # with their outlinks (at most 100 each) reaches every page. Authenticated users get 7
+      # captures a minute, hence the pause. Captures finish asynchronously; a failure here
+      # never fails the run.
       - name: Wayback Machine
         continue-on-error: true
-        timeout-minutes: 6
+        timeout-minutes: 10
+        shell: bash
+        env:
+          ACCESS: ${{ secrets.ARCHIVE_ORG_ACCESS_KEY }}
+          SECRET: ${{ secrets.ARCHIVE_ORG_SECRET_KEY }}
         run: |
-          for path in '' 'algorithms/'; do
-            curl -sS -o /dev/null --max-time 150 -w "$SITE_URL/$path: HTTP %{http_code}\n" \
-              "https://web.archive.org/save/$SITE_URL/$path" || true
+          if [ -z "$ACCESS" ] || [ -z "$SECRET" ]; then
+            echo "::notice::ARCHIVE_ORG_ACCESS_KEY or ARCHIVE_ORG_SECRET_KEY unset; skipping"
+            exit 0
+          fi
+          { echo "$SITE_URL/"; curl -fsS --max-time 30 "$SITE_URL/sitemap.xml" |
+            grep -o '<loc>[^<]*/crates/[^<]*' | sed 's/<loc>//'; } |
+          while read -r url; do
+            curl -sS --max-time 60 -H 'Accept: application/json' \
+              -H "Authorization: LOW $ACCESS:$SECRET" \
+              --data-urlencode "url=$url" -d capture_outlinks=1 -d if_not_archived_within=1d \
+              https://web.archive.org/save || true
+            echo
+            sleep 9
           done
