@@ -20,9 +20,21 @@ import { execFileSync } from 'node:child_process';
 import { existsSync, readFileSync, writeFileSync } from 'node:fs';
 import { posix, relative, resolve } from 'node:path';
 import { parse as parseToml } from 'smol-toml';
+import { ALGORITHMS } from '../src/lib/algorithms.ts';
 import { CATEGORIES, RELATED } from '../src/lib/registry.ts';
 import { lint, parseBlocks, type Block } from '../src/lib/richtext.ts';
-import { plain } from '../src/lib/search.ts';
+import {
+	absolutize,
+	indexPath,
+	intro,
+	latestOf,
+	released,
+	repoOf,
+	searchText,
+	sections,
+	type IndexLine,
+	type Vcs
+} from './sync-parse.ts';
 
 const ROOT = resolve(import.meta.dirname, '..');
 const DATA = resolve(ROOT, 'src/lib/data');
@@ -58,36 +70,17 @@ export interface CrateData {
 	about: 'who' | 'intro';
 }
 
-interface IndexLine {
-	vers: string;
-	yanked: boolean;
-	rust_version?: string | null;
-	deps: { name: string; package?: string; kind: 'normal' | 'dev' | 'build'; optional: boolean }[];
-}
-
 async function get(url: string): Promise<Response> {
 	const res = await fetch(url, { headers: { 'User-Agent': USER_AGENT } });
 	if (!res.ok) throw new Error(`${url}: HTTP ${res.status}`);
 	return res;
 }
 
-/** The sparse index's path for a crate name. */
-function indexPath(name: string): string {
-	const n = name.toLowerCase();
-	if (n.length <= 2) return `${n.length}/${n}`;
-	if (n.length === 3) return `3/${n[0]}/${n}`;
-	return `${n.slice(0, 2)}/${n.slice(2, 4)}/${n}`;
-}
-
 /** The newest release that is not yanked and not a pre-release. */
 async function latest(name: string): Promise<IndexLine> {
-	const lines = (await (await get(`https://index.crates.io/${indexPath(name)}`)).text())
-		.trim()
-		.split('\n')
-		.map((l) => JSON.parse(l) as IndexLine)
-		.filter((l) => !l.yanked && !l.vers.includes('-'));
-	if (!lines.length) throw new Error(`${name}: no released version on crates.io`);
-	return lines.at(-1)!;
+	const line = latestOf(await (await get(`https://index.crates.io/${indexPath(name)}`)).text());
+	if (!line) throw new Error(`${name}: no released version on crates.io`);
+	return line;
 }
 
 interface Archive {
@@ -95,7 +88,7 @@ interface Archive {
 	readme: string | null;
 	/** Every .rs file under src/, concatenated: what was released. */
 	source: string;
-	vcs: { sha: string; dir: string } | null;
+	vcs: Vcs | null;
 }
 
 /** One file out of a .crate (a gzipped tar), or null when it is not there. */
@@ -145,80 +138,6 @@ async function archive(name: string, version: string): Promise<Archive> {
 		source,
 		vcs: vcs?.git?.sha1 ? { sha: vcs.git.sha1, dir: vcs.path_in_vcs ?? '' } : null
 	};
-}
-
-/** `owner/name` from a GitHub repository URL. */
-function repoOf(url: unknown, name: string): string {
-	const m = typeof url === 'string' && /github\.com\/([^/]+\/[^/#?]+?)(?:\.git)?\/?$/.exec(url);
-	if (!m) throw new Error(`${name}: Cargo.toml repository is not a GitHub URL: ${url}`);
-	return m[1];
-}
-
-/** Turns README-relative links into GitHub links at the released commit. */
-function absolutize(md: string, repo: string, vcs: Archive['vcs']): string {
-	const ref = vcs?.sha ?? 'HEAD';
-	const dir = vcs?.dir ?? '';
-	return md.replace(/\]\((?!https?:|#|mailto:)([^)\s]+)\)/g, (_, path: string) => {
-		const inRepo = posix.normalize(posix.join(dir, path)).replace(/^\/+/, '');
-		return `](https://github.com/${repo}/blob/${ref}/${inRepo})`;
-	});
-}
-
-/** Splits a README into its `## ` sections: [heading, body]. Text before the first is ''. */
-function sections(readme: string): [string, string][] {
-	const out: [string, string][] = [['', '']];
-	for (const line of readme.split('\n')) {
-		if (/^## /.test(line)) out.push([line, '']);
-		else out[out.length - 1][1] += line + '\n';
-	}
-	return out;
-}
-
-/** The paragraphs before a README's first section, without its title and badges. */
-function intro(md: string): string {
-	return md
-		.split(/\n\s*\n/)
-		.filter((p) => !/^\s*(#|\[!\[|!\[|<|```)/.test(p) && p.trim())
-		.join('\n\n');
-}
-
-/** README prose for search: no code, tables, HTML, images, or release-schedule wording. */
-function searchText(md: string): string {
-	const prose = md
-		.replace(/^(```|~~~)[\s\S]*?^\1.*$/gm, '')
-		.replace(/^\s*\|.*$/gm, '')
-		.replace(/<[^>]+>/g, '')
-		.replace(/\[!\[[^\]]*\]\([^)]*\)\]\([^)]*\)/g, '')
-		.replace(/!\[[^\]]*\]\([^)]*\)/g, '')
-		.replace(/^#+ /gm, '');
-	return prose
-		.split(/\n\s*\n/)
-		.map(plain)
-		.filter((p) => p && !lint(p).length)
-		.join(' ');
-}
-
-interface Algorithm {
-	slug: string;
-	name: string;
-	aliases: string[];
-	implementations: { crate: string; items: string[] }[];
-}
-
-const ALGORITHMS: Algorithm[] = JSON.parse(
-	readFileSync(resolve(ROOT, 'content/algorithms.json'), 'utf8')
-);
-
-const escape = (s: string) => s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-
-/** Whether a public item of that name is in the released source (declared or re-exported). */
-function released(source: string, item: string): boolean {
-	const name = escape(item.split('::').at(-1)!);
-	const declared = new RegExp(
-		`\\bpub\\s+(?:(?:async|const|unsafe)\\s+)*(?:fn|struct|enum|type|trait|const|static|mod|union)\\s+${name}\\b`
-	);
-	const reexported = new RegExp(`\\bpub\\s+use\\s[^;]*\\b${name}\\b`);
-	return declared.test(source) || reexported.test(source);
 }
 
 /**
