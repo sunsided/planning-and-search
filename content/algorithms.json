@@ -656,21 +656,6 @@
 		]
 	},
 	{
-		"slug": "constrained-delaunay-triangulation",
-		"name": "Constrained Delaunay triangulation",
-		"aliases": ["CDT"],
-		"kind": "other",
-		"refs": [],
-		"implementations": [
-			{
-				"crate": "connector-routing",
-				"items": [],
-				"feature": null,
-				"summary": "An exact constrained Delaunay triangulation with Lawson flips and Sloan's constraint recovery, used by sleeve routing."
-			}
-		]
-	},
-	{
 		"slug": "constrained-shortest-path",
 		"name": "Constrained shortest path",
 		"aliases": ["Resource-constrained shortest path"],
@@ -1208,21 +1193,6 @@
 				"items": ["frtdp", "FrtdpConfig"],
 				"feature": null,
 				"summary": "Focused RTDP with lower and upper bounds; trials follow the successor of highest priority with an adaptive depth limit."
-			}
-		]
-	},
-	{
-		"slug": "funnel-algorithm",
-		"name": "Funnel algorithm",
-		"aliases": [],
-		"kind": "routing",
-		"refs": [],
-		"implementations": [
-			{
-				"crate": "connector-routing",
-				"items": [],
-				"feature": null,
-				"summary": "The shortest path through a sequence of portals, with exact orientation tests, used by sleeve routing."
 			}
 		]
 	},

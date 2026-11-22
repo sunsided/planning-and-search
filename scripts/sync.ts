@@ -221,19 +221,17 @@ function released(source: string, item: string): boolean {
 }
 
 /**
- * The algorithms a release implements: every listed item must be public in its source, or,
- * for an entry without items, its name or an alias must be in its README. The curated list
- * may run ahead of a release; what is not released yet stays off the site.
+ * The algorithms a release implements: every listed item must be public in its source. The
+ * curated list may run ahead of a release; what is not released yet stays off the site.
  */
-function releasedAlgorithms(name: string, source: string, readme: string): string[] {
-	const text = readme.toLowerCase();
+function releasedAlgorithms(name: string, source: string): string[] {
 	const out: string[] = [];
 	for (const a of ALGORITHMS) {
 		const impl = a.implementations.find((i) => i.crate === name);
 		if (!impl) continue;
-		const ok = impl.items.length
-			? impl.items.every((i) => released(source, i))
-			: [a.name, ...a.aliases].some((n) => text.includes(n.toLowerCase()));
+		if (!impl.items.length)
+			throw new Error(`content/algorithms.json: ${a.slug} in ${name} names no public item`);
+		const ok = impl.items.every((i) => released(source, i));
 		if (ok) out.push(a.slug);
 		else console.warn(`${name}: ${a.name} is not in the release; left off`);
 	}
@@ -312,7 +310,7 @@ for (const name of names) {
 			.sort((a, b) => a.name.localeCompare(b.name)),
 		siblings,
 		audience: parseBlocks(md),
-		algorithms: releasedAlgorithms(name, source, readme ?? ''),
+		algorithms: releasedAlgorithms(name, source),
 		about
 	});
 	console.log(`${name} ${index.vers}`);

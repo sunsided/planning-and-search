@@ -32,9 +32,7 @@
 		"algorithms": [
 			"1-bend-visibility-graph",
 			"a-star",
-			"constrained-delaunay-triangulation",
 			"crossing-reduction",
-			"funnel-algorithm",
 			"incremental-poly-line-routing",
 			"nudging",
 			"orthogonal-drawing-pipeline",
@@ -196,7 +194,7 @@
 	},
 	{
 		"name": "heuristic-search",
-		"version": "0.2.1",
+		"version": "0.2.2",
 		"repo": "sunsided/heuristic-search",
 		"description": "Explicit-state heuristic graph search: A*, weighted and anytime, bounded-suboptimal, bidirectional, incremental and real-time search",
 		"license": "MIT OR Apache-2.0",
