@@ -61,6 +61,13 @@ tasks:
     cmds:
       - '{{.RUN}} lint'
 
+  fmt:
+    desc: Format everything with Prettier
+    aliases: [format]
+    deps: [install]
+    cmds:
+      - '{{.RUN}} format'
+
   check:
     desc: Type check
     deps: [install]
