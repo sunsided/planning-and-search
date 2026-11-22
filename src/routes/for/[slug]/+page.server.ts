@@ -15,7 +15,7 @@ export const load: PageServerLoad = ({ params }) => {
 	};
 	return {
 		audience: a,
-		start: { ...a.start, ...info(a.start.crate) },
+		start: a.start.map((s) => ({ ...s, ...info(s.crate) })),
 		crates: a.crates.map((p) => ({ ...p, ...info(p.crate) })),
 		algorithms: a.algorithms.map((slug) => ({
 			slug,

@@ -37,6 +37,10 @@ reaches the site by the next morning. The snapshot is committed for offline work
 - The rest of each README (`readmes.json`) feeds search as a weaker signal. It is loaded
   when the search palette first opens.
 
+To preview a release before it is published, `node scripts/sync.ts --local <crate dir>@0.1.0`
+(repeatable) takes that crate from its checkout through `cargo package` instead of crates.io.
+Do not commit the snapshot it writes; the deploy syncs from crates.io again.
+
 The sync fails on a section the site would show with schedule wording ("roadmap", "not yet",
 "pre-release", …). On the nightly run, that leaves the last deploy in place.
 

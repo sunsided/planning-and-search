@@ -1,0 +1,25 @@
+algorithm PVS(p, d, α, β)
+  input: position p, depth d, window (α, β) from Max's point of view, (−∞, +∞) at the root
+  output: the score Alpha-beta(p, d, α, β) returns, with the same bound
+  if d = 0 or moves(p) = ∅ then
+    return evaluate(p)
+  s ← side-to-move(p)
+  best ← nil
+  for each m in ordered-moves(p) do            ▷ closes and better as in Alpha-beta
+    if best ≠ nil and (closes(s, best, α, β) or satisfices(s, best)) then
+      break
+    p′ ← play(p, m)
+    v ← nil
+    if s = Max and α ≠ −∞ then
+      v ← PVS(p′, d − 1, α, next-up(α))        ▷ scout: does m beat α?
+    else if s = Min and β ≠ +∞ then
+      v ← PVS(p′, d − 1, next-down(β), β)      ▷ scout: does m get below β?
+    if v = nil or (v is a bound and α < v < β) then
+      v ← PVS(p′, d − 1, α, β)                 ▷ no edge to scout, or the scout failed: search again
+    if s = Max then
+      α ← max(α, v)
+    else
+      β ← min(β, v)
+    if best = nil or better(s, v, best) then
+      best ← v
+  return best

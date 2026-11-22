@@ -1,0 +1,19 @@
+algorithm Expectimax(p, d)
+  input: position p, depth d
+  output: the expected minimax value of p, searched d plies deep
+  O ← outcomes(p)                              ▷ chance position: moves with probabilities
+  if O ≠ ∅ then
+    if d = 0 then
+      return evaluate(p)
+    return Σ w · Expectimax(play(p, m), d − 1) / Σ w   over (m, w) ∈ O
+  if d = 0 then
+    return Quiesce(p)                          ▷ evaluate(p) unless noisy moves are left
+  if moves(p) = ∅ then
+    return evaluate(p)
+  s ← side-to-move(p)
+  best ← nil
+  for each m in moves(p) do
+    v ← Expectimax(play(p, m), d − 1)
+    if best = nil or better(s, v, best) then
+      best ← v                                 ▷ ties go to the earliest move
+  return best

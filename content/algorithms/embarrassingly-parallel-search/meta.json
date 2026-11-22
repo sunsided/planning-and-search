@@ -1,0 +1,24 @@
+{
+	"description": "Embarrassingly parallel search splits one search into many independent subproblems; here it is `ParallelSolver`, behind the `parallel` feature, which needs `std`. It fixes the branching variables breadth first, propagating each partial assignment and dropping the inconsistent ones, until there are at least eight subproblems per thread. Worker threads, each with its own solver over the shared model, take the subproblems from a shared queue, and a shared flag stops them all at the first solution, at a count's limit or when one budget runs out. Use it to find or count solutions of one hard model on several cores. The *portfolio* mode instead races one thread per pair of variable and value orders on the whole problem.",
+	"papers": [
+		{
+			"authors": "Jean-Charles Régin, Mohamed Rezgui, Arnaud Malapert",
+			"title": "Embarrassingly Parallel Search",
+			"year": 2013,
+			"venue": "Principles and Practice of Constraint Programming (CP 2013), Lecture Notes in Computer Science",
+			"doi": "10.1007/978-3-642-40627-0_45",
+			"arxiv": null,
+			"url": "https://hal.science/hal-01344074",
+			"role": "introduces"
+		}
+	],
+	"lineage": [
+		{
+			"slug": "backtracking-search",
+			"name": null,
+			"relation": "builds-on",
+			"source": "constraint-search, src/parallel.rs: \"Each worker thread owns a [`Solver`] and searches subproblems below partial assignments\""
+		}
+	],
+	"trace": null
+}

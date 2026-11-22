@@ -1,0 +1,14 @@
+algorithm Negamax(p, d, viewer)
+  input: position p, depth d, the side viewer that moved into p (Max at the root)
+  output: the score of p from viewer's point of view
+  if d = 0 or moves(p) = ∅ then
+    return oriented(evaluate(p), viewer)       ▷ evaluate scores for Max; negated for Min
+  s ← side-to-move(p)
+  best ← −∞
+  for each m in moves(p) do
+    v ← Negamax(play(p, m), d − 1, s)          ▷ every child is scored for s
+    if v > best then
+      best ← v
+  if s = viewer then
+    return best
+  return −best                                 ▷ negate only where the side to move changes

@@ -2,7 +2,9 @@
 	export interface AudienceView {
 		title: string;
 		lead: string;
+		/** One crate to begin with, or one per job (then each has `job`). */
 		start: {
+			job?: string;
 			crate: string;
 			repo: string;
 			description: string;
@@ -10,7 +12,7 @@
 			first: string;
 			href: string;
 			hue: number;
-		};
+		}[];
 		crates: { crate: string; description: string; why: string; href: string; hue: number }[];
 		algorithms: { name: string; href: string }[];
 	}
@@ -27,6 +29,7 @@
 
 	/** A focused view for one group of readers: where to start, what else, what to read. */
 	let { view, back }: { view: AudienceView; back: string } = $props();
+	const single = $derived(view.start.length === 1);
 </script>
 
 <article class="audience">
@@ -36,14 +39,21 @@
 		<p class="lead">{view.lead}</p>
 	</header>
 
-	<section class="start" aria-labelledby="start" data-accent style:--accent-h={view.start.hue}>
-		<Label as="h2">Start here</Label>
-		<h3 id="start"><Node /><a href={view.start.href}><code>{view.start.crate}</code></a></h3>
-		<p class="desc"><RichText text={view.start.description} /></p>
-		<p>{view.start.why}</p>
-		<p class="first"><strong>First step.</strong> {view.start.first}</p>
-		<CrateLinks name={view.start.crate} repo={view.start.repo} />
-		<InstallSnippet name={view.start.crate} />
+	<section class="starts" class:several={!single} aria-label="Start here">
+		{#each view.start as s (s.crate)}
+			<div class="start" data-accent style:--accent-h={s.hue}>
+				<Label as="h2">{s.job ? `Start here: ${s.job}` : 'Start here'}</Label>
+				<h3><Node /><a href={s.href}><code>{s.crate}</code></a></h3>
+				{#if single}<p class="desc"><RichText text={s.description} /></p>{/if}
+				<p>{s.why}</p>
+				<p class="first"><strong>First step.</strong> {s.first}</p>
+				<!-- Side by side, the cards stay short; the crate page has the links and the install line. -->
+				{#if single}
+					<CrateLinks name={s.crate} repo={s.repo} />
+					<InstallSnippet name={s.crate} />
+				{/if}
+			</div>
+		{/each}
 	</section>
 
 	{#if view.crates.length}
@@ -100,8 +110,17 @@
 		font-size: var(--step-1);
 		line-height: var(--leading-snug);
 	}
+	.starts {
+		display: grid;
+		gap: var(--space-4);
+	}
+	/* Side by side while each card keeps room for its links; stacked on narrow screens. */
+	.starts.several {
+		grid-template-columns: repeat(auto-fit, minmax(min(100%, 17rem), 1fr));
+	}
 	.start {
 		display: grid;
+		align-content: start;
 		justify-items: start;
 		gap: var(--space-3);
 		padding: var(--space-5);
@@ -115,6 +134,13 @@
 		align-items: center;
 		gap: var(--space-3);
 		font-size: var(--step-3);
+	}
+	.several .start {
+		grid-template-columns: minmax(0, 1fr);
+		padding: var(--space-4);
+	}
+	.several .start h3 {
+		font-size: var(--step-1);
 	}
 	.start h3 code {
 		padding: 0;
@@ -167,6 +193,43 @@
 		color: var(--color-text-muted);
 		font-size: var(--step--1);
 		line-height: var(--leading-snug);
+	}
+	/*
+	 * The "Then look at" cards and side-by-side starts link as a whole, as the overview's
+	 * crate cards do: the title link covers the card. The single start keeps its own buttons.
+	 */
+	.crates li,
+	.several .start {
+		position: relative;
+		transition:
+			border-color var(--dur-fast) var(--ease-out),
+			translate var(--dur-mid) var(--ease-out);
+	}
+	.crates li:hover,
+	.crates li:has(:focus-visible),
+	.several .start:hover,
+	.several .start:has(:focus-visible) {
+		border-color: var(--accent-line);
+		translate: 0 var(--lift);
+	}
+	.crates a::after,
+	.several h3 a::after {
+		content: '';
+		position: absolute;
+		inset: 0;
+		border-radius: inherit;
+	}
+	.crates a:focus-visible,
+	.several h3 a:focus-visible {
+		outline: none;
+	}
+	.crates li:has(a:focus-visible),
+	.several .start:has(a:focus-visible) {
+		outline: var(--focus-width) solid var(--color-focus);
+		outline-offset: var(--focus-offset);
+	}
+	.several h3 a {
+		text-decoration: none;
 	}
 	.algos {
 		display: flex;

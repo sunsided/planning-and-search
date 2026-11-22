@@ -1,0 +1,27 @@
+{
+	"description": "Minimax picks a move in a two-player game by assuming that the opponent always answers with its best move. It searches every line to a fixed depth and scores the positions there with an evaluation function, from the point of view of the side *Max*. Going back up, *Max* takes the highest child score and *Min* the lowest. The side to move belongs to the position, so one side may move several times in a row. Minimax visits every position of the tree, so it serves as a reference; use alpha-beta pruning for the same score at far lower cost.",
+	"papers": [
+		{
+			"authors": "J. v. Neumann",
+			"title": "Zur Theorie der Gesellschaftsspiele",
+			"year": 1928,
+			"venue": "Mathematische Annalen",
+			"doi": "10.1007/BF01448847",
+			"arxiv": null,
+			"url": null,
+			"role": "introduces"
+		},
+		{
+			"authors": "Claude E. Shannon",
+			"title": "Programming a computer for playing chess",
+			"year": 1950,
+			"venue": "The London, Edinburgh, and Dublin Philosophical Magazine and Journal of Science",
+			"doi": "10.1080/14786445008521796",
+			"arxiv": null,
+			"url": null,
+			"role": "applies"
+		}
+	],
+	"lineage": [],
+	"trace": null
+}

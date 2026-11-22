@@ -1,0 +1,30 @@
+{
+	"description": "MTD(f) finds the minimax score of the root with a series of null-window alpha-beta searches. Each pass asks whether the score reaches a guess, and its answer raises a lower bound or lowers an upper bound; the next guess is the score the pass returned. Once the bounds meet, one search with a window just around the score returns it exactly, with its principal variation. Passes revisit the same positions, so use MTD(f) with a transposition table and a good first guess, such as the score of the last deepening iteration.",
+	"papers": [
+		{
+			"authors": "Aske Plaat, Jonathan Schaeffer, Wim Pijls, Arie de Bruin",
+			"title": "Best-first fixed-depth minimax algorithms",
+			"year": 1996,
+			"venue": "Artificial Intelligence",
+			"doi": "10.1016/0004-3702(95)00126-3",
+			"arxiv": null,
+			"url": null,
+			"role": "introduces"
+		}
+	],
+	"lineage": [
+		{
+			"slug": "alpha-beta-pruning",
+			"name": null,
+			"relation": "builds-on",
+			"source": "game-tree-search, src/mtdf.rs: \"Returns the same score and bound as [`alpha_beta()`](crate::alpha_beta()).\""
+		},
+		{
+			"slug": "transposition-table",
+			"name": null,
+			"relation": "combines",
+			"source": "game-tree-search, src/mtdf.rs: \"Passes revisit the same positions, so MTD(f) pays off with a transposition table\""
+		}
+	],
+	"trace": null
+}

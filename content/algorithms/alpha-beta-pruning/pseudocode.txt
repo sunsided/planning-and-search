@@ -1,0 +1,26 @@
+algorithm Alpha-beta(p, d, α, β)
+  input: position p, depth d, window (α, β) from Max's point of view, (−∞, +∞) at the root
+  output: the minimax score of p if it lies inside (α, β), else a bound beyond that edge
+  if d = 0 or moves(p) = ∅ then
+    return evaluate(p)
+  s ← side-to-move(p)                          ▷ read from p, so a side may move twice in a row
+  best ← nil
+  for each m in ordered-moves(p) do            ▷ the last principal variation first
+    if best ≠ nil and (closes(s, best, α, β) or satisfices(s, best)) then
+      break                                    ▷ cutoff: the rest cannot change the decision
+    v ← Alpha-beta(play(p, m), d − 1, α, β)
+    if s = Max then
+      α ← max(α, v)
+    else
+      β ← min(β, v)
+    if best = nil or better(s, v, best) then
+      best ← v
+  return best                                  ▷ fail-soft: may lie outside (α, β)
+function closes(s, v, α, β)
+  if s = Max then
+    return v ≥ β
+  return v ≤ α
+function better(s, v, w)
+  if s = Max then
+    return v > w
+  return v < w

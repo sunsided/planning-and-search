@@ -46,6 +46,47 @@
 		"about": "who"
 	},
 	{
+		"name": "constraint-search",
+		"version": "0.1.0",
+		"repo": "sunsided/constraint-search",
+		"description": "Finite-domain constraint satisfaction for puzzles and deduction games: check that a puzzle has one solution, give human-style hints and grade difficulty, infer hidden facts, with propagation, all-different reasoning, backtracking and solution counting",
+		"license": "MIT OR Apache-2.0",
+		"msrv": "1.85",
+		"keywords": ["constraint", "csp", "propagation", "puzzle", "backtracking"],
+		"deps": [
+			{
+				"name": "search-core",
+				"kind": "normal"
+			}
+		],
+		"siblings": [],
+		"audience": [
+			{
+				"kind": "ul",
+				"items": [
+					"Puzzle generators and solvers (Sudoku and its variants, nonograms, Minesweeper, Kakuro, logic grids): uniqueness checks stop at the second solution, and the human-style rules grade difficulty by the costliest technique a solve needs and give the next hint step.",
+					"Tutoring, hint and explainable configuration tools, and small scheduling or allocation models: rules carry names, and `Trace::why_removed` says which deduction ruled a value out, so \"why can't I choose this?\" has an answer next to the solution.",
+					"Game AI with hidden information, such as card locations or unrevealed Minesweeper cells: the backbone gives the certain facts, marginals the probability of each value, and sampling draws consistent hidden states to plan with, without enumerating worlds by hand.",
+					"Embedded and `no_std` users: the core needs only `alloc`, and parallel search is an opt-in `std` feature.",
+					"For large industrial models, optimisation objectives or huge domains, use [OR-Tools CP-SAT](https://developers.google.com/optimization), [Gecode](https://www.gecode.org/) or a MIP solver. For search over the moves of an adversarial game, use [game-tree-search](https://github.com/sunsided/game-tree-search); for shortest paths and state-space search with costs, [heuristic-search](https://github.com/sunsided/heuristic-search); for planning when the outcomes of actions are uncertain, rather than facts hidden, [stochastic-search](https://github.com/sunsided/stochastic-search)."
+				]
+			}
+		],
+		"algorithms": [
+			"all-different-matching",
+			"backbone-and-marginals",
+			"backtracking-search",
+			"constraint-propagation",
+			"dancing-links",
+			"embarrassingly-parallel-search",
+			"inference-rules",
+			"linear-bounds-propagation",
+			"nonogram-line-solving",
+			"table-constraint"
+		],
+		"about": "who"
+	},
+	{
 		"name": "cost-partition",
 		"version": "0.3.0",
 		"repo": "sunsided/cost-partition",
@@ -198,6 +239,49 @@
 			"rmhc",
 			"rosenbrock-method",
 			"stl-robustness"
+		],
+		"about": "who"
+	},
+	{
+		"name": "game-tree-search",
+		"version": "0.1.0",
+		"repo": "sunsided/game-tree-search",
+		"description": "Adversarial game-tree search for computer opponents in board, card and turn-based games: minimax, negamax, alpha-beta, principal variation search, MTD(f), iterative deepening with transposition tables, expectimax and Monte Carlo tree search",
+		"license": "MIT OR Apache-2.0",
+		"msrv": "1.85",
+		"keywords": ["minimax", "alpha-beta", "mcts", "game-tree", "search"],
+		"deps": [
+			{
+				"name": "search-core",
+				"kind": "normal"
+			}
+		],
+		"siblings": [],
+		"audience": [
+			{
+				"kind": "ul",
+				"items": [
+					"**Game developers writing a computer opponent** for a two-sided, turn-based game: board games, card games, tactics and combat systems. The side to move belongs to the position, so turn orders by initiative or speed, where one side may act several times in a row, work as they are.",
+					"**Opponents that explain themselves or scale in difficulty**: a search returns the chosen move with its score, the expected line of play, and the alternatives with their scores or bounds, so a game can show what its opponent considered or pick a weaker move on purpose.",
+					"**Games with a frame or time limit**: a node or time budget stops iterative deepening with the best move found so far, and a reusable searcher allocates nothing per position once warm. The crate is `no_std`, so it also runs on consoles, handhelds and in WebAssembly."
+				]
+			},
+			{
+				"kind": "p",
+				"text": "It is not for single-agent problems: for pathfinding, see [heuristic-search](https://github.com/sunsided/heuristic-search); for puzzles, including checking that a puzzle has a unique solution and grading it, see [constraint-search](https://github.com/sunsided/constraint-search). Games with hidden information, such as most trick-taking card games, search sampled deals of the hidden cards, one deal at a time; [constraint-search](https://github.com/sunsided/constraint-search) draws deals consistent with what a player has seen, and tells which cards are certain or likely."
+			}
+		],
+		"algorithms": [
+			"alpha-beta-pruning",
+			"expectimax",
+			"iterative-deepening-alpha-beta",
+			"minimax",
+			"monte-carlo-tree-search",
+			"mtd-f",
+			"negamax",
+			"principal-variation-search",
+			"quiescence-search",
+			"transposition-table"
 		],
 		"about": "who"
 	},

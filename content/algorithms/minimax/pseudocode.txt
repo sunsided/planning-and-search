@@ -1,0 +1,16 @@
+algorithm Minimax(p, d)
+  input: position p, depth d in plies
+  output: the minimax score of p, from Max's point of view
+  if d = 0 or moves(p) = ∅ then
+    return evaluate(p)
+  s ← side-to-move(p)                          ▷ read from p, so a side may move twice in a row
+  best ← nil
+  for each m in moves(p) do
+    v ← Minimax(play(p, m), d − 1)
+    if best = nil or better(s, v, best) then   ▷ ties keep the earlier move
+      best ← v
+  return best
+function better(s, v, w)
+  if s = Max then
+    return v > w
+  return v < w

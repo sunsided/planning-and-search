@@ -10,7 +10,7 @@
 		crates: category.crates.map((n) => crate(n)).filter((c): c is Crate => !!c)
 	}));
 	const description =
-		'Rust crates for heuristic search, classical planning, multi-agent pathfinding, planning under uncertainty, motion planning, reachability and scheduling.';
+		'Rust crates for heuristic search, classical planning, multi-agent pathfinding, planning under uncertainty, game-tree search, constraint satisfaction, motion planning, reachability and scheduling.';
 </script>
 
 <svelte:head>

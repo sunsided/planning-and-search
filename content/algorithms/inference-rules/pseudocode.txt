@@ -1,0 +1,30 @@
+algorithm Rules-Solve(R, D, unique)
+  input: rules R sorted by cost, cheapest first, domains D, whether to assume one solution
+  output: the steps applied, and whether every variable has one value left
+  STEPS ← ⟨⟩
+  repeat
+    s ← step(R, D, unique)
+    if s ≠ nil then
+      append(STEPS, s)
+  until s = nil
+  return STEPS, solved(D)
+function step(R, D, unique)
+  for each rule ρ in R do                      ▷ from the cheapest on every step
+    if not assumes-unique(ρ) or unique then    ▷ unique: the caller asserts one solution
+      mark ← length(TRAIL)
+      apply(ρ, D)                              ▷ failure if a domain would empty
+      if length(TRAIL) > mark then
+        return ⟨ρ, cost(ρ), the values removed since mark⟩
+  return nil
+function why-removed(STEPS, x, v)
+  for each s in STEPS do
+    if v ∈ removed(s, x) then
+      return s
+  return nil
+procedure ValueSubset(k, GROUPS, D)
+  for each group g in GROUPS do
+    if |⋃ D(x) over x ∈ g| = |g| then          ▷ only groups that must use every value
+      for each set W of k values, each held by 1 to k variables of g, one of them unfixed do
+        H ← the variables of g that hold a value of W
+        if |H| = k then
+          D(x) ← D(x) ∩ W for each x ∈ H       ▷ a hidden subset

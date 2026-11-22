@@ -57,6 +57,22 @@ export const CATEGORIES: Category[] = [
 		crates: ['stochastic-search']
 	},
 	{
+		slug: 'game-trees',
+		title: 'Game-tree search',
+		blurb:
+			'Choosing a move when an opponent chooses the next one: minimax, alpha-beta and its successors, expectimax for chance, and Monte Carlo tree search, under a frame budget.',
+		hue: 315,
+		crates: ['game-tree-search']
+	},
+	{
+		slug: 'constraints',
+		title: 'Constraint satisfaction',
+		blurb:
+			'Small finite domains and the constraints that prune them: puzzles, deduction with hidden information, and small schedules.',
+		hue: 40,
+		crates: ['constraint-search']
+	},
+	{
 		slug: 'motion',
 		title: 'Motion planning',
 		blurb:
@@ -133,6 +149,24 @@ export function categoryOf(name: string): Category | undefined {
 export function dependents(name: string): { name: string; kind: DepKind }[] {
 	return CRATES.flatMap((c) =>
 		c.deps.filter((d) => d.name === name).map((d) => ({ name: c.name, kind: d.kind as DepKind }))
+	);
+}
+
+/**
+ * The crate a README link means, when it is a crate's GitHub repository or its directory in a
+ * workspace (`…/tree/<ref>/<crate>`). Links into files or to a heading stay on GitHub. A
+ * workspace root means the crate named after the repository, with or without `-rs`.
+ */
+export function crateAt(href: string): string | undefined {
+	const m =
+		/^https:\/\/github\.com\/([^/#?]+\/[^/#?]+?)\/?(?:\/tree\/[^/#?]+\/([^/#?]+)\/?)?$/.exec(href);
+	if (!m) return undefined;
+	const [, repo, dir] = m;
+	const here = CRATES.filter((c) => c.repo === repo).map((c) => c.name);
+	if (dir) return here.find((n) => n === dir);
+	const base = repo.split('/')[1];
+	return (
+		here.find((n) => n === base || `${n}-rs` === base) ?? (here.length === 1 ? here[0] : undefined)
 	);
 }
 

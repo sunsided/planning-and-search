@@ -1,0 +1,24 @@
+{
+	"description": "All-different keeps exactly the values that some assignment of pairwise distinct values uses (*generalised arc consistency*). Each run builds the graph between the variables and the values of their domains and matches every variable to its own value by augmenting paths, from an empty matching; if no such matching exists, or fewer values than variables remain, the constraint fails. With matched edges pointing from variable to value and the others from value to variable, an edge stays if it is matched, if its variable and value lie in one strongly connected component, or if a free value reaches its value; every other value goes. This catches every *Hall set*: `k` variables that share `k` values keep them to themselves. Use it for Sudoku groups, Latin squares and logic grids.",
+	"papers": [
+		{
+			"authors": "Jean-Charles Régin",
+			"title": "A Filtering Algorithm for Constraints of Difference in CSPs",
+			"year": 1994,
+			"venue": "Proceedings of the Twelfth National Conference on Artificial Intelligence (AAAI-94)",
+			"doi": null,
+			"arxiv": null,
+			"url": "https://aaai.org/papers/00362-aaai94-055-a-filtering-algorithm-for-constraints-of-difference-in-csps/",
+			"role": "introduces"
+		}
+	],
+	"lineage": [
+		{
+			"slug": "constraint-propagation",
+			"name": null,
+			"relation": "builds-on",
+			"source": "constraint-search, src/all_different.rs: \"impl<D: Domain> Propagator<D> for AllDifferent {\""
+		}
+	],
+	"trace": null
+}

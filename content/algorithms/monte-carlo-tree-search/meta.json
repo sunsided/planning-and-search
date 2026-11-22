@@ -1,0 +1,37 @@
+{
+	"description": "Monte Carlo tree search (MCTS) grows a search tree by simulations instead of searching every line to a fixed depth. Each simulation descends from the root, trying unvisited children first and then choosing by a *selection* rule for the side to move; it adds the first new node it reaches, values it with an *evaluator* and adds that reward, in `[0, 1]` from Max's point of view, to every node on its path. The default selection is UCT, a child's mean reward for the side to move plus an exploration bonus that shrinks with its visits; the default evaluator is a random playout, and the game's own evaluation can replace it. After the budget of simulations or nodes, it plays the most visited root move and reports each root move's visits and mean, which several searches, say over sampled deals of hidden cards, can add up. It needs no evaluation function and suits games with large branching factors; its strength grows with the simulations spent.",
+	"papers": [
+		{
+			"authors": "Rémi Coulom",
+			"title": "Efficient Selectivity and Backup Operators in Monte-Carlo Tree Search",
+			"year": 2007,
+			"venue": "Computers and Games (CG 2006), Lecture Notes in Computer Science",
+			"doi": "10.1007/978-3-540-75538-8_7",
+			"arxiv": null,
+			"url": null,
+			"role": "introduces"
+		},
+		{
+			"authors": "Levente Kocsis, Csaba Szepesvári",
+			"title": "Bandit Based Monte-Carlo Planning",
+			"year": 2006,
+			"venue": "Machine Learning: ECML 2006, Lecture Notes in Computer Science",
+			"doi": "10.1007/11871842_29",
+			"arxiv": null,
+			"url": null,
+			"role": "introduces"
+		},
+		{
+			"authors": "Cameron B. Browne, Edward Powley, Daniel Whitehouse, Simon M. Lucas, Peter I. Cowling, Philipp Rohlfshagen, Stephen Tavener, Diego Perez, Spyridon Samothrakis, Simon Colton",
+			"title": "A Survey of Monte Carlo Tree Search Methods",
+			"year": 2012,
+			"venue": "IEEE Transactions on Computational Intelligence and AI in Games",
+			"doi": "10.1109/TCIAIG.2012.2186810",
+			"arxiv": null,
+			"url": null,
+			"role": "surveys"
+		}
+	],
+	"lineage": [],
+	"trace": null
+}

@@ -1,0 +1,25 @@
+algorithm Backtracking-Search(model, D)
+  input: model with propagators, current domains D, variable order, value order
+  output: each solution in turn (the walk pauses there and resumes after it)
+  if propagate-all(D) = failure then
+    return
+  search(D)
+procedure search(D)
+  x ← pick-variable(D)                         ▷ MRV: fewest values left, ties by index; or lowest index
+  if x = nil then
+    yield D                                    ▷ every variable is fixed
+    return
+  VALUES ← order(D(x))                         ▷ ascending, descending, least constraining or random
+  move the hint value of x, if any, to the front of VALUES
+  for each v in VALUES do
+    push-level(D)
+    if assign(D, x, v) ≠ failure and propagate-changes(D) ≠ failure then
+      search(D)
+    pop-level(D)                               ▷ the trail restores every changed domain
+function count(model, D, limit)
+  n ← 0
+  for each solution s of Backtracking-Search(model, D) do
+    n ← n + 1
+    if n = limit then
+      return at least n                        ▷ a limit of 2 decides uniqueness
+  return exactly n

@@ -92,12 +92,27 @@ export function searchText(md: string): string {
 
 const escape = (s: string) => s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
 
-/** Whether a public item of that name is in the released source (declared or re-exported). */
-export function released(source: string, item: string): boolean {
-	const name = escape(item.split('::').at(-1)!);
+/** Whether a public item of that name is declared or re-exported in `source`. */
+function isPublic(source: string, item: string): boolean {
+	const name = escape(item);
 	const declared = new RegExp(
 		`\\bpub\\s+(?:(?:async|const|unsafe)\\s+)*(?:fn|struct|enum|type|trait|const|static|mod|union)\\s+${name}\\b`
 	);
 	const reexported = new RegExp(`\\bpub\\s+use\\s[^;]*\\b${name}\\b`);
 	return declared.test(source) || reexported.test(source);
+}
+
+/**
+ * Whether a public item of that name is in the released source. A module path counts by its
+ * last segment; `Trait::method` also counts when the trait is public and some `fn method`
+ * exists, since trait methods carry no `pub` of their own.
+ */
+export function released(source: string, item: string): boolean {
+	const parts = item.split('::');
+	const name = parts.at(-1)!;
+	if (isPublic(source, name)) return true;
+	const owner = parts.at(-2);
+	return (
+		!!owner && isPublic(source, owner) && new RegExp(`\\bfn\\s+${escape(name)}\\b`).test(source)
+	);
 }

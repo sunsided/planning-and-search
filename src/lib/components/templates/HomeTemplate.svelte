@@ -26,9 +26,9 @@
 		<h1>Planning and search, one crate at a time</h1>
 		<p class="lead">
 			Heuristic and multi-objective graph search, classical planning with its heuristics,
-			multi-agent pathfinding, planning under uncertainty, motion planning, reachability and onboard
-			scheduling. Each crate does one job, shares the same core traits where it makes sense, and
-			documents the algorithms it implements.
+			multi-agent pathfinding, planning under uncertainty, adversarial game-tree search, constraint
+			satisfaction, motion planning, reachability and onboard scheduling. Each crate does one job,
+			shares the same core traits where it makes sense, and documents the algorithms it implements.
 		</p>
 		<nav aria-label="Categories">
 			<ul class="toc">

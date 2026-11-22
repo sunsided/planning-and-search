@@ -1,0 +1,13 @@
+{
+	"description": "A table constraint lists the allowed tuples of values for its variables. Each run scans the whole table, keeps the tuples whose values are all still in their domains, and collects the values of those tuples per variable. Each variable then keeps only its collected values, and the constraint fails when no tuple is left. The result is complete: every value left belongs to an allowed tuple whose other values are all still possible. It keeps no reduced table between runs, so use it for small relations that are easier to list than to compute, such as KenKen cages or the allowed colour pairs of two regions.",
+	"papers": [],
+	"lineage": [
+		{
+			"slug": "constraint-propagation",
+			"name": null,
+			"relation": "builds-on",
+			"source": "constraint-search, src/table.rs: \"impl<D: Domain> Propagator<D> for Table {\""
+		}
+	],
+	"trace": null
+}

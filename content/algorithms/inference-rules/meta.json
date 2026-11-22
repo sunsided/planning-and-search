@@ -1,0 +1,13 @@
+{
+	"description": "Inference rules solve a puzzle the way a person does: each rule is one named technique with a cost, such as two cells that share the only two values left. Each step applies the cheapest rule that removes a value and records what it removed, and a solve repeats steps until no rule fires. The steps serve as hints, the most expensive rule a solve needed grades the puzzle, and `why_removed` names the step that took a value away. The rules shipped have generic names: `VariableSubset`, `ValueSubset` (only in groups that must use every value), `GroupIntersection`, `SumDifference` (one sum subtracted from a sum that contains it) and `PropagatorRule` (any propagator, such as `Linear` or `Line`, as a rule); `with_name` gives a rule a domain's own term, such as Sudoku's naked and hidden subsets or locked candidates. Use them to explain and grade; use propagators and search to solve fast.",
+	"papers": [],
+	"lineage": [
+		{
+			"slug": "constraint-propagation",
+			"name": null,
+			"relation": "builds-on",
+			"source": "constraint-search, src/rule.rs: \"[`PropagatorRule`] turns any propagator into a rule\""
+		}
+	],
+	"trace": null
+}

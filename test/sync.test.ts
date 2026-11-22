@@ -25,6 +25,13 @@ test('an item counts as released only when it is public', () => {
 	for (const item of ['astar', 'path::to::astar', 'Bfs', 'Dfs', 'go'])
 		assert.ok(released(src, item), item);
 	for (const item of ['hidden', 'ast', 'Ida']) assert.ok(!released(src, item), item);
+	// A trait method counts with its public trait, and only if the trait declares it somewhere.
+	const traits =
+		'pub trait Game {\n    fn noisy_moves(&self) {}\n}\ntrait Hidden {\n    fn secret(&self);\n}';
+	assert.ok(released(traits, 'Game::noisy_moves'));
+	assert.ok(!released(traits, 'Game::missing'));
+	assert.ok(!released(traits, 'Hidden::secret'));
+	assert.ok(!released(traits, 'noisy_moves'));
 });
 
 test('README-relative links point at the released commit', () => {

@@ -174,6 +174,51 @@
 		]
 	},
 	{
+		"slug": "dancing-links",
+		"name": "Algorithm X with dancing links",
+		"aliases": ["DLX", "Dancing links"],
+		"kind": "constraint",
+		"refs": ["Knuth 2000"],
+		"implementations": [
+			{
+				"crate": "constraint-search",
+				"items": ["ExactCover"],
+				"feature": null,
+				"summary": "Exact cover with primary and secondary columns, branching on the column with the fewest rows, on index-linked arrays."
+			}
+		]
+	},
+	{
+		"slug": "all-different-matching",
+		"name": "All-different by bipartite matching",
+		"aliases": ["Régin's all-different", "GAC all-different", "Hall-set reasoning"],
+		"kind": "constraint",
+		"refs": ["Régin 1994"],
+		"implementations": [
+			{
+				"crate": "constraint-search",
+				"items": ["AllDifferent"],
+				"feature": null,
+				"summary": "Complete (generalised arc consistent) all-different from a maximum matching and the strongly connected components of the variable–value graph."
+			}
+		]
+	},
+	{
+		"slug": "alpha-beta-pruning",
+		"name": "Alpha-beta pruning",
+		"aliases": ["Alpha-beta", "αβ search"],
+		"kind": "adversarial",
+		"refs": ["Knuth and Moore 1975"],
+		"implementations": [
+			{
+				"crate": "game-tree-search",
+				"items": ["alpha_beta"],
+				"feature": null,
+				"summary": "Fail-soft alpha-beta with move ordering, transposition-table cutoffs and an optional satisficing stop; returns the minimax score."
+			}
+		]
+	},
+	{
 		"slug": "ana-star",
 		"name": "ANA*",
 		"aliases": ["Anytime Nonparametric A*"],
@@ -215,6 +260,36 @@
 				"items": ["ara_star"],
 				"feature": null,
 				"summary": "Anytime Repairing A*: anytime weighted search that improves its solution as the weight decreases."
+			}
+		]
+	},
+	{
+		"slug": "backbone-and-marginals",
+		"name": "Backbone and solution marginals",
+		"aliases": ["Backbone", "Solution sampling"],
+		"kind": "constraint",
+		"refs": ["Monasson et al. 1999"],
+		"implementations": [
+			{
+				"crate": "constraint-search",
+				"items": ["possible_values", "backbone", "marginals", "weighted_marginals", "sample"],
+				"feature": null,
+				"summary": "The values possible and certain in every solution, each value's probability (optionally weighted) across the solutions, and random solutions by restarts for determinizing hidden information."
+			}
+		]
+	},
+	{
+		"slug": "backtracking-search",
+		"name": "Backtracking search with propagation",
+		"aliases": ["MAC", "Maintaining arc consistency", "Fail-first (MRV)"],
+		"kind": "constraint",
+		"refs": ["Haralick and Elliott 1980", "Sabin and Freuder 1994"],
+		"implementations": [
+			{
+				"crate": "constraint-search",
+				"items": ["Solver", "VarOrder", "ValueOrder"],
+				"feature": null,
+				"summary": "Depth-first search with propagation after each choice, MRV variable order and LCV or random value order, resumable under a budget; counts solutions with early stop."
 			}
 		]
 	},
@@ -470,6 +545,21 @@
 		]
 	},
 	{
+		"slug": "linear-bounds-propagation",
+		"name": "Bounds propagation for linear constraints",
+		"aliases": ["Linear sum propagation"],
+		"kind": "constraint",
+		"refs": [],
+		"implementations": [
+			{
+				"crate": "constraint-search",
+				"items": ["Linear"],
+				"feature": null,
+				"summary": "Weighted sums compared with a constant (≤, = or ≥), pruned on the bounds the other terms can still reach."
+			}
+		]
+	},
+	{
 		"slug": "breadth-first-search",
 		"name": "Breadth-first search",
 		"aliases": ["BFS"],
@@ -667,6 +757,44 @@
 				"items": ["constrained_shortest_path"],
 				"feature": null,
 				"summary": "The cheapest path whose second cost stays within a budget, solved by BOA*'s pruning with the budget as an extra bound."
+			}
+		]
+	},
+	{
+		"slug": "constraint-propagation",
+		"name": "Constraint propagation to a fixpoint",
+		"aliases": ["Propagation engine", "AC-3-style propagation"],
+		"kind": "constraint",
+		"refs": ["Mackworth 1977"],
+		"implementations": [
+			{
+				"crate": "constraint-search",
+				"items": ["Propagator", "Model"],
+				"feature": null,
+				"summary": "Runs every propagator whose scope changed until none removes a value; the trail undoes the changes on backtrack."
+			}
+		]
+	},
+	{
+		"slug": "inference-rules",
+		"name": "Cost-ordered inference rules",
+		"aliases": ["Human-style solving", "Naked and hidden subsets", "Locked candidates"],
+		"kind": "constraint",
+		"refs": [],
+		"implementations": [
+			{
+				"crate": "constraint-search",
+				"items": [
+					"Rules",
+					"VariableSubset",
+					"ValueSubset",
+					"GroupIntersection",
+					"SumDifference",
+					"PropagatorRule",
+					"Trace"
+				],
+				"feature": null,
+				"summary": "Named, costed rules applied cheapest first, for hints, difficulty grading and an answer to why a value was removed; generic names, with a domain's own terms through with_name."
 			}
 		]
 	},
@@ -1013,6 +1141,21 @@
 		]
 	},
 	{
+		"slug": "embarrassingly-parallel-search",
+		"name": "Embarrassingly parallel search",
+		"aliases": ["EPS", "Parallel portfolio"],
+		"kind": "constraint",
+		"refs": ["Régin, Rezgui and Malapert 2013"],
+		"implementations": [
+			{
+				"crate": "constraint-search",
+				"items": ["ParallelSolver"],
+				"feature": "parallel",
+				"summary": "Splits the search into partial assignments of the first branching variables, which a thread pool solves with one Solver each; a portfolio mode races branching heuristics instead."
+			}
+		]
+	},
+	{
 		"slug": "emoa-star",
 		"name": "EMOA*",
 		"aliases": ["Enhanced Multi-Objective A*"],
@@ -1056,6 +1199,21 @@
 				"items": ["Programmer"],
 				"feature": null,
 				"summary": "A meta-GA that evolves bit strings encoding complete path-planning GAs, scored on training instances under a fixed evaluation budget."
+			}
+		]
+	},
+	{
+		"slug": "expectimax",
+		"name": "Expectimax",
+		"aliases": ["Expectiminimax"],
+		"kind": "adversarial",
+		"refs": ["Ballard 1983"],
+		"implementations": [
+			{
+				"crate": "game-tree-search",
+				"items": ["expectimax", "Stochastic"],
+				"feature": null,
+				"summary": "Minimax with chance positions valued at the probability-weighted mean of their outcomes, searching every line to a fixed depth."
 			}
 		]
 	},
@@ -1739,6 +1897,21 @@
 		]
 	},
 	{
+		"slug": "iterative-deepening-alpha-beta",
+		"name": "Iterative deepening alpha-beta",
+		"aliases": ["Iterative deepening (game-tree search)"],
+		"kind": "adversarial",
+		"refs": ["Slate and Atkin 1977"],
+		"implementations": [
+			{
+				"crate": "game-tree-search",
+				"items": ["deepen"],
+				"feature": null,
+				"summary": "Alpha-beta, PVS or MTD(f) one ply deeper at a time under a node or time budget, each iteration trying the last principal variation first."
+			}
+		]
+	},
+	{
 		"slug": "iterative-pp-a-star",
 		"name": "Iterative-PP-A*",
 		"aliases": ["Iterative PP-A*"],
@@ -2203,6 +2376,21 @@
 		]
 	},
 	{
+		"slug": "minimax",
+		"name": "Minimax",
+		"aliases": ["Minimax search"],
+		"kind": "adversarial",
+		"refs": ["von Neumann 1928", "Shannon 1950"],
+		"implementations": [
+			{
+				"crate": "game-tree-search",
+				"items": ["minimax"],
+				"feature": null,
+				"summary": "Searches every line to a fixed depth; the reference the faster searches are tested against. The side to move comes from the position, so one side may move several times in a row."
+			}
+		]
+	},
+	{
 		"slug": "minsum-maxmin-path",
 		"name": "Minsum-maxmin path",
 		"aliases": ["Minsum-maxmin paths"],
@@ -2281,6 +2469,21 @@
 		]
 	},
 	{
+		"slug": "monte-carlo-tree-search",
+		"name": "Monte Carlo tree search",
+		"aliases": ["MCTS", "UCT", "Upper confidence bounds applied to trees"],
+		"kind": "adversarial",
+		"refs": ["Kocsis and Szepesvári 2006", "Coulom 2007", "Browne et al. 2012"],
+		"implementations": [
+			{
+				"crate": "game-tree-search",
+				"items": ["Mcts", "Uct", "Rollout", "StaticValue"],
+				"feature": null,
+				"summary": "MCTS under a simulation or node budget, with replaceable selection (UCT), leaf evaluation (random rollout or the static evaluation) and random source; reports visits and values per root move."
+			}
+		]
+	},
+	{
 		"slug": "morris-2014-backpropagation",
 		"name": "Morris 2014 backpropagation",
 		"aliases": ["Morris 2014", "DCbackprop", "O(n^3) dynamic controllability check"],
@@ -2313,6 +2516,21 @@
 				"items": ["mo_value_iteration"],
 				"feature": null,
 				"summary": "Multi-objective value iteration, the exact reference for the multi-objective algorithms, also usable as a heuristic on an abstraction or the all-outcomes determinisation."
+			}
+		]
+	},
+	{
+		"slug": "mtd-f",
+		"name": "MTD(f)",
+		"aliases": ["Memory-enhanced Test Driver"],
+		"kind": "adversarial",
+		"refs": ["Plaat, Schaeffer, Pijls and de Bruin 1996"],
+		"implementations": [
+			{
+				"crate": "game-tree-search",
+				"items": ["mtdf"],
+				"feature": null,
+				"summary": "Null-window passes of the root that close in on its score from a first guess, then one search around the score for the principal variation."
 			}
 		]
 	},
@@ -2418,6 +2636,36 @@
 				"items": ["Nbs"],
 				"feature": null,
 				"summary": "Heuristic-guided Near-Optimal Bidirectional Search over the grounded task."
+			}
+		]
+	},
+	{
+		"slug": "negamax",
+		"name": "Negamax",
+		"aliases": [],
+		"kind": "adversarial",
+		"refs": ["Knuth and Moore 1975"],
+		"implementations": [
+			{
+				"crate": "game-tree-search",
+				"items": ["negamax"],
+				"feature": null,
+				"summary": "Minimax written for one side, negating a child's score only where the side to move changes."
+			}
+		]
+	},
+	{
+		"slug": "nonogram-line-solving",
+		"name": "Nonogram line solving",
+		"aliases": ["Paint-by-numbers line solver"],
+		"kind": "constraint",
+		"refs": ["Batenburg and Kosters 2009"],
+		"implementations": [
+			{
+				"crate": "constraint-search",
+				"items": ["Line"],
+				"feature": null,
+				"summary": "Complete propagation of one nonogram row or column: keeps exactly the cell values some placement of the runs uses."
 			}
 		]
 	},
@@ -2809,6 +3057,21 @@
 		]
 	},
 	{
+		"slug": "principal-variation-search",
+		"name": "Principal variation search",
+		"aliases": ["PVS", "NegaScout"],
+		"kind": "adversarial",
+		"refs": ["Reinefeld 1983", "Marsland and Campbell 1982"],
+		"implementations": [
+			{
+				"crate": "game-tree-search",
+				"items": ["pvs"],
+				"feature": null,
+				"summary": "Alpha-beta that scouts every move after the first with a null window and searches it again only when the scout fails high."
+			}
+		]
+	},
+	{
 		"slug": "prioritizing-conflicts",
 		"name": "Prioritizing Conflicts",
 		"aliases": ["Prioritized conflicts", "Cardinal conflicts", "PC"],
@@ -2850,6 +3113,21 @@
 				"items": ["Prm"],
 				"feature": null,
 				"summary": "Asymptotically optimal PRM connecting each node within a shrinking radius or to its k ln n nearest neighbors."
+			}
+		]
+	},
+	{
+		"slug": "quiescence-search",
+		"name": "Quiescence search",
+		"aliases": ["Stand pat", "Capture search"],
+		"kind": "adversarial",
+		"refs": ["Shannon 1950", "Beal 1990"],
+		"implementations": [
+			{
+				"crate": "game-tree-search",
+				"items": ["Game::noisy_moves"],
+				"feature": null,
+				"summary": "Past the horizon, every search goes on through the moves a game marks as noisy, and the side to move may stand pat on the evaluation."
 			}
 		]
 	},
@@ -3546,6 +3824,21 @@
 		]
 	},
 	{
+		"slug": "table-constraint",
+		"name": "Table constraint",
+		"aliases": ["Extensional constraint", "GAC on allowed tuples"],
+		"kind": "constraint",
+		"refs": [],
+		"implementations": [
+			{
+				"crate": "constraint-search",
+				"items": ["Table"],
+				"feature": null,
+				"summary": "Complete propagation of a constraint given by its allowed tuples, in one scan of the tuples."
+			}
+		]
+	},
+	{
 		"slug": "temporal-plan-validation",
 		"name": "Temporal Plan Validation",
 		"aliases": ["PDDL 2.1 temporal plan validation"],
@@ -3589,6 +3882,21 @@
 				"items": ["tpa", "tpa_paths"],
 				"feature": null,
 				"summary": "Exact anytime box splitting with augmented-Tchebycheff subproblems over any solver."
+			}
+		]
+	},
+	{
+		"slug": "transposition-table",
+		"name": "Transposition table",
+		"aliases": ["Hash table (game-tree search)"],
+		"kind": "adversarial",
+		"refs": ["Greenblatt, Eastlake and Crocker 1967", "Zobrist 1990"],
+		"implementations": [
+			{
+				"crate": "game-tree-search",
+				"items": ["Hashed", "SlotTable"],
+				"feature": null,
+				"summary": "Remembers scores, bounds and best moves by position key, so a position reached by another move order is answered instead of searched; SlotTable is fixed-size, MapTable (feature hashbrown) grows."
 			}
 		]
 	},

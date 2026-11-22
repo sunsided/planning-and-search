@@ -1,0 +1,24 @@
+{
+	"description": "Iterative deepening searches the root with alpha-beta, PVS or MTD(f) to depth 1, 2, 3 and so on, until a node or time budget runs out. It returns the deepest iteration that finished and discards one the budget stopped; the first iteration ignores the budget, so a move is always found. Each iteration tries the last principal variation first, and MTD(f) starts from the last score. Deepening stops early once an iteration is *proven*, because no line reached the depth limit. Use it whenever a move must be ready by a deadline.",
+	"papers": [
+		{
+			"authors": "David J. Slate, Lawrence R. Atkin",
+			"title": "CHESS 4.5—The Northwestern University chess program",
+			"year": 1977,
+			"venue": "Chess Skill in Man and Machine",
+			"doi": "10.1007/978-3-662-06239-5_4",
+			"arxiv": null,
+			"url": null,
+			"role": "introduces"
+		}
+	],
+	"lineage": [
+		{
+			"slug": "alpha-beta-pruning",
+			"name": null,
+			"relation": "builds-on",
+			"source": "game-tree-search, src/deepening.rs: \"Iterative deepening: alpha-beta searches one ply deeper at a time, within a budget.\""
+		}
+	],
+	"trace": null
+}
