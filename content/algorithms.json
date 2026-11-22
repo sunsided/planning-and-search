@@ -272,9 +272,9 @@
 		"implementations": [
 			{
 				"crate": "constraint-search",
-				"items": ["backbone", "marginals", "sample"],
+				"items": ["possible_values", "backbone", "marginals", "weighted_marginals", "sample"],
 				"feature": null,
-				"summary": "The values certain in every solution, each value's probability across the solutions, and random solutions for determinizing hidden information."
+				"summary": "The values possible and certain in every solution, each value's probability (optionally weighted) across the solutions, and random solutions by restarts for determinizing hidden information."
 			}
 		]
 	},
@@ -784,9 +784,17 @@
 		"implementations": [
 			{
 				"crate": "constraint-search",
-				"items": ["Rules", "VariableSubset", "ValueSubset", "GroupIntersection"],
+				"items": [
+					"Rules",
+					"VariableSubset",
+					"ValueSubset",
+					"GroupIntersection",
+					"SumDifference",
+					"PropagatorRule",
+					"Trace"
+				],
 				"feature": null,
-				"summary": "Named, costed techniques applied cheapest first, for hints, explanations of a removed value and difficulty grading."
+				"summary": "Named, costed rules applied cheapest first, for hints, difficulty grading and an answer to why a value was removed; generic names, with a domain's own terms through with_name."
 			}
 		]
 	},
