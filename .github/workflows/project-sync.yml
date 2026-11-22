@@ -1,0 +1,33 @@
+name: Project sync
+
+# Keeps the "Planning & Search" GitHub project (users/sunsided/projects/8) in sync with the
+# planning repositories listed in .github/project-sync/config.json: adds new issues and pull
+# requests and fills Area, Kind, Status and dates. One central job instead of an auto-add
+# workflow per repository. The built-in GITHUB_TOKEN cannot write to a user-owned project, so
+# the job uses the PROJECT_SYNC_TOKEN secret (classic token with the `project` and `repo` scopes).
+on:
+  schedule:
+    - cron: "17 6 * * 1" # weekly, Monday morning
+  workflow_dispatch:
+
+concurrency:
+  group: project-sync
+  cancel-in-progress: false
+
+permissions: {}
+
+jobs:
+  sync:
+    name: project sync
+    runs-on: ubuntu-latest
+    if: github.repository_owner == 'sunsided'
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - name: Sync the project
+        env:
+          GH_TOKEN: ${{ secrets.PROJECT_SYNC_TOKEN }}
+        run: python3 .github/project-sync/sync.py
