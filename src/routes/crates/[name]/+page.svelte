@@ -1,7 +1,7 @@
 <script lang="ts">
 	import type { CrateRef } from '#lib/components/molecules/CrateRefList.svelte';
 	import CrateTemplate from '#lib/components/templates/CrateTemplate.svelte';
-	import { categoryOf, dependents, type DepKind } from '#lib/registry.js';
+	import { algorithmsOf, categoryOf, dependents, type DepKind } from '#lib/registry.js';
 	import { SITE_NAME, SITE_URL } from '#lib/site.js';
 	import { resolve } from '$app/paths';
 	import type { PageProps } from './$types';
@@ -39,4 +39,5 @@
 	back="{resolve('/')}#{category.slug}"
 	dependencies={crate.deps.map(ref)}
 	dependents={dependents(crate.name).map(ref)}
+	algorithms={algorithmsOf(crate.name)}
 />

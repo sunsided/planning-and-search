@@ -1,0 +1,3766 @@
+[
+	{
+		"slug": "1-plus1-es",
+		"name": "(1+1)-ES",
+		"aliases": ["1/5th success rule", "One-plus-one evolution strategy"],
+		"kind": "optimization",
+		"refs": ["Rechenberg"],
+		"implementations": [
+			{
+				"crate": "evolutionary-planning",
+				"items": ["OnePlusOne"],
+				"feature": null,
+				"summary": "The (1+1)-ES with the 1/5th success rule for step-size control."
+			}
+		]
+	},
+	{
+		"slug": "es",
+		"name": "(μ/ρ,λ)-ES",
+		"aliases": ["(μ/ρ+λ)-ES", "Evolution Strategy", "ES"],
+		"kind": "optimization",
+		"refs": ["Beyer and Schwefel 2002"],
+		"implementations": [
+			{
+				"crate": "evolutionary-planning",
+				"items": ["Es"],
+				"feature": null,
+				"summary": "Evolution strategies on real vectors, comma or plus selection, with self-adaptive step sizes."
+			}
+		]
+	},
+	{
+		"slug": "1-bend-visibility-graph",
+		"name": "1-bend visibility graph",
+		"aliases": ["1-bend visibility graph search"],
+		"kind": "routing",
+		"refs": ["Marriott, Stuckey and Wybrow 2014"],
+		"implementations": [
+			{
+				"crate": "connector-routing",
+				"items": ["Search"],
+				"feature": null,
+				"summary": "Opt-in A* over the lazily generated 1-bend visibility graph of obstacle-hugging routes; not exact in general."
+			}
+		]
+	},
+	{
+		"slug": "a-star",
+		"name": "A*",
+		"aliases": ["A star"],
+		"kind": "search",
+		"refs": ["Wybrow, Marriott and Stuckey 2009"],
+		"implementations": [
+			{
+				"crate": "heuristic-search",
+				"items": ["a_star"],
+				"feature": null,
+				"summary": "Best-first search ordered by g + h, optimal with an admissible heuristic."
+			},
+			{
+				"crate": "connector-routing",
+				"items": ["route"],
+				"feature": null,
+				"summary": "Single-connector routing by A* over (vertex, heading) with an exact free-space bend estimate and weighted or lexicographic length/bend objectives."
+			},
+			{
+				"crate": "decoupled-search",
+				"items": ["astar"],
+				"feature": null,
+				"summary": "Cost-optimal A* over decoupled states, guided by a decoupled heuristic."
+			},
+			{
+				"crate": "miniplan",
+				"items": ["Astar"],
+				"feature": null,
+				"summary": "A* with pluggable heuristics over the grounded task (optimal)."
+			}
+		]
+	},
+	{
+		"slug": "a-star-pex",
+		"name": "A*pex",
+		"aliases": ["Apex A*"],
+		"kind": "search",
+		"refs": [
+			"Zhang, Salzman, Kumar, Felner, Hernández, Koenig: \"A*pex: Efficient Approximate Multi-Objective Search on Graphs\", ICAPS 2022"
+		],
+		"implementations": [
+			{
+				"crate": "multiobjective-search",
+				"items": ["apex_star", "apex_star_with"],
+				"feature": null,
+				"summary": "Approximate search for any number of objectives over apex-path pairs, with tolerance 1 + ε_i per objective."
+			}
+		]
+	},
+	{
+		"slug": "a-a-star-pex",
+		"name": "A-A*pex",
+		"aliases": ["Anytime A*pex"],
+		"kind": "search",
+		"refs": [
+			"Zhang, Salzman, Felner, Hernández Ulloa, Koenig, \"A-A*pex: Efficient Anytime Approximate Multi-Objective Search\", SoCS 2024"
+		],
+		"implementations": [
+			{
+				"crate": "multiobjective-search",
+				"items": ["apex_star_anytime", "apex_star_anytime_with"],
+				"feature": null,
+				"summary": "Anytime A*pex for any number of objectives that reuses its search effort across tolerance iterations, in reuse, reuse-enh, restart and hybrid variants."
+			}
+		]
+	},
+	{
+		"slug": "a-boa-star-eps",
+		"name": "A-BOA*ε",
+		"aliases": ["Anytime BOA*ε", "Anytime Approximate Bi-Objective Search"],
+		"kind": "search",
+		"refs": [
+			"\"Anytime Approximate Bi-Objective Search\" (anonymous preprint, crl.cs.technion.ac.il)"
+		],
+		"implementations": [
+			{
+				"crate": "multiobjective-search",
+				"items": ["boa_star_anytime", "boa_star_anytime_ws", "boa_star_anytime_basic"],
+				"feature": null,
+				"summary": "Anytime approximate bi-objective search that reports each improved front and its exact approximation factor, with weighted-sum pruning and a no-reuse baseline."
+			}
+		]
+	},
+	{
+		"slug": "ad-star",
+		"name": "AD*",
+		"aliases": ["Anytime Dynamic A*"],
+		"kind": "search",
+		"refs": ["Likhachev, Ferguson, Gordon, Stentz and Thrun 2005"],
+		"implementations": [
+			{
+				"crate": "heuristic-search",
+				"items": ["AdStar"],
+				"feature": null,
+				"summary": "Anytime Dynamic A*: D* Lite with anytime weighted repair."
+			}
+		]
+	},
+	{
+		"slug": "additive-h-max",
+		"name": "Additive h^max",
+		"aliases": ["additive h_max", "h^max over an operator partition"],
+		"kind": "heuristic",
+		"refs": [],
+		"implementations": [
+			{
+				"crate": "planning-heuristics",
+				"items": ["AdditiveHMax"],
+				"feature": null,
+				"summary": "Admissible sum of h_max values over an operator partition."
+			}
+		]
+	},
+	{
+		"slug": "ait-star",
+		"name": "AIT*",
+		"aliases": ["Adaptively Informed Trees"],
+		"kind": "sampling",
+		"refs": ["Strub & Gammell 2020"],
+		"implementations": [
+			{
+				"crate": "sampling-planning",
+				"items": ["AitStar"],
+				"feature": null,
+				"summary": "BIT*-style forward search guided by a lazy LPA* reverse search that is repaired on every invalid edge."
+			}
+		]
+	},
+	{
+		"slug": "ana-star",
+		"name": "ANA*",
+		"aliases": ["Anytime Nonparametric A*"],
+		"kind": "search",
+		"refs": ["van den Berg, Shah, Huang and Goldberg 2011"],
+		"implementations": [
+			{
+				"crate": "heuristic-search",
+				"items": ["ana_star"],
+				"feature": null,
+				"summary": "Anytime Nonparametric A*: anytime search without a weight schedule."
+			}
+		]
+	},
+	{
+		"slug": "anytime-a-star",
+		"name": "Anytime A*",
+		"aliases": ["Anytime Fork-Root A*"],
+		"kind": "search",
+		"refs": ["Gnad & Hoffmann 2015"],
+		"implementations": [
+			{
+				"crate": "decoupled-search",
+				"items": ["anytime_astar"],
+				"feature": null,
+				"summary": "Gnad and Hoffmann's Anytime Fork-Root A* over decoupled states, cost-optimal."
+			}
+		]
+	},
+	{
+		"slug": "ara-star",
+		"name": "ARA*",
+		"aliases": ["Anytime Repairing A*"],
+		"kind": "search",
+		"refs": ["Likhachev, Gordon and Thrun 2003"],
+		"implementations": [
+			{
+				"crate": "heuristic-search",
+				"items": ["ara_star"],
+				"feature": null,
+				"summary": "Anytime Repairing A*: anytime weighted search that improves its solution as the weight decreases."
+			}
+		]
+	},
+	{
+		"slug": "bae-star",
+		"name": "BAE*",
+		"aliases": ["Bidirectional A* with error", "Bidirectional A* with Error"],
+		"kind": "search",
+		"refs": ["Sadhukhan 2013"],
+		"implementations": [
+			{
+				"crate": "heuristic-search",
+				"items": ["bae_star"],
+				"feature": null,
+				"summary": "Bidirectional A* with error."
+			},
+			{
+				"crate": "miniplan",
+				"items": ["Bae"],
+				"feature": null,
+				"summary": "Heuristic-guided Bidirectional A* with Error over the grounded task."
+			}
+		]
+	},
+	{
+		"slug": "bdda-star",
+		"name": "BDDA*",
+		"aliases": ["symbolic A*"],
+		"kind": "search",
+		"refs": [],
+		"implementations": [
+			{
+				"crate": "symbolic-search",
+				"items": ["astar"],
+				"feature": null,
+				"summary": "Symbolic A* with heuristics stored as one BDD per h value."
+			}
+		]
+	},
+	{
+		"slug": "beam-search",
+		"name": "Beam search",
+		"aliases": [],
+		"kind": "search",
+		"refs": [],
+		"implementations": [
+			{
+				"crate": "heuristic-search",
+				"items": ["beam_search"],
+				"feature": null,
+				"summary": "Incomplete beam search with a fixed width; reports a cutoff when the width pruned."
+			}
+		]
+	},
+	{
+		"slug": "beam-stack-search",
+		"name": "Beam-stack search",
+		"aliases": ["Beam stack search"],
+		"kind": "search",
+		"refs": ["Zhou and Hansen 2005"],
+		"implementations": [
+			{
+				"crate": "heuristic-search",
+				"items": ["beam_stack_search"],
+				"feature": null,
+				"summary": "Complete and anytime beam search, optimal once it completes, with a fixed beam width."
+			}
+		]
+	},
+	{
+		"slug": "bellman-ford",
+		"name": "Bellman-Ford",
+		"aliases": ["Bellman-Ford algorithm", "STN consistency"],
+		"kind": "validation",
+		"refs": [],
+		"implementations": [
+			{
+				"crate": "temporal-control",
+				"items": ["check_consistency"],
+				"feature": "alloc",
+				"summary": "Checks STN consistency with Bellman-Ford and explains inconsistency by a negative cycle."
+			}
+		]
+	},
+	{
+		"slug": "bfmt-star",
+		"name": "BFMT*",
+		"aliases": ["Bidirectional Fast Marching Tree"],
+		"kind": "sampling",
+		"refs": ["Starek, Gomez, Schmerling, Janson, Moreno & Pavone 2015"],
+		"implementations": [
+			{
+				"crate": "sampling-planning",
+				"items": ["BfmtStar"],
+				"feature": null,
+				"summary": "Bidirectional FMT* that marches trees from start and goal over one batch and joins them where they meet, with optimal or first-meeting termination."
+			}
+		]
+	},
+	{
+		"slug": "bfws",
+		"name": "BFWS",
+		"aliases": ["Best-First Width Search", "BFWS(⟨w_{#g}, #g⟩)"],
+		"kind": "search",
+		"refs": ["Lipovetzky & Geffner, AAAI 2017"],
+		"implementations": [
+			{
+				"crate": "width-search",
+				"items": ["bfws"],
+				"feature": null,
+				"summary": "Best-first width search BFWS(⟨w_{#g}, #g⟩) with novelty computed per value of the goal count."
+			}
+		]
+	},
+	{
+		"slug": "bfws-f5",
+		"name": "BFWS-f5",
+		"aliases": ["BFWS(f5)", "BFWS #r", "BFWS(⟨w_{#g,#r}, #g⟩)"],
+		"kind": "search",
+		"refs": ["Lipovetzky & Geffner, AAAI 2017"],
+		"implementations": [
+			{
+				"crate": "width-search",
+				"items": ["bfws_r"],
+				"feature": null,
+				"summary": "BFWS(⟨w_{#g,#r}, #g⟩), where #r counts relaxed-plan facts reached, recomputed whenever the goal count drops."
+			}
+		]
+	},
+	{
+		"slug": "bidirectional-bfs",
+		"name": "Bidirectional BFS",
+		"aliases": [
+			"Bidirectional breadth-first search",
+			"bidirectional breadth-first search",
+			"bibfs-uc"
+		],
+		"kind": "search",
+		"refs": [],
+		"implementations": [
+			{
+				"crate": "heuristic-search",
+				"items": ["bidirectional_bfs"],
+				"feature": null,
+				"summary": "Bidirectional breadth-first search that meets by a user relation between states and backward nodes."
+			},
+			{
+				"crate": "miniplan",
+				"items": ["BibfsUc"],
+				"feature": null,
+				"summary": "Uniform-cost bidirectional breadth-first search over the grounded task."
+			}
+		]
+	},
+	{
+		"slug": "bidirectional-dijkstra",
+		"name": "Bidirectional Dijkstra",
+		"aliases": ["BiDij"],
+		"kind": "search",
+		"refs": [],
+		"implementations": [
+			{
+				"crate": "heuristic-search",
+				"items": ["bidirectional_dijkstra"],
+				"feature": null,
+				"summary": "Bidirectional Dijkstra's algorithm with path replay at the meeting point."
+			},
+			{
+				"crate": "miniplan",
+				"items": ["BiDij"],
+				"feature": null,
+				"summary": "Cost-aware bidirectional Dijkstra over the grounded task (optimal)."
+			}
+		]
+	},
+	{
+		"slug": "bisimulation",
+		"name": "Bisimulation",
+		"aliases": ["goal-respecting bisimulation", "exact bisimulation"],
+		"kind": "abstraction",
+		"refs": ["Helmert, Haslum, Hoffmann & Nissim 2014"],
+		"implementations": [
+			{
+				"crate": "merge-and-shrink",
+				"items": ["Bisimulation"],
+				"feature": null,
+				"summary": "Shrinks by exact, optionally size-bounded, goal-respecting bisimulation that keeps every goal distance exact."
+			}
+		]
+	},
+	{
+		"slug": "bit-star",
+		"name": "BIT*",
+		"aliases": ["Batch Informed Trees"],
+		"kind": "sampling",
+		"refs": ["Gammell, Srinivasa & Barfoot 2015", "Gammell, Barfoot & Srinivasa 2020"],
+		"implementations": [
+			{
+				"crate": "sampling-planning",
+				"items": ["BitStar"],
+				"feature": null,
+				"summary": "Batch-informed tree search over radius or k-nearest graphs with informed batches and pruning."
+			}
+		]
+	},
+	{
+		"slug": "boa-star",
+		"name": "BOA*",
+		"aliases": ["Bi-objective A*"],
+		"kind": "search",
+		"refs": [
+			"Hernández, Yeoh, Baier, Zhang, Suazo, Koenig, Salzman: \"A Simple and Fast Bi-Objective Search Algorithm\", ICAPS 2020"
+		],
+		"implementations": [
+			{
+				"crate": "multiobjective-search",
+				"items": ["boa_star", "boa_star_approx"],
+				"feature": null,
+				"summary": "Bi-objective A*, finding one path per Pareto-optimal cost vector; also with an additive tolerance on the second objective."
+			}
+		]
+	},
+	{
+		"slug": "boa-star-eps",
+		"name": "BOA*ε",
+		"aliases": ["BOA*eps", "Approximate BOA*"],
+		"kind": "search",
+		"refs": [],
+		"implementations": [
+			{
+				"crate": "multiobjective-search",
+				"items": ["boa_star_eps"],
+				"feature": null,
+				"summary": "BOA* with a multiplicative tolerance 1 + ε on the second objective, with rational ε."
+			}
+		]
+	},
+	{
+		"slug": "boba-star",
+		"name": "BOBA*",
+		"aliases": ["Bi-objective bidirectional A*"],
+		"kind": "search",
+		"refs": [
+			"Ahmadi, Tack, Harabor, Kilby: \"Bi-Objective Search with Bi-Directional A*\", ESA 2021"
+		],
+		"implementations": [
+			{
+				"crate": "multiobjective-search",
+				"items": ["boba_star", "boba_star_with", "boba_star_parallel", "boba_star_with_parallel"],
+				"feature": null,
+				"summary": "Bidirectional bi-objective A* with four cost-bounded preliminary searches or caller-supplied heuristics; multi-threaded variants behind the parallel feature."
+			}
+		]
+	},
+	{
+		"slug": "breadth-first-search",
+		"name": "Breadth-first search",
+		"aliases": ["BFS"],
+		"kind": "search",
+		"refs": [],
+		"implementations": [
+			{
+				"crate": "miniplan",
+				"items": ["Bfs"],
+				"feature": null,
+				"summary": "Blind breadth-first search over the grounded task (optimal)."
+			},
+			{
+				"crate": "heuristic-search",
+				"items": ["bfs"],
+				"feature": null,
+				"summary": "Breadth-first search over a user-described graph."
+			}
+		]
+	},
+	{
+		"slug": "brtdp",
+		"name": "BRTDP",
+		"aliases": ["Bounded RTDP", "Bounded Real-Time Dynamic Programming"],
+		"kind": "search",
+		"refs": ["McMahan, Likhachev and Gordon 2005"],
+		"implementations": [
+			{
+				"crate": "stochastic-search",
+				"items": ["brtdp", "BrtdpConfig"],
+				"feature": null,
+				"summary": "Bounded RTDP keeps a lower and an upper bound and samples where they are far apart; anytime, with a known gap."
+			}
+		]
+	},
+	{
+		"slug": "bypass",
+		"name": "Bypass",
+		"aliases": ["BP", "Conflict bypass"],
+		"kind": "other",
+		"refs": ["Boyarski et al. 2015"],
+		"implementations": [
+			{
+				"crate": "mapf-search",
+				"items": ["CbsConfig"],
+				"feature": null,
+				"summary": "CBS option that adopts a child's paths instead of splitting when the child is as cheap for its replanned agent as the parent and has fewer conflicts."
+			}
+		]
+	},
+	{
+		"slug": "canonical-pdb-heuristic",
+		"name": "Canonical PDB heuristic",
+		"aliases": ["canonical heuristic", "canonical pattern database collection"],
+		"kind": "heuristic",
+		"refs": [],
+		"implementations": [
+			{
+				"crate": "symbolic-search",
+				"items": ["canonical_pdbs", "canonical_pdbs_with"],
+				"feature": null,
+				"summary": "Maximum over additive subsets of a collection of symbolic pattern databases, capped."
+			}
+		]
+	},
+	{
+		"slug": "cbs",
+		"name": "CBS",
+		"aliases": ["Conflict-Based Search"],
+		"kind": "search",
+		"refs": ["Sharon et al. 2015"],
+		"implementations": [
+			{
+				"crate": "mapf-search",
+				"items": ["cbs", "cbs_with", "CbsConfig"],
+				"feature": null,
+				"summary": "Conflict-based search, optimal for sum of costs or makespan, with prioritized conflicts, bypass, the CG, DG and WDG heuristics, a conflict avoidance table and disjoint splitting, each switchable."
+			}
+		]
+	},
+	{
+		"slug": "cbs-ta",
+		"name": "CBS-TA",
+		"aliases": ["Conflict-Based Search with Task Assignment"],
+		"kind": "search",
+		"refs": ["Hönig et al. 2018"],
+		"implementations": [
+			{
+				"crate": "mapf-search",
+				"items": ["cbs_ta", "cbs_ta_with", "TaskInstance"],
+				"feature": null,
+				"summary": "Conflict-based search with task assignment: each agent has candidate goals, and the plan is optimal over all assignments, for sum of costs or makespan."
+			}
+		]
+	},
+	{
+		"slug": "cg-heuristic",
+		"name": "CG Heuristic",
+		"aliases": ["Conflict Graph heuristic", "CG"],
+		"kind": "heuristic",
+		"refs": ["Felner et al. 2018"],
+		"implementations": [
+			{
+				"crate": "mapf-search",
+				"items": ["CbsHeuristic"],
+				"feature": null,
+				"summary": "Admissible CBS high-level heuristic: a lower bound on the minimum vertex cover of the graph of agents with cardinal conflicts."
+			}
+		]
+	},
+	{
+		"slug": "cg-ilao-star",
+		"name": "CG-iLAO*",
+		"aliases": ["Constraint-Generation iLAO*"],
+		"kind": "search",
+		"refs": ["Schmalz and Trevizan 2024"],
+		"implementations": [
+			{
+				"crate": "stochastic-search",
+				"items": ["cg_ilao_star"],
+				"feature": null,
+				"summary": "iLAO* over a partial SSP that adds an action only when constraint generation finds it necessary."
+			}
+		]
+	},
+	{
+		"slug": "cma-es",
+		"name": "CMA-ES",
+		"aliases": ["Covariance Matrix Adaptation Evolution Strategy"],
+		"kind": "optimization",
+		"refs": ["Hansen, arXiv:1604.00772"],
+		"implementations": [
+			{
+				"crate": "evolutionary-planning",
+				"items": ["CmaEs"],
+				"feature": null,
+				"summary": "CMA-ES exactly per Hansen's tutorial, with active weights, lazy eigendecomposition, all Appendix B.3 termination criteria and an ask/tell interface."
+			}
+		]
+	},
+	{
+		"slug": "conflict-avoidance-table",
+		"name": "Conflict Avoidance Table",
+		"aliases": ["CAT"],
+		"kind": "other",
+		"refs": ["Sharon et al. 2015"],
+		"implementations": [
+			{
+				"crate": "mapf-search",
+				"items": ["CbsConfig"],
+				"feature": null,
+				"summary": "CBS option where the low level returns, among an agent's cheapest paths, one with the fewest conflicts with the other agents' current paths."
+			}
+		]
+	},
+	{
+		"slug": "conservative-linearization",
+		"name": "Conservative linearization",
+		"aliases": [],
+		"kind": "reachability",
+		"refs": ["Althoff, Stursberg & Buss 2008"],
+		"implementations": [
+			{
+				"crate": "polyzonotope-reach",
+				"items": ["NonlinearReach", "Method"],
+				"feature": null,
+				"summary": "Linearizes the dynamics each step and bounds the abstraction error with Lagrange remainders over the time-interval set, widening the guessed error box until it is confirmed."
+			}
+		]
+	},
+	{
+		"slug": "conservative-polynomialization",
+		"name": "Conservative polynomialization",
+		"aliases": [],
+		"kind": "reachability",
+		"refs": ["Althoff 2013"],
+		"implementations": [
+			{
+				"crate": "polyzonotope-reach",
+				"items": ["NonlinearReach", "Method"],
+				"feature": null,
+				"summary": "Keeps the second- and third-order abstraction error at the start set as a polynomial zonotope over the set's factors, so dependencies survive the step."
+			}
+		]
+	},
+	{
+		"slug": "constrained-delaunay-triangulation",
+		"name": "Constrained Delaunay triangulation",
+		"aliases": ["CDT"],
+		"kind": "other",
+		"refs": [],
+		"implementations": [
+			{
+				"crate": "connector-routing",
+				"items": [],
+				"feature": null,
+				"summary": "An exact constrained Delaunay triangulation with Lawson flips and Sloan's constraint recovery, used by sleeve routing."
+			}
+		]
+	},
+	{
+		"slug": "constrained-shortest-path",
+		"name": "Constrained shortest path",
+		"aliases": ["Resource-constrained shortest path"],
+		"kind": "search",
+		"refs": ["Craveirinha et al., Algorithms 17(6):222, 2024"],
+		"implementations": [
+			{
+				"crate": "multiobjective-search",
+				"items": ["constrained_shortest_path"],
+				"feature": null,
+				"summary": "The cheapest path whose second cost stays within a budget, solved by BOA*'s pruning with the budget as an extra bound."
+			}
+		]
+	},
+	{
+		"slug": "crossing-reduction",
+		"name": "Crossing reduction",
+		"aliases": [],
+		"kind": "routing",
+		"refs": ["arXiv 2309.01671", "Dwyer et al. 2006"],
+		"implementations": [
+			{
+				"crate": "connector-routing",
+				"items": ["reduce_crossings"],
+				"feature": null,
+				"summary": "Path ordering in shared channels, required crossings and crossing reduction of routed connectors."
+			}
+		]
+	},
+	{
+		"slug": "d-star-lite",
+		"name": "D* Lite",
+		"aliases": ["D star Lite"],
+		"kind": "search",
+		"refs": ["Koenig and Likhachev 2002"],
+		"implementations": [
+			{
+				"crate": "heuristic-search",
+				"items": ["DStarLite"],
+				"feature": null,
+				"summary": "Incremental search towards a fixed goal from a moving start, with start moves keyed by km."
+			}
+		]
+	},
+	{
+		"slug": "decoupled-search",
+		"name": "Decoupled search",
+		"aliases": ["star-topology decoupling", "star-topology decoupled search"],
+		"kind": "search",
+		"refs": ["Gnad & Hoffmann 2015", "Gnad & Hoffmann 2018"],
+		"implementations": [
+			{
+				"crate": "decoupled-search",
+				"items": ["search", "Config", "Factoring"],
+				"feature": null,
+				"summary": "Searches a factored SAS+ task along paths of global actions only, keeping per leaf the cheapest price of every reachable leaf state, and returns an ordinary sequential plan."
+			}
+		]
+	},
+	{
+		"slug": "depth-limited-dfs",
+		"name": "Depth-limited DFS",
+		"aliases": ["Depth-limited search"],
+		"kind": "search",
+		"refs": [],
+		"implementations": [
+			{
+				"crate": "heuristic-search",
+				"items": ["depth_limited_dfs"],
+				"feature": null,
+				"summary": "Depth-first search with a depth limit; depth cutoffs are reported apart from budget stops."
+			}
+		]
+	},
+	{
+		"slug": "despot",
+		"name": "DESPOT",
+		"aliases": [
+			"AR-DESPOT",
+			"Anytime Regularized DESPOT",
+			"Determinized Sparse Partially Observable Tree"
+		],
+		"kind": "sampling",
+		"refs": ["Somani et al. 2013", "Ye et al. 2017"],
+		"implementations": [
+			{
+				"crate": "stochastic-search",
+				"items": ["despot", "Despot", "DespotConfig"],
+				"feature": null,
+				"summary": "Anytime regularized DESPOT: bound-guided online search over a tree of K determinized scenarios from a particle belief, with tree reuse between decisions."
+			}
+		]
+	},
+	{
+		"slug": "dfp",
+		"name": "DFP",
+		"aliases": ["DFP merge strategy", "Dräger-Finkbeiner-Podelski"],
+		"kind": "abstraction",
+		"refs": ["Dräger, Finkbeiner & Podelski 2006"],
+		"implementations": [
+			{
+				"crate": "merge-and-shrink",
+				"items": ["Dfp"],
+				"feature": null,
+				"summary": "Merge strategy that picks the pair of factors whose shared operators lead closest to the goal."
+			}
+		]
+	},
+	{
+		"slug": "dfs",
+		"name": "DFS",
+		"aliases": ["Depth-first search"],
+		"kind": "search",
+		"refs": [],
+		"implementations": [
+			{
+				"crate": "heuristic-search",
+				"items": ["dfs"],
+				"feature": null,
+				"summary": "Depth-first search."
+			}
+		]
+	},
+	{
+		"slug": "dg-heuristic",
+		"name": "DG Heuristic",
+		"aliases": ["Dependency Graph heuristic", "DG"],
+		"kind": "heuristic",
+		"refs": ["Li et al. 2019"],
+		"implementations": [
+			{
+				"crate": "mapf-search",
+				"items": ["CbsHeuristic"],
+				"feature": null,
+				"summary": "Admissible CBS high-level heuristic over the graph of dependent agents, whose MDDs have no conflict-free combination; at least CG."
+			}
+		]
+	},
+	{
+		"slug": "dibbs",
+		"name": "DIBBS",
+		"aliases": ["Dynamically Improved Bounds Bidirectional Search"],
+		"kind": "search",
+		"refs": ["Sewell and Jacobson 2021"],
+		"implementations": [
+			{
+				"crate": "heuristic-search",
+				"items": ["dibbs"],
+				"feature": null,
+				"summary": "Dynamically Improved Bounds Bidirectional Search."
+			}
+		]
+	},
+	{
+		"slug": "differential-evolution",
+		"name": "Differential Evolution",
+		"aliases": ["DE"],
+		"kind": "optimization",
+		"refs": ["Storn and Price 1997", "Yue et al. 2023"],
+		"implementations": [
+			{
+				"crate": "evolutionary-planning",
+				"items": ["De", "WarmStartLibrary"],
+				"feature": null,
+				"summary": "Differential evolution on real vectors with Latin hypercube initialisation and a warm-start library."
+			}
+		]
+	},
+	{
+		"slug": "differential-heuristic",
+		"name": "Differential heuristic",
+		"aliases": [],
+		"kind": "heuristic",
+		"refs": [
+			"Salzman, Hernández Ulloa, Felner, Koenig, \"Multi-Objective Search: Algorithms, Applications, and Emerging Directions\", arXiv 2510.25504"
+		],
+		"implementations": [
+			{
+				"crate": "multiobjective-search",
+				"items": ["DifferentialHeuristic"],
+				"feature": null,
+				"summary": "Differential heuristics for multi-objective search."
+			}
+		]
+	},
+	{
+		"slug": "dijkstras-algorithm",
+		"name": "Dijkstra's algorithm",
+		"aliases": ["Dijkstra", "Uniform-cost search", "UCS"],
+		"kind": "search",
+		"refs": [],
+		"implementations": [
+			{
+				"crate": "heuristic-search",
+				"items": ["dijkstra"],
+				"feature": null,
+				"summary": "Uniform-cost search returning the cheapest path, the path, outcome and expansion counters."
+			},
+			{
+				"crate": "evolutionary-planning",
+				"items": ["dijkstra"],
+				"feature": null,
+				"summary": "Shortest path on a graph or grid by Dijkstra's algorithm, the reference and baseline for the GA path planner."
+			},
+			{
+				"crate": "decoupled-search",
+				"items": ["search", "Config"],
+				"feature": null,
+				"summary": "Cost-optimal uniform-cost search over decoupled states."
+			}
+		]
+	},
+	{
+		"slug": "disjoint-splitting",
+		"name": "Disjoint Splitting",
+		"aliases": ["Positive constraints"],
+		"kind": "other",
+		"refs": ["Li et al. 2019"],
+		"implementations": [
+			{
+				"crate": "mapf-search",
+				"items": ["Splitting"],
+				"feature": null,
+				"summary": "CBS splitting where one child forbids the conflict to one agent and the other requires it of that agent with a positive constraint, so the two subtrees share no solution."
+			}
+		]
+	},
+	{
+		"slug": "dissimilar-paths",
+		"name": "Dissimilar paths",
+		"aliases": [],
+		"kind": "search",
+		"refs": ["Moghanni, Pascoal and Godinho 2022"],
+		"implementations": [
+			{
+				"crate": "multiobjective-search",
+				"items": ["dissimilar_paths"],
+				"feature": null,
+				"summary": "Paths that share as little as possible with each other on graphs with edge identities."
+			}
+		]
+	},
+	{
+		"slug": "dominance-pruning",
+		"name": "Dominance pruning",
+		"aliases": ["simulation-based dominance pruning", "effective prices"],
+		"kind": "pruning",
+		"refs": ["Torralba, Gnad, Dubbert & Hoffmann 2016"],
+		"implementations": [
+			{
+				"crate": "decoupled-search",
+				"items": ["Pruning", "Config"],
+				"feature": null,
+				"summary": "Prunes decoupled states dominated by others under basic, frontier, effective-price, leaf-simulation or effective-simulation criteria, generalised to global actions that touch leaves."
+			}
+		]
+	},
+	{
+		"slug": "dominated-edge-filtering",
+		"name": "Dominated-edge filtering",
+		"aliases": ["minimal dispatchable STN", "STN dispatchability"],
+		"kind": "other",
+		"refs": ["Muscettola, Morris & Tsamardinos 1998", "Morris 2014"],
+		"implementations": [
+			{
+				"crate": "temporal-control",
+				"items": ["dispatchable", "DispatchableNetwork"],
+				"feature": "alloc",
+				"summary": "Builds a dispatchable STN by filtering dominated edges of the minimal network."
+			}
+		]
+	},
+	{
+		"slug": "dps",
+		"name": "DPS",
+		"aliases": ["Dynamic Potential Search"],
+		"kind": "search",
+		"refs": ["Gilon, Felner and Stern 2016"],
+		"implementations": [
+			{
+				"crate": "heuristic-search",
+				"items": ["dps"],
+				"feature": null,
+				"summary": "Dynamic Potential Search, a bounded-suboptimal search."
+			}
+		]
+	},
+	{
+		"slug": "dubins-paths",
+		"name": "Dubins paths",
+		"aliases": ["Dubins curves"],
+		"kind": "other",
+		"refs": ["Dubins 1957"],
+		"implementations": [
+			{
+				"crate": "sampling-planning",
+				"items": ["Dubins", "DubinsPath"],
+				"feature": null,
+				"summary": "Computes the shortest paths of a forward-only car with a minimum turning radius."
+			}
+		]
+	},
+	{
+		"slug": "dynamic-multi-objective-search",
+		"name": "Dynamic multi-objective search",
+		"aliases": [],
+		"kind": "search",
+		"refs": ["Ren et al. 2022"],
+		"implementations": [
+			{
+				"crate": "multiobjective-search",
+				"items": ["DynamicSearch"],
+				"feature": null,
+				"summary": "Incremental repair of labels after edge additions, cost changes and removals."
+			}
+		]
+	},
+	{
+		"slug": "earliest-start-search",
+		"name": "Earliest-start search",
+		"aliases": ["earliest-feasible-start search"],
+		"kind": "scheduling",
+		"refs": [],
+		"implementations": [
+			{
+				"crate": "resource-timeline",
+				"items": ["earliest_start", "earliest_start_with"],
+				"feature": null,
+				"summary": "Finds the earliest start in a window at which an activity fits on every timeline of a plan, solved in closed form per linear piece when rates are involved."
+			}
+		]
+	},
+	{
+		"slug": "ecbs",
+		"name": "ECBS",
+		"aliases": ["Enhanced CBS", "Enhanced Conflict-Based Search"],
+		"kind": "search",
+		"refs": ["Barer et al. 2014"],
+		"implementations": [
+			{
+				"crate": "mapf-search",
+				"items": ["ecbs"],
+				"feature": null,
+				"summary": "Enhanced CBS, bounded-suboptimal within a weight w, with focal search at both levels."
+			}
+		]
+	},
+	{
+		"slug": "ees",
+		"name": "EES",
+		"aliases": ["Explicit Estimation Search"],
+		"kind": "search",
+		"refs": ["Thayer and Ruml 2011"],
+		"implementations": [
+			{
+				"crate": "heuristic-search",
+				"items": ["ees"],
+				"feature": null,
+				"summary": "Explicit Estimation Search, a bounded-suboptimal search."
+			}
+		]
+	},
+	{
+		"slug": "emoa-star",
+		"name": "EMOA*",
+		"aliases": ["Enhanced Multi-Objective A*"],
+		"kind": "search",
+		"refs": [
+			"Ren, Zhan, Rathinam, Likhachev, Choset: \"Enhanced Multi-Objective A* Using Balanced Binary Search Trees\", SoCS 2022"
+		],
+		"implementations": [
+			{
+				"crate": "multiobjective-search",
+				"items": ["emoa_star", "emoa_star_tree"],
+				"feature": null,
+				"summary": "Enhanced multi-objective A* with truncated dominance checks, over a sorted Vec or the paper's balanced-tree frontiers."
+			}
+		]
+	},
+	{
+		"slug": "epea-star",
+		"name": "EPEA*",
+		"aliases": ["Enhanced Partial Expansion A*"],
+		"kind": "search",
+		"refs": ["Goldenberg et al. 2014"],
+		"implementations": [
+			{
+				"crate": "mapf-search",
+				"items": ["epea"],
+				"feature": null,
+				"summary": "Enhanced partial expansion A* in the joint space of all agents: generates only the children at the node's stored f, optimal, proves unsolvability."
+			}
+		]
+	},
+	{
+		"slug": "evolutionary-programmer",
+		"name": "Evolutionary Programmer",
+		"aliases": [],
+		"kind": "optimization",
+		"refs": ["Lou, Ding and Wu 2022"],
+		"implementations": [
+			{
+				"crate": "evolutionary-planning",
+				"items": ["Programmer"],
+				"feature": null,
+				"summary": "A meta-GA that evolves bit strings encoding complete path-planning GAs, scored on training instances under a fixed evaluation budget."
+			}
+		]
+	},
+	{
+		"slug": "field-d-star",
+		"name": "Field D*",
+		"aliases": ["Field D star"],
+		"kind": "search",
+		"refs": ["Ferguson and Stentz 2005, 2006"],
+		"implementations": [
+			{
+				"crate": "heuristic-search",
+				"items": ["FieldDStar"],
+				"feature": "float",
+				"summary": "D* Lite over the corners of a cost grid with per-cell costs, interpolated any-angle paths through cell edges, cell-change repair and a moving start."
+			}
+		]
+	},
+	{
+		"slug": "floyd-warshall",
+		"name": "Floyd-Warshall",
+		"aliases": ["Floyd-Warshall algorithm", "STN minimal network"],
+		"kind": "other",
+		"refs": [],
+		"implementations": [
+			{
+				"crate": "temporal-control",
+				"items": ["minimal_network", "MinimalNetwork"],
+				"feature": "alloc",
+				"summary": "Computes the minimal network of an STN with Floyd-Warshall."
+			}
+		]
+	},
+	{
+		"slug": "fmt-star",
+		"name": "FMT*",
+		"aliases": ["Fast Marching Tree"],
+		"kind": "sampling",
+		"refs": ["Janson, Schmerling, Clark & Pavone 2015"],
+		"implementations": [
+			{
+				"crate": "sampling-planning",
+				"items": ["FmtStar"],
+				"feature": null,
+				"summary": "Batch planner that marches a tree outward over a fixed set of samples, connecting each node to its locally cheapest open neighbor."
+			}
+		]
+	},
+	{
+		"slug": "focal-search",
+		"name": "Focal search",
+		"aliases": ["A*ε", "A* epsilon"],
+		"kind": "search",
+		"refs": ["Pearl and Kim 1982"],
+		"implementations": [
+			{
+				"crate": "heuristic-search",
+				"items": ["focal_search"],
+				"feature": null,
+				"summary": "Bounded-suboptimal search with a public focal list and tie-breaking, finding a solution within weight times the optimum."
+			}
+		]
+	},
+	{
+		"slug": "focbs",
+		"name": "FOCBS",
+		"aliases": ["Flow-Oracle CBS", "Flow-Oracle Conflict-Based Search"],
+		"kind": "search",
+		"refs": ["Jin et al. 2026"],
+		"implementations": [
+			{
+				"crate": "mapf-search",
+				"items": ["focbs", "focbs_with", "UaInstance"],
+				"feature": null,
+				"summary": "Flow-oracle CBS for agents without goals: CBS over the agents with goals while a min-cost flow routes the idle ones and its minimum cut tells CBS which reservations block them."
+			}
+		]
+	},
+	{
+		"slug": "fork-factoring",
+		"name": "Fork factoring",
+		"aliases": ["fork decomposition"],
+		"kind": "other",
+		"refs": [],
+		"implementations": [
+			{
+				"crate": "decoupled-search",
+				"items": ["fork"],
+				"feature": null,
+				"summary": "Factors the task into a fork: a center whose leaves depend only on it."
+			}
+		]
+	},
+	{
+		"slug": "fptas-for-constrained-shortest-path",
+		"name": "FPTAS for constrained shortest path",
+		"aliases": ["FPTAS"],
+		"kind": "optimization",
+		"refs": [
+			"Tsaggouris and Zaroliagis, \"Multiobjective optimization: improved FPTAS for shortest paths and non-linear objectives with applications\", 2009"
+		],
+		"implementations": [
+			{
+				"crate": "multiobjective-search",
+				"items": ["fptas_constrained"],
+				"feature": null,
+				"summary": "A fully polynomial-time approximation scheme for the resource constrained shortest path, in the label-trimming form."
+			}
+		]
+	},
+	{
+		"slug": "fringe-search",
+		"name": "Fringe search",
+		"aliases": [],
+		"kind": "search",
+		"refs": ["Björnsson, Enzenberger, Holte, Schaeffer 2005"],
+		"implementations": [
+			{
+				"crate": "heuristic-search",
+				"items": ["fringe_search"],
+				"feature": null,
+				"summary": "Optimal with an admissible heuristic, threshold iterations over a cache of g per state, no priority queue."
+			}
+		]
+	},
+	{
+		"slug": "frtdp",
+		"name": "FRTDP",
+		"aliases": ["Focused RTDP", "Focused Real-Time Dynamic Programming"],
+		"kind": "search",
+		"refs": ["Smith and Simmons 2006"],
+		"implementations": [
+			{
+				"crate": "stochastic-search",
+				"items": ["frtdp", "FrtdpConfig"],
+				"feature": null,
+				"summary": "Focused RTDP with lower and upper bounds; trials follow the successor of highest priority with an adaptive depth limit."
+			}
+		]
+	},
+	{
+		"slug": "funnel-algorithm",
+		"name": "Funnel algorithm",
+		"aliases": [],
+		"kind": "routing",
+		"refs": [],
+		"implementations": [
+			{
+				"crate": "connector-routing",
+				"items": [],
+				"feature": null,
+				"summary": "The shortest path through a sequence of portals, with exact orientation tests, used by sleeve routing."
+			}
+		]
+	},
+	{
+		"slug": "ga-over-sas-plus-plans",
+		"name": "GA over SAS+ Plans",
+		"aliases": ["EvoPlan fitness cascade"],
+		"kind": "search",
+		"refs": ["Nukapotula et al. 2026"],
+		"implementations": [
+			{
+				"crate": "evolutionary-planning",
+				"items": ["solve", "PlanRepair"],
+				"feature": "sas-plus",
+				"summary": "Genetic search over SAS+ action chains decoded by simulating the task, scored by EvoPlan's fitness cascade and repaired phenotypically or genotypically."
+			}
+		]
+	},
+	{
+		"slug": "ga-path-planning",
+		"name": "GA Path Planning",
+		"aliases": ["Genetic path planning"],
+		"kind": "routing",
+		"refs": [],
+		"implementations": [
+			{
+				"crate": "evolutionary-planning",
+				"items": ["solve"],
+				"feature": null,
+				"summary": "Genetic path planning on graphs and grids: simple paths from randomised depth-first search, recombined at shared vertices, mutated by rerouting and repaired by cutting loops."
+			}
+		]
+	},
+	{
+		"slug": "generalized-factoring",
+		"name": "Generalized factoring",
+		"aliases": ["generalized star factoring"],
+		"kind": "other",
+		"refs": ["Gnad, Torralba & Fišer 2022"],
+		"implementations": [
+			{
+				"crate": "decoupled-search",
+				"items": ["generalized"],
+				"feature": null,
+				"summary": "Generalized factorings with directly interacting leaves and a possibly empty center."
+			}
+		]
+	},
+	{
+		"slug": "genetic-algorithm",
+		"name": "Genetic Algorithm",
+		"aliases": ["GA", "Steady-state GA", "Generational GA"],
+		"kind": "optimization",
+		"refs": [],
+		"implementations": [
+			{
+				"crate": "evolutionary-planning",
+				"items": ["Ga"],
+				"feature": null,
+				"summary": "Genetic algorithm, generational with elitism or steady state, over caller-supplied selection, crossover, mutation and repair operators."
+			}
+		]
+	},
+	{
+		"slug": "genetic-programming",
+		"name": "Genetic Programming",
+		"aliases": ["GP", "Tree-based GP"],
+		"kind": "optimization",
+		"refs": ["Koza 1992", "Lou, Ding and Wu 2022"],
+		"implementations": [
+			{
+				"crate": "evolutionary-planning",
+				"items": [
+					"Grammar",
+					"RampedHalfAndHalf",
+					"SubtreeCrossover",
+					"SubtreeMutation",
+					"PointMutation"
+				],
+				"feature": null,
+				"summary": "Tree-based genetic programming over a caller's operator language with ramped half-and-half initialisation and subtree crossover and mutation, for example reactive navigation policies."
+			}
+		]
+	},
+	{
+		"slug": "girard-reduction",
+		"name": "Girard reduction",
+		"aliases": ["Girard order reduction"],
+		"kind": "reachability",
+		"refs": ["Girard 2005"],
+		"implementations": [
+			{
+				"crate": "polyzonotope",
+				"items": ["Reduction", "reduce"],
+				"feature": null,
+				"summary": "Order reduction that drops the generators with the smallest 1-norm minus infinity-norm and encloses them in an axis-aligned box."
+			}
+		]
+	},
+	{
+		"slug": "gleam-diffusion-model",
+		"name": "GLEAM Diffusion Model",
+		"aliases": ["GLEAM", "Ring diffusion model"],
+		"kind": "optimization",
+		"refs": ["Jakob 2021"],
+		"implementations": [
+			{
+				"crate": "evolutionary-planning",
+				"items": ["Diffusion"],
+				"feature": null,
+				"summary": "GLEAM's diffusion model: a structured population on a ring where every individual mates only within its deme of neighbours, counteracting premature convergence."
+			}
+		]
+	},
+	{
+		"slug": "goal-count-heuristic",
+		"name": "Goal-count heuristic",
+		"aliases": ["goal count"],
+		"kind": "heuristic",
+		"refs": [],
+		"implementations": [
+			{
+				"crate": "miniplan",
+				"items": ["GoalCountHeuristic"],
+				"feature": null,
+				"summary": "Counts the unsatisfied goal facts of a state."
+			}
+		]
+	},
+	{
+		"slug": "goal-intention-ranking",
+		"name": "Goal-intention ranking",
+		"aliases": ["ol_rp", "op_rp", "goal intention"],
+		"kind": "heuristic",
+		"refs": ["Rosa et al. 2026"],
+		"implementations": [
+			{
+				"crate": "planning-heuristics",
+				"items": ["GoalIntention", "IntentionTracker"],
+				"feature": null,
+				"summary": "Goal-intention ranking keys from sampled relaxed plans, with a path tracker."
+			}
+		]
+	},
+	{
+		"slug": "greedy-best-first-search",
+		"name": "Greedy best-first search",
+		"aliases": ["GBFS", "symbolic greedy best-first search"],
+		"kind": "search",
+		"refs": [],
+		"implementations": [
+			{
+				"crate": "decoupled-search",
+				"items": ["gbfs"],
+				"feature": null,
+				"summary": "Satisficing greedy best-first search over decoupled states, optionally with reachability-only leaves."
+			},
+			{
+				"crate": "symbolic-search",
+				"items": ["greedy"],
+				"feature": null,
+				"summary": "Symbolic greedy best-first search with heuristics stored as one BDD per h value."
+			},
+			{
+				"crate": "miniplan",
+				"items": ["Gbfs"],
+				"feature": null,
+				"summary": "Greedy best-first search over the grounded task (fast, non-optimal)."
+			},
+			{
+				"crate": "heuristic-search",
+				"items": ["gbfs"],
+				"feature": null,
+				"summary": "Greedy best-first search ordered by the heuristic alone."
+			}
+		]
+	},
+	{
+		"slug": "greedy-bisimulation",
+		"name": "Greedy bisimulation",
+		"aliases": [],
+		"kind": "abstraction",
+		"refs": ["Nissim, Hoffmann & Helmert 2011"],
+		"implementations": [
+			{
+				"crate": "merge-and-shrink",
+				"items": ["GreedyBisimulation"],
+				"feature": null,
+				"summary": "Shrinks by bisimulation over transitions on optimal paths only, shrinking more but no longer perfect after further merges."
+			}
+		]
+	},
+	{
+		"slug": "greedy-priority-scheduling",
+		"name": "Greedy priority scheduling",
+		"aliases": ["greedy scheduler"],
+		"kind": "scheduling",
+		"refs": [],
+		"implementations": [
+			{
+				"crate": "resource-timeline",
+				"items": ["schedule"],
+				"feature": "alloc",
+				"summary": "Places activities in priority order at their earliest feasible start, never moving or backtracking."
+			}
+		]
+	},
+	{
+		"slug": "h-1-landmarks",
+		"name": "h^1 landmarks",
+		"aliases": ["delete-relaxation fact landmarks", "h^m landmarks"],
+		"kind": "heuristic",
+		"refs": ["Zhu & Givan 2003", "Keyder, Richter & Helmert 2010"],
+		"implementations": [
+			{
+				"crate": "planning-heuristics",
+				"items": ["Relaxation", "LandmarkGraph"],
+				"feature": null,
+				"summary": "Fact landmarks of the delete relaxation with natural orderings."
+			}
+		]
+	},
+	{
+		"slug": "h-2",
+		"name": "h^2",
+		"aliases": ["h²", "h^m with m = 2"],
+		"kind": "heuristic",
+		"refs": ["Haslum & Geffner 2000"],
+		"implementations": [
+			{
+				"crate": "planning-heuristics",
+				"items": ["H2"],
+				"feature": null,
+				"summary": "The h^m heuristic with m = 2: cheapest regression over fact pairs."
+			}
+		]
+	},
+	{
+		"slug": "h-add",
+		"name": "h^add",
+		"aliases": ["h_add", "Additive heuristic", "additive heuristic"],
+		"kind": "heuristic",
+		"refs": ["Bonet & Geffner 2001"],
+		"implementations": [
+			{
+				"crate": "width-search",
+				"items": ["h_add"],
+				"feature": "sas-plus",
+				"summary": "The additive heuristic on SAS+ tasks, whose best supporters give the relaxed plans for BFWS."
+			},
+			{
+				"crate": "miniplan",
+				"items": ["HAdd"],
+				"feature": null,
+				"summary": "Additive delete-relaxation heuristic on the grounded task."
+			},
+			{
+				"crate": "planning-heuristics",
+				"items": ["HAdd"],
+				"feature": null,
+				"summary": "Delete-relaxation heuristic summing the goal fact costs."
+			}
+		]
+	},
+	{
+		"slug": "h-ff",
+		"name": "h^FF",
+		"aliases": ["FF heuristic", "h_FF", "relaxed plan heuristic"],
+		"kind": "heuristic",
+		"refs": ["Hoffmann & Nebel 2001"],
+		"implementations": [
+			{
+				"crate": "decoupled-search",
+				"items": ["HFf"],
+				"feature": null,
+				"summary": "FF heuristic on decoupled states, seeded with per-fact leaf prices."
+			},
+			{
+				"crate": "miniplan",
+				"items": ["HFF"],
+				"feature": null,
+				"summary": "Relaxed-plan FF heuristic on the grounded bitset task."
+			},
+			{
+				"crate": "planning-heuristics",
+				"items": ["HFf"],
+				"feature": null,
+				"summary": "Cost of a relaxed plan extracted from h_add best supporters, with preferred operators."
+			}
+		]
+	},
+	{
+		"slug": "h-max",
+		"name": "h^max",
+		"aliases": ["max heuristic", "h_max"],
+		"kind": "heuristic",
+		"refs": ["Bonet & Geffner 2001"],
+		"implementations": [
+			{
+				"crate": "decoupled-search",
+				"items": ["HMax"],
+				"feature": null,
+				"summary": "Admissible max heuristic on decoupled states, seeded with per-fact leaf prices."
+			},
+			{
+				"crate": "miniplan",
+				"items": ["HMax"],
+				"feature": null,
+				"summary": "Max delete-relaxation heuristic on the grounded task."
+			},
+			{
+				"crate": "planning-heuristics",
+				"items": ["HMax"],
+				"feature": null,
+				"summary": "Admissible delete-relaxation heuristic: the cost of the most expensive goal fact."
+			}
+		]
+	},
+	{
+		"slug": "h-sa",
+		"name": "h^sa",
+		"aliases": ["set-additive heuristic", "h_sa"],
+		"kind": "heuristic",
+		"refs": ["Keyder & Geffner 2008"],
+		"implementations": [
+			{
+				"crate": "planning-heuristics",
+				"items": ["HSetAdd"],
+				"feature": null,
+				"summary": "Set-additive heuristic: like h_add, but each fact carries a set of operators."
+			}
+		]
+	},
+	{
+		"slug": "hygleam",
+		"name": "HyGLEAM",
+		"aliases": ["Hybrid GLEAM"],
+		"kind": "optimization",
+		"refs": ["Jakob 2021", "Jakob, Blume and Bretthauer 2004"],
+		"implementations": [
+			{
+				"crate": "evolutionary-planning",
+				"items": ["Diffusion", "Memetic"],
+				"feature": null,
+				"summary": "The diffusion model plus adaptive local search, with HyGLEAM's cost-benefit adaptation of local search frequency and intensity."
+			}
+		]
+	},
+	{
+		"slug": "icts",
+		"name": "ICTS",
+		"aliases": ["Increasing Cost Tree Search"],
+		"kind": "search",
+		"refs": ["Sharon et al. 2013"],
+		"implementations": [
+			{
+				"crate": "mapf-search",
+				"items": ["icts"],
+				"feature": null,
+				"summary": "Increasing cost tree search with pairwise pruning, optimal for sum of costs or makespan."
+			}
+		]
+	},
+	{
+		"slug": "ida-star",
+		"name": "IDA*",
+		"aliases": ["Iterative Deepening A*"],
+		"kind": "search",
+		"refs": ["Korf 1985"],
+		"implementations": [
+			{
+				"crate": "heuristic-search",
+				"items": ["ida_star"],
+				"feature": null,
+				"summary": "Iterative deepening A*: cheapest path with an admissible heuristic in memory linear in the depth."
+			}
+		]
+	},
+	{
+		"slug": "ida-star-with-transposition-table",
+		"name": "IDA* with transposition table",
+		"aliases": ["IDA*-TT"],
+		"kind": "search",
+		"refs": [],
+		"implementations": [
+			{
+				"crate": "heuristic-search",
+				"items": ["ida_star_tt"],
+				"feature": null,
+				"summary": "IDA* with a bounded transposition table."
+			}
+		]
+	},
+	{
+		"slug": "iddfs",
+		"name": "IDDFS",
+		"aliases": ["Iterative deepening DFS", "Iterative deepening depth-first search"],
+		"kind": "search",
+		"refs": [],
+		"implementations": [
+			{
+				"crate": "heuristic-search",
+				"items": ["iddfs"],
+				"feature": null,
+				"summary": "Iterative deepening depth-first search."
+			}
+		]
+	},
+	{
+		"slug": "ideal-point-heuristic",
+		"name": "Ideal-point heuristic",
+		"aliases": [],
+		"kind": "heuristic",
+		"refs": [
+			"Salzman, Hernández Ulloa, Felner, Koenig, \"Multi-Objective Search: Algorithms, Applications, and Emerging Directions\", arXiv 2510.25504"
+		],
+		"implementations": [
+			{
+				"crate": "multiobjective-search",
+				"items": ["IdealPoint"],
+				"feature": null,
+				"summary": "The ideal-point heuristic for cost vectors."
+			}
+		]
+	},
+	{
+		"slug": "ilao-star",
+		"name": "iLAO*",
+		"aliases": ["Improved LAO*"],
+		"kind": "search",
+		"refs": ["Hansen and Zilberstein 2001"],
+		"implementations": [
+			{
+				"crate": "stochastic-search",
+				"items": ["ilao_star"],
+				"feature": null,
+				"summary": "Improved LAO* grows the best partial solution graph in depth-first passes, without sampling."
+			}
+		]
+	},
+	{
+		"slug": "imolao-star",
+		"name": "iMOLAO*",
+		"aliases": ["Improved Multi-Objective LAO*"],
+		"kind": "search",
+		"refs": ["Chen, Trevizan and Thiébaux 2023"],
+		"implementations": [
+			{
+				"crate": "stochastic-search",
+				"items": ["imolao_star"],
+				"feature": null,
+				"summary": "Improved multi-objective LAO* for SSPs with cost vectors, returning the convex coverage set of deterministic proper policies."
+			}
+		]
+	},
+	{
+		"slug": "incident-arcs-factoring",
+		"name": "Incident-arcs factoring",
+		"aliases": ["incident arcs"],
+		"kind": "other",
+		"refs": ["Gnad, Poser & Hoffmann 2017"],
+		"implementations": [
+			{
+				"crate": "decoupled-search",
+				"items": ["incident_arcs"],
+				"feature": null,
+				"summary": "Strict-star factoring strategy by incident causal-graph arcs."
+			}
+		]
+	},
+	{
+		"slug": "incremental-poly-line-routing",
+		"name": "Incremental poly-line routing",
+		"aliases": ["Poly-line connector routing"],
+		"kind": "routing",
+		"refs": ["Wybrow, Marriott and Stuckey 2005"],
+		"implementations": [
+			{
+				"crate": "connector-routing",
+				"items": ["PolylineRouter"],
+				"feature": null,
+				"summary": "Shortest any-angle routes over the visibility graph of obstacle corners, kept up to date as obstacles come and go, with hidden-region pruning."
+			}
+		]
+	},
+	{
+		"slug": "incremental-stn-consistency",
+		"name": "Incremental STN consistency",
+		"aliases": [],
+		"kind": "validation",
+		"refs": [],
+		"implementations": [
+			{
+				"crate": "temporal-control",
+				"items": ["IncrementalStn"],
+				"feature": "alloc",
+				"summary": "Keeps the closed all-pairs distance matrix of an STN up to date as constraints arrive, at O(n^2) per constraint, rejecting constraints that would make it inconsistent."
+			}
+		]
+	},
+	{
+		"slug": "informed-rrt-star",
+		"name": "Informed RRT*",
+		"aliases": [],
+		"kind": "sampling",
+		"refs": ["Gammell, Srinivasa & Barfoot 2014"],
+		"implementations": [
+			{
+				"crate": "sampling-planning",
+				"items": ["RrtStar", "ProlateHyperspheroid"],
+				"feature": null,
+				"summary": "RRT* that, once a solution exists, samples only the informed set, with direct prolate-hyperspheroid sampling in Euclidean spaces."
+			}
+		]
+	},
+	{
+		"slug": "inverted-fork-factoring",
+		"name": "Inverted-fork factoring",
+		"aliases": ["inverted fork"],
+		"kind": "other",
+		"refs": [],
+		"implementations": [
+			{
+				"crate": "decoupled-search",
+				"items": ["inverted_fork"],
+				"feature": null,
+				"summary": "Factors the task into an inverted fork: leaves that the center depends on."
+			}
+		]
+	},
+	{
+		"slug": "ipop-cma-es",
+		"name": "IPOP-CMA-ES",
+		"aliases": ["IPOP", "CMA-ES with increasing population restarts"],
+		"kind": "optimization",
+		"refs": ["Auger and Hansen 2005"],
+		"implementations": [
+			{
+				"crate": "evolutionary-planning",
+				"items": ["Ipop"],
+				"feature": null,
+				"summary": "CMA-ES with IPOP restarts that grow the population size."
+			}
+		]
+	},
+	{
+		"slug": "iterative-pp-a-star",
+		"name": "Iterative-PP-A*",
+		"aliases": ["Iterative PP-A*"],
+		"kind": "search",
+		"refs": [],
+		"implementations": [
+			{
+				"crate": "multiobjective-search",
+				"items": ["pp_a_star_iterative"],
+				"feature": null,
+				"summary": "The anytime baseline that reruns PP-A* with tightening tolerances."
+			}
+		]
+	},
+	{
+		"slug": "iw",
+		"name": "IW",
+		"aliases": ["Iterated Width", "IW(k)"],
+		"kind": "search",
+		"refs": ["Lipovetzky & Geffner, ECAI 2012"],
+		"implementations": [
+			{
+				"crate": "width-search",
+				"items": ["iw", "iterated_width"],
+				"feature": null,
+				"summary": "IW(k) is breadth-first search that drops every non-goal state with novelty greater than k; iterated width runs IW(1), IW(2), ... until one succeeds."
+			}
+		]
+	},
+	{
+		"slug": "iwls95",
+		"name": "IWLS95",
+		"aliases": ["IWLS95 schedule", "conjunctive partitioning with early quantification"],
+		"kind": "other",
+		"refs": ["Ranjan, Aziz, Brayton, Plessier & Pixley 1995"],
+		"implementations": [
+			{
+				"crate": "symbolic-search",
+				"items": ["Schedule", "Partitioning"],
+				"feature": null,
+				"summary": "Orders per-variable conjunctive transition-relation clusters for early quantification by the IWLS95 benefit function."
+			}
+		]
+	},
+	{
+		"slug": "jump-point-search",
+		"name": "Jump Point Search",
+		"aliases": ["JPS"],
+		"kind": "search",
+		"refs": ["Harabor and Grastien 2011"],
+		"implementations": [
+			{
+				"crate": "heuristic-search",
+				"items": ["jps"],
+				"feature": null,
+				"summary": "Jump Point Search on any uniform 8-connected grid without corner cutting, with exact octile costs."
+			}
+		]
+	},
+	{
+		"slug": "kpiece",
+		"name": "KPIECE",
+		"aliases": ["Kinodynamic Planning by Interior-Exterior Cell Exploration"],
+		"kind": "sampling",
+		"refs": ["Sucan & Kavraki 2008", "Sucan & Kavraki 2012"],
+		"implementations": [
+			{
+				"crate": "sampling-planning",
+				"items": ["Kpiece"],
+				"feature": null,
+				"summary": "Single-level KPIECE that explores a grid over a user projection of the state space using a forward-simulation Propagator."
+			}
+		]
+	},
+	{
+		"slug": "l-namoa-star-dr-mvh",
+		"name": "L-NAMOA*dr-mvh",
+		"aliases": ["Lazy NAMOA*dr-mvh"],
+		"kind": "search",
+		"refs": [
+			"Wolff, Felner, Salzman: \"Bridging Multi-Valued Heuristics and Dimensionality Reduction in Multi-Objective Search\", arXiv 2606.20644"
+		],
+		"implementations": [
+			{
+				"crate": "multiobjective-search",
+				"items": ["namoa_star_dr_mvh_lazy"],
+				"feature": null,
+				"summary": "Lazy dimensionality reduction with an admissible multi-valued heuristic."
+			}
+		]
+	},
+	{
+		"slug": "label-reduction",
+		"name": "Label reduction",
+		"aliases": ["exact label reduction"],
+		"kind": "abstraction",
+		"refs": ["Sievers, Wehrle & Helmert 2014"],
+		"implementations": [
+			{
+				"crate": "merge-and-shrink",
+				"items": ["MergeAndShrink"],
+				"feature": null,
+				"summary": "Combines equal-cost operators that only one factor can tell apart into one label in every factor, exactly."
+			}
+		]
+	},
+	{
+		"slug": "labelled-closure",
+		"name": "Labelled closure",
+		"aliases": ["labelled distance graph closure", "Morris-Muscettola closure"],
+		"kind": "validation",
+		"refs": [],
+		"implementations": [
+			{
+				"crate": "temporal-control",
+				"items": ["dispatchable_with", "DispatchAlgorithm"],
+				"feature": "alloc",
+				"summary": "Reference dynamic controllability check: all-pairs closure of the labelled distance graph under the Morris-Muscettola rules, yielding an extended dispatchable network."
+			}
+		]
+	},
+	{
+		"slug": "landmark-count-heuristic",
+		"name": "Landmark count heuristic",
+		"aliases": ["LAMA landmark heuristic", "landmark tracking"],
+		"kind": "heuristic",
+		"refs": ["Richter & Westphal 2010"],
+		"implementations": [
+			{
+				"crate": "planning-heuristics",
+				"items": ["LandmarkCount", "LandmarkTracker"],
+				"feature": null,
+				"summary": "Inadmissible landmark count, per state or with LAMA-style tracking along the search path."
+			}
+		]
+	},
+	{
+		"slug": "lao-star",
+		"name": "LAO*",
+		"aliases": [],
+		"kind": "search",
+		"refs": ["Hansen and Zilberstein 2001"],
+		"implementations": [
+			{
+				"crate": "stochastic-search",
+				"items": ["lao_star"],
+				"feature": null,
+				"summary": "Classic LAO*, one tip per expansion step with value iteration on its ancestors; the paper's original, slower than iLAO*."
+			}
+		]
+	},
+	{
+		"slug": "lazy-prm",
+		"name": "Lazy PRM",
+		"aliases": [],
+		"kind": "sampling",
+		"refs": ["Bohlin & Kavraki 2000"],
+		"implementations": [
+			{
+				"crate": "sampling-planning",
+				"items": ["Prm"],
+				"feature": null,
+				"summary": "PRM that stores edges unchecked and checks only the edges of candidate query paths."
+			}
+		]
+	},
+	{
+		"slug": "lazy-theta-star",
+		"name": "Lazy Theta*",
+		"aliases": ["Lazy Theta star"],
+		"kind": "search",
+		"refs": ["Nash, Koenig, Tovey 2010"],
+		"implementations": [
+			{
+				"crate": "heuristic-search",
+				"items": ["lazy_theta_star"],
+				"feature": "float",
+				"summary": "Any-angle search on a line-of-sight grid that defers line-of-sight checks."
+			}
+		]
+	},
+	{
+		"slug": "lazysp",
+		"name": "LazySP",
+		"aliases": ["Lazy Shortest Path"],
+		"kind": "search",
+		"refs": ["Dellin and Srinivasa 2016"],
+		"implementations": [
+			{
+				"crate": "heuristic-search",
+				"items": ["lazy_sp"],
+				"feature": null,
+				"summary": "Lazy shortest path for expensive edge evaluation, with an edge evaluator for the true costs."
+			}
+		]
+	},
+	{
+		"slug": "leaf-reduction",
+		"name": "Leaf reduction",
+		"aliases": ["simulation-based leaf reduction", "superfluous-transition removal"],
+		"kind": "pruning",
+		"refs": ["Torralba, Gnad, Dubbert & Hoffmann 2016"],
+		"implementations": [
+			{
+				"crate": "decoupled-search",
+				"items": ["Config", "reduced_task"],
+				"feature": null,
+				"summary": "Optional simulation-based leaf reduction that removes superfluous leaf transitions in a sound order, with a reduced task for heuristics."
+			}
+		]
+	},
+	{
+		"slug": "limited-horizon-bellman-update",
+		"name": "Limited-horizon Bellman update",
+		"aliases": ["LHB"],
+		"kind": "search",
+		"refs": ["Hadar et al. 2025 (\"Beyond Single-Step Updates\", arXiv 2511.10264)"],
+		"implementations": [
+			{
+				"crate": "heuristic-search",
+				"items": ["lhb_update", "lhb_lrta_star"],
+				"feature": null,
+				"summary": "The limited-horizon Bellman update, offline or inside the LSS-LRTA* agent."
+			}
+		]
+	},
+	{
+		"slug": "linear-merge-strategy",
+		"name": "Linear merge strategy",
+		"aliases": ["linear merging"],
+		"kind": "abstraction",
+		"refs": [],
+		"implementations": [
+			{
+				"crate": "merge-and-shrink",
+				"items": ["LinearMerge"],
+				"feature": null,
+				"summary": "Merges the variables in a fixed order."
+			}
+		]
+	},
+	{
+		"slug": "linear-system-reachability",
+		"name": "Linear system reachability",
+		"aliases": [],
+		"kind": "reachability",
+		"refs": ["Girard 2005", "Althoff 2010"],
+		"implementations": [
+			{
+				"crate": "polyzonotope-reach",
+				"items": ["LinearReach", "LinearSystem"],
+				"feature": null,
+				"summary": "Propagates x' = A x + B u with zonotope inputs, returning time-point and time-interval sets using a truncated Taylor matrix exponential with an interval remainder."
+			}
+		]
+	},
+	{
+		"slug": "lm-cut",
+		"name": "LM-cut",
+		"aliases": ["landmark-cut", "h^LM-cut", "h_LM-cut"],
+		"kind": "heuristic",
+		"refs": ["Helmert & Domshlak 2009"],
+		"implementations": [
+			{
+				"crate": "decoupled-search",
+				"items": ["LmCutHeuristic"],
+				"feature": "lm-cut",
+				"summary": "Admissible LM-cut adapter on decoupled states, from planning-heuristics."
+			},
+			{
+				"crate": "planning-heuristics",
+				"items": ["LmCut"],
+				"feature": null,
+				"summary": "Admissible landmark-cut heuristic with axioms and conditional effects by context splitting."
+			}
+		]
+	},
+	{
+		"slug": "lpa-star",
+		"name": "LPA*",
+		"aliases": ["Lifelong Planning A*"],
+		"kind": "search",
+		"refs": ["Koenig, Likhachev and Furcy 2004"],
+		"implementations": [
+			{
+				"crate": "heuristic-search",
+				"items": ["LpaStar"],
+				"feature": null,
+				"summary": "Lifelong Planning A*: A* that repairs its search after edge cost changes."
+			}
+		]
+	},
+	{
+		"slug": "lrta-star",
+		"name": "LRTA*",
+		"aliases": ["Learning Real-Time A*"],
+		"kind": "search",
+		"refs": ["Korf 1990"],
+		"implementations": [
+			{
+				"crate": "heuristic-search",
+				"items": ["lrta_star"],
+				"feature": null,
+				"summary": "Learning Real-Time A*, with a learned heuristic table that persists across trials."
+			}
+		]
+	},
+	{
+		"slug": "lrtdp",
+		"name": "LRTDP",
+		"aliases": ["Labeled RTDP", "Labeled Real-Time Dynamic Programming"],
+		"kind": "search",
+		"refs": ["Bonet and Geffner 2003"],
+		"implementations": [
+			{
+				"crate": "stochastic-search",
+				"items": ["lrtdp"],
+				"feature": null,
+				"summary": "Labeled real-time dynamic programming: explores only the states a good policy visits, epsilon-consistent on them when it converges."
+			}
+		]
+	},
+	{
+		"slug": "lss-lrta-star",
+		"name": "LSS-LRTA*",
+		"aliases": ["Local Search Space LRTA*"],
+		"kind": "search",
+		"refs": ["Koenig and Sun 2009"],
+		"implementations": [
+			{
+				"crate": "heuristic-search",
+				"items": ["lss_lrta_star"],
+				"feature": null,
+				"summary": "Real-time search with an A* lookahead and a Dijkstra update of the learned table."
+			}
+		]
+	},
+	{
+		"slug": "m-star",
+		"name": "M*",
+		"aliases": ["rM*", "OD-M*", "ODrM*", "Recursive M*", "Subdimensional expansion"],
+		"kind": "search",
+		"refs": ["Wagner and Choset 2015", "Wagner and Choset 2013"],
+		"implementations": [
+			{
+				"crate": "mapf-search",
+				"items": ["mstar", "mstar_with", "MStarConfig"],
+				"feature": null,
+				"summary": "M* with subdimensional expansion, basic and recursive (rM*), each with or without operator decomposition (OD-M*, ODrM*); optimal and proves unsolvability."
+			}
+		]
+	},
+	{
+		"slug": "map-elites",
+		"name": "MAP-Elites",
+		"aliases": ["Multi-dimensional Archive of Phenotypic Elites"],
+		"kind": "optimization",
+		"refs": ["Mouret and Clune 2015"],
+		"implementations": [
+			{
+				"crate": "evolutionary-planning",
+				"items": ["MapElites", "Archive", "Grid"],
+				"feature": null,
+				"summary": "Quality diversity over a grid archive of behaviour descriptors that keeps the cheapest genome per cell."
+			}
+		]
+	},
+	{
+		"slug": "mapf-lns2",
+		"name": "MAPF-LNS2",
+		"aliases": ["LNS2", "Large Neighborhood Search 2"],
+		"kind": "search",
+		"refs": ["Li et al. 2022"],
+		"implementations": [
+			{
+				"crate": "mapf-search",
+				"items": ["lns2", "Lns2Config"],
+				"feature": null,
+				"summary": "Large neighborhood search repair: starts from a plan with collisions and replans a few agents at a time with SIPPS until none are left; seeded, neither optimal nor complete."
+			}
+		]
+	},
+	{
+		"slug": "maximum-leaves-factoring",
+		"name": "Maximum-leaves factoring",
+		"aliases": ["independent-set factoring", "max leaves"],
+		"kind": "other",
+		"refs": ["Gnad, Poser & Hoffmann 2017"],
+		"implementations": [
+			{
+				"crate": "decoupled-search",
+				"items": ["max_leaves"],
+				"feature": null,
+				"summary": "Strict-star factoring that picks an independent set with the maximum number of leaves."
+			}
+		]
+	},
+	{
+		"slug": "memetic-algorithm",
+		"name": "Memetic Algorithm",
+		"aliases": ["Lamarckian evolution", "Baldwinian evolution"],
+		"kind": "optimization",
+		"refs": ["Jakob 2021", "Jakob, Blume and Bretthauer 2004"],
+		"implementations": [
+			{
+				"crate": "evolutionary-planning",
+				"items": ["Memetic", "HillClimb", "Rosenbrock"],
+				"feature": null,
+				"summary": "Local searchers (hill climbing, Rosenbrock) applied to GA or diffusion-model offspring, Lamarckian or Baldwinian, with adaptive frequency and intensity."
+			}
+		]
+	},
+	{
+		"slug": "merge-and-shrink",
+		"name": "Merge-and-shrink",
+		"aliases": ["M&S", "merge-and-shrink heuristic", "merge-and-shrink abstraction"],
+		"kind": "heuristic",
+		"refs": ["Helmert, Haslum, Hoffmann & Nissim 2014", "Sievers & Helmert 2021"],
+		"implementations": [
+			{
+				"crate": "decoupled-search",
+				"items": ["MasHeuristic"],
+				"feature": "merge-and-shrink",
+				"summary": "Admissible merge-and-shrink heuristic adapter on decoupled states, from the merge-and-shrink crate."
+			},
+			{
+				"crate": "merge-and-shrink",
+				"items": ["MergeAndShrink", "MergeAndShrinkHeuristic"],
+				"feature": null,
+				"summary": "Builds an admissible abstraction heuristic over all variables by repeatedly merging factors into synchronized products and shrinking them to a size limit."
+			}
+		]
+	},
+	{
+		"slug": "mha-star",
+		"name": "MHA*",
+		"aliases": ["Multi-heuristic A*", "Shared MHA*"],
+		"kind": "search",
+		"refs": ["Aine, Swaminathan, Narayanan, Hwang and Likhachev 2016"],
+		"implementations": [
+			{
+				"crate": "heuristic-search",
+				"items": ["mha_star"],
+				"feature": null,
+				"summary": "Shared multi-heuristic A*: one consistent anchor heuristic for the bound, any number of inadmissible ones for guidance."
+			}
+		]
+	},
+	{
+		"slug": "mindispestnu",
+		"name": "minDispESTNU",
+		"aliases": ["minimal dispatchable ESTNU"],
+		"kind": "other",
+		"refs": ["Hunsberger & Posenato 2024"],
+		"implementations": [
+			{
+				"crate": "temporal-control",
+				"items": ["dispatchable_with", "DispatchAlgorithm"],
+				"feature": "alloc",
+				"summary": "Reduces Morris's extended dispatchable STNU with stand-in edges, STN dispatchability filtering and removal of dominated waits, without the paper's diamond stand-ins."
+			}
+		]
+	},
+	{
+		"slug": "minsum-maxmin-path",
+		"name": "Minsum-maxmin path",
+		"aliases": ["Minsum-maxmin paths"],
+		"kind": "search",
+		"refs": [
+			"Martins, \"On a special class of bicriterion path problems\", EJOR 1984",
+			"Gandibleux, Beugnies, Randriamasy, \"Martins' algorithm revisited for multi-objective shortest path problems with a MaxMin cost function\", 4OR 2006"
+		],
+		"implementations": [
+			{
+				"crate": "multiobjective-search",
+				"items": ["minsum_maxmin", "minsum_maxmin_multi"],
+				"feature": null,
+				"summary": "Paths with one additive cost to minimize and one bottleneck capacity to maximize, also with several of each."
+			}
+		]
+	},
+	{
+		"slug": "mo-cbs",
+		"name": "MO-CBS",
+		"aliases": ["Multi-Objective CBS", "Multi-Objective Conflict-Based Search", "MO-CBS-t"],
+		"kind": "search",
+		"refs": ["Ren, Rathinam and Choset 2021"],
+		"implementations": [
+			{
+				"crate": "mapf-search",
+				"items": ["mo_cbs", "mo_cbs_with", "mo_cbs_per_agent", "MoCbsConfig"],
+				"feature": "multi-objective",
+				"summary": "Multi-objective CBS returning every Pareto-optimal plan when moves and waits cost vectors, plain or tree-by-tree (MO-CBS-t), over BOA* or NAMOA*dr, with an opt-in feasibility check, conflict prioritization, bypass and disjoint splitting."
+			}
+		]
+	},
+	{
+		"slug": "moea-d",
+		"name": "MOEA/D",
+		"aliases": ["Multi-Objective Evolutionary Algorithm based on Decomposition"],
+		"kind": "optimization",
+		"refs": ["Zhang and Li 2007", "Li and Zhang 2009"],
+		"implementations": [
+			{
+				"crate": "evolutionary-planning",
+				"items": ["Moead"],
+				"feature": null,
+				"summary": "Multi-objective search by decomposition into scalar subproblems (weighted sum, Tchebycheff, PBI), each improved by mating within its neighbourhood of weight vectors."
+			}
+		]
+	},
+	{
+		"slug": "molao-star",
+		"name": "MOLAO*",
+		"aliases": ["Multi-Objective LAO*"],
+		"kind": "search",
+		"refs": ["Chen, Trevizan and Thiébaux 2023"],
+		"implementations": [
+			{
+				"crate": "stochastic-search",
+				"items": ["molao_star"],
+				"feature": null,
+				"summary": "Multi-objective LAO* for SSPs with cost vectors, returning the convex coverage set of deterministic proper policies."
+			}
+		]
+	},
+	{
+		"slug": "molrtdp",
+		"name": "MOLRTDP",
+		"aliases": ["Multi-Objective LRTDP", "Multi-Objective Labeled RTDP"],
+		"kind": "search",
+		"refs": ["Chen, Trevizan and Thiébaux 2023"],
+		"implementations": [
+			{
+				"crate": "stochastic-search",
+				"items": ["molrtdp"],
+				"feature": null,
+				"summary": "Multi-objective labeled RTDP for SSPs with cost vectors, returning the convex coverage set of deterministic proper policies."
+			}
+		]
+	},
+	{
+		"slug": "morris-2014-backpropagation",
+		"name": "Morris 2014 backpropagation",
+		"aliases": ["Morris 2014", "DCbackprop", "O(n^3) dynamic controllability check"],
+		"kind": "validation",
+		"refs": ["Morris 2014"],
+		"implementations": [
+			{
+				"crate": "temporal-control",
+				"items": [
+					"check_controllability",
+					"check_controllability_with",
+					"DcAlgorithm",
+					"dispatchable_with",
+					"DispatchAlgorithm"
+				],
+				"feature": "alloc",
+				"summary": "Default STNU dynamic controllability checker: O(n^3) backpropagation from negative nodes that explains negative verdicts; its dispatchable variant builds an extended dispatchable STNU."
+			}
+		]
+	},
+	{
+		"slug": "movi",
+		"name": "MOVI",
+		"aliases": ["Multi-Objective Value Iteration"],
+		"kind": "optimization",
+		"refs": ["Chen, Trevizan and Thiébaux 2023"],
+		"implementations": [
+			{
+				"crate": "stochastic-search",
+				"items": ["mo_value_iteration"],
+				"feature": null,
+				"summary": "Multi-objective value iteration, the exact reference for the multi-objective algorithms, also usable as a heuristic on an abstraction or the all-outcomes determinisation."
+			}
+		]
+	},
+	{
+		"slug": "multi-objective-label-correcting",
+		"name": "Multi-objective label correcting",
+		"aliases": ["Label correcting"],
+		"kind": "search",
+		"refs": [
+			"Guerriero and Musmanno, \"Label correcting methods to solve multicriteria shortest path problems\", JOTA 2001"
+		],
+		"implementations": [
+			{
+				"crate": "multiobjective-search",
+				"items": ["label_correcting"],
+				"feature": null,
+				"summary": "The multi-objective label-correcting algorithm for multicriteria shortest paths."
+			}
+		]
+	},
+	{
+		"slug": "multi-objective-minimum-spanning-tree",
+		"name": "Multi-objective minimum spanning tree",
+		"aliases": ["MO-MST"],
+		"kind": "optimization",
+		"refs": ["Hamacher and Ruhe 1994", "Ramos et al. 1998"],
+		"implementations": [
+			{
+				"crate": "multiobjective-search",
+				"items": ["pareto_spanning_trees", "two_phase_spanning_trees"],
+				"feature": null,
+				"summary": "The exact Pareto set of spanning trees by branch and bound, and the two-phase method for two objectives."
+			}
+		]
+	},
+	{
+		"slug": "namoa-star",
+		"name": "NAMOA*",
+		"aliases": ["New Approach to Multiobjective A*"],
+		"kind": "search",
+		"refs": [
+			"Mandow, Pérez de la Cruz: \"A New Approach to Multiobjective A* Search\", IJCAI 2005",
+			"Mandow, Pérez de la Cruz: \"Multiobjective A* search with consistent heuristics\", Journal of the ACM 57(5), 2010"
+		],
+		"implementations": [
+			{
+				"crate": "multiobjective-search",
+				"items": ["namoa_star"],
+				"feature": null,
+				"summary": "Classic multi-objective A* for admissible heuristics, with per-state Pareto frontiers."
+			}
+		]
+	},
+	{
+		"slug": "namoa-star-dr",
+		"name": "NAMOA*dr",
+		"aliases": ["NAMOA* with dimensionality reduction"],
+		"kind": "search",
+		"refs": [
+			"Pulido, Mandow, Pérez de la Cruz: \"Dimensionality reduction in multiobjective shortest path search\", Computers & Operations Research, 2015"
+		],
+		"implementations": [
+			{
+				"crate": "multiobjective-search",
+				"items": ["namoa_star_dr"],
+				"feature": null,
+				"summary": "NAMOA* with dimensionality reduction."
+			}
+		]
+	},
+	{
+		"slug": "namoa-star-dr-mvh",
+		"name": "NAMOA*dr-mvh",
+		"aliases": [],
+		"kind": "search",
+		"refs": [
+			"Wolff, Felner, Salzman: \"Bridging Multi-Valued Heuristics and Dimensionality Reduction in Multi-Objective Search\", arXiv 2606.20644"
+		],
+		"implementations": [
+			{
+				"crate": "multiobjective-search",
+				"items": ["namoa_star_dr_mvh"],
+				"feature": null,
+				"summary": "NAMOA*dr with consistent multi-valued heuristics."
+			}
+		]
+	},
+	{
+		"slug": "nbs",
+		"name": "NBS",
+		"aliases": ["Near-Optimal Bidirectional Search"],
+		"kind": "search",
+		"refs": ["Chen, Holte, Zilles and Sturtevant 2017", "Chen et al. 2017"],
+		"implementations": [
+			{
+				"crate": "heuristic-search",
+				"items": ["nbs"],
+				"feature": null,
+				"summary": "Near-Optimal Bidirectional Search."
+			},
+			{
+				"crate": "miniplan",
+				"items": ["Nbs"],
+				"feature": null,
+				"summary": "Heuristic-guided Near-Optimal Bidirectional Search over the grounded task."
+			}
+		]
+	},
+	{
+		"slug": "novelty-pruning",
+		"name": "Novelty pruning",
+		"aliases": ["Novelty"],
+		"kind": "pruning",
+		"refs": ["Lipovetzky & Geffner, ECAI 2012"],
+		"implementations": [
+			{
+				"crate": "width-search",
+				"items": ["NoveltyTable"],
+				"feature": null,
+				"summary": "Novelty tables that prune every state making no new combination of up to k features true."
+			}
+		]
+	},
+	{
+		"slug": "nsga-ii",
+		"name": "NSGA-II",
+		"aliases": ["Non-dominated Sorting Genetic Algorithm II"],
+		"kind": "optimization",
+		"refs": ["Deb, Pratap, Agarwal and Meyarivan 2002"],
+		"implementations": [
+			{
+				"crate": "evolutionary-planning",
+				"items": ["Nsga2"],
+				"feature": null,
+				"summary": "Elitist multi-objective search by fast non-dominated sorting and crowding distance, with Deb's constrained domination."
+			}
+		]
+	},
+	{
+		"slug": "nsga-iii",
+		"name": "NSGA-III",
+		"aliases": ["Non-dominated Sorting Genetic Algorithm III"],
+		"kind": "optimization",
+		"refs": ["Deb and Jain 2014"],
+		"implementations": [
+			{
+				"crate": "evolutionary-planning",
+				"items": ["Nsga3"],
+				"feature": null,
+				"summary": "NSGA-II's non-dominated sorting with reference-point based niching on Das-Dennis reference points instead of crowding, for three or more objectives."
+			}
+		]
+	},
+	{
+		"slug": "nudging",
+		"name": "Nudging",
+		"aliases": ["Orthogonal nudging"],
+		"kind": "routing",
+		"refs": ["Wybrow et al. 2009", "arXiv 2309.01671"],
+		"implementations": [
+			{
+				"crate": "connector-routing",
+				"items": ["nudge", "full", "nudge_nets"],
+				"feature": null,
+				"summary": "Scan-line separation constraints solved exactly as difference constraints with water-filling, no LP; full nudging also moves and grows boxes."
+			}
+		]
+	},
+	{
+		"slug": "objective-aggregation-search",
+		"name": "Objective-aggregation search",
+		"aliases": [],
+		"kind": "search",
+		"refs": [
+			"Peer, Weiss, Alterovitz, Salzman: \"Generalizing Multi-Objective Search via Objective-Aggregation Functions\", arXiv 2509.22085"
+		],
+		"implementations": [
+			{
+				"crate": "multiobjective-search",
+				"items": ["aggregated_search"],
+				"feature": null,
+				"summary": "Multi-objective search where solution objectives are monotone aggregations of hidden search objectives."
+			}
+		]
+	},
+	{
+		"slug": "octile-distance",
+		"name": "Octile distance",
+		"aliases": ["Octile heuristic"],
+		"kind": "heuristic",
+		"refs": [],
+		"implementations": [
+			{
+				"crate": "heuristic-search",
+				"items": ["OctileDistance"],
+				"feature": null,
+				"summary": "Octile distance heuristic for 8-connected grids, with the exact octile cost a + b√2 compared without rounding."
+			}
+		]
+	},
+	{
+		"slug": "operator-counting",
+		"name": "Operator counting",
+		"aliases": ["state equation heuristic", "operator-counting heuristic"],
+		"kind": "heuristic",
+		"refs": ["Pommerening, Röger, Helmert & Bonet 2014"],
+		"implementations": [
+			{
+				"crate": "planning-heuristics",
+				"items": ["OperatorCounting"],
+				"feature": "lp",
+				"summary": "Operator-counting LP from the state equation with LM-cut constraints, solved with microlp."
+			}
+		]
+	},
+	{
+		"slug": "optimal-landmark-cost-partitioning",
+		"name": "Optimal landmark cost partitioning",
+		"aliases": ["optimal cost partitioning"],
+		"kind": "heuristic",
+		"refs": ["Karpas & Domshlak 2009"],
+		"implementations": [
+			{
+				"crate": "planning-heuristics",
+				"items": ["OptimalLandmarkCost", "OptimalLandmarkTracker"],
+				"feature": "lp",
+				"summary": "Optimal landmark cost partitioning solved as a linear program, per state or along the search path."
+			}
+		]
+	},
+	{
+		"slug": "orthogonal-drawing-pipeline",
+		"name": "Orthogonal drawing pipeline",
+		"aliases": ["Hegemann-Wolff pipeline"],
+		"kind": "routing",
+		"refs": ["Hegemann and Wolff (arXiv 2309.01671)"],
+		"implementations": [
+			{
+				"crate": "connector-routing",
+				"items": ["draw", "assign_ports", "channel_graph"],
+				"feature": null,
+				"summary": "Port assignment, visibility or channel routing graph, routing, crossing reduction, ordering, and constrained or full nudging."
+			}
+		]
+	},
+	{
+		"slug": "orthogonal-hyperedge-routing",
+		"name": "Orthogonal hyperedge routing",
+		"aliases": ["Hyperedge routing"],
+		"kind": "routing",
+		"refs": ["Wybrow, Marriott and Stuckey 2012"],
+		"implementations": [
+			{
+				"crate": "connector-routing",
+				"items": ["route", "route_with", "improve"],
+				"feature": null,
+				"summary": "Nets with more than two ports as rectilinear Steiner trees by both heuristics of the paper, with segment-shifting improvement."
+			}
+		]
+	},
+	{
+		"slug": "orthogonal-visibility-graph",
+		"name": "Orthogonal visibility graph",
+		"aliases": ["OVG"],
+		"kind": "routing",
+		"refs": ["Wybrow, Marriott and Stuckey 2009"],
+		"implementations": [
+			{
+				"crate": "connector-routing",
+				"items": ["Scene"],
+				"feature": null,
+				"summary": "Orthogonal visibility graph with a routing frame and port stubs, updated incrementally for added, moved and removed obstacles and ports."
+			}
+		]
+	},
+	{
+		"slug": "p3c",
+		"name": "P3C",
+		"aliases": ["P³C", "partial path consistency"],
+		"kind": "other",
+		"refs": ["Planken, de Weerdt & van der Krogt 2008"],
+		"implementations": [
+			{
+				"crate": "temporal-control",
+				"items": ["partial_path_consistency", "ChordalNetwork"],
+				"feature": "alloc",
+				"summary": "Computes the minimal constraints of the constrained pairs of an STN only, over a chordal triangulation of its graph."
+			}
+		]
+	},
+	{
+		"slug": "parallel-moa-star",
+		"name": "Parallel MOA*",
+		"aliases": ["Parallel multi-objective A*"],
+		"kind": "search",
+		"refs": [
+			"Ahmadi, Sturtevant, Raith, Harabor, Jalili: \"Parallelizing Multi-objective A* Search\", arXiv 2503.10075"
+		],
+		"implementations": [
+			{
+				"crate": "multiobjective-search",
+				"items": ["parallel_moa_star"],
+				"feature": "parallel",
+				"summary": "One MOA* per cyclic objective order with shared multi-level upper bounds."
+			}
+		]
+	},
+	{
+		"slug": "path-shortcutting",
+		"name": "Path shortcutting",
+		"aliases": ["shortcutting"],
+		"kind": "optimization",
+		"refs": [],
+		"implementations": [
+			{
+				"crate": "sampling-planning",
+				"items": ["shortcut", "shortcut_random"],
+				"feature": null,
+				"summary": "Greedy and randomized shortcutting that replace pieces of a solution path by direct valid motions, never returning a more expensive path."
+			}
+		]
+	},
+	{
+		"slug": "pathfinder",
+		"name": "PathFinder",
+		"aliases": ["Negotiated congestion"],
+		"kind": "routing",
+		"refs": ["McMurchie and Ebeling 1995"],
+		"implementations": [
+			{
+				"crate": "connector-routing",
+				"items": ["route_all"],
+				"feature": null,
+				"summary": "Global routing with PathFinder negotiated congestion over channel capacities, crossing penalties and deterministic net order."
+			}
+		]
+	},
+	{
+		"slug": "pattern-database",
+		"name": "Pattern database",
+		"aliases": ["PDB", "Projection", "Pattern databases", "projection heuristic"],
+		"kind": "abstraction",
+		"refs": [],
+		"implementations": [
+			{
+				"crate": "sas-plus",
+				"items": ["Projection"],
+				"feature": null,
+				"summary": "Projection onto a pattern of variables, the pattern-database abstraction; derived variables are left out and conditional effects are handled so projections stay admissible."
+			},
+			{
+				"crate": "planning-heuristics",
+				"items": ["AbstractionHeuristic"],
+				"feature": null,
+				"summary": "Pattern database heuristics over sas_plus projections, and any sas_plus abstraction as a heuristic."
+			}
+		]
+	},
+	{
+		"slug": "pbs",
+		"name": "PBS",
+		"aliases": ["Priority-Based Search"],
+		"kind": "search",
+		"refs": ["Ma et al. 2019"],
+		"implementations": [
+			{
+				"crate": "mapf-search",
+				"items": ["pbs"],
+				"feature": null,
+				"summary": "Priority-based search, a depth-first search over partial priority orders between agents; fast, neither optimal nor complete."
+			}
+		]
+	},
+	{
+		"slug": "pca-reduction",
+		"name": "PCA reduction",
+		"aliases": ["PCA order reduction"],
+		"kind": "reachability",
+		"refs": ["Kopetzki, Schurmann & Althoff 2017"],
+		"implementations": [
+			{
+				"crate": "polyzonotope",
+				"items": ["Reduction", "reduce"],
+				"feature": null,
+				"summary": "Order reduction that encloses the dropped generators in a box aligned with their principal axes, the eigenvectors of G G^T."
+			}
+		]
+	},
+	{
+		"slug": "pddl-plan-validation",
+		"name": "PDDL Plan Validation",
+		"aliases": ["Classical plan validation", "Numeric plan validation"],
+		"kind": "validation",
+		"refs": [],
+		"implementations": [
+			{
+				"crate": "pddl-validate",
+				"items": ["Validator"],
+				"feature": null,
+				"summary": "Independent plan validator for classical and numeric PDDL plans (STRIPS, typing, ADL conditions, conditional effects, derived predicates, numeric fluents, action costs, metrics) that explains the first failing step in the style of VAL's plan repair advice."
+			}
+		]
+	},
+	{
+		"slug": "pddl-plus-plan-validation",
+		"name": "PDDL+ Plan Validation",
+		"aliases": ["PDDL+"],
+		"kind": "validation",
+		"refs": [],
+		"implementations": [
+			{
+				"crate": "pddl-validate",
+				"items": ["Validator"],
+				"feature": null,
+				"summary": "Validates plans with PDDL+ processes and events under linear dynamics, finding process switches and event triggers exactly at the roots of linear conditions, with event cascades."
+			}
+		]
+	},
+	{
+		"slug": "per-label-backpropagation",
+		"name": "Per-label backpropagation",
+		"aliases": [],
+		"kind": "validation",
+		"refs": [],
+		"implementations": [
+			{
+				"crate": "temporal-control",
+				"items": ["check_controllability_with", "DcAlgorithm"],
+				"feature": "alloc",
+				"summary": "Morris-style backpropagation without the normal form, one propagation per kind of negative incoming edge, kept as an independent cross-check."
+			}
+		]
+	},
+	{
+		"slug": "perfect-heuristic",
+		"name": "Perfect heuristic",
+		"aliases": ["h*"],
+		"kind": "heuristic",
+		"refs": [],
+		"implementations": [
+			{
+				"crate": "sas-plus",
+				"items": ["perfect_heuristic"],
+				"feature": null,
+				"summary": "Task::perfect_heuristic() computes the exact goal distance h* on small tasks, as a test oracle for heuristics."
+			}
+		]
+	},
+	{
+		"slug": "pibt",
+		"name": "PIBT",
+		"aliases": ["Priority Inheritance with Backtracking"],
+		"kind": "search",
+		"refs": ["Okumura et al. 2019, 2022"],
+		"implementations": [
+			{
+				"crate": "mapf-search",
+				"items": ["pibt"],
+				"feature": null,
+				"summary": "Priority inheritance with backtracking: plans one time step for all agents at a time, very fast, neither optimal nor complete."
+			}
+		]
+	},
+	{
+		"slug": "pibt-star-t",
+		"name": "PIBT*_T",
+		"aliases": ["PIBT with turns"],
+		"kind": "search",
+		"refs": ["Tao, Yu and Hu 2026"],
+		"implementations": [
+			{
+				"crate": "mapf-search",
+				"items": ["pibt_turns", "TurnResult"],
+				"feature": null,
+				"summary": "PIBT for robots that face a heading, move only forward and need time to turn in place, with cycle handling, swaps and a push escape trigger, on grids or any oriented graph."
+			}
+		]
+	},
+	{
+		"slug": "pomcp",
+		"name": "POMCP",
+		"aliases": ["Partially Observable Monte-Carlo Planning"],
+		"kind": "sampling",
+		"refs": ["Silver and Veness 2010"],
+		"implementations": [
+			{
+				"crate": "stochastic-search",
+				"items": ["pomcp", "Pomcp", "PomcpConfig", "update_belief"],
+				"feature": null,
+				"summary": "Online POMDP planner running UCT over action-observation histories with rollouts from a particle belief, with tree reuse between decisions and a particle filter with reinvigoration."
+			}
+		]
+	},
+	{
+		"slug": "pp-a-star",
+		"name": "PP-A*",
+		"aliases": ["Path-pair A*"],
+		"kind": "search",
+		"refs": [
+			"Goldin and Salzman: \"Approximate Bi-Criteria Search by Efficient Representation of Subsets of the Pareto-Optimal Frontier\", ICAPS 2021"
+		],
+		"implementations": [
+			{
+				"crate": "multiobjective-search",
+				"items": ["pp_a_star"],
+				"feature": null,
+				"summary": "Approximate bi-objective search over path pairs with tolerances on both objectives."
+			}
+		]
+	},
+	{
+		"slug": "prioritizing-conflicts",
+		"name": "Prioritizing Conflicts",
+		"aliases": ["Prioritized conflicts", "Cardinal conflicts", "PC"],
+		"kind": "other",
+		"refs": ["Boyarski et al. 2015"],
+		"implementations": [
+			{
+				"crate": "mapf-search",
+				"items": ["CbsConfig"],
+				"feature": null,
+				"summary": "CBS option that splits cardinal conflicts first, then semi-cardinal ones, then the rest, classified by MDDs."
+			}
+		]
+	},
+	{
+		"slug": "prm",
+		"name": "PRM",
+		"aliases": ["Probabilistic Roadmap"],
+		"kind": "sampling",
+		"refs": [],
+		"implementations": [
+			{
+				"crate": "sampling-planning",
+				"items": ["Prm"],
+				"feature": null,
+				"summary": "Multi-query probabilistic roadmap with fixed-radius or fixed-k connections, queried with Dijkstra on a reusable roadmap."
+			}
+		]
+	},
+	{
+		"slug": "prm-star",
+		"name": "PRM*",
+		"aliases": ["optimal PRM"],
+		"kind": "sampling",
+		"refs": ["Karaman & Frazzoli 2011"],
+		"implementations": [
+			{
+				"crate": "sampling-planning",
+				"items": ["Prm"],
+				"feature": null,
+				"summary": "Asymptotically optimal PRM connecting each node within a shrinking radius or to its k ln n nearest neighbors."
+			}
+		]
+	},
+	{
+		"slug": "rades",
+		"name": "RADES",
+		"aliases": ["Rank-based Differential Evolution with a Success archive"],
+		"kind": "optimization",
+		"refs": ["Parque 2024"],
+		"implementations": [
+			{
+				"crate": "evolutionary-planning",
+				"items": ["Rades"],
+				"feature": null,
+				"summary": "Rank-based differential evolution with an archive of successful trials that it explores from once a target stagnates."
+			}
+		]
+	},
+	{
+		"slug": "ranking-method",
+		"name": "Ranking method",
+		"aliases": ["Bicriterion ranking method"],
+		"kind": "search",
+		"refs": ["Clímaco and Martins, \"A bicriterion shortest path algorithm\", EJOR 1982"],
+		"implementations": [
+			{
+				"crate": "multiobjective-search",
+				"items": ["ranking"],
+				"feature": null,
+				"summary": "Enumerates loopless paths in order of the first objective and keeps the efficient ones."
+			}
+		]
+	},
+	{
+		"slug": "rbfs",
+		"name": "RBFS",
+		"aliases": ["Recursive best-first search"],
+		"kind": "search",
+		"refs": ["Korf 1993"],
+		"implementations": [
+			{
+				"crate": "heuristic-search",
+				"items": ["rbfs"],
+				"feature": null,
+				"summary": "Recursive best-first search, optimal with an admissible heuristic in memory linear in the depth, iterative so deep paths cannot overflow the stack."
+			}
+		]
+	},
+	{
+		"slug": "reachability-guided-a-star",
+		"name": "Reachability-guided A*",
+		"aliases": ["reachability-guided search"],
+		"kind": "search",
+		"refs": [],
+		"implementations": [
+			{
+				"crate": "robust-planning",
+				"items": ["ReachSearch"],
+				"feature": null,
+				"summary": "A* over reachable-set nodes along motion primitives on a lattice of nominal states, keeping only edges proven safe and returning the first node whose whole set is proven inside the goal."
+			}
+		]
+	},
+	{
+		"slug": "red-black-planning",
+		"name": "Red-black planning",
+		"aliases": ["red-black heuristic", "h_RB"],
+		"kind": "heuristic",
+		"refs": ["Katz, Hoffmann & Domshlak 2013", "Domshlak, Hoffmann & Katz 2015"],
+		"implementations": [
+			{
+				"crate": "planning-heuristics",
+				"items": ["RedBlack", "Painting"],
+				"feature": null,
+				"summary": "Red-black heuristic with relaxed plan repair or red facts following, every painting strategy of the papers, and an h_FF fallback outside the fragments."
+			}
+		]
+	},
+	{
+		"slug": "reeds-shepp-paths",
+		"name": "Reeds-Shepp paths",
+		"aliases": ["Reeds-Shepp curves"],
+		"kind": "other",
+		"refs": ["Reeds & Shepp 1990"],
+		"implementations": [
+			{
+				"crate": "sampling-planning",
+				"items": ["ReedsShepp", "ReedsSheppPath"],
+				"feature": null,
+				"summary": "Computes the shortest paths of a car that drives forward and backward with a minimum turning radius."
+			}
+		]
+	},
+	{
+		"slug": "reference-point-method",
+		"name": "Reference-point method",
+		"aliases": ["Reference-point search", "Achievement scalarizing"],
+		"kind": "optimization",
+		"refs": ["Wierzbicki"],
+		"implementations": [
+			{
+				"crate": "multiobjective-search",
+				"items": ["ReferencePoint"],
+				"feature": null,
+				"summary": "Interactive search for Pareto-optimal solutions in order of a weighted Chebyshev distance to an aspiration point."
+			}
+		]
+	},
+	{
+		"slug": "relevance-score-h-xi",
+		"name": "Relevance score h_Xi",
+		"aliases": ["h_Ξ", "relevance score"],
+		"kind": "heuristic",
+		"refs": ["Kim & Sridharan 2024"],
+		"implementations": [
+			{
+				"crate": "planning-heuristics",
+				"items": ["RelevanceScore"],
+				"feature": null,
+				"summary": "Landmark-like, inadmissible relevance score over a partially explored backtracking tree."
+			}
+		]
+	},
+	{
+		"slug": "resource-envelopes",
+		"name": "Resource envelopes",
+		"aliases": ["level envelopes"],
+		"kind": "validation",
+		"refs": ["Muscettola", "Ishikawa 2003"],
+		"implementations": [
+			{
+				"crate": "resource-timeline",
+				"items": ["Envelope", "StateEnvelope"],
+				"feature": "alloc",
+				"summary": "Bounds the level over every schedule the start windows admit, with uncertain durations and precedences coupled exactly by a minimum cut."
+			}
+		]
+	},
+	{
+		"slug": "rhea",
+		"name": "RHEA",
+		"aliases": ["Rolling Horizon Evolutionary Algorithm", "Rolling-horizon evolutionary planning"],
+		"kind": "search",
+		"refs": ["Perez et al. 2013", "Olesen et al. 2020"],
+		"implementations": [
+			{
+				"crate": "evolutionary-planning",
+				"items": ["RollingHorizon"],
+				"feature": null,
+				"summary": "Rolling-horizon evolutionary planning over a caller's forward model with shift buffering; RMHC is the population-of-one case."
+			}
+		]
+	},
+	{
+		"slug": "rhw-landmarks",
+		"name": "RHW landmarks",
+		"aliases": ["back-chained landmarks", "Richter-Helmert-Westphal landmarks"],
+		"kind": "heuristic",
+		"refs": ["Richter, Helmert & Westphal 2008"],
+		"implementations": [
+			{
+				"crate": "planning-heuristics",
+				"items": ["Relaxation", "OrderedLandmarks"],
+				"feature": null,
+				"summary": "Back-chained landmarks with disjunctive and DTG landmarks, greedy-necessary and reasonable orderings."
+			}
+		]
+	},
+	{
+		"slug": "rip-up-and-reroute",
+		"name": "Rip-up and reroute",
+		"aliases": [],
+		"kind": "routing",
+		"refs": [],
+		"implementations": [
+			{
+				"crate": "connector-routing",
+				"items": ["route_all"],
+				"feature": null,
+				"summary": "Connectors over capacity are ripped up and rerouted during global routing."
+			}
+		]
+	},
+	{
+		"slug": "rmhc",
+		"name": "RMHC",
+		"aliases": ["Random-Mutation Hill Climbing"],
+		"kind": "optimization",
+		"refs": ["Olesen et al. 2020"],
+		"implementations": [
+			{
+				"crate": "evolutionary-planning",
+				"items": ["HillClimber"],
+				"feature": null,
+				"summary": "Random-mutation hill climbing: mutate a copy of the current genome and keep it if it is not worse, with optional restarts after stagnation."
+			}
+		]
+	},
+	{
+		"slug": "robust-rrt-star",
+		"name": "Robust RRT*",
+		"aliases": [],
+		"kind": "sampling",
+		"refs": ["Karaman & Frazzoli 2011"],
+		"implementations": [
+			{
+				"crate": "robust-planning",
+				"items": ["RobustRrtStar"],
+				"feature": null,
+				"summary": "Choose-parent and rewiring over proven-safe edges only; a rewire re-propagates and re-proves the whole moved subtree before committing."
+			}
+		]
+	},
+	{
+		"slug": "robust-rrt",
+		"name": "Robust-RRT",
+		"aliases": ["Robust RRT"],
+		"kind": "sampling",
+		"refs": [],
+		"implementations": [
+			{
+				"crate": "robust-planning",
+				"items": ["RobustRrt"],
+				"feature": null,
+				"summary": "An RRT whose nodes carry reachable sets, keeping an edge only if every set covering it is proven disjoint from every obstacle."
+			}
+		]
+	},
+	{
+		"slug": "rollout-iw",
+		"name": "Rollout IW",
+		"aliases": ["Rollout IW(1)"],
+		"kind": "search",
+		"refs": ["Bandres, Bonet & Geffner, AAAI 2018"],
+		"implementations": [
+			{
+				"crate": "width-search",
+				"items": ["rollout_iw"],
+				"feature": null,
+				"summary": "Depth-first rollouts that prune a node unless it reaches some feature at a smaller depth than before, running until a goal is found or the root is solved."
+			}
+		]
+	},
+	{
+		"slug": "rosenbrock-method",
+		"name": "Rosenbrock Method",
+		"aliases": ["Rosenbrock's rotating-coordinates method", "Rosenbrock local search"],
+		"kind": "optimization",
+		"refs": ["Rosenbrock 1960"],
+		"implementations": [
+			{
+				"crate": "evolutionary-planning",
+				"items": ["Rosenbrock"],
+				"feature": null,
+				"summary": "Rosenbrock's rotating-coordinates local search, probing along orthonormal directions and rotating them towards the accumulated progress; HyGLEAM's local searcher."
+			}
+		]
+	},
+	{
+		"slug": "rrt",
+		"name": "RRT",
+		"aliases": ["Rapidly-exploring Random Tree"],
+		"kind": "sampling",
+		"refs": ["LaValle 1998"],
+		"implementations": [
+			{
+				"crate": "sampling-planning",
+				"items": ["Rrt"],
+				"feature": null,
+				"summary": "Grows a rapidly-exploring random tree from the start by steering toward goal-biased random samples until it reaches the goal region."
+			}
+		]
+	},
+	{
+		"slug": "rrt-sharp",
+		"name": "RRT#",
+		"aliases": ["RRT sharp"],
+		"kind": "sampling",
+		"refs": ["Arslan & Tsiotras 2013"],
+		"implementations": [
+			{
+				"crate": "sampling-planning",
+				"items": ["RrtSharp"],
+				"feature": null,
+				"summary": "RRT* with dynamic-programming replanning: grows an RRG and repairs it with LPA*-style replanning after each extension."
+			}
+		]
+	},
+	{
+		"slug": "rrt-star",
+		"name": "RRT*",
+		"aliases": ["optimal RRT"],
+		"kind": "sampling",
+		"refs": ["Karaman & Frazzoli 2011"],
+		"implementations": [
+			{
+				"crate": "sampling-planning",
+				"items": ["RrtStar"],
+				"feature": null,
+				"summary": "Asymptotically optimal RRT with choose-parent and rewiring over a shrinking radius or k-nearest neighborhood."
+			}
+		]
+	},
+	{
+		"slug": "rrt-connect",
+		"name": "RRT-Connect",
+		"aliases": ["bidirectional RRT"],
+		"kind": "sampling",
+		"refs": ["Kuffner & LaValle 2000"],
+		"implementations": [
+			{
+				"crate": "sampling-planning",
+				"items": ["RrtConnect"],
+				"feature": null,
+				"summary": "Bidirectional RRT that grows trees from start and goal with a greedy connect step."
+			}
+		]
+	},
+	{
+		"slug": "rta-star",
+		"name": "RTA*",
+		"aliases": ["Real-Time A*"],
+		"kind": "search",
+		"refs": ["Korf 1990"],
+		"implementations": [
+			{
+				"crate": "heuristic-search",
+				"items": ["rta_star"],
+				"feature": null,
+				"summary": "Real-Time A*, with a learned heuristic table that persists across trials."
+			}
+		]
+	},
+	{
+		"slug": "rtaa-star",
+		"name": "RTAA*",
+		"aliases": ["Real-Time Adaptive A*"],
+		"kind": "search",
+		"refs": ["Koenig and Likhachev 2006"],
+		"implementations": [
+			{
+				"crate": "heuristic-search",
+				"items": ["rtaa_star"],
+				"feature": null,
+				"summary": "Real-Time Adaptive A*, learning in a table that persists across trials."
+			}
+		]
+	},
+	{
+		"slug": "rtdp",
+		"name": "RTDP",
+		"aliases": ["Real-Time Dynamic Programming"],
+		"kind": "search",
+		"refs": ["Barto, Bradtke and Singh 1995"],
+		"implementations": [
+			{
+				"crate": "stochastic-search",
+				"items": ["rtdp"],
+				"feature": null,
+				"summary": "Plain real-time dynamic programming with LRTDP's solved check as its stopping rule; the classic baseline."
+			}
+		]
+	},
+	{
+		"slug": "rul2021",
+		"name": "RUL2021",
+		"aliases": [],
+		"kind": "validation",
+		"refs": ["Hunsberger & Posenato 2022"],
+		"implementations": [
+			{
+				"crate": "temporal-control",
+				"items": ["check_controllability_with", "DcAlgorithm"],
+				"feature": "alloc",
+				"summary": "RUL⁻ variant that processes each upper-case edge once, recursively, inserting only length-preserving edges."
+			}
+		]
+	},
+	{
+		"slug": "rul-minus",
+		"name": "RUL⁻",
+		"aliases": ["RUL-", "RUL minus"],
+		"kind": "validation",
+		"refs": ["Cairo, Hunsberger & Rizzi 2018"],
+		"implementations": [
+			{
+				"crate": "temporal-control",
+				"items": ["check_controllability_with", "DcAlgorithm"],
+				"feature": "alloc",
+				"summary": "Dynamic controllability check by backpropagation from contingent points with a potential function, in at most 2k rounds."
+			}
+		]
+	},
+	{
+		"slug": "saturated-cost-partitioning",
+		"name": "Saturated cost partitioning",
+		"aliases": ["SCP", "maximum over orders"],
+		"kind": "heuristic",
+		"refs": ["Seipp, Keller & Helmert 2020"],
+		"implementations": [
+			{
+				"crate": "cost-partition",
+				"items": ["saturated_cost_partitioning", "CostPartitionedHeuristic", "MaxOverOrders"],
+				"feature": null,
+				"summary": "Splits operator costs greedily among any sas_plus abstractions in a given order, and takes the maximum over several orders."
+			}
+		]
+	},
+	{
+		"slug": "scc-dfp",
+		"name": "SCC-DFP",
+		"aliases": ["SCC-DFP merge strategy"],
+		"kind": "abstraction",
+		"refs": ["Sievers, Wehrle & Helmert 2016"],
+		"implementations": [
+			{
+				"crate": "merge-and-shrink",
+				"items": ["SccDfp"],
+				"feature": null,
+				"summary": "Merges the variables of each strongly connected component of the causal graph first, then continues with DFP."
+			}
+		]
+	},
+	{
+		"slug": "sip-mosp",
+		"name": "SIP-MOSP",
+		"aliases": [],
+		"kind": "search",
+		"refs": [
+			"Xu, Zhang, Qian, Liu, Wu, Tang: \"Asynchronous Parallel Search for Exact Multi-Objective Shortest Paths with Versioned Frontier Snapshots and Indexed Dominance Pruning\", arXiv 2609.11944, 2026"
+		],
+		"implementations": [
+			{
+				"crate": "multiobjective-search",
+				"items": ["sip_mosp"],
+				"feature": "parallel",
+				"summary": "Asynchronous parallel exact multi-objective search with versioned frontier snapshots and indexed dominance pruning."
+			}
+		]
+	},
+	{
+		"slug": "siw",
+		"name": "SIW",
+		"aliases": ["Serialized Iterated Width", "Serialized IW"],
+		"kind": "search",
+		"refs": ["Lipovetzky & Geffner, ECAI 2012"],
+		"implementations": [
+			{
+				"crate": "width-search",
+				"items": ["siw"],
+				"feature": null,
+				"summary": "A simplified serialized IW that runs iterated width from the current state until the goal count drops, appends that subplan, and repeats."
+			}
+		]
+	},
+	{
+		"slug": "sleeve-routing",
+		"name": "Sleeve routing",
+		"aliases": [],
+		"kind": "routing",
+		"refs": ["Nachmanson and Chen, arXiv 2605.17498"],
+		"implementations": [
+			{
+				"crate": "connector-routing",
+				"items": ["SleeveRouter"],
+				"feature": null,
+				"summary": "Any-angle routes through an exact constrained Delaunay triangulation, dual-graph Dijkstra and the funnel algorithm."
+			}
+		]
+	},
+	{
+		"slug": "sma-star",
+		"name": "SMA*",
+		"aliases": ["Simplified memory-bounded A*"],
+		"kind": "search",
+		"refs": ["Russell 1992"],
+		"implementations": [
+			{
+				"crate": "heuristic-search",
+				"items": ["sma_star"],
+				"feature": null,
+				"summary": "A* within a node budget, forgetting and regenerating leaves; finds the cheapest path that fits in memory."
+			}
+		]
+	},
+	{
+		"slug": "space-time-a-star",
+		"name": "Space-Time A*",
+		"aliases": [],
+		"kind": "search",
+		"refs": [],
+		"implementations": [
+			{
+				"crate": "mapf-search",
+				"items": ["space_time_astar"],
+				"feature": null,
+				"summary": "The single-agent low level under constraints, built on the heuristic-search crate's A*."
+			}
+		]
+	},
+	{
+		"slug": "spars",
+		"name": "SPARS",
+		"aliases": ["Sparse Roadmap Spanner"],
+		"kind": "sampling",
+		"refs": ["Dobson & Bekris 2014"],
+		"implementations": [
+			{
+				"crate": "sampling-planning",
+				"items": ["Spars"],
+				"feature": null,
+				"summary": "Sparse roadmap spanner built alongside a dense PRM* graph."
+			}
+		]
+	},
+	{
+		"slug": "spars2",
+		"name": "SPARS2",
+		"aliases": ["Sparse Roadmap Spanner 2"],
+		"kind": "sampling",
+		"refs": ["Dobson & Bekris 2013"],
+		"implementations": [
+			{
+				"crate": "sampling-planning",
+				"items": ["Spars2"],
+				"feature": null,
+				"summary": "Sparse roadmap spanner built without a dense graph."
+			}
+		]
+	},
+	{
+		"slug": "sst",
+		"name": "SST",
+		"aliases": ["Stable Sparse RRT"],
+		"kind": "sampling",
+		"refs": ["Li, Littlefield & Bekris 2016"],
+		"implementations": [
+			{
+				"crate": "sampling-planning",
+				"items": ["Sst"],
+				"feature": null,
+				"summary": "Kinodynamic stable sparse RRT over a forward-simulation Propagator, freeing inactive leaves; asymptotically near-optimal."
+			}
+		]
+	},
+	{
+		"slug": "sst-star",
+		"name": "SST*",
+		"aliases": ["Stable Sparse RRT*"],
+		"kind": "sampling",
+		"refs": ["Li, Littlefield & Bekris 2016"],
+		"implementations": [
+			{
+				"crate": "sampling-planning",
+				"items": ["Sst", "SstStarSchedule"],
+				"feature": null,
+				"summary": "SST with selection and pruning radii shrinking over epochs, which makes it asymptotically optimal."
+			}
+		]
+	},
+	{
+		"slug": "stl-robustness",
+		"name": "STL Robustness",
+		"aliases": ["Signal Temporal Logic robustness", "STL shield"],
+		"kind": "other",
+		"refs": ["Donzé and Maler 2010", "Nukapotula et al. 2026"],
+		"implementations": [
+			{
+				"crate": "evolutionary-planning",
+				"items": ["Formula", "shield", "fit"],
+				"feature": null,
+				"summary": "Finite-trace STL quantitative robustness used as objective, constraint and shield, plus threshold fitting from demonstrations."
+			}
+		]
+	},
+	{
+		"slug": "strong-stubborn-sets",
+		"name": "Strong stubborn sets",
+		"aliases": ["decoupled strong stubborn sets", "partial-order reduction"],
+		"kind": "pruning",
+		"refs": ["Gnad, Hoffmann & Wehrle 2019"],
+		"implementations": [
+			{
+				"crate": "decoupled-search",
+				"items": ["Config"],
+				"feature": null,
+				"summary": "Optional partial-order reduction with the decoupled strong stubborn sets of Gnad, Hoffmann and Wehrle for general star factorings."
+			}
+		]
+	},
+	{
+		"slug": "suurballes-algorithm",
+		"name": "Suurballe's algorithm",
+		"aliases": ["Shortest pair of disjoint paths"],
+		"kind": "search",
+		"refs": ["Suurballe 1974", "Suurballe and Tarjan 1984"],
+		"implementations": [
+			{
+				"crate": "multiobjective-search",
+				"items": ["disjoint_pair"],
+				"feature": null,
+				"summary": "The pair of disjoint paths with the smallest total cost, by two Dijkstra runs over reduced costs."
+			}
+		]
+	},
+	{
+		"slug": "symba-star",
+		"name": "SymBA*",
+		"aliases": ["symbolic bidirectional A*"],
+		"kind": "search",
+		"refs": ["Torralba et al. 2014", "Torralba et al. 2016"],
+		"implementations": [
+			{
+				"crate": "symbolic-search",
+				"items": ["symba", "symba_with", "SymbaConfig"],
+				"feature": null,
+				"summary": "Bidirectional A* with perimeter abstractions that drop variables or bits, or merge-and-shrink perimeters, with resumable abstract searches and budgets."
+			}
+		]
+	},
+	{
+		"slug": "symbolic-bfs",
+		"name": "Symbolic BFS",
+		"aliases": ["symbolic breadth-first search"],
+		"kind": "search",
+		"refs": [],
+		"implementations": [
+			{
+				"crate": "symbolic-search",
+				"items": ["forward_bfs", "backward_bfs"],
+				"feature": null,
+				"summary": "Forward and backward breadth-first search over BDD state sets for unit-cost tasks."
+			}
+		]
+	},
+	{
+		"slug": "symbolic-dijkstra",
+		"name": "Symbolic Dijkstra",
+		"aliases": ["symbolic uniform-cost search", "bidirectional symbolic Dijkstra"],
+		"kind": "search",
+		"refs": [],
+		"implementations": [
+			{
+				"crate": "symbolic-search",
+				"items": ["forward_dijkstra", "backward_dijkstra", "bidirectional_dijkstra"],
+				"feature": null,
+				"summary": "Symbolic Dijkstra forward, backward and bidirectional with action costs, zero costs included."
+			}
+		]
+	},
+	{
+		"slug": "symbolic-leaf-representation",
+		"name": "Symbolic leaf representation",
+		"aliases": ["symbolic leaves", "BDD leaf pricing functions"],
+		"kind": "other",
+		"refs": ["Gnad, Torralba & Hoffmann 2017"],
+		"implementations": [
+			{
+				"crate": "decoupled-search",
+				"items": ["Config"],
+				"feature": "symbolic-leaves",
+				"summary": "Represents leaf pricing functions as BDDs for leaves too large to enumerate, optionally with a symbolic center."
+			}
+		]
+	},
+	{
+		"slug": "symbolic-merge-and-shrink",
+		"name": "Symbolic merge-and-shrink",
+		"aliases": ["symbolic M&S"],
+		"kind": "abstraction",
+		"refs": [],
+		"implementations": [
+			{
+				"crate": "symbolic-search",
+				"items": ["merge_and_shrink"],
+				"feature": null,
+				"summary": "Symbolic merge-and-shrink with linear merging and h-preserving node-limited shrinking."
+			}
+		]
+	},
+	{
+		"slug": "symbolic-pattern-databases",
+		"name": "Symbolic pattern databases",
+		"aliases": ["symbolic PDB", "BDD pattern database"],
+		"kind": "abstraction",
+		"refs": [],
+		"implementations": [
+			{
+				"crate": "symbolic-search",
+				"items": ["pdb"],
+				"feature": null,
+				"summary": "Pattern database heuristics computed symbolically and stored as one BDD per h value."
+			}
+		]
+	},
+	{
+		"slug": "temporal-plan-validation",
+		"name": "Temporal Plan Validation",
+		"aliases": ["PDDL 2.1 temporal plan validation"],
+		"kind": "validation",
+		"refs": [],
+		"implementations": [
+			{
+				"crate": "pddl-validate",
+				"items": ["Validator"],
+				"feature": null,
+				"summary": "Validates timestamped plans with durative actions, duration constraints, linear continuous effects, timed initial literals and epsilon separation of interfering events, following PDDL 2.1 and VAL."
+			}
+		]
+	},
+	{
+		"slug": "theta-star",
+		"name": "Theta*",
+		"aliases": ["Theta star"],
+		"kind": "search",
+		"refs": ["Nash, Daniel, Koenig, Felner 2007"],
+		"implementations": [
+			{
+				"crate": "heuristic-search",
+				"items": ["theta_star"],
+				"feature": "float",
+				"summary": "Any-angle search on a line-of-sight grid."
+			}
+		]
+	},
+	{
+		"slug": "tpa",
+		"name": "TPA",
+		"aliases": [],
+		"kind": "optimization",
+		"refs": [
+			"Domínguez-Ríos, Chicano, Alba, \"Effective anytime algorithm for multiobjective combinatorial optimization problems\", arXiv 2403.08807"
+		],
+		"implementations": [
+			{
+				"crate": "multiobjective-search",
+				"items": ["tpa", "tpa_paths"],
+				"feature": null,
+				"summary": "Exact anytime box splitting with augmented-Tchebycheff subproblems over any solver."
+			}
+		]
+	},
+	{
+		"slug": "two-phase-method",
+		"name": "Two-phase method",
+		"aliases": [],
+		"kind": "optimization",
+		"refs": ["Ulungu and Teghem 1995", "Raith and Ehrgott 2009"],
+		"implementations": [
+			{
+				"crate": "multiobjective-search",
+				"items": ["two_phase", "supported_solutions"],
+				"feature": null,
+				"summary": "Supported solutions by weighted sums first, then the non-supported ones between them."
+			}
+		]
+	},
+	{
+		"slug": "uniform-landmark-cost-partitioning",
+		"name": "Uniform landmark cost partitioning",
+		"aliases": ["uniform cost partitioning"],
+		"kind": "heuristic",
+		"refs": ["Karpas & Domshlak 2009"],
+		"implementations": [
+			{
+				"crate": "planning-heuristics",
+				"items": ["UniformLandmarkCost", "LandmarkTracker"],
+				"feature": null,
+				"summary": "Admissible landmark heuristic that shares each operator's cost uniformly among the landmarks it achieves."
+			}
+		]
+	},
+	{
+		"slug": "value-iteration",
+		"name": "Value Iteration",
+		"aliases": ["VI"],
+		"kind": "optimization",
+		"refs": [],
+		"implementations": [
+			{
+				"crate": "stochastic-search",
+				"items": ["value_iteration"],
+				"feature": null,
+				"summary": "Value iteration over every reachable state, the exact reference the other algorithms are tested against."
+			}
+		]
+	},
+	{
+		"slug": "vpi-rtdp",
+		"name": "VPI-RTDP",
+		"aliases": ["Value of Perfect Information RTDP"],
+		"kind": "search",
+		"refs": ["Sanner et al. 2009"],
+		"implementations": [
+			{
+				"crate": "stochastic-search",
+				"items": ["vpi_rtdp", "VpiRtdpConfig"],
+				"feature": null,
+				"summary": "RTDP with lower and upper bounds whose trials follow the value of perfect information about successors where the bounds are informative."
+			}
+		]
+	},
+	{
+		"slug": "vpsc",
+		"name": "VPSC",
+		"aliases": ["Variable Placement with Separation Constraints"],
+		"kind": "optimization",
+		"refs": ["Dwyer, Marriott and Stuckey (\"Fast node overlap removal\", GD 2005)"],
+		"implementations": [
+			{
+				"crate": "connector-routing",
+				"items": ["Placement"],
+				"feature": null,
+				"summary": "Least-squares projection of desired segment positions onto the separation constraints."
+			}
+		]
+	},
+	{
+		"slug": "wdg-heuristic",
+		"name": "WDG Heuristic",
+		"aliases": ["Weighted Dependency Graph heuristic", "WDG"],
+		"kind": "heuristic",
+		"refs": ["Li et al. 2019"],
+		"implementations": [
+			{
+				"crate": "mapf-search",
+				"items": ["CbsHeuristic"],
+				"feature": null,
+				"summary": "Admissible CBS high-level heuristic: the DG graph with each edge weighted by how much the pair's sum of costs must rise, bounded by an edge-weighted vertex cover; at least DG."
+			}
+		]
+	},
+	{
+		"slug": "weighted-a-star",
+		"name": "Weighted A*",
+		"aliases": ["WA*"],
+		"kind": "search",
+		"refs": [],
+		"implementations": [
+			{
+				"crate": "heuristic-search",
+				"items": ["weighted_a_star"],
+				"feature": null,
+				"summary": "A* ordered by g + w * h with a rational weight, trading solution quality for speed within factor w."
+			}
+		]
+	},
+	{
+		"slug": "x-shape-factoring",
+		"name": "X-shape factoring",
+		"aliases": ["X-shape"],
+		"kind": "other",
+		"refs": [],
+		"implementations": [
+			{
+				"crate": "decoupled-search",
+				"items": ["x_shape"],
+				"feature": null,
+				"summary": "Factors the task into an X-shape with both fork and inverted-fork leaves."
+			}
+		]
+	}
+]

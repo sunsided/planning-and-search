@@ -1,7 +1,10 @@
 name: Deploy
 
-# Every push to main is a deploy to GitHub Pages. Nothing is published that has not passed
-# `task ci`; the site lands at the root of the artifact, Storybook under storybook/.
+# Every push to main, and every night, is a deploy to GitHub Pages. Each run first syncs the
+# crate data from crates.io, so a release shows up by the next morning; a sync that fails (a
+# README section the site may not show, say) leaves the last deploy in place. Nothing is
+# published that has not passed `task ci`; the site lands at the root of the artifact,
+# Storybook under storybook/.
 #
 # One-time setup: Settings → Pages → Source: GitHub Actions.
 
@@ -9,6 +12,8 @@ on:
   push:
     branches: [main]
     paths-ignore: ['**/*.md']
+  schedule:
+    - cron: '17 4 * * *'
   workflow_dispatch:
 
 concurrency:
@@ -28,6 +33,7 @@ jobs:
           persist-credentials: false
       # `$/` (zizmor self-repository) is not yet understood by actionlint 1.7.12.
       - uses: ./.github/actions/setup # zizmor: ignore[self-repository]
+      - run: task sync
       - run: task ci
       - uses: actions/upload-pages-artifact@fc324d3547104276b827a68afc52ff2a11cc49c9 # v5.0.0
         with:

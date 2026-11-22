@@ -3,8 +3,10 @@
 // category entry with no crate behind it, fails the tests.
 
 import data from '#lib/data/crates.json' with { type: 'json' };
+import algorithms from '../../content/algorithms.json' with { type: 'json' };
 
 export type Crate = (typeof data)[number];
+export type Algorithm = (typeof algorithms)[number];
 export type DepKind = 'normal' | 'optional' | 'dev';
 
 export interface Category {
@@ -125,3 +127,31 @@ export const links = (c: Pick<Crate, 'name' | 'repo'>) => ({
 	crates: `https://crates.io/crates/${c.name}`,
 	docs: `https://docs.rs/${c.name}`
 });
+
+/**
+ * The curated algorithm list (content/algorithms.json). It may run ahead of the releases;
+ * a crate's `algorithms` (from the sync) holds the slugs its release implements.
+ */
+export const ALGORITHMS: Algorithm[] = algorithms;
+
+/** docs.rs search for an item, which finds it wherever it lives in the crate. */
+export const docsItem = (crate: string, item: string) =>
+	`https://docs.rs/${crate}/latest/${crate.replaceAll('-', '_')}/?search=${encodeURIComponent(item.split('::').at(-1)!)}`;
+
+/** The released algorithms of a crate, with this crate's implementation of each. */
+export function algorithmsOf(name: string) {
+	const released = new Set(crate(name)?.algorithms ?? []);
+	return ALGORITHMS.filter((a) => released.has(a.slug)).map((a) => {
+		const impl = a.implementations.find((i) => i.crate === name)!;
+		return {
+			slug: a.slug,
+			name: a.name,
+			aliases: a.aliases,
+			kind: a.kind,
+			refs: a.refs,
+			summary: impl.summary,
+			feature: impl.feature,
+			items: impl.items.map((i) => ({ name: i, href: docsItem(name, i) }))
+		};
+	});
+}

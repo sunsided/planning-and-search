@@ -2,7 +2,7 @@
 	import Icon from '#lib/components/atoms/Icon.svelte';
 	import Kbd from '#lib/components/atoms/Kbd.svelte';
 	import Node from '#lib/components/atoms/Node.svelte';
-	import { search, type Entry, type Hit } from '#lib/search.js';
+	import { search, withReadmes, type Entry, type Hit } from '#lib/search.js';
 	import { onMount } from 'svelte';
 
 	/**
@@ -12,16 +12,25 @@
 	let { entries, go }: { entries: Entry[]; go: (href: string) => void } = $props();
 
 	const id = $props.id();
+	const KIND = { crate: 'Crate', algorithm: 'Algorithm', category: 'Topic' } as const;
 	let dialog = $state<HTMLDialogElement>();
 	let input = $state<HTMLInputElement>();
 	let query = $state('');
 	let active = $state(0);
 	let mac = $state(false);
-	const hits = $derived(search(entries, query));
+	/** Full READMEs, fetched the first time the palette opens; until then, page text only. */
+	let readmes = $state<Record<string, string>>();
+	const corpus = $derived(readmes ? withReadmes(entries, readmes) : entries);
+	const hits = $derived(search(corpus, query));
 
 	onMount(() => (mac = /Mac|iPhone|iPad/.test(navigator.userAgent)));
 
 	function open() {
+		readmes ??= {};
+		import('#lib/data/readmes.json').then(
+			(m) => (readmes = m.default),
+			() => {} // Offline or blocked: page text alone still works.
+		);
 		query = '';
 		active = 0;
 		dialog?.showModal();
@@ -87,7 +96,7 @@
 			onkeydown={oninputkeydown}
 			type="search"
 			role="combobox"
-			aria-label="Search crates and topics"
+			aria-label="Search crates, algorithms and topics"
 			aria-expanded={hits.length > 0}
 			aria-controls="{id}-list"
 			aria-autocomplete="list"
@@ -125,7 +134,7 @@
 						</span>
 						<span class="sub">{hit.snippet ?? hit.entry.subtitle}</span>
 					</span>
-					<span class="kind">{hit.entry.kind === 'crate' ? 'Crate' : 'Topic'}</span>
+					<span class="kind">{KIND[hit.entry.kind]}</span>
 				</li>
 			{/each}
 		</ul>

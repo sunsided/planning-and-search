@@ -1,7 +1,7 @@
 import { strict as assert } from 'node:assert';
 import { test } from 'node:test';
 import { CRATES } from '../src/lib/registry.ts';
-import { entries, plain, search } from '../src/lib/search.ts';
+import { entries, plain, search, withReadmes } from '../src/lib/search.ts';
 
 const all = entries(
 	(n) => `/crates/${n}/`,
@@ -20,8 +20,12 @@ test('every word must match, in any field', () => {
 });
 
 test('algorithm names in descriptions find their crate', () => {
-	assert.equal(top('LM-cut'), 'planning-heuristics');
-	assert.equal(top('pomcp'), 'stochastic-search');
+	const crates = (q: string) =>
+		search(all, q)
+			.filter((h) => h.entry.kind === 'crate')
+			.map((h) => h.entry.title);
+	assert.equal(crates('LM-cut')[0], 'planning-heuristics');
+	assert.equal(crates('pomcp')[0], 'stochastic-search');
 	assert.ok(search(all, 'A*').length > 0);
 });
 
@@ -40,9 +44,26 @@ test('a match only in the README gets a snippet that contains it', () => {
 });
 
 test('an empty query lists every crate', () => {
+	// Crates only: algorithms and topics show once there is a query.
 	assert.equal(search(all, '  ').length, CRATES.length);
 });
 
 test('plain() drops link targets and markup', () => {
 	assert.equal(plain('use [`pddl`](https://x.dev) and **A\\***'), 'use pddl and A*');
+});
+
+test('README text finds more, ranked below page text, with a snippet', () => {
+	const extended = withReadmes(all, { 'width-search': 'Compared with LAPKT on the Atari games.' });
+	assert.deepEqual(search(all, 'lapkt atari'), []);
+	const hit = search(extended, 'lapkt atari')[0];
+	assert.equal(hit.entry.title, 'width-search');
+	assert.ok(hit.snippet?.includes('LAPKT'));
+	assert.ok(hit.score < search(extended, 'width')[0].score);
+});
+
+test('algorithms are found by name and alias, and land on their crate', () => {
+	const cbs = search(all, 'conflict-based search').find((h) => h.entry.kind === 'algorithm');
+	assert.equal(cbs?.entry.href, '/crates/mapf-search/#algo-cbs');
+	const lmcut = search(all, 'lm-cut').filter((h) => h.entry.kind === 'algorithm');
+	assert.ok(lmcut.length >= 2, 'LM-cut is in more than one crate');
 });

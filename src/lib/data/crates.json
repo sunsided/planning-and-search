@@ -1,6 +1,7 @@
 [
 	{
 		"name": "connector-routing",
+		"version": "0.1.0",
 		"repo": "sunsided/connector-routing",
 		"description": "Connector routing for diagrams and schematics: many orthogonal connectors at once with bend, length and crossing costs, negotiated congestion, rip-up and reroute, and nudging",
 		"license": "MIT OR Apache-2.0",
@@ -27,20 +28,34 @@
 					"If you need the plain shortest path on a general graph, use [heuristic-search](https://github.com/sunsided/heuristic-search); for agents that move over time and must not meet at all, [mapf-search](https://github.com/sunsided/mapf-search); for Pareto fronts on graphs other than routing scenes, [multiobjective-search](https://github.com/sunsided/multiobjective-search)."
 				]
 			}
-		]
+		],
+		"algorithms": [
+			"1-bend-visibility-graph",
+			"a-star",
+			"constrained-delaunay-triangulation",
+			"crossing-reduction",
+			"funnel-algorithm",
+			"incremental-poly-line-routing",
+			"nudging",
+			"orthogonal-drawing-pipeline",
+			"orthogonal-hyperedge-routing",
+			"orthogonal-visibility-graph",
+			"pathfinder",
+			"rip-up-and-reroute",
+			"sleeve-routing",
+			"vpsc"
+		],
+		"about": "who"
 	},
 	{
 		"name": "cost-partition",
+		"version": "0.2.0",
 		"repo": "sunsided/cost-partition",
-		"description": "Saturated cost partitioning and its maximum over orders for admissible planning heuristics over arbitrary abstractions",
+		"description": "Cost partitioning (saturated, max-over-orders) over arbitrary planning abstractions",
 		"license": "MIT OR Apache-2.0",
 		"msrv": "1.86",
-		"keywords": ["planning", "cost-partitioning", "heuristic", "abstraction", "pattern-database"],
+		"keywords": ["planning", "cost-partitioning", "heuristic", "abstraction", "fast-downward"],
 		"deps": [
-			{
-				"name": "merge-and-shrink",
-				"kind": "dev"
-			},
 			{
 				"name": "sas-plus",
 				"kind": "normal"
@@ -49,18 +64,20 @@
 		"siblings": [],
 		"audience": [
 			{
-				"kind": "ul",
-				"items": [
-					"Authors of optimal classical planners who have several abstraction heuristics (pattern databases, merge-and-shrink, Cartesian or their own) and want an admissible combination that is usually stronger than taking their maximum.",
-					"Researchers comparing cost partitioning strategies: the saturated cost function of every abstraction is exposed (`cost_functions`), and any type that implements `sas_plus::Abstraction` can take part.",
-					"Teams that plan on embedded hardware, since the crate is `no_std` and has a single dependency.",
-					"For the abstractions themselves, use [sas-plus](https://github.com/sunsided/sas-plus) (projections) and [merge-and-shrink](https://github.com/sunsided/merge-and-shrink); for landmark cost partitioning, LM-cut or operator counting, [planning-heuristics](https://github.com/sunsided/planning-heuristics), which also wraps this crate's heuristics for its `Heuristic` trait."
-				]
+				"kind": "p",
+				"text": "Cost partitioning over *any* `sas_plus::Abstraction` (projections, merge-and-shrink, ...): saturated cost partitioning for a given order, and the maximum over several orders."
+			},
+			{
+				"kind": "p",
+				"text": "Splitting each operator's cost among several abstractions, so that the parts sum to at most the original cost, makes the *sum* of their heuristics admissible."
 			}
-		]
+		],
+		"algorithms": ["saturated-cost-partitioning"],
+		"about": "intro"
 	},
 	{
 		"name": "decoupled-search",
+		"version": "0.3.0",
 		"repo": "sunsided/decoupled-search",
 		"description": "Decoupled (star-topology) search for factored SAS+ planning: star factorings, cost-optimal and greedy search, dominance pruning and decoupled heuristics",
 		"license": "MIT OR Apache-2.0",
@@ -96,10 +113,33 @@
 					"For the heuristics themselves on ordinary states, use [planning-heuristics](https://github.com/sunsided/planning-heuristics); for symbolic search over the same tasks, [symbolic-search](https://github.com/sunsided/symbolic-search)."
 				]
 			}
-		]
+		],
+		"algorithms": [
+			"a-star",
+			"anytime-a-star",
+			"decoupled-search",
+			"dijkstras-algorithm",
+			"dominance-pruning",
+			"fork-factoring",
+			"generalized-factoring",
+			"greedy-best-first-search",
+			"h-ff",
+			"h-max",
+			"incident-arcs-factoring",
+			"inverted-fork-factoring",
+			"leaf-reduction",
+			"lm-cut",
+			"maximum-leaves-factoring",
+			"merge-and-shrink",
+			"strong-stubborn-sets",
+			"symbolic-leaf-representation",
+			"x-shape-factoring"
+		],
+		"about": "who"
 	},
 	{
 		"name": "evolutionary-planning",
+		"version": "0.1.0",
 		"repo": "sunsided/evolutionary-planning",
 		"description": "Evolutionary planning for no_std: genetic algorithms, evolution strategies, CMA-ES and multi-objective evolutionary search over plans, paths and trajectories",
 		"license": "MIT OR Apache-2.0",
@@ -127,10 +167,37 @@
 					"For optimal shortest paths with a good heuristic, use [`heuristic-search`](https://github.com/sunsided/heuristic-search); for exact Pareto-optimal paths on graphs, [`multiobjective-search`](https://github.com/sunsided/multiobjective-search); for sampling-based motion planning (RRT, PRM), [`sampling-planning`](https://github.com/sunsided/sampling-planning); and for coordinating many agents on a graph, [`mapf-search`](https://github.com/sunsided/mapf-search)."
 				]
 			}
-		]
+		],
+		"algorithms": [
+			"1-plus1-es",
+			"cma-es",
+			"differential-evolution",
+			"dijkstras-algorithm",
+			"es",
+			"evolutionary-programmer",
+			"ga-over-sas-plus-plans",
+			"ga-path-planning",
+			"genetic-algorithm",
+			"genetic-programming",
+			"gleam-diffusion-model",
+			"hygleam",
+			"ipop-cma-es",
+			"map-elites",
+			"memetic-algorithm",
+			"moea-d",
+			"nsga-ii",
+			"nsga-iii",
+			"rades",
+			"rhea",
+			"rmhc",
+			"rosenbrock-method",
+			"stl-robustness"
+		],
+		"about": "who"
 	},
 	{
 		"name": "heuristic-search",
+		"version": "0.2.1",
 		"repo": "sunsided/heuristic-search",
 		"description": "Explicit-state heuristic graph search: A*, weighted and anytime, bounded-suboptimal, bidirectional, incremental and real-time search",
 		"license": "MIT OR Apache-2.0",
@@ -152,12 +219,56 @@
 				"kind": "p",
 				"text": "It is also meant for comparing algorithms on the same problem: every search uses the same traits, budgets and statistics, so trying IDA* or Weighted A* instead of A* changes the call, not the problem description. Symbolic (BDD), multi-objective, stochastic and width-based search are out of scope."
 			}
-		]
+		],
+		"algorithms": [
+			"a-star",
+			"ad-star",
+			"ana-star",
+			"ara-star",
+			"bae-star",
+			"beam-search",
+			"beam-stack-search",
+			"bidirectional-bfs",
+			"bidirectional-dijkstra",
+			"breadth-first-search",
+			"d-star-lite",
+			"depth-limited-dfs",
+			"dfs",
+			"dibbs",
+			"dijkstras-algorithm",
+			"dps",
+			"ees",
+			"field-d-star",
+			"focal-search",
+			"fringe-search",
+			"greedy-best-first-search",
+			"ida-star",
+			"ida-star-with-transposition-table",
+			"iddfs",
+			"jump-point-search",
+			"lazy-theta-star",
+			"lazysp",
+			"limited-horizon-bellman-update",
+			"lpa-star",
+			"lrta-star",
+			"lss-lrta-star",
+			"mha-star",
+			"nbs",
+			"octile-distance",
+			"rbfs",
+			"rta-star",
+			"rtaa-star",
+			"sma-star",
+			"theta-star",
+			"weighted-a-star"
+		],
+		"about": "who"
 	},
 	{
 		"name": "mapf-search",
+		"version": "0.2.0",
 		"repo": "sunsided/mapf-search",
-		"description": "Multi-agent pathfinding on grids and graphs: CBS with its improvements, CBS-TA, FOCBS, ECBS, ICTS, PBS, PIBT, PIBT*_T, M*, EPEA*, MAPF-LNS2 and multi-objective MO-CBS",
+		"description": "Multi-agent pathfinding on grids and graphs: CBS with its improvements, CBS-TA, ECBS, ICTS, PBS, PIBT, M*, EPEA*, MAPF-LNS2 and multi-objective MO-CBS",
 		"license": "MIT OR Apache-2.0",
 		"msrv": "1.86",
 		"keywords": ["mapf", "multi-agent", "pathfinding", "cbs", "robotics"],
@@ -187,10 +298,32 @@
 					"For a single agent, use [heuristic-search](https://github.com/sunsided/heuristic-search) directly; for many connectors on a diagram that may cross at a cost rather than never meet, [connector-routing](https://github.com/sunsided/connector-routing) is the better fit."
 				]
 			}
-		]
+		],
+		"algorithms": [
+			"bypass",
+			"cbs",
+			"cbs-ta",
+			"cg-heuristic",
+			"conflict-avoidance-table",
+			"dg-heuristic",
+			"disjoint-splitting",
+			"ecbs",
+			"epea-star",
+			"icts",
+			"m-star",
+			"mapf-lns2",
+			"mo-cbs",
+			"pbs",
+			"pibt",
+			"prioritizing-conflicts",
+			"space-time-a-star",
+			"wdg-heuristic"
+		],
+		"about": "who"
 	},
 	{
 		"name": "merge-and-shrink",
+		"version": "0.3.0",
 		"repo": "sunsided/merge-and-shrink",
 		"description": "Merge-and-shrink abstraction heuristics for factored transition systems",
 		"license": "MIT OR Apache-2.0",
@@ -212,36 +345,56 @@
 				"kind": "p",
 				"text": "The crate turns a SAS+ task (for example Fast Downward translator output, read through `sas-plus`) into a heuristic you can query per state: `value` returns the estimated cost, or `None` when the state is a proven dead end or was pruned as unreachable from the initial state. Because the heuristic also implements `sas_plus::Abstraction`, it plugs into [`cost-partition`](https://github.com/sunsided/cost-partition), which adds up several abstraction heuristics admissibly."
 			}
-		]
+		],
+		"algorithms": [
+			"bisimulation",
+			"dfp",
+			"greedy-bisimulation",
+			"label-reduction",
+			"linear-merge-strategy",
+			"merge-and-shrink",
+			"scc-dfp"
+		],
+		"about": "who"
 	},
 	{
 		"name": "miniplan",
+		"version": "0.2.0",
 		"repo": "sunsided/miniplan",
-		"description": "Grounded classical PDDL planner library with breadth-first, A*, greedy best-first and bidirectional search and h^FF, h^add and h^max heuristics",
+		"description": "A PDDL planner library built around the pddl crate, with grounding and search utilities",
 		"license": "EUPL-1.2",
-		"msrv": "1.88",
-		"keywords": ["pddl", "planning", "planner", "a-star", "classical-planning"],
+		"msrv": null,
+		"keywords": ["pddl", "planning", "ai", "scheduling"],
 		"deps": [],
-		"siblings": [
-			{
-				"name": "miniplan-cli",
-				"description": "Command-line PDDL planner that grounds and solves PDDL tasks with miniplan's breadth-first, A*, greedy best-first and bidirectional searches"
-			}
-		],
+		"siblings": [],
 		"audience": [
 			{
-				"kind": "ul",
-				"items": [
-					"Students and engineers learning classical planning, who want a planner small enough to read end to end, with the textbook searches and heuristics side by side.",
-					"Rust developers who need to solve small and medium PDDL tasks (puzzles, logistics, robot task sequencing) in-process, without shelling out to an external planner.",
-					"Researchers comparing forward, bidirectional and heuristic search on the same grounded task, with node counts and timings from `--stats`.",
-					"If you only need to parse, check or write PDDL, use [`pddl-rs`](https://github.com/sunsided/pddl-rs) directly. For heuristic search over your own graph rather than a PDDL task, see [`heuristic-search`](https://github.com/sunsided/heuristic-search), and for width-based search without a heuristic, [`width-search`](https://github.com/sunsided/width-search)."
-				]
+				"kind": "p",
+				"text": "A PDDL planner library built around the [`pddl`](https://github.com/sunsided/pddl-rs) crate."
+			},
+			{
+				"kind": "p",
+				"text": "**miniplan** is a grounded, classical PDDL planner focused on simplicity and performance. It targets STRIPS-level domains with support for typing, negative preconditions, and conditional effects. Use it as a library in your own projects or as a CLI (`miniplan`) for quick planning experiments."
 			}
-		]
+		],
+		"algorithms": [
+			"a-star",
+			"bae-star",
+			"bidirectional-bfs",
+			"bidirectional-dijkstra",
+			"breadth-first-search",
+			"goal-count-heuristic",
+			"greedy-best-first-search",
+			"h-add",
+			"h-ff",
+			"h-max",
+			"nbs"
+		],
+		"about": "intro"
 	},
 	{
 		"name": "multiobjective-search",
+		"version": "0.1.0",
 		"repo": "sunsided/multiobjective-search",
 		"description": "Multi-objective shortest paths over Pareto frontiers: BOA*, BOBA*, EMOA*, NAMOA*dr, A*pex and their approximate, anytime and parallel variants",
 		"license": "MIT OR Apache-2.0",
@@ -264,12 +417,46 @@
 					"For a single objective, [heuristic-search](https://github.com/sunsided/heuristic-search) is the simpler and faster choice; for several agents that must not collide, [mapf-search](https://github.com/sunsided/mapf-search) (its MO-CBS uses this crate as the low level)."
 				]
 			}
-		]
+		],
+		"algorithms": [
+			"a-a-star-pex",
+			"a-boa-star-eps",
+			"a-star-pex",
+			"boa-star",
+			"boa-star-eps",
+			"boba-star",
+			"constrained-shortest-path",
+			"differential-heuristic",
+			"dissimilar-paths",
+			"dynamic-multi-objective-search",
+			"emoa-star",
+			"fptas-for-constrained-shortest-path",
+			"ideal-point-heuristic",
+			"iterative-pp-a-star",
+			"l-namoa-star-dr-mvh",
+			"minsum-maxmin-path",
+			"multi-objective-label-correcting",
+			"multi-objective-minimum-spanning-tree",
+			"namoa-star",
+			"namoa-star-dr",
+			"namoa-star-dr-mvh",
+			"objective-aggregation-search",
+			"parallel-moa-star",
+			"pp-a-star",
+			"ranking-method",
+			"reference-point-method",
+			"sip-mosp",
+			"suurballes-algorithm",
+			"tpa",
+			"two-phase-method"
+		],
+		"about": "who"
 	},
 	{
 		"name": "pddl-validate",
+		"version": "0.1.0",
 		"repo": "sunsided/pddl-rs",
-		"description": "Independent PDDL plan validator for classical, numeric, temporal and PDDL+ plans, with VAL-style diagnostics",
+		"description": "Independent PDDL plan validator: classical, numeric and temporal plans with precise diagnostics",
 		"license": "EUPL-1.2 OR MPL-2.0",
 		"msrv": "1.86.0",
 		"keywords": ["pddl", "planning", "validation", "val", "ai-planning"],
@@ -277,15 +464,15 @@
 		"siblings": [
 			{
 				"name": "pddl",
-				"description": "Strongly typed PDDL 3.1 parser with pretty-printing, serde, SAS+ grounding, compile-time checked PDDL and generated planning code"
+				"description": "A PDDL 3.1 parser, strongly typed"
 			},
 			{
 				"name": "pddl-codegen",
-				"description": "Generates typed Rust planning code from PDDL domains and problems, for pddl's #[task] attribute and build scripts"
+				"description": "Generates typed Rust planning code from PDDL domains, for pddl's #[task] attribute and build scripts"
 			},
 			{
 				"name": "pddl-core",
-				"description": "The types and the parser behind the pddl crate, a strongly typed PDDL 3.1 parser; depend on pddl instead"
+				"description": "The types and the parser behind the pddl crate; depend on pddl instead"
 			},
 			{
 				"name": "pddl-lsp",
@@ -302,18 +489,28 @@
 		],
 		"audience": [
 			{
-				"kind": "ul",
-				"items": [
-					"Planner developers who want to check every plan their planner emits in tests or CI, without shelling out to VAL.",
-					"Teachers and students of PDDL, who get a precise explanation of why a plan fails: the step, the condition and the values involved.",
-					"Tools that need machine-readable verdicts, such as editors; the [`pddl-lsp`](https://github.com/sunsided/pddl-rs/tree/main/pddl-lsp) language server runs this crate for its `pddl/validatePlan` request.",
-					"To parse PDDL only, use [`pddl`](https://github.com/sunsided/pddl-rs); to find a plan in the first place, see [`miniplan`](https://github.com/sunsided/miniplan)."
-				]
+				"kind": "p",
+				"text": "An independent plan validator for PDDL: a second opinion next to [VAL](https://github.com/KCL-Planning/VAL), with precise, machine-readable diagnostics."
+			},
+			{
+				"kind": "p",
+				"text": "It is part of the [pddl-rs](https://github.com/sunsided/pddl-rs) workspace and depends only on the `pddl` syntax tree. It implements the validation semantics itself and shares no grounding or search code with any planner, so it does not share their bugs either."
+			},
+			{
+				"kind": "p",
+				"text": "let domain = Domain::from_str( \"(define (domain switch) (:predicates (on)) (:action flip :parameters () :precondition (not (on)) :effect (on)))\", ).unwrap(); let problem = Problem::from_str( \"(define (problem light) (:domain switch) (:init) (:goal (on)))\", ).unwrap(); let validator = Validator::new(&domain, &problem).unwrap();"
+			},
+			{
+				"kind": "p",
+				"text": "let report = validator.validate_text(\"(flip)\\n(flip)\"); assert_eq!(report.status(), ValidationStatus::Invalid); assert_eq!( report.violation().unwrap().advice(), \"(flip) has an unsatisfied precondition at step 2: (Set (on) to false)\" ); ```"
 			}
-		]
+		],
+		"algorithms": ["pddl-plan-validation", "pddl-plus-plan-validation", "temporal-plan-validation"],
+		"about": "intro"
 	},
 	{
 		"name": "planning-heuristics",
+		"version": "0.2.0",
 		"repo": "sunsided/planning-heuristics",
 		"description": "Heuristics for classical planning: delete relaxation (h_max, h_add, h_FF), red-black, landmarks, LM-cut, operator counting and abstraction adapters",
 		"license": "MIT OR Apache-2.0",
@@ -353,12 +550,33 @@
 					"For merge-and-shrink abstractions or saturated cost partitioning themselves, use [merge-and-shrink](https://github.com/sunsided/merge-and-shrink) and [cost-partition](https://github.com/sunsided/cost-partition); this crate only adapts them to the `Heuristic` trait."
 				]
 			}
-		]
+		],
+		"algorithms": [
+			"additive-h-max",
+			"goal-intention-ranking",
+			"h-1-landmarks",
+			"h-2",
+			"h-add",
+			"h-ff",
+			"h-max",
+			"h-sa",
+			"landmark-count-heuristic",
+			"lm-cut",
+			"operator-counting",
+			"optimal-landmark-cost-partitioning",
+			"pattern-database",
+			"red-black-planning",
+			"relevance-score-h-xi",
+			"rhw-landmarks",
+			"uniform-landmark-cost-partitioning"
+		],
+		"about": "who"
 	},
 	{
 		"name": "polyzonotope",
+		"version": "0.4.1",
 		"repo": "sunsided/polyzonotope",
-		"description": "Sparse polynomial zonotopes, zonotopes and interval boxes for set-based reachability analysis",
+		"description": "Sparse polynomial zonotopes, zonotopes and interval boxes for set-based reachability analysis, no_std and optionally with outward rounding",
 		"license": "MIT OR Apache-2.0",
 		"msrv": "1.89",
 		"keywords": ["zonotope", "polynomial-zonotope", "reachability", "set-based", "verification"],
@@ -384,16 +602,23 @@
 					"A zonotope is a center plus a few direction vectors, each stretched by some amount between -1 and 1. It can be skewed and stays exact under rotations, scaling and sums, so linear models don't blow it up.",
 					"A sparse polynomial zonotope also allows those amounts to be multiplied with each other and raised to powers. That gives curved shapes (the parabola in the example below is one), and it keeps track of which uncertain quantity is which: two sets derived from the same sensor reading stay linked, instead of each pretending the other could take any value."
 				]
+			},
+			{
+				"kind": "p",
+				"text": "The crate is `no_std` with `alloc`, forbids `unsafe`, and with the `sound` feature rounds every enclosure outward, so its proofs hold in floating point too. Its main operations are cross-checked against [CORA](https://github.com/TUMcps/CORA), the MATLAB toolbox for reachability analysis."
 			}
-		]
+		],
+		"algorithms": ["girard-reduction", "pca-reduction"],
+		"about": "who"
 	},
 	{
 		"name": "polyzonotope-reach",
+		"version": "0.1.2",
 		"repo": "sunsided/polyzonotope",
-		"description": "Validated reachable-set over-approximation of nonlinear dynamics with polynomial zonotopes",
+		"description": "Validated reachable-set over-approximation of linear and nonlinear dynamics with sparse polynomial zonotopes",
 		"license": "MIT OR Apache-2.0",
 		"msrv": "1.89",
-		"keywords": ["reachability", "zonotope", "verification", "set-based", "dynamics"],
+		"keywords": ["reachability", "zonotope", "verification", "flowpipe", "nonlinear"],
 		"deps": [
 			{
 				"name": "polyzonotope",
@@ -411,10 +636,17 @@
 					"The sets are the sparse polynomial zonotopes of [`polyzonotope`](https://github.com/sunsided/polyzonotope); [`robust-planning`](https://github.com/sunsided/robust-planning) uses them to check planned motions under bounded uncertainty."
 				]
 			}
-		]
+		],
+		"algorithms": [
+			"conservative-linearization",
+			"conservative-polynomialization",
+			"linear-system-reachability"
+		],
+		"about": "who"
 	},
 	{
 		"name": "resource-timeline",
+		"version": "0.1.0",
 		"repo": "sunsided/resource-timeline",
 		"description": "Resource timelines for onboard scheduling: energy, memory, thermal and communication budgets with explained violations, envelopes and allocation-free storage",
 		"license": "MIT OR Apache-2.0",
@@ -438,10 +670,13 @@
 					"For the timing side of the same schedule (whether its temporal constraints can be met under uncertain durations, and executing it), use [temporal-control](https://github.com/sunsided/temporal-control). The two crates share only a convention (`i64` ticks, half-open intervals) and no dependency, because temporal controllability does not imply resource safety and both checks have to run."
 				]
 			}
-		]
+		],
+		"algorithms": ["earliest-start-search", "greedy-priority-scheduling", "resource-envelopes"],
+		"about": "who"
 	},
 	{
 		"name": "robust-planning",
+		"version": "0.2.0",
 		"repo": "sunsided/robust-planning",
 		"description": "Motion planning over reachable sets under bounded uncertainty: Robust-RRT, Robust RRT* and reachability-guided A* with conservative safety proofs",
 		"license": "MIT OR Apache-2.0",
@@ -473,10 +708,13 @@
 					"When the dynamics are deterministic and a collision check on single states is enough, [sampling-planning](https://github.com/sunsided/sampling-planning) alone is simpler and much faster; for uncertainty in the action outcomes of a discrete model (MDPs, POMDPs), [stochastic-search](https://github.com/sunsided/stochastic-search) is the better fit."
 				]
 			}
-		]
+		],
+		"algorithms": ["reachability-guided-a-star", "robust-rrt", "robust-rrt-star"],
+		"about": "who"
 	},
 	{
 		"name": "sampling-planning",
+		"version": "0.1.0",
 		"repo": "sunsided/sampling-planning",
 		"description": "Sampling-based motion planning for no_std: RRT, RRT*, RRT-Connect, PRM, SPARS, FMT*, BIT*, AIT*, SST and KPIECE",
 		"license": "MIT OR Apache-2.0",
@@ -496,10 +734,34 @@
 					"For discrete graphs and grids, [heuristic-search](https://github.com/sunsided/heuristic-search) is the better fit; for many robots sharing one map, [mapf-search](https://github.com/sunsided/mapf-search); for dynamics with bounded disturbances where the plan has to hold for every reachable state, [robust-planning](https://github.com/sunsided/robust-planning)."
 				]
 			}
-		]
+		],
+		"algorithms": [
+			"ait-star",
+			"bfmt-star",
+			"bit-star",
+			"dubins-paths",
+			"fmt-star",
+			"informed-rrt-star",
+			"kpiece",
+			"lazy-prm",
+			"path-shortcutting",
+			"prm",
+			"prm-star",
+			"reeds-shepp-paths",
+			"rrt",
+			"rrt-connect",
+			"rrt-sharp",
+			"rrt-star",
+			"spars",
+			"spars2",
+			"sst",
+			"sst-star"
+		],
+		"about": "who"
 	},
 	{
 		"name": "sas-plus",
+		"version": "0.2.1",
 		"repo": "sunsided/sas-plus",
 		"description": "Minimal SAS+ planning task representation, labeled transition systems and abstractions",
 		"license": "MIT OR Apache-2.0",
@@ -524,10 +786,13 @@
 				"kind": "p",
 				"text": "There is no search algorithm and no PDDL parser. To ground PDDL into a SAS+ task, the `sas-plus` feature of [`pddl`](https://github.com/sunsided/pddl-rs) does that."
 			}
-		]
+		],
+		"algorithms": ["pattern-database", "perfect-heuristic"],
+		"about": "who"
 	},
 	{
 		"name": "search-core",
+		"version": "0.3.1",
 		"repo": "sunsided/search-core",
 		"description": "Shared cost, heuristic, goal and budget traits for search and planning crates, with exact no_std cost types",
 		"license": "MIT OR Apache-2.0",
@@ -544,11 +809,18 @@
 					"Anyone who needs exact path costs, e.g. prices or durations with a fixed number of decimal places, or lexicographic costs such as \"fewest steps, then fewest conflicts\".",
 					"If you are looking for an actual search algorithm rather than the traits, pick [heuristic-search](https://github.com/sunsided/heuristic-search) for A* and its relatives, [multiobjective-search](https://github.com/sunsided/multiobjective-search) for Pareto fronts, [mapf-search](https://github.com/sunsided/mapf-search) for multi-agent pathfinding or [stochastic-search](https://github.com/sunsided/stochastic-search) for MDPs and POMDPs."
 				]
+			},
+			{
+				"kind": "p",
+				"text": "Part of the [planning and search crates](https://sunsided.github.io/planning-and-search/); see also this crate's [overview page](https://sunsided.github.io/planning-and-search/crates/search-core/)."
 			}
-		]
+		],
+		"algorithms": [],
+		"about": "who"
 	},
 	{
 		"name": "stochastic-search",
+		"version": "0.1.1",
 		"repo": "sunsided/stochastic-search",
 		"description": "Planning under probabilistic outcomes for MDPs and POMDPs: LAO*, iLAO*, CG-iLAO*, RTDP, LRTDP, BRTDP, FRTDP, VPI-RTDP, POMCP, DESPOT and multi-objective MOLAO*, iMOLAO* and MOLRTDP",
 		"license": "MIT OR Apache-2.0",
@@ -572,10 +844,29 @@
 					"If every action has exactly one outcome, use [heuristic-search](https://github.com/sunsided/heuristic-search) (or [multiobjective-search](https://github.com/sunsided/multiobjective-search) for several costs); it is simpler and much faster. Goal tests written against [search-core](https://github.com/sunsided/search-core) work in both, and heuristics carry over once their cost type is `f64`."
 				]
 			}
-		]
+		],
+		"algorithms": [
+			"brtdp",
+			"cg-ilao-star",
+			"despot",
+			"frtdp",
+			"ilao-star",
+			"imolao-star",
+			"lao-star",
+			"lrtdp",
+			"molao-star",
+			"molrtdp",
+			"movi",
+			"pomcp",
+			"rtdp",
+			"value-iteration",
+			"vpi-rtdp"
+		],
+		"about": "who"
 	},
 	{
 		"name": "symbolic-search",
+		"version": "0.1.0",
 		"repo": "sunsided/symbolic-search",
 		"description": "Symbolic search for SAS+ planning with BDDs: symbolic BFS and Dijkstra, bidirectional search, BDDA*, SymBA* and symbolic abstraction heuristics",
 		"license": "MIT OR Apache-2.0",
@@ -598,10 +889,23 @@
 					"For explicit-state heuristic search, use [heuristic-search](https://github.com/sunsided/heuristic-search) with heuristics from [planning-heuristics](https://github.com/sunsided/planning-heuristics); for tasks that factor into a center and loosely coupled leaves, [decoupled-search](https://github.com/sunsided/decoupled-search) is often the better fit."
 				]
 			}
-		]
+		],
+		"algorithms": [
+			"bdda-star",
+			"canonical-pdb-heuristic",
+			"greedy-best-first-search",
+			"iwls95",
+			"symba-star",
+			"symbolic-bfs",
+			"symbolic-dijkstra",
+			"symbolic-merge-and-shrink",
+			"symbolic-pattern-databases"
+		],
+		"about": "who"
 	},
 	{
 		"name": "temporal-control",
+		"version": "0.1.0",
 		"repo": "sunsided/temporal-control",
 		"description": "Simple temporal networks with uncertainty: dynamic controllability checking, dispatchable networks and a no_std, no-alloc onboard dispatcher",
 		"license": "MIT OR Apache-2.0",
@@ -619,12 +923,27 @@
 					"For energy, memory, thermal or communication budgets over the same timeline, [resource-timeline](https://github.com/sunsided/resource-timeline) is the companion crate; for durations with probabilities rather than bounds, [stochastic-search](https://github.com/sunsided/stochastic-search) is the better fit."
 				]
 			}
-		]
+		],
+		"algorithms": [
+			"bellman-ford",
+			"dominated-edge-filtering",
+			"floyd-warshall",
+			"incremental-stn-consistency",
+			"labelled-closure",
+			"mindispestnu",
+			"morris-2014-backpropagation",
+			"p3c",
+			"per-label-backpropagation",
+			"rul-minus",
+			"rul2021"
+		],
+		"about": "who"
 	},
 	{
 		"name": "width-search",
+		"version": "0.3.0",
 		"repo": "sunsided/width-search",
-		"description": "Width-based search without heuristics: novelty tables, Iterated Width (IW), Serialized IW, BFWS and Rollout IW for planning and games",
+		"description": "Width-based search: novelty tables, Iterated Width (IW), Serialized IW, Best-First Width Search (BFWS), and Rollout IW",
 		"license": "MIT OR Apache-2.0",
 		"msrv": "1.86",
 		"keywords": ["planning", "width-based-search", "novelty", "iterated-width", "bfws"],
@@ -637,14 +956,15 @@
 		"siblings": [],
 		"audience": [
 			{
-				"kind": "ul",
-				"items": [
-					"Planning and search people who want IW, SIW or BFWS in Rust, on SAS+ tasks or on their own state representation, without writing a heuristic first.",
-					"Game and tool developers who need to check that a generated level is solvable, plan for NPCs from world-state facts, or explore a simulator from its raw state bytes (more in [In games](https://github.com/sunsided/width-search#in-games)).",
-					"Researchers comparing novelty-based pruning against heuristic search, with node counts that line up with LAPKT.",
-					"For shortest paths with action costs and a good distance heuristic, A* and its variants in [`heuristic-search`](https://github.com/sunsided/heuristic-search) are the better pick. Heuristics for classical planning tasks live in [`planning-heuristics`](https://github.com/sunsided/planning-heuristics), and probabilistic outcomes are handled by [`stochastic-search`](https://github.com/sunsided/stochastic-search)."
-				]
+				"kind": "p",
+				"text": "Width-based search (Lipovetzky & Geffner): novelty tables, IW(k), iterated width, serialized IW (SIW), BFWS(⟨w_{#g}, #g⟩), BFWS with relaxed-plan counts `#r`, and Rollout IW(1)."
+			},
+			{
+				"kind": "p",
+				"text": "Anything that can enumerate successors and describe states as integer features implements `WidthProblem`: planning atoms, grid cells, RAM bytes. The `sas-plus` feature adds an adapter for `sas_plus::Task`."
 			}
-		]
+		],
+		"algorithms": ["bfws", "bfws-f5", "h-add", "iw", "novelty-pruning", "rollout-iw", "siw"],
+		"about": "intro"
 	}
 ]

@@ -19,18 +19,24 @@ task ci           # lint, type check, tests, build (site + Storybook into build/
 
 ## Where the content comes from
 
-`src/lib/data/crates.json` is a snapshot, committed, because CI has no crate checkouts.
-`task sync` rebuilds it from the local repositories (`PLANNING_DIR`, default
-`~/dev/mine/rust/planning`):
+`task sync` (`scripts/sync.ts`) snapshots the released crates from crates.io into
+`src/lib/data/`. The deploy workflow runs it before every build and every night, so a release
+reaches the site by the next morning. The snapshot is committed for offline work.
 
-- the crate list and the dependency edges between crates from `plan/crates.json`,
-- description, licence, MSRV, keywords and workspace siblings from `cargo metadata`,
-- the "Who this is for" section of each README, or `content/overrides/<crate>.md` where a
-  README has none or says something the site should not.
+- The crate list, its categories and their colours are in `src/lib/registry.ts`.
+- The sparse index gives each crate's latest release and its dependencies on the others. The
+  published `.crate` gives the description, licence, MSRV, keywords, repository and README.
+- A crate page shows the README's "Who this is for" section. It shows
+  `content/overrides/<crate>.md` instead where one exists, and the README's opening prose for
+  a release that has no such section.
+- `content/algorithms.json` is the curated algorithm list: name, aliases, kind, references,
+  and per crate the public items that run it. The sync keeps an implementation only if its
+  items are public in the released source, so the list can run ahead of a release.
+- The rest of each README (`readmes.json`) feeds search as a weaker signal. It is loaded
+  when the search palette first opens.
 
-The sync fails on a crate without an audience section, and on schedule wording ("roadmap",
-"not yet", "pre-release", …). Categories, their order and their colours live in
-`src/lib/registry.ts`; the tests fail when a crate is in no category.
+The sync fails on a section the site would show with schedule wording ("roadmap", "not yet",
+"pre-release", …). On the nightly run, that leaves the last deploy in place.
 
 ## Layout
 

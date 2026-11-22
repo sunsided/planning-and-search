@@ -21,13 +21,11 @@ tasks:
       - '{{.RUN}} install {{.CLI_ARGS}}'
 
   sync:
-    desc: Snapshot the crates from their local checkouts into src/lib/data/crates.json (PLANNING_DIR, default ~/dev/mine/rust/planning)
-    preconditions:
-      - sh: command -v cargo
-        msg: 'cargo not found — sync reads `cargo metadata` of every crate'
+    desc: Snapshot the released crates from crates.io into src/lib/data/
+    deps: [install]
     cmds:
       - node scripts/sync.ts
-      - '{{.RUN}} prettier --write src/lib/data/crates.json'
+      - '{{.RUN}} prettier --write src/lib/data/'
 
   dev:
     desc: Dev server with hot reload

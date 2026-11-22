@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/sveltekit';
-import { dependents } from '#lib/registry.js';
+import { algorithmsOf, dependents } from '#lib/registry.js';
 import { category, mapf, pddl, refs } from '../stories/fixtures.ts';
 import CrateTemplate from './CrateTemplate.svelte';
 
@@ -18,9 +18,17 @@ export const Default: Story = {
 		category: category(mapf.name),
 		back: '#',
 		dependencies: refs(mapf.deps.map((d) => d.name)),
-		dependents: refs(dependents(mapf.name).map((d) => d.name))
+		dependents: refs(dependents(mapf.name).map((d) => d.name)),
+		algorithms: algorithmsOf(mapf.name)
 	}
 };
 export const WithWorkspace: Story = {
-	args: { crate: pddl, category: category(pddl.name), back: '#', dependencies: [], dependents: [] }
+	args: {
+		crate: pddl,
+		category: category(pddl.name),
+		back: '#',
+		dependencies: [],
+		dependents: [],
+		algorithms: algorithmsOf(pddl.name)
+	}
 };

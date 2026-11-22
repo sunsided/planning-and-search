@@ -2053,6 +2053,7 @@ __metadata:
     "@types/node": "npm:^26.6.6"
     prettier: "npm:^3.9.10"
     prettier-plugin-svelte: "npm:^4.1.1"
+    smol-toml: "npm:^1.9.1"
     storybook: "npm:^10.6.8"
     svelte: "npm:^5.57.3"
     svelte-check: "npm:^4.7.8"
@@ -2272,6 +2273,13 @@ __metadata:
     mrmime: "npm:^2.0.0"
     totalist: "npm:^3.0.0"
   checksum: 10c0/5930e4397afdb14fbae13751c3be983af4bda5c9aadec832607dc2af15a7162f7d518c71b30e83ae3644b9a24cea041543cc969e5fe2b80af6ce8ea3174b2d04
+  languageName: node
+  linkType: hard
+
+"smol-toml@npm:^1.9.1":
+  version: 1.9.1
+  resolution: "smol-toml@npm:1.9.1"
+  checksum: 10c0/8acccf7bbc063f29405f58f5014ab39bf4eb9d7f0e000e5e3f140f7d4d6ead5696681a7c15260d1f2910213012c0af43b31a05bf94f704b0bdf39989fba08c02
   languageName: node
   linkType: hard
 

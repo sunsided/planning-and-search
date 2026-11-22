@@ -1,6 +1,13 @@
 import { strict as assert } from 'node:assert';
 import { test } from 'node:test';
-import { CATEGORIES, CRATES, categoryOf, dependents, links } from '../src/lib/registry.ts';
+import {
+	ALGORITHMS,
+	CATEGORIES,
+	CRATES,
+	categoryOf,
+	dependents,
+	links
+} from '../src/lib/registry.ts';
 import { lint } from '../src/lib/richtext.ts';
 
 test('every crate is in exactly one category, and every category entry is a crate', () => {
@@ -37,7 +44,9 @@ test('links are unversioned and point at the crate', () => {
 
 test('the snapshot carries only public fields and release-day wording', () => {
 	const allowed = [
+		'algorithms',
 		'name',
+		'version',
 		'repo',
 		'description',
 		'license',
@@ -45,11 +54,26 @@ test('the snapshot carries only public fields and release-day wording', () => {
 		'keywords',
 		'deps',
 		'siblings',
-		'audience'
+		'audience',
+		'about'
 	];
 	for (const c of CRATES) {
 		assert.deepEqual(Object.keys(c).sort(), [...allowed].sort(), c.name);
 		assert.deepEqual(lint(JSON.stringify(c)), [], c.name);
 		assert.ok(c.audience.length, `${c.name}: no audience text`);
 	}
+});
+
+test('released algorithms are in the curated list, and each names its crate', () => {
+	for (const c of CRATES)
+		for (const slug of c.algorithms) {
+			const a = ALGORITHMS.find((x) => x.slug === slug);
+			assert.ok(a, `${c.name}: unknown algorithm ${slug}`);
+			assert.ok(
+				a.implementations.some((i) => i.crate === c.name),
+				`${c.name}: ${slug}`
+			);
+		}
+	assert.equal(new Set(ALGORITHMS.map((a) => a.slug)).size, ALGORITHMS.length);
+	for (const a of ALGORITHMS) assert.match(a.slug, /^[a-z0-9]+(-[a-z0-9]+)*$/);
 });

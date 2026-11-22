@@ -1,11 +1,11 @@
 // Search over everything the site shows: crates and categories. The corpus is a few dozen
 // entries, so it is a linear scan with substring matching and field weights; no index.
 
-import { CATEGORIES, CRATES, categoryOf } from './registry.ts';
+import { CATEGORIES, CRATES, algorithmsOf, categoryOf } from './registry.ts';
 import type { Block } from './richtext.ts';
 
 export interface Entry {
-	kind: 'crate' | 'category';
+	kind: 'crate' | 'category' | 'algorithm';
 	title: string;
 	subtitle: string;
 	href: string;
@@ -73,7 +73,45 @@ export function entries(
 		].map((f) => ({ ...f, text: f.text.toLowerCase() })),
 		body: ''
 	}));
-	return [...crates, ...categories];
+	// One entry per released implementation: the hit says which crate and lands on it.
+	const algorithms: Entry[] = CRATES.flatMap((c) =>
+		algorithmsOf(c.name).map((a) => ({
+			kind: 'algorithm' as const,
+			title: a.name,
+			subtitle: `${c.name} · ${a.summary}`,
+			href: `${crateHref(c.name)}#algo-${a.slug}`,
+			hue: categoryOf(c.name)!.hue,
+			fields: [
+				{ text: a.name, weight: 8 },
+				{ text: a.aliases.join(' '), weight: 7 },
+				{ text: a.items.map((i) => i.name).join(' '), weight: 5 },
+				{ text: c.name, weight: 3 },
+				{ text: a.summary, weight: 2 },
+				{ text: a.refs.join(' '), weight: 1 }
+			].map((f) => ({ ...f, text: f.text.toLowerCase() })),
+			body: ''
+		}))
+	);
+	return [...crates, ...algorithms, ...categories];
+}
+
+/** Weight of full-README text: found there, an entry ranks below any page-text match. */
+const README_WEIGHT = 0.5;
+
+/**
+ * The entries with each crate's full README added as a low-weight field and as snippet text,
+ * for when search has loaded readmes.json.
+ */
+export function withReadmes(all: Entry[], readmes: Record<string, string>): Entry[] {
+	return all.map((e) => {
+		const readme = e.kind === 'crate' ? readmes[e.title] : undefined;
+		if (!readme) return e;
+		return {
+			...e,
+			fields: [...e.fields, { text: readme.toLowerCase(), weight: README_WEIGHT }],
+			body: `${e.body} ${readme}`
+		};
+	});
 }
 
 const terms = (query: string) => query.toLowerCase().split(/\s+/).filter(Boolean);

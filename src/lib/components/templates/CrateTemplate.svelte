@@ -4,6 +4,9 @@
 	import Node from '#lib/components/atoms/Node.svelte';
 	import RichText from '#lib/components/atoms/RichText.svelte';
 	import CrateLinks from '#lib/components/molecules/CrateLinks.svelte';
+	import AlgorithmList, {
+		type AlgorithmItem
+	} from '#lib/components/molecules/AlgorithmList.svelte';
 	import type { CrateRef } from '#lib/components/molecules/CrateRefList.svelte';
 	import FactList from '#lib/components/molecules/FactList.svelte';
 	import InstallSnippet from '#lib/components/molecules/InstallSnippet.svelte';
@@ -18,7 +21,8 @@
 		category,
 		back,
 		dependencies,
-		dependents
+		dependents,
+		algorithms
 	}: {
 		crate: Crate;
 		category: Category;
@@ -26,6 +30,7 @@
 		back: string;
 		dependencies: CrateRef[];
 		dependents: CrateRef[];
+		algorithms: AlgorithmItem[];
 	} = $props();
 </script>
 
@@ -41,9 +46,16 @@
 	<div class="body">
 		<div class="main">
 			<section aria-labelledby="audience">
-				<h2 id="audience">Who it is for</h2>
+				<h2 id="audience">{crate.about === 'intro' ? 'About' : 'Who it is for'}</h2>
 				<Prose blocks={crate.audience as Block[]} />
 			</section>
+
+			{#if algorithms.length}
+				<section aria-labelledby="algorithms">
+					<h2 id="algorithms">Algorithms <span class="count">{algorithms.length}</span></h2>
+					<AlgorithmList {algorithms} />
+				</section>
+			{/if}
 
 			{#if crate.siblings.length}
 				<section aria-labelledby="siblings">
@@ -64,6 +76,7 @@
 			<FactList
 				facts={[
 					{ term: 'Category', value: categoryValue },
+					{ term: 'Latest release', value: version },
 					{ term: 'License', value: license },
 					...(crate.msrv ? [{ term: 'Minimum Rust', value: msrv }] : []),
 					...(crate.keywords.length ? [{ term: 'Keywords', value: keywords }] : [])
@@ -76,6 +89,9 @@
 
 {#snippet categoryValue()}
 	<a href={back}>{category.title}</a>
+{/snippet}
+{#snippet version()}
+	<a href="https://crates.io/crates/{crate.name}/{crate.version}" rel="external">{crate.version}</a>
 {/snippet}
 {#snippet license()}
 	<span>{crate.license.replaceAll(' OR ', ' or ')}</span>
@@ -154,6 +170,10 @@
 	}
 	h2 {
 		font-size: var(--step-2);
+	}
+	.count {
+		color: var(--color-text-muted);
+		font-weight: var(--weight-text);
 	}
 	.side {
 		display: grid;
