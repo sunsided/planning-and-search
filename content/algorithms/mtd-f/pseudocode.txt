@@ -17,8 +17,8 @@ algorithm MTD(f)(p, d, g)
     else
       break                                    ▷ the pass proved nothing new
     g ← v
-    if lo = hi then
-      W ← (next-down(g), next-up(g))
+    if lo = hi or lo = max-score or hi = min-score then
+      W ← (next-down(g), next-up(g))           ▷ nothing lies beyond the end of the score range
       break
   v, kind ← Alpha-beta(p, d, W)                ▷ just around the score: exact, with its line
   if W ≠ (−∞, +∞) and kind ≠ exact then
