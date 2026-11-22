@@ -17,7 +17,8 @@ A failing repository or item is reported and counted, and the run continues with
 the job fails at the end if anything failed. Area and Kind names are checked against the
 project's options before anything is written.
 
-Needs `gh` authenticated with a token that has the `project` and `repo` scopes (GH_TOKEN).
+Needs `gh` authenticated with a classic token that has the `project`, `repo` and `read:org`
+scopes (GH_TOKEN); `gh project` requires `read:org`.
 """
 
 import json
@@ -34,8 +35,12 @@ BOT = re.compile(r"dependabot|release-plz|github-actions|^app/")
 
 
 def gh(*args):
-    """Run gh and return its standard output."""
-    return subprocess.run(["gh", *args], capture_output=True, text=True, check=True).stdout
+    """Run gh and return its standard output; gh's error message goes to the log on failure."""
+    result = subprocess.run(["gh", *args], capture_output=True, text=True)
+    if result.returncode:
+        print(f"gh {' '.join(args[:3])}: {result.stderr.strip()}", file=sys.stderr, flush=True)
+        raise subprocess.CalledProcessError(result.returncode, result.args, result.stdout, result.stderr)
+    return result.stdout
 
 
 def gh_json(*args):

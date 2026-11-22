@@ -5,7 +5,7 @@ name: Project sync
 # requests and fills Area, Kind, Status and dates. One central job instead of an auto-add
 # workflow per repository. The built-in GITHUB_TOKEN cannot write to a user-owned project, so
 # the job uses the PROJECT_SYNC_TOKEN secret of the project-sync environment (classic token
-# with the `project` and `repo` scopes).
+# with the `project`, `repo` and `read:org` scopes).
 on:
   schedule:
     - cron: '17 6 * * 1' # weekly, Monday morning
