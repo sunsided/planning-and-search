@@ -194,6 +194,43 @@
 		font-size: var(--step--1);
 		line-height: var(--leading-snug);
 	}
+	/*
+	 * The "Then look at" cards and side-by-side starts link as a whole, as the overview's
+	 * crate cards do: the title link covers the card. The single start keeps its own buttons.
+	 */
+	.crates li,
+	.several .start {
+		position: relative;
+		transition:
+			border-color var(--dur-fast) var(--ease-out),
+			translate var(--dur-mid) var(--ease-out);
+	}
+	.crates li:hover,
+	.crates li:has(:focus-visible),
+	.several .start:hover,
+	.several .start:has(:focus-visible) {
+		border-color: var(--accent-line);
+		translate: 0 var(--lift);
+	}
+	.crates a::after,
+	.several h3 a::after {
+		content: '';
+		position: absolute;
+		inset: 0;
+		border-radius: inherit;
+	}
+	.crates a:focus-visible,
+	.several h3 a:focus-visible {
+		outline: none;
+	}
+	.crates li:has(a:focus-visible),
+	.several .start:has(a:focus-visible) {
+		outline: var(--focus-width) solid var(--color-focus);
+		outline-offset: var(--focus-offset);
+	}
+	.several h3 a {
+		text-decoration: none;
+	}
 	.algos {
 		display: flex;
 		flex-wrap: wrap;
