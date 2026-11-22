@@ -1,0 +1,30 @@
+{
+	"description": "FOCBS (Flow-Oracle Conflict-Based Search) plans for fleets in which some agents have a goal and the others are idle: an idle agent only has a start, may end anywhere, and must get out of the way. CBS searches the paths of the agents with goals alone, by their sum of costs. At each conflict-free node a min-cost flow over a time-expanded graph routes the idle agents around those paths with the fewest moves. If no routing exists, the flow's minimum cut names the reservations that block it, and the node gets one child per blocker that forbids it to its agent (*flow-conflict branching*). The plan has the least sum of costs that still lets the idle agents through, and the fewest idle moves for those paths. Use it for warehouses and depots where parked robots must make room.",
+	"papers": [
+		{
+			"authors": "Xi Jin, Chen Qian, Renjun Zhang, Guowei Wu, Xiaobo Li, Jun Jiang, Weiwei Shang",
+			"title": "Asymmetric Decomposition for Multi-Agent Path Finding with Unassigned Agents",
+			"year": 2026,
+			"venue": "arXiv preprint",
+			"doi": null,
+			"arxiv": "2611.24108",
+			"url": null,
+			"role": "introduces"
+		}
+	],
+	"lineage": [
+		{
+			"slug": "cbs",
+			"name": null,
+			"relation": "builds-on",
+			"source": "mapf-search, docs/design.md: \"The CBS `Search` over the assigned agents, every `CbsConfig` improvement included.\""
+		},
+		{
+			"slug": null,
+			"name": "Min-cost flow on a time-expanded network",
+			"relation": "combines",
+			"source": "mapf-search, docs/design.md: \"Successive shortest paths with Dijkstra on reduced costs sends one unit per unassigned agent at the least total cost\""
+		}
+	],
+	"trace": null
+}
