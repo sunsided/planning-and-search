@@ -10,6 +10,12 @@ Adds every issue, and every human pull request opened since `since`, from the re
 
 Items already in the project keep their Area, Kind and Start; only Status and Target follow
 state changes (closing, merging, reopening). Epic status is left as set by hand while open.
+Pull requests closed without merging are not added, but items added while they were open are
+marked Done like any other closed item.
+
+A failing repository or item is reported and counted, and the run continues with the rest;
+the job fails at the end if anything failed. Area and Kind names are checked against the
+project's options before anything is written.
 
 Needs `gh` authenticated with a token that has the `project` and `repo` scopes (GH_TOKEN).
 """
@@ -23,6 +29,7 @@ import sys
 CONFIG = json.loads((pathlib.Path(__file__).parent / "config.json").read_text(encoding="utf-8"))
 OWNER = CONFIG["owner"]
 NUMBER = str(CONFIG["project"])
+KINDS = ("Epic", "Feature", "Research", "Fix", "Infrastructure", "Release")
 BOT = re.compile(r"dependabot|release-plz|github-actions|^app/")
 
 
@@ -61,7 +68,15 @@ def main():
                                                          "--limit", "5000", "--format", "json")["items"]}
 
     def option(field, name):
-        return next(o["id"] for o in fields[field]["options"] if o["name"] == name)
+        found = next((o["id"] for o in fields.get(field, {}).get("options", []) if o["name"] == name), None)
+        if found is None:
+            raise LookupError(f"project has no {field} option named {name!r}")
+        return found
+
+    for area in CONFIG["areas"]:
+        option("Area", area)
+    for kind in KINDS:
+        option("Kind", kind)
 
     def set_single(item, field, name):
         gh("project", "item-edit", "--id", item, "--project-id", project_id, "--field-id", fields[field]["id"],
@@ -71,16 +86,25 @@ def main():
         gh("project", "item-edit", "--id", item, "--project-id", project_id, "--field-id", fields[field]["id"],
            "--date", value)
 
+    def clear(item, field):
+        gh("project", "item-edit", "--id", item, "--project-id", project_id, "--field-id", fields[field]["id"],
+           "--clear")
+
     added = updated = failed = 0
     for area, repos in CONFIG["areas"].items():
         for repo in repos:
             full = f"{OWNER}/{repo}"
-            issues = gh_json("issue", "list", "-R", full, "--state", "all", "--limit", "1000",
-                             "--json", "url,title,state,createdAt,closedAt,labels")
-            prs = [p for p in gh_json("pr", "list", "-R", full, "--state", "all", "--limit", "1000",
-                                      "--json", "url,title,state,createdAt,mergedAt,closedAt,author,headRefName,labels")
-                   if not BOT.search(p["author"]["login"]) and not p["headRefName"].startswith("release/")
-                   and p["createdAt"][:10] >= CONFIG["since"] and p["state"] != "CLOSED"]
+            try:
+                issues = gh_json("issue", "list", "-R", full, "--state", "all", "--limit", "1000",
+                                 "--json", "url,title,state,createdAt,closedAt,labels")
+                prs = [p for p in gh_json("pr", "list", "-R", full, "--state", "all", "--limit", "1000",
+                                          "--json", "url,title,state,createdAt,mergedAt,closedAt,author,headRefName,labels")
+                       if not BOT.search(p["author"]["login"]) and not p["headRefName"].startswith("release/")
+                       and p["createdAt"][:10] >= CONFIG["since"]]
+            except subprocess.CalledProcessError as err:
+                failed += 1
+                print(f"FAILED {full}: {err.stderr.strip()[:200]}", file=sys.stderr, flush=True)
+                continue
             for entry, is_pr in [(i, False) for i in issues] + [(p, True) for p in prs]:
                 url = entry["url"]
                 done = entry["state"] in ("CLOSED", "MERGED")
@@ -97,7 +121,10 @@ def main():
                             updated += 1
                         elif not done and current == "Done":
                             set_single(items[url]["id"], "Status", status)
+                            clear(items[url]["id"], "Target")
                             updated += 1
+                        continue
+                    if is_pr and entry["state"] == "CLOSED":
                         continue
                     item = gh_json("project", "item-add", NUMBER, "--owner", OWNER, "--url", url, "--format", "json")["id"]
                     labels = [label["name"] for label in entry.get("labels", [])]
@@ -109,9 +136,10 @@ def main():
                         set_date(item, "Target", end[:10])
                     added += 1
                     print(f"added {status:11} {area:26} {url}", flush=True)
-                except subprocess.CalledProcessError as err:
+                except (subprocess.CalledProcessError, LookupError) as err:
                     failed += 1
-                    print(f"FAILED {url}: {err.stderr.strip()[:200]}", file=sys.stderr, flush=True)
+                    detail = err.stderr.strip()[:200] if isinstance(err, subprocess.CalledProcessError) else err
+                    print(f"FAILED {url}: {detail}", file=sys.stderr, flush=True)
     print(f"added {added}, updated {updated}, failed {failed}")
     return 1 if failed else 0
 
