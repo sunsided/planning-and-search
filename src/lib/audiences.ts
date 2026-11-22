@@ -98,8 +98,8 @@ export const AUDIENCES: Audience[] = [
 	{
 		slug: 'games',
 		title: 'game developers',
-		teaser: 'Pathfinding, unit groups and planning agents on a frame budget.',
-		lead: 'Games need paths for characters on a grid, groups of units in tight corridors, and agents that plan against a forward model. They must stay inside a frame budget. These crates give each search an explicit budget and allocation-free variants where it matters.',
+		teaser: 'Pathfinding, unit groups, opponents and puzzles on a frame budget.',
+		lead: 'Games need paths for characters on a grid, groups of units in tight corridors, opponents that look ahead, and puzzles with one solution. They must stay inside a frame budget. These crates give each search an explicit budget and allocation-free variants where it matters.',
 		start: {
 			crate: 'heuristic-search',
 			why: 'Finds paths for a character on a grid or any graph you describe with one small trait.',
@@ -110,6 +110,14 @@ export const AUDIENCES: Audience[] = [
 			{
 				crate: 'mapf-search',
 				why: 'Moves groups of units through tight corridors, where independent A* per unit deadlocks or collides.'
+			},
+			{
+				crate: 'game-tree-search',
+				why: 'Gives a computer opponent for board, card and turn-based games, with alpha-beta and iterative deepening under a budget.'
+			},
+			{
+				crate: 'constraint-search',
+				why: 'Generates and checks logic puzzles, proves a puzzle has one solution, and grades it by the techniques a solve needs.'
 			},
 			{
 				crate: 'evolutionary-planning',
@@ -128,7 +136,16 @@ export const AUDIENCES: Audience[] = [
 				why: 'Searches without a heuristic, from state features alone, as in planning and game benchmarks.'
 			}
 		],
-		algorithms: ['a-star', 'jump-point-search', 'theta-star', 'cbs', 'pibt', 'rhea']
+		algorithms: [
+			'a-star',
+			'jump-point-search',
+			'theta-star',
+			'cbs',
+			'pibt',
+			'rhea',
+			'alpha-beta-pruning',
+			'iterative-deepening-alpha-beta'
+		]
 	},
 	{
 		slug: 'ai-planning',

@@ -57,6 +57,22 @@ export const CATEGORIES: Category[] = [
 		crates: ['stochastic-search']
 	},
 	{
+		slug: 'game-trees',
+		title: 'Game-tree search',
+		blurb:
+			'Choosing a move when an opponent chooses the next one: minimax, alpha-beta and its successors, under a frame budget.',
+		hue: 315,
+		crates: ['game-tree-search']
+	},
+	{
+		slug: 'constraints',
+		title: 'Constraint satisfaction',
+		blurb:
+			'Small finite domains and the constraints that prune them: puzzles, deduction with hidden information, and small schedules.',
+		hue: 40,
+		crates: ['constraint-search']
+	},
+	{
 		slug: 'motion',
 		title: 'Motion planning',
 		blurb:
