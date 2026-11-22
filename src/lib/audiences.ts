@@ -167,8 +167,12 @@ export const AUDIENCES: Audience[] = [
 				why: 'Gives width-based search (IW, SIW, BFWS) with an adapter for SAS+ tasks.'
 			},
 			{
+				crate: 'pddl',
+				why: 'Parses PDDL 3.1 into strongly typed Rust, and grounds a task into SAS+ with its sas-plus feature.'
+			},
+			{
 				crate: 'miniplan',
-				why: 'Plans directly from PDDL, as a library or as a command line tool.'
+				why: 'A small reference planner: it plans directly from PDDL, as a library or as a command line tool.'
 			},
 			{
 				crate: 'pddl-validate',

@@ -30,7 +30,7 @@ export const CATEGORIES: Category[] = [
 		slug: 'classical-search',
 		title: 'Classical planning: search',
 		blurb:
-			'Searching factored planning tasks: decoupled star-topology search, BDD-based symbolic search, and a PDDL planner.',
+			'Searching factored planning tasks: decoupled star-topology search, BDD-based symbolic search, and a small reference planner for PDDL.',
 		hue: 155,
 		crates: ['decoupled-search', 'symbolic-search', 'miniplan']
 	},
@@ -90,9 +90,9 @@ export const CATEGORIES: Category[] = [
 	{
 		slug: 'pddl',
 		title: 'PDDL tooling',
-		blurb: 'Checking plans against PDDL domains and problems.',
+		blurb: 'Reading PDDL into typed Rust, and checking plans against PDDL domains and problems.',
 		hue: 230,
-		crates: ['pddl-validate']
+		crates: ['pddl', 'pddl-validate']
 	},
 	{
 		slug: 'foundations',

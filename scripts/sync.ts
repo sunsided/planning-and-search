@@ -31,7 +31,7 @@ const USER_AGENT =
 
 /** Published crates of a workspace that have no page here but are listed on one. */
 const SIBLINGS: Record<string, string[]> = {
-	'pddl-validate': ['pddl', 'pddl-codegen', 'pddl-core', 'pddl-lsp', 'pddl-macros', 'pddl-runtime']
+	'pddl-validate': ['pddl-codegen', 'pddl-core', 'pddl-lsp', 'pddl-macros', 'pddl-runtime']
 };
 
 /** The README headings that introduce a crate's audience, across the repositories. */
