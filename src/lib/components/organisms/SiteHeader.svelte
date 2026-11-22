@@ -1,9 +1,12 @@
 <script lang="ts">
 	import Logo from '#lib/components/atoms/Logo.svelte';
 	import ThemeSwitcher from '#lib/components/molecules/ThemeSwitcher.svelte';
+	import CommandPalette from '#lib/components/organisms/CommandPalette.svelte';
+	import type { Entry } from '#lib/search.js';
 	import { SITE_NAME } from '#lib/site.js';
 
-	let { home }: { home: string } = $props();
+	let { home, entries, go }: { home: string; entries: Entry[]; go: (href: string) => void } =
+		$props();
 </script>
 
 <header class="header">
@@ -11,7 +14,10 @@
 		<Logo />
 		<span>{SITE_NAME}</span>
 	</a>
-	<ThemeSwitcher />
+	<div class="tools">
+		<CommandPalette {entries} {go} />
+		<ThemeSwitcher />
+	</div>
 </header>
 
 <style>
@@ -24,6 +30,11 @@
 		margin-inline: auto;
 		padding-block: var(--space-4);
 		border-block-end: var(--border-hair);
+	}
+	.tools {
+		display: flex;
+		align-items: center;
+		gap: var(--space-3);
 	}
 	.brand {
 		display: inline-flex;

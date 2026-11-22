@@ -18,3 +18,9 @@ import { createRawSnippet } from 'svelte';
 /** A children snippet of fixed text, for components that take one. */
 export const text = (s: string) =>
 	createRawSnippet(() => ({ render: () => `<span>${s.replace(/</g, '&lt;')}</span>` }));
+
+import { entries } from '#lib/search.js';
+
+/** The site's search entries, linking nowhere. */
+export const searchEntries = entries(href, href);
+export const go = (href: string) => console.info('go', href);

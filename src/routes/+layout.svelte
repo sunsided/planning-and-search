@@ -6,14 +6,21 @@
 	import '#lib/design/base.css';
 	import SiteFooter from '#lib/components/organisms/SiteFooter.svelte';
 	import SiteHeader from '#lib/components/organisms/SiteHeader.svelte';
+	import { entries } from '#lib/search.js';
+	import { goto } from '$app/navigation';
 	import { resolve } from '$app/paths';
 	import type { Snippet } from 'svelte';
 
 	let { children }: { children: Snippet } = $props();
+
+	const searchable = entries(
+		(name) => resolve('/crates/[name]', { name }),
+		(slug) => `${resolve('/')}#${slug}`
+	);
 </script>
 
 <a class="skip" href="#main">Skip to content</a>
-<SiteHeader home={resolve('/')} />
+<SiteHeader home={resolve('/')} entries={searchable} go={(href) => goto(href)} />
 <main id="main">
 	{@render children()}
 </main>
