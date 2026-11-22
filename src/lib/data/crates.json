@@ -244,7 +244,7 @@
 	},
 	{
 		"name": "game-tree-search",
-		"version": "0.2.0",
+		"version": "0.2.1",
 		"repo": "sunsided/game-tree-search",
 		"description": "Adversarial game-tree search for computer opponents in board, card and turn-based games: minimax, negamax, alpha-beta, principal variation search, MTD(f), iterative deepening with transposition tables, expectimax and Monte Carlo tree search",
 		"license": "MIT OR Apache-2.0",
@@ -273,8 +273,11 @@
 		],
 		"algorithms": [
 			"alpha-beta-pruning",
+			"alphazero-self-play",
+			"batched-mcts-virtual-loss",
 			"expectimax",
 			"iterative-deepening-alpha-beta",
+			"lazy-smp",
 			"minimax",
 			"monte-carlo-tree-search",
 			"mtd-f",
