@@ -4,7 +4,8 @@ name: Project sync
 # planning repositories listed in .github/project-sync/config.json: adds new issues and pull
 # requests and fills Area, Kind, Status and dates. One central job instead of an auto-add
 # workflow per repository. The built-in GITHUB_TOKEN cannot write to a user-owned project, so
-# the job uses the PROJECT_SYNC_TOKEN secret (classic token with the `project` and `repo` scopes).
+# the job uses the PROJECT_SYNC_TOKEN secret of the project-sync environment (classic token
+# with the `project` and `repo` scopes).
 on:
   schedule:
     - cron: '17 6 * * 1' # weekly, Monday morning
@@ -22,6 +23,8 @@ jobs:
     runs-on: ubuntu-latest
     # The token reaches every planning repository; only code from main may use it.
     if: github.repository_owner == 'sunsided' && github.ref == 'refs/heads/main'
+    # Environment secret, deployable from main only: other branches cannot read the token.
+    environment: project-sync
     permissions:
       contents: read
     steps:
