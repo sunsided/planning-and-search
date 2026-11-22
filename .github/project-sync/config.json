@@ -1,0 +1,33 @@
+{
+	"owner": "sunsided",
+	"project": 8,
+	"since": "2026-11-19",
+	"hub": "planning-and-search",
+	"areas": {
+		"Foundations": ["search-core", "sas-plus"],
+		"Graph search": ["heuristic-search", "multiobjective-search", "width-search"],
+		"Classical planning": [
+			"planning-heuristics",
+			"decoupled-search",
+			"symbolic-search",
+			"merge-and-shrink",
+			"cost-partition",
+			"miniplan"
+		],
+		"PDDL tooling": ["pddl-rs"],
+		"Probabilistic planning": ["stochastic-search"],
+		"Multi-agent & distributed": ["mapf-search", "task-allocation"],
+		"Motion & reachability": [
+			"sampling-planning",
+			"robust-planning",
+			"polyzonotope",
+			"evolutionary-planning"
+		],
+		"Scheduling & spaceflight": ["temporal-control", "resource-timeline"],
+		"Game search": ["game-tree-search"],
+		"Constraint satisfaction": ["constraint-search"],
+		"Diagrams & routing": ["connector-routing"],
+		"Site & docs": ["planning-and-search"],
+		"Quantum & QUBO": ["planning-qubo", "quantum-planning"]
+	}
+}
