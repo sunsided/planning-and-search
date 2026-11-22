@@ -1,0 +1,93 @@
+version: '3'
+
+vars:
+  RUN: yarn
+
+tasks:
+  default:
+    cmds:
+      - task --list --sort=none
+    silent: true
+
+  install:
+    desc: Install dependencies
+    run: once
+    sources: [package.json, yarn.lock, .yarnrc.yml, .nvmrc]
+    generates: [node_modules/.yarn-state.yml]
+    preconditions:
+      - sh: command -v yarn
+        msg: 'yarn not found — install Node 26 (see .nvmrc) and run: corepack enable'
+    cmds:
+      - '{{.RUN}} install {{.CLI_ARGS}}'
+
+  sync:
+    desc: Snapshot the crates from their local checkouts into src/lib/data/crates.json (PLANNING_DIR, default ~/dev/mine/rust/planning)
+    preconditions:
+      - sh: command -v cargo
+        msg: 'cargo not found — sync reads `cargo metadata` of every crate'
+    cmds:
+      - node scripts/sync.ts
+      - '{{.RUN}} prettier --write src/lib/data/crates.json'
+
+  dev:
+    desc: Dev server with hot reload
+    deps: [install]
+    cmds:
+      - '{{.RUN}} dev {{.CLI_ARGS}}'
+
+  storybook:
+    desc: Storybook dev server on :6006
+    deps: [install]
+    cmds:
+      - '{{.RUN}} storybook {{.CLI_ARGS}}'
+
+  build:
+    desc: Prerender the site into build/, with Storybook under build/storybook/
+    run: once
+    deps: [install]
+    cmds:
+      - '{{.RUN}} build'
+      - '{{.RUN}} build-storybook'
+
+  preview:
+    desc: Serve the built site (without Storybook; `vite preview` serves SvelteKit's output only)
+    deps: [build]
+    cmds:
+      - '{{.RUN}} preview {{.CLI_ARGS}}'
+
+  lint:
+    desc: Prettier check
+    deps: [install]
+    cmds:
+      - '{{.RUN}} lint'
+
+  check:
+    desc: Type check
+    deps: [install]
+    cmds:
+      - '{{.RUN}} check'
+
+  test:
+    desc: Registry and rich-text tests
+    deps: [install]
+    cmds:
+      - '{{.RUN}} test'
+
+  lint:actions:
+    desc: Lint the GitHub workflows (actionlint, zizmor)
+    preconditions:
+      - sh: command -v actionlint
+        msg: 'actionlint not found — https://github.com/rhysd/actionlint'
+      - sh: command -v zizmor
+        msg: 'zizmor not found — https://docs.zizmor.sh'
+    cmds:
+      - actionlint
+      - zizmor --format plain .github
+
+  ci:
+    desc: Lint, type check, tests, build
+    cmds:
+      - task: lint
+      - task: check
+      - task: test
+      - task: build

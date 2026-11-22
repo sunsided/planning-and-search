@@ -1,0 +1,159 @@
+/*
+	Design tokens, in two layers:
+
+	  primitives   raw values, named for what they are (--paper-50, --slate-900)
+	  semantic     what a value is for (--color-bg, --color-accent); components use only these
+
+	Themes: every semantic colour is a light-dark() pair, so it follows `color-scheme`. That is
+	`light dark` by default (the system decides), and `data-theme="light"` or `"dark"` on <html>
+	pins it; the inline script in app.html sets that from the visitor's choice before first paint.
+
+	Accents: each category has a hue (registry.ts). An element with `data-accent` and an inline
+	`--accent-h` gets that hue's accent pair; everything inside that says "this category" reads
+	`--accent`. Without one, it is the site's blue.
+
+	The look: a planner's drafting sheet. Warm paper by day and blueprint slate by night, a faint
+	graph-paper grid, hairline rules, and one coloured node per category.
+*/
+
+:root {
+	color-scheme: light dark;
+
+	/* --- Primitives: neutrals --------------------------------------------------- */
+	--paper-0: #fffdf8;
+	--paper-50: #f7f4ec;
+	--paper-100: #efebe0;
+	--paper-200: #e2dccd;
+	--paper-400: #a59d8a;
+	--paper-600: #6b6455;
+	--paper-800: #38342b;
+	--paper-950: #1c1a15;
+
+	--slate-50: #eef1f7;
+	--slate-200: #c4cbdb;
+	--slate-400: #8791a8;
+	--slate-600: #4b5470;
+	--slate-800: #232a3d;
+	--slate-850: #1a2031;
+	--slate-900: #131826;
+	--slate-950: #0c101a;
+
+	--white: #fff;
+	--shadow-ink-light: rgb(60 50 30 / 0.12);
+	--shadow-ink-dark: rgb(0 0 0 / 0.5);
+
+	/* --- Primitives: accent lightness and chroma per theme --------------------- */
+	--accent-l-light: 47%;
+	--accent-l-dark: 79%;
+	--accent-c: 0.13;
+	--accent-h: 255;
+
+	/* --- Semantic: colour ------------------------------------------------------- */
+	--color-bg: light-dark(var(--paper-50), var(--slate-900));
+	--color-bg-deep: light-dark(var(--paper-100), var(--slate-950));
+	--color-surface: light-dark(var(--paper-0), var(--slate-850));
+	--color-surface-raised: light-dark(var(--white), var(--slate-800));
+	--color-line: light-dark(
+		color-mix(in oklab, var(--paper-600) 18%, transparent),
+		color-mix(in oklab, var(--slate-400) 20%, transparent)
+	);
+	--color-line-strong: light-dark(
+		color-mix(in oklab, var(--paper-600) 38%, transparent),
+		color-mix(in oklab, var(--slate-400) 40%, transparent)
+	);
+	--color-grid: light-dark(
+		color-mix(in oklab, var(--paper-600) 7%, transparent),
+		color-mix(in oklab, var(--slate-400) 7%, transparent)
+	);
+	--color-text: light-dark(var(--paper-800), var(--slate-200));
+	--color-text-strong: light-dark(var(--paper-950), var(--slate-50));
+	--color-text-muted: light-dark(var(--paper-600), var(--slate-400));
+	--color-focus: var(--accent);
+	--color-shadow: light-dark(var(--shadow-ink-light), var(--shadow-ink-dark));
+
+	/* --- Semantic: type --------------------------------------------------------- */
+	--font-sans: 'IBM Plex Sans Variable', 'IBM Plex Sans', system-ui, sans-serif;
+	--font-mono: 'IBM Plex Mono', ui-monospace, monospace;
+
+	--step--2: 0.75rem;
+	--step--1: 0.875rem;
+	--step-0: 1.0625rem;
+	--step-1: 1.25rem;
+	--step-2: 1.5rem;
+	--step-3: clamp(1.75rem, 1.3rem + 1.8vw, 2.25rem);
+	--step-4: clamp(2.25rem, 1.3rem + 3.8vw, 3.5rem);
+
+	--weight-text: 400;
+	--weight-strong: 600;
+	--weight-display: 650;
+
+	--leading-tight: 1.08;
+	--leading-snug: 1.3;
+	--leading-text: 1.6;
+	--measure: 66ch;
+	--tracking-label: 0.08em;
+
+	/* --- Semantic: space, shape, depth ------------------------------------------ */
+	--space-1: 0.25rem;
+	--space-2: 0.5rem;
+	--space-3: 0.75rem;
+	--space-4: 1rem;
+	--space-5: 1.5rem;
+	--space-6: 2rem;
+	--space-7: 3rem;
+	--space-8: 4.5rem;
+	--gutter: clamp(1rem, 4vw, 3rem);
+	--page-max: 72rem;
+	--grid-size: 24px;
+
+	--radius-s: 0.25rem;
+	--radius-m: 0.5rem;
+	--radius-l: 0.875rem;
+	--radius-pill: 999px;
+
+	--border-width: 1px;
+	--border-hair: var(--border-width) solid var(--color-line);
+	--focus-width: 2px;
+	--focus-offset: 3px;
+	--halo-width: 3px;
+	--inset-tight: 2px;
+	--lift: -2px;
+
+	/* Hit targets: icon buttons, segmented controls, buttons. */
+	--control-s: 2rem;
+	--control-m: 2.25rem;
+	--control-l: 2.5rem;
+
+	/* Layout: track minimums and maximums. The one breakpoint, 52rem in CrateTemplate, is a
+	   literal because media queries cannot read custom properties. */
+	--track-card: 19rem;
+	--track-column: 14rem;
+	--track-aside-min: 15rem;
+	--track-aside-max: 20rem;
+	--snippet-max: 28rem;
+	--shadow-raised: 0 1px 2px var(--color-shadow), 0 0.75rem 1.5rem -1rem var(--color-shadow);
+
+	/* --- Semantic: motion ------------------------------------------------------- */
+	--ease-out: cubic-bezier(0.2, 0.8, 0.2, 1);
+	--dur-fast: 140ms;
+	--dur-mid: 260ms;
+}
+
+:root[data-theme='light'] {
+	color-scheme: light;
+}
+:root[data-theme='dark'] {
+	color-scheme: dark;
+}
+
+/* The accent pair, recomputed wherever a hue is set. */
+:root,
+[data-accent] {
+	--accent: light-dark(
+		oklch(var(--accent-l-light) var(--accent-c) var(--accent-h)),
+		oklch(var(--accent-l-dark) var(--accent-c) var(--accent-h))
+	);
+	--accent-ink: light-dark(var(--white), var(--slate-950));
+	--accent-wash: color-mix(in oklab, var(--accent) 12%, transparent);
+	--accent-line: color-mix(in oklab, var(--accent) 45%, transparent);
+}

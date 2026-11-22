@@ -1,0 +1,15 @@
+node_modules
+.yarn/install-state.gz
+.task
+
+# Output
+/.svelte-kit
+/build
+/storybook-static
+
+.DS_Store
+.env
+.env.*
+vite.config.ts.timestamp-*
+.playwright-mcp
+*storybook.log

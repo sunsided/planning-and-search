@@ -1,0 +1,119 @@
+/* Element defaults and the page's ground. Component styles live with their components. */
+
+*,
+*::before,
+*::after {
+	box-sizing: border-box;
+}
+
+html {
+	overflow-x: clip;
+	background-color: var(--color-bg);
+	color: var(--color-text);
+	font-family: var(--font-sans);
+	font-size: 100%;
+	font-weight: var(--weight-text);
+	line-height: var(--leading-text);
+	-webkit-text-size-adjust: 100%;
+	text-rendering: optimizeLegibility;
+}
+
+body {
+	margin: 0;
+	min-height: 100dvh;
+	overflow-x: clip;
+	font-size: var(--step-0);
+}
+/* The graph-paper grid, fixed behind the page and fading out downward. */
+body::before {
+	content: '';
+	position: fixed;
+	inset: 0;
+	z-index: -1;
+	pointer-events: none;
+	background-image:
+		linear-gradient(var(--color-grid) var(--border-width), transparent var(--border-width)),
+		linear-gradient(90deg, var(--color-grid) var(--border-width), transparent var(--border-width));
+	background-size: var(--grid-size) var(--grid-size);
+	mask-image: linear-gradient(180deg, #000 0%, rgb(0 0 0 / 0.4) 50%, transparent 100%);
+}
+
+h1,
+h2,
+h3,
+h4 {
+	margin: 0;
+	color: var(--color-text-strong);
+	font-weight: var(--weight-display);
+	line-height: var(--leading-tight);
+	letter-spacing: -0.015em;
+	text-wrap: balance;
+}
+
+p,
+ul {
+	margin: 0;
+	text-wrap: pretty;
+}
+
+a {
+	color: inherit;
+	text-decoration-thickness: var(--border-width);
+	text-underline-offset: 0.22em;
+	text-decoration-color: var(--color-line-strong);
+	transition: text-decoration-color var(--dur-fast) var(--ease-out);
+}
+a:hover {
+	text-decoration-color: var(--accent);
+}
+
+code,
+kbd,
+pre {
+	font-family: var(--font-mono);
+	font-size: 0.9em;
+}
+/* Inline code in prose. */
+:not(pre) > code {
+	padding: 0.08em 0.35em;
+	border-radius: var(--radius-s);
+	background: var(--color-bg-deep);
+	color: var(--color-text-strong);
+	font-size: 0.86em;
+}
+
+img,
+svg {
+	display: block;
+	max-width: 100%;
+}
+
+:focus-visible {
+	outline: var(--focus-width) solid var(--color-focus);
+	outline-offset: var(--focus-offset);
+	border-radius: var(--inset-tight);
+}
+
+::selection {
+	background: var(--accent);
+	color: var(--accent-ink);
+}
+
+.visually-hidden {
+	position: absolute;
+	width: 1px;
+	height: 1px;
+	overflow: hidden;
+	clip-path: inset(50%);
+	white-space: nowrap;
+}
+
+@media (prefers-reduced-motion: reduce) {
+	*,
+	*::before,
+	*::after {
+		animation-duration: 0.01ms !important;
+		animation-iteration-count: 1 !important;
+		transition-duration: 0.01ms !important;
+	}
+}

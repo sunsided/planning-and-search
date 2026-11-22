@@ -1,0 +1,7 @@
+.svelte-kit
+build
+storybook-static
+node_modules
+yarn.lock
+.yarn
+.playwright-mcp
