@@ -6,6 +6,9 @@ name: Deploy
 # published that has not passed `task ci`; the site lands at the root of the artifact,
 # Storybook under storybook/.
 #
+# After a deploy that changed the site, the notify job tells IndexNow (Bing, Yandex and
+# others) about every sitemap URL and asks the Wayback Machine to archive the entry pages.
+#
 # One-time setup: Settings → Pages → Source: GitHub Actions.
 
 on:
@@ -28,6 +31,8 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: read
+    outputs:
+      changed: ${{ steps.deploy-id.outputs.changed }}
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
@@ -36,6 +41,17 @@ jobs:
       - uses: ./.github/actions/setup # zizmor: ignore[self-repository]
       - run: task sync
       - run: task ci
+      # The commit plus the synced data identify what is deployed. The nightly run with
+      # nothing new matches the live id, so search engines are not pinged for it.
+      - id: deploy-id
+        env:
+          SITE_URL: https://sunsided.github.io/planning-and-search
+        run: |
+          id="$(git rev-parse HEAD) $(cat src/lib/data/*.json | sha256sum | cut -d' ' -f1)"
+          live="$(curl -fsS --max-time 30 "$SITE_URL/deploy-id.txt" || true)"
+          printf '%s\n' "$id" > build/deploy-id.txt
+          if [ "$live" = "$id" ]; then changed=false; else changed=true; fi
+          echo "changed=$changed" >> "$GITHUB_OUTPUT"
       - uses: actions/upload-pages-artifact@fc324d3547104276b827a68afc52ff2a11cc49c9 # v5.0.0
         with:
           path: build
@@ -52,3 +68,39 @@ jobs:
     steps:
       - id: deployment
         uses: actions/deploy-pages@368f82528645a54fb793d4d04e342629a3f51346 # v5.0.1
+
+  notify:
+    needs: [build, deploy]
+    if: needs.build.outputs.changed == 'true'
+    runs-on: ubuntu-latest
+    permissions: {}
+    env:
+      SITE_URL: https://sunsided.github.io/planning-and-search
+      # Public by design: IndexNow reads it back from static/<key>.txt to prove ownership.
+      # A key below the host root may only submit URLs under its directory, as here.
+      INDEXNOW_KEY: 53f6ce75220a1a41743ecd7ffacf52ee
+    steps:
+      - name: IndexNow
+        shell: bash # -o pipefail: an empty sitemap fetch must fail the step
+        run: |
+          served="$(curl -fsS --max-time 30 "$SITE_URL/$INDEXNOW_KEY.txt")"
+          [ "$served" = "$INDEXNOW_KEY" ] || { echo "::error::key file does not hold the key"; exit 1; }
+          curl -fsS --max-time 30 "$SITE_URL/sitemap.xml" | grep -o '<loc>[^<]*' | sed 's/<loc>//' |
+            jq -R . | jq -s --arg key "$INDEXNOW_KEY" --arg loc "$SITE_URL/$INDEXNOW_KEY.txt" \
+              '{host: "sunsided.github.io", key: $key, keyLocation: $loc, urlList: .}' > body.json
+          echo "Submitting $(jq '.urlList | length' body.json) URLs"
+          # 200: received; 202: received, key check pending. Anything else fails the step.
+          curl -sS --fail-with-body --max-time 60 -H 'Content-Type: application/json; charset=utf-8' \
+            --data @body.json -w 'HTTP %{http_code}\n' https://api.indexnow.org/indexnow
+
+      # Anonymous Save Page Now is slow and rate-limited from shared runner IPs, so a failure
+      # here never fails the run. shortcut: two entry pages only; use SPN2 with archive.org
+      # keys and capture_outlinks to archive every page.
+      - name: Wayback Machine
+        continue-on-error: true
+        timeout-minutes: 6
+        run: |
+          for path in '' 'algorithms/'; do
+            curl -sS -o /dev/null --max-time 150 -w "$SITE_URL/$path: HTTP %{http_code}\n" \
+              "https://web.archive.org/save/$SITE_URL/$path" || true
+          done
