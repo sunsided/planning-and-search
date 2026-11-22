@@ -1,0 +1,34 @@
+{
+	"description": "Principal variation search (PVS, also NegaScout) is alpha-beta that assumes the first move at each position is the best. It *scouts* each later move with a null window at the edge the side to move has to beat, which only tells whether the move beats it. Only a move that beats it is searched again with the full window. With good move ordering, most scouts confirm the first move and prune more than the full window would. With poor ordering, the re-searches cost more than they save, so measure on the game at hand.",
+	"papers": [
+		{
+			"authors": "T. A. Marsland, M. Campbell",
+			"title": "Parallel Search of Strongly Ordered Game Trees",
+			"year": 1982,
+			"venue": "ACM Computing Surveys",
+			"doi": "10.1145/356893.356895",
+			"arxiv": null,
+			"url": null,
+			"role": "introduces"
+		},
+		{
+			"authors": "Alexander Reinefeld",
+			"title": "An Improvement to the Scout Tree Search Algorithm",
+			"year": 1983,
+			"venue": "ICCA Journal",
+			"doi": "10.3233/icg-1983-6402",
+			"arxiv": null,
+			"url": null,
+			"role": "introduces"
+		}
+	],
+	"lineage": [
+		{
+			"slug": "alpha-beta-pruning",
+			"name": null,
+			"relation": "builds-on",
+			"source": "game-tree-search, src/pvs.rs: \"Alpha-beta that assumes the first move at each position is the best\""
+		}
+	],
+	"trace": null
+}

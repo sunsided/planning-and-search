@@ -1,0 +1,26 @@
+algorithm MTD(f)(p, d, g)
+  input: root position p, depth d, first guess g (the last iteration's score, else evaluate(p))
+  output: the minimax score of p, with its principal variation
+  lo, hi ← −∞, +∞                              ▷ what the passes proved about the score
+  W ← (−∞, +∞)
+  for pass in 1, …, 64 do
+    β ← g
+    if lo = g then
+      β ← next-up(g)                           ▷ g is proven: ask about the next score above it
+    v, kind ← Alpha-beta(p, d, next-down(β), β)   ▷ a null window
+    if kind = exact then
+      lo, hi ← v, v
+    else if kind = at-least and v > lo then
+      lo ← v
+    else if kind = at-most and v < hi then
+      hi ← v
+    else
+      break                                    ▷ the pass proved nothing new
+    g ← v
+    if lo = hi then
+      W ← (next-down(g), next-up(g))
+      break
+  v, kind ← Alpha-beta(p, d, W)                ▷ just around the score: exact, with its line
+  if W ≠ (−∞, +∞) and kind ≠ exact then
+    v, kind ← Alpha-beta(p, d, −∞, +∞)
+  return v

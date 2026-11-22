@@ -1,0 +1,27 @@
+{
+	"description": "A transposition table remembers what a search learned about a position: its score, whether the score is exact or a bound, and the best move. When another move order reaches the same position, the search answers from the table instead of searching again. An entry answers only at the same remaining depth, or at any depth from its *reach* on if its search was proven. An exact entry always answers, a bound only when it lies outside the window; the stored best move is tried first otherwise. `SlotTable` has a fixed number of slots and replaces on every store; `MapTable` (feature `hashbrown`) holds entries in a hash map up to a size cap.",
+	"papers": [
+		{
+			"authors": "Richard D. Greenblatt, Donald E. Eastlake, Stephen D. Crocker",
+			"title": "The Greenblatt chess program",
+			"year": 1967,
+			"venue": "AFIPS '67 (Fall): Proceedings of the November 14-16, 1967, fall joint computer conference",
+			"doi": "10.1145/1465611.1465715",
+			"arxiv": null,
+			"url": null,
+			"role": "introduces"
+		},
+		{
+			"authors": "Albert L. Zobrist",
+			"title": "A New Hashing Method with Application for Game Playing",
+			"year": 1990,
+			"venue": "ICCA Journal (reprint of the 1970 technical report)",
+			"doi": "10.3233/icg-1990-13203",
+			"arxiv": null,
+			"url": null,
+			"role": "extends"
+		}
+	],
+	"lineage": [],
+	"trace": null
+}

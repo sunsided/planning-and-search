@@ -1,0 +1,24 @@
+{
+	"description": "Negamax computes the minimax score with one rule instead of two: every position takes its highest child score. Each score is seen from the side that moved into the position, so a child's score is negated where the view switches. Textbook negamax negates at every ply; here a score is negated only where the side to move changes, so games where one side moves several times in a row are searched correctly. It returns the same score and principal variation as minimax.",
+	"papers": [
+		{
+			"authors": "Donald E. Knuth, Ronald W. Moore",
+			"title": "An analysis of alpha-beta pruning",
+			"year": 1975,
+			"venue": "Artificial Intelligence",
+			"doi": "10.1016/0004-3702(75)90019-3",
+			"arxiv": null,
+			"url": null,
+			"role": "introduces"
+		}
+	],
+	"lineage": [
+		{
+			"slug": "minimax",
+			"name": null,
+			"relation": "builds-on",
+			"source": "game-tree-search, src/negamax.rs: \"Negamax: minimax written for one side, negating scores where the side to move changes.\""
+		}
+	],
+	"trace": null
+}

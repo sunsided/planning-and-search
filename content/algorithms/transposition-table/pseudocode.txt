@@ -1,0 +1,16 @@
+algorithm Alpha-beta-with-table(p, d, α, β, ply)
+  input: position p, depth d, window (α, β), moves from the root ply, table T
+  output: the score Alpha-beta(p, d, α, β) returns, with the same bound
+  if d = 0 or moves(p) = ∅ then
+    return evaluate(p)
+  e ← T[key(p)]
+  if ply > 0 and e ≠ nil and serves(e, d) then  ▷ the root is always searched
+    if kind(e) = exact or (kind(e) = at-least and score(e) ≥ β) or (kind(e) = at-most and score(e) ≤ α) then
+      return score(e)                          ▷ a bound answers only outside the window; it never narrows it
+  if e ≠ nil and best(e) ≠ nil then
+    move best(e) to the front of moves(p)
+  v, kind, m ← search the moves of p within (α, β), as Alpha-beta does
+  T[key(p)] ← (d, v, kind, m, proven, reach)   ▷ SlotTable replaces what the slot held
+  return v
+function serves(e, d)
+  return depth(e) = d or (proven(e) and d ≥ reach(e))   ▷ a deeper entry would give another score

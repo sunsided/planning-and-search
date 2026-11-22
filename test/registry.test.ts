@@ -1,6 +1,7 @@
 import { strict as assert } from 'node:assert';
 import { test } from 'node:test';
 import { ALGORITHMS } from '../src/lib/algorithms.ts';
+import { KINDS } from '../src/lib/kinds.ts';
 import {
 	CATEGORIES,
 	CRATES,
@@ -79,6 +80,8 @@ test('released algorithms are in the curated list, and each names its crate', ()
 		}
 	assert.equal(new Set(ALGORITHMS.map((a) => a.slug)).size, ALGORITHMS.length);
 	for (const a of ALGORITHMS) assert.match(a.slug, /^[a-z0-9]+(-[a-z0-9]+)*$/);
+	// The index groups by kind and leaves out a kind it does not know.
+	for (const a of ALGORITHMS) assert.ok(a.kind in KINDS, `${a.slug}: kind ${a.kind}`);
 });
 
 test('related crates are synced and stay out of the collection', () => {

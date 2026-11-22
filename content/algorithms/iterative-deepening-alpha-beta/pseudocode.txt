@@ -1,0 +1,17 @@
+algorithm Iterative-deepening(p, D, budget, search)
+  input: root position p, maximum depth D, budget, root search (alpha-beta, PVS or MTD(f))
+  output: the result of the deepest iteration that finished
+  r ← search(p, min(D, 1), hint ⟨⟩, guess nil)    ▷ ignores the budget, so a move is always found
+  for d in 2, …, D do
+    if proven(r) or exhausted(budget) or not proceed(r) then
+      break
+    a ← 0
+    repeat
+      W ← window(r, a)                         ▷ aspiration; (−∞, +∞) by default, after 8 attempts and for MTD(f)
+      r′ ← search(p, d, W, hint pv(r), guess score(r))   ▷ stops when the budget runs out
+      a ← a + 1
+    until stopped or r′ is exact or W = (−∞, +∞)
+    if stopped then
+      break                                    ▷ discard the unfinished iteration
+    r ← r′
+  return r

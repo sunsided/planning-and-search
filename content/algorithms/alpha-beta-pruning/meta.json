@@ -1,0 +1,24 @@
+{
+	"description": "Alpha-beta pruning returns the minimax score while it skips moves that cannot change the decision. It carries a window `(α, β)`: `α` is the score *Max* is already sure of elsewhere, `β` the score *Min* is sure of. A side stops searching its moves once its best score reaches the far edge of the window. This version is *fail-soft*: a pruned position returns its best score found, which may lie beyond the window, as a bound. It saves most when good moves come first, so order the moves and try the last principal variation first.",
+	"papers": [
+		{
+			"authors": "Donald E. Knuth, Ronald W. Moore",
+			"title": "An analysis of alpha-beta pruning",
+			"year": 1975,
+			"venue": "Artificial Intelligence",
+			"doi": "10.1016/0004-3702(75)90019-3",
+			"arxiv": null,
+			"url": null,
+			"role": "analyses"
+		}
+	],
+	"lineage": [
+		{
+			"slug": "minimax",
+			"name": null,
+			"relation": "builds-on",
+			"source": "game-tree-search, src/alpha_beta.rs: \"Alpha-beta pruning: minimax that skips moves which cannot change the decision.\""
+		}
+	],
+	"trace": null
+}
