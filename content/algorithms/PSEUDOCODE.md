@@ -24,7 +24,8 @@ algorithm A*(s₀, h)
   return failure
 ```
 
-- One header line, `algorithm Name(parameters)`. More routines follow as
+- One header line, `algorithm Name(parameters)`. The name is the algorithm's usual name,
+  punctuation included (`A*`, `(1+1)-ES`). More routines follow as
   `procedure Name(parameters)` (returns nothing) or `function Name(parameters)` (returns a
   value), each starting at column 0 with its body indented.
 - Blocks are indentation, two spaces per level, never tabs. There is no `end`.

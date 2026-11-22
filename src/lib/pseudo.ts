@@ -29,7 +29,7 @@ const FORBIDDEN: [RegExp, string][] = [
 	[/\t/, 'a tab (indent with two spaces)']
 ];
 
-const HEADER = /^(algorithm|procedure|function) [^\s(]+\(.*\)$/;
+const HEADER = /^(algorithm|procedure|function) \S.*\(.*\)$/;
 
 /** How a code line may start or end; anything else is a statement. */
 function opensBlock(code: string): boolean {
