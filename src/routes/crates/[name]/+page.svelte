@@ -12,7 +12,7 @@
 	const NOTES: Record<DepKind, string | undefined> = {
 		normal: undefined,
 		optional: 'optional',
-		dev: 'tests'
+		dev: 'dev-only' // tests, examples or benches: not needed to use the crate
 	};
 	const ref = (d: { name: string; kind: string }): CrateRef => ({
 		name: d.name,
