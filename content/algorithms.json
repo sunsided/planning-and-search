@@ -2524,7 +2524,7 @@
 				"crate": "game-tree-search",
 				"items": ["Mcts", "Uct", "Rollout", "StaticValue"],
 				"feature": null,
-				"summary": "MCTS under a simulation or node budget, with replaceable selection (UCT), leaf evaluation (random rollout or the static evaluation) and random source; reports visits and values per root move."
+				"summary": "MCTS under a simulation or node budget, with replaceable selection (UCT or PUCT), leaf evaluation (random rollout or the static value) and random source; reports visits and values per root move, and keeps the subtree of the moves played for the next search."
 			}
 		]
 	},
@@ -3162,6 +3162,21 @@
 		]
 	},
 	{
+		"slug": "puct",
+		"name": "PUCT",
+		"aliases": ["Predictor-UCT", "PUCB"],
+		"kind": "adversarial",
+		"refs": ["Rosin 2011", "Silver et al. 2017"],
+		"implementations": [
+			{
+				"crate": "game-tree-search",
+				"items": ["Puct"],
+				"feature": null,
+				"summary": "MCTS selection by mean plus c_puct · prior · √(parent visits) / (1 + child visits), with move priors from the evaluator; uniform priors without them."
+			}
+		]
+	},
+	{
 		"slug": "quiescence-search",
 		"name": "Quiescence search",
 		"aliases": ["Stand pat", "Capture search"],
@@ -3413,6 +3428,21 @@
 				"items": ["rollout_iw"],
 				"feature": null,
 				"summary": "Depth-first rollouts that prune a node unless it reaches some feature at a smaller depth than before, running until a goal is found or the root is solved."
+			}
+		]
+	},
+	{
+		"slug": "root-parallel-mcts",
+		"name": "Root-parallel MCTS",
+		"aliases": ["Root parallelization", "Root parallelism"],
+		"kind": "adversarial",
+		"refs": ["Chaslot, Winands and van den Herik 2008"],
+		"implementations": [
+			{
+				"crate": "game-tree-search",
+				"items": ["search_parallel"],
+				"feature": "parallel",
+				"summary": "Independent MCTS trees of one root on std threads, each with its own budget and seeded generator, their root visits and values added up move by move."
 			}
 		]
 	},

@@ -1,0 +1,24 @@
+{
+	"description": "Root-parallel MCTS runs several Monte Carlo tree searches of the same root at once, one per thread, and adds up their root statistics. The trees share nothing: each thread has its own budget, a copy of the evaluator and selection rule, and a random generator seeded from the searcher's, so the same seed reproduces the same merged result. The best move is the one most visited over all trees, and the line follows the tree that visited it most. It needs no locks, because nothing is shared until the end. Here it is `search_parallel`, behind the `parallel` feature, which needs `std`.",
+	"papers": [
+		{
+			"authors": "Guillaume M. J.-B. Chaslot, Mark H. M. Winands, H. Jaap van den Herik",
+			"title": "Parallel Monte-Carlo Tree Search",
+			"year": 2008,
+			"venue": "Computers and Games (CG 2008), Lecture Notes in Computer Science",
+			"doi": "10.1007/978-3-540-87608-3_6",
+			"arxiv": null,
+			"url": null,
+			"role": "introduces"
+		}
+	],
+	"lineage": [
+		{
+			"slug": "monte-carlo-tree-search",
+			"name": null,
+			"relation": "builds-on",
+			"source": "game-tree-search, src/mcts/parallel.rs: \"Root-parallel Monte Carlo tree search (feature `parallel`): independent trees on `std` threads, their root statistics added up.\""
+		}
+	],
+	"trace": null
+}

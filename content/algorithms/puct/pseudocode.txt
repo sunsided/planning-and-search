@@ -1,0 +1,13 @@
+algorithm PUCT-select(s, n)
+  input: side s to move at node n, whose children carry priors P
+  output: the child a simulation descends into
+  best ← nil
+  for each child c of n do                     ▷ unvisited children too, at a mean of ½
+    u ← mean(c, s) + c-puct · P(c) · √visits(n) / (1 + visits(c))
+    if best = nil or u > u-best then
+      best, u-best ← c, u                      ▷ ties go to the earliest child
+  return best
+function priors(n)
+  if the evaluator gives priors for moves(n) then
+    return those priors
+  return 1 / |moves(n)| for each move          ▷ uniform: PUCT explores evenly
