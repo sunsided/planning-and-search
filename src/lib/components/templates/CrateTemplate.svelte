@@ -22,7 +22,8 @@
 		back,
 		dependencies,
 		dependents,
-		algorithms
+		algorithms,
+		internal
 	}: {
 		crate: Crate;
 		category: Category;
@@ -31,6 +32,8 @@
 		dependencies: CrateRef[];
 		dependents: CrateRef[];
 		algorithms: AlgorithmItem[];
+		/** Maps a README link to this site's page for it, if there is one. */
+		internal?: (href: string) => string | undefined;
 	} = $props();
 </script>
 
@@ -47,7 +50,7 @@
 		<div class="main">
 			<section aria-labelledby="audience">
 				<h2 id="audience">{crate.about === 'intro' ? 'About' : 'Who it is for'}</h2>
-				<Prose blocks={crate.audience as Block[]} />
+				<Prose blocks={crate.audience as Block[]} {internal} />
 			</section>
 
 			{#if algorithms.length}

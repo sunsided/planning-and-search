@@ -136,6 +136,24 @@ export function dependents(name: string): { name: string; kind: DepKind }[] {
 	);
 }
 
+/**
+ * The crate a README link means, when it is a crate's GitHub repository or its directory in a
+ * workspace (`…/tree/<ref>/<crate>`). Links into files or to a heading stay on GitHub. A
+ * workspace root means the crate named after the repository, with or without `-rs`.
+ */
+export function crateAt(href: string): string | undefined {
+	const m =
+		/^https:\/\/github\.com\/([^/#?]+\/[^/#?]+?)\/?(?:\/tree\/[^/#?]+\/([^/#?]+)\/?)?$/.exec(href);
+	if (!m) return undefined;
+	const [, repo, dir] = m;
+	const here = CRATES.filter((c) => c.repo === repo).map((c) => c.name);
+	if (dir) return here.find((n) => n === dir);
+	const base = repo.split('/')[1];
+	return (
+		here.find((n) => n === base || `${n}-rs` === base) ?? (here.length === 1 ? here[0] : undefined)
+	);
+}
+
 export const links = (c: Pick<Crate, 'name' | 'repo'>) => ({
 	repo: `https://github.com/${c.repo}`,
 	crates: `https://crates.io/crates/${c.name}`,

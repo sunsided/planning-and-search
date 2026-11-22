@@ -2,18 +2,19 @@
 	import RichText from '#lib/components/atoms/RichText.svelte';
 	import type { Block } from '#lib/richtext.js';
 
-	/** README blocks: paragraphs and lists. */
-	let { blocks }: { blocks: Block[] } = $props();
+	/** README blocks: paragraphs and lists; `internal` as for RichText. */
+	let { blocks, internal }: { blocks: Block[]; internal?: (href: string) => string | undefined } =
+		$props();
 </script>
 
 <div class="prose">
 	{#each blocks as block, i (i)}
 		{#if block.kind === 'p'}
-			<p><RichText text={block.text} /></p>
+			<p><RichText text={block.text} {internal} /></p>
 		{:else}
 			<ul>
 				{#each block.items as item, j (j)}
-					<li><RichText text={item} /></li>
+					<li><RichText text={item} {internal} /></li>
 				{/each}
 			</ul>
 		{/if}

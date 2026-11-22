@@ -5,6 +5,7 @@ import {
 	CATEGORIES,
 	CRATES,
 	categoryOf,
+	crateAt,
 	dependents,
 	links,
 	RELATED,
@@ -86,4 +87,18 @@ test('related crates are synced and stay out of the collection', () => {
 		assert.deepEqual(lint(r.line), [], r.name);
 	}
 	assert.equal(relatedCrates().length, RELATED.length, 'every related crate is in related.json');
+});
+
+test('README links to a crate repository resolve to its crate', () => {
+	const gh = 'https://github.com/sunsided';
+	assert.equal(crateAt(`${gh}/heuristic-search`), 'heuristic-search');
+	assert.equal(crateAt(`${gh}/heuristic-search/`), 'heuristic-search');
+	assert.equal(crateAt(`${gh}/pddl-rs`), 'pddl');
+	assert.equal(crateAt(`${gh}/pddl-rs/tree/main/pddl-validate`), 'pddl-validate');
+	assert.equal(crateAt(`${gh}/polyzonotope`), 'polyzonotope');
+	// A workspace member without a page, a file, a heading and a foreign repository stay external.
+	assert.equal(crateAt(`${gh}/pddl-rs/tree/main/pddl-lsp`), undefined);
+	assert.equal(crateAt(`${gh}/resource-timeline/blob/main/examples/colony.rs`), undefined);
+	assert.equal(crateAt(`${gh}/width-search#in-games`), undefined);
+	assert.equal(crateAt('https://github.com/KCL-Planning/VAL'), undefined);
 });
