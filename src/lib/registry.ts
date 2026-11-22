@@ -18,14 +18,6 @@ export interface Category {
 
 export const CATEGORIES: Category[] = [
 	{
-		slug: 'foundations',
-		title: 'Foundations',
-		blurb:
-			'The shared vocabulary: cost, heuristic, goal and budget traits, and SAS+ planning tasks in the Fast Downward format.',
-		hue: 255,
-		crates: ['search-core', 'sas-plus']
-	},
-	{
 		slug: 'graph-search',
 		title: 'Graph search',
 		blurb:
@@ -100,6 +92,14 @@ export const CATEGORIES: Category[] = [
 		blurb: 'Checking plans against PDDL domains and problems.',
 		hue: 230,
 		crates: ['pddl-validate']
+	},
+	{
+		slug: 'foundations',
+		title: 'Foundations',
+		blurb:
+			'The shared vocabulary: cost, heuristic, goal and budget traits, and SAS+ planning tasks in the Fast Downward format.',
+		hue: 255,
+		crates: ['search-core', 'sas-plus']
 	}
 ];
 
