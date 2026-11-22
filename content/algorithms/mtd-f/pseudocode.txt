@@ -1,5 +1,6 @@
 algorithm MTD(f)(p, d, g)
   input: root position p, depth d, first guess g (the last iteration's score, else evaluate(p))
+  input: the scores range from min-score to max-score
   output: the minimax score of p, with its principal variation
   lo, hi ← −∞, +∞                              ▷ what the passes proved about the score
   W ← (−∞, +∞)

@@ -16,7 +16,7 @@ algorithm PVS(p, d, α, β)
       else if s = Min and β ≠ +∞ then
         v ← PVS(p′, d − 1, next-down(β), β)    ▷ scout: does m get below β?
     if v = nil or (v is a bound and α < v < β) then
-      v ← PVS(p′, d − 1, α, β)                 ▷ first move, no edge to scout, or the scout failed
+      v ← PVS(p′, d − 1, α, β)                 ▷ first move, no edge, or a bound inside (α, β)
     if s = Max then
       α ← max(α, v)
     else

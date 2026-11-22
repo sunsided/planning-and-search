@@ -1,9 +1,10 @@
 algorithm PUCT-select(s, n)
-  input: side s to move at node n, whose children carry priors P
+  input: side s to move at node n
   output: the child a simulation descends into
+  P ← priors(n)
   best ← nil
   for each child c of n do                     ▷ unvisited children too, at a mean of ½
-    u ← mean(c, s) + c-puct · P(c) · √visits(n) / (1 + visits(c))
+    u ← mean(c, s) + c_puct · P(c) · √visits(n) / (1 + visits(c))
     if best = nil or u > u-best then
       best, u-best ← c, u                      ▷ ties go to the earliest child
   return best
