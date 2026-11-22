@@ -27,6 +27,7 @@
 	onMount(() => (mac = /Mac|iPhone|iPad/.test(navigator.userAgent)));
 
 	function open() {
+		failed = false;
 		if (!corpus)
 			load().then(
 				(e) => (corpus = e),

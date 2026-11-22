@@ -45,7 +45,10 @@
 	{#if a.trace}
 		<section aria-labelledby="see">
 			<h2 id="see">See it run</h2>
-			<TracePlayer trace={a.trace} label="{a.name} on a small example" />
+			<!-- Keyed: a new algorithm starts its trace at step one, not where the last one stopped. -->
+			{#key a.slug}
+				<TracePlayer trace={a.trace} label="{a.name} on a small example" />
+			{/key}
 		</section>
 	{/if}
 
