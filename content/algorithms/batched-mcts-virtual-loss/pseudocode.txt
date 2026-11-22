@@ -1,0 +1,20 @@
+algorithm Batched-MCTS(p₀, b, budget)
+  input: root position p₀, batch size b, budget of simulations
+  output: as MCTS: the most visited root move, with each root move's statistics
+  if the tree is new then
+    set the root's move priors from evaluate-batch(⟨p₀⟩)   ▷ not a simulation
+  while not exhausted(budget) do
+    W ← ⟨⟩                                     ▷ leaves waiting for their value
+    while |W| < b and not exhausted(budget) do
+      path ← select from the root, as in MCTS  ▷ waiting simulations count as losses
+      if the game ends at the leaf of path then
+        back up reward(leaf) along path
+      else
+        add a virtual loss along path
+        append(W, path)
+    V, P ← evaluate-batch(leaves of W)         ▷ one call for the whole batch
+    for each path in W, with its value v and priors π do
+      remove the virtual loss along path
+      back up v along path
+      set π as the priors of the leaf's moves
+  return the most visited root move, and every root move's visits and mean

@@ -1,0 +1,14 @@
+algorithm Self-play-move(p, budget, alpha, fraction, T)
+  input: position p, search budget, noise concentration alpha and weight fraction, temperature T
+  output: the move to play, and the training target of this position
+  η ~ Dirichlet(alpha) over moves(p)
+  for each root move m do
+    P(m) ← (1 − fraction) · P(m) + fraction · η(m)   ▷ even ruled-out moves get tried
+  R ← MCTS(p, budget) with PUCT selection
+  π(m) ← visits(m) / Σ visits over the root moves
+  target ← (p, π, value(R))                    ▷ the game's outcome z is added once it ends
+  if T ≤ 0 then
+    m ← the most visited move
+  else
+    m ← drawn with probability ∝ π(m)^(1/T)
+  return m, target

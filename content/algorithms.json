@@ -219,6 +219,21 @@
 		]
 	},
 	{
+		"slug": "alphazero-self-play",
+		"name": "AlphaZero self-play targets",
+		"aliases": ["Self-play training targets", "Root Dirichlet noise"],
+		"kind": "adversarial",
+		"refs": ["Silver et al. 2017", "Silver et al. 2018"],
+		"implementations": [
+			{
+				"crate": "game-tree-search",
+				"items": ["RootNoise", "policy"],
+				"feature": null,
+				"summary": "Dirichlet noise on the root's priors, the visit distribution π and root value as the training target, and move choice by temperature."
+			}
+		]
+	},
+	{
 		"slug": "ana-star",
 		"name": "ANA*",
 		"aliases": ["Anytime Nonparametric A*"],
@@ -311,6 +326,21 @@
 				"items": ["Bae"],
 				"feature": null,
 				"summary": "Heuristic-guided Bidirectional A* with Error over the grounded task."
+			}
+		]
+	},
+	{
+		"slug": "batched-mcts-virtual-loss",
+		"name": "Batched MCTS with virtual loss",
+		"aliases": ["Virtual loss", "Batched leaf evaluation"],
+		"kind": "adversarial",
+		"refs": ["Chaslot, Winands and van den Herik 2008", "Silver et al. 2017"],
+		"implementations": [
+			{
+				"crate": "game-tree-search",
+				"items": ["search_batched", "BatchEvaluator"],
+				"feature": null,
+				"summary": "New leaves wait under virtual loss until an evaluator values them together, as a neural network on a GPU wants to; the batch's values are backed up and its priors set."
 			}
 		]
 	},
@@ -2120,6 +2150,21 @@
 				"items": ["Prm"],
 				"feature": null,
 				"summary": "PRM that stores edges unchecked and checks only the edges of candidate query paths."
+			}
+		]
+	},
+	{
+		"slug": "lazy-smp",
+		"name": "Lazy SMP",
+		"aliases": ["Shared hash table parallel search"],
+		"kind": "adversarial",
+		"refs": [],
+		"implementations": [
+			{
+				"crate": "game-tree-search",
+				"items": ["deepen_shared", "SharedTable"],
+				"feature": "parallel",
+				"summary": "Several threads deepen the same root through one sharded, locked transposition table; every other helper starts a ply ahead, and the main thread's budget and result decide."
 			}
 		]
 	},
