@@ -4,6 +4,8 @@ import { defineConfig } from 'vite';
 import { BASE_PATH } from './src/lib/site.ts';
 
 export default defineConfig({
+	// The build date, in UTC so the prerendered page and hydration agree.
+	define: { __BUILD_DATE__: JSON.stringify(new Date().toISOString().slice(0, 10)) },
 	plugins: [
 		sveltekit({
 			compilerOptions: {
