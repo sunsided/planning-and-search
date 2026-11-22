@@ -49,8 +49,8 @@
 		gap: var(--space-3);
 		font-size: var(--step-2);
 	}
+	/* One sentence each: the reading measure would wrap it with room to spare. */
 	header p {
-		max-inline-size: var(--measure);
 		color: var(--color-text-muted);
 	}
 	.grid {
