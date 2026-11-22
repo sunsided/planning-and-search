@@ -48,3 +48,17 @@ The sync fails on a section the site would show with schedule wording ("roadmap"
   its stories. Routes only resolve links and pass data into templates.
 - The theme is `auto` by default and follows the system; a pinned light or dark choice is
   stored in `localStorage` and applied before first paint by the script in `src/app.html`.
+
+## License
+
+The code is licensed under either of
+
+- Apache License, Version 2.0 ([LICENSE-APACHE](LICENSE-APACHE))
+- MIT license ([LICENSE-MIT](LICENSE-MIT))
+
+at your option.
+
+The page text under `content/` (algorithm descriptions, pseudocode and crate overrides) is
+licensed under [Creative Commons Attribution 4.0 International](LICENSE-CC-BY-4.0). The crate
+data in `src/lib/data/` is taken from the crates' published READMEs and metadata and stays
+under each crate's own license.
