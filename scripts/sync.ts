@@ -76,8 +76,69 @@ async function get(url: string): Promise<Response> {
 	return res;
 }
 
+/**
+ * Crates to take from a local checkout instead of crates.io, to preview a release before it is
+ * published: `node scripts/sync.ts --local <crate dir>[@<version to show>]`, repeatable.
+ * `cargo package` builds the same archive crates.io would get, so the sync reads it unchanged.
+ * The snapshot it writes is a preview and must not be committed.
+ */
+const LOCAL = new Map<string, { version: string; crate: Buffer; index: IndexLine }>();
+for (const [i, arg] of process.argv.entries()) {
+	if (arg !== '--local') continue;
+	const [dir, shown] = (process.argv[i + 1] ?? '').split('@');
+	if (!dir) throw new Error('--local needs a crate directory');
+	const manifest = parseToml(readFileSync(resolve(dir, 'Cargo.toml'), 'utf8')) as Record<
+		string,
+		any
+	>;
+	const { name, version } = manifest.package;
+	const target = resolve(ROOT, 'node_modules/.cache/sync-local');
+	execFileSync(
+		'cargo',
+		['package', '--no-verify', '--allow-dirty', '--quiet', '--target-dir', target],
+		{ cwd: dir, stdio: ['ignore', 'ignore', 'inherit'] }
+	);
+	const crate = readFileSync(resolve(target, 'package', `${name}-${version}.crate`));
+	const packaged = parseToml(member(crate, `${name}-${version}/Cargo.toml`)!) as Record<
+		string,
+		any
+	>;
+	LOCAL.set(name, {
+		version,
+		crate,
+		index: {
+			vers: shown || version,
+			yanked: false,
+			rust_version: packaged.package?.['rust-version'],
+			deps: depsOf(packaged)
+		}
+	});
+	console.warn(
+		`${name}: from ${dir} as ${shown || version} (preview; do not commit src/lib/data/)`
+	);
+}
+
+/** The index's dependency list, read from a packaged (normalized) Cargo.toml. */
+function depsOf(manifest: Record<string, any>): IndexLine['deps'] {
+	const kinds = {
+		dependencies: 'normal',
+		'dev-dependencies': 'dev',
+		'build-dependencies': 'build'
+	} as const;
+	return Object.entries(kinds).flatMap(([table, kind]) =>
+		Object.entries(manifest[table] ?? {}).map(([name, spec]: [string, any]) => ({
+			name,
+			package: typeof spec === 'object' ? spec.package : undefined,
+			kind,
+			optional: typeof spec === 'object' && spec.optional === true
+		}))
+	);
+}
+
 /** The newest release that is not yanked and not a pre-release. */
 async function latest(name: string): Promise<IndexLine> {
+	const local = LOCAL.get(name);
+	if (local) return local.index;
 	const line = latestOf(await (await get(`https://index.crates.io/${indexPath(name)}`)).text());
 	if (!line) throw new Error(`${name}: no released version on crates.io`);
 	return line;
@@ -120,8 +181,13 @@ function members(crate: Buffer, glob: string): string {
 }
 
 async function archive(name: string, version: string): Promise<Archive> {
+	const local = LOCAL.get(name);
+	if (local) return unpack(name, local.version, local.crate);
 	const url = `https://static.crates.io/crates/${name}/${name}-${version}.crate`;
-	const crate = Buffer.from(await (await get(url)).arrayBuffer());
+	return unpack(name, version, Buffer.from(await (await get(url)).arrayBuffer()));
+}
+
+function unpack(name: string, version: string, crate: Buffer): Archive {
 	const prefix = `${name}-${version}`;
 	const toml = member(crate, `${prefix}/Cargo.toml`);
 	if (!toml) throw new Error(`${name} ${version}: archive has no Cargo.toml`);
