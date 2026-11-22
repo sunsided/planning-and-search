@@ -13,3 +13,6 @@ node_modules
 vite.config.ts.timestamp-*
 .playwright-mcp
 *storybook.log
+
+# Python
+__pycache__/
