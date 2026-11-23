@@ -1,0 +1,25 @@
+{
+	"description": "Lazy SMP runs iterative deepening of the same root on several threads that share one transposition table. The threads do not split the work: what one thread stores answers or orders the others' searches, every other helper starts one ply ahead, and each helper keeps the move the game orders first but rotates the others by its own index, so the threads try the best guess first and the alternatives in different orders. The search ends when the main thread has spent its budget, or when any thread reaches the maximum depth or proves the score; the result is a finished thread's, else the deepest thread's, ties going to the main thread, and with the default `satisfices` its score equals a single-threaded search's at the same depth. The table is `SharedTable`, with locked shards for any move and score, or the lockless `PackedTable` for moves and scores that pack into a few bits; the search is `deepen_shared`, or `deepen_shared_with` with a `Deepening` hook, behind the `parallel` feature. Use it when a node costs about a microsecond or more: with nodes of a few dozen nanoseconds, the shared table's synchronisation eats the gain, so measure on the game at hand.",
+	"papers": [],
+	"lineage": [
+		{
+			"slug": "iterative-deepening-alpha-beta",
+			"name": null,
+			"relation": "builds-on",
+			"source": "game-tree-search, src/lazy_smp.rs: \"Lazy SMP: several threads deepen the same root, sharing one transposition table\""
+		},
+		{
+			"slug": "transposition-table",
+			"name": null,
+			"relation": "combines",
+			"source": "game-tree-search, src/lazy_smp.rs: \"Lazy SMP: several threads deepen the same root, sharing one transposition table\""
+		},
+		{
+			"slug": "lockless-transposition-table",
+			"name": null,
+			"relation": "combines",
+			"source": "game-tree-search, src/lazy_smp.rs: \"a [`PackedTable`](crate::PackedTable), lock-free for moves and scores that pack into a few bits\""
+		}
+	],
+	"trace": null
+}

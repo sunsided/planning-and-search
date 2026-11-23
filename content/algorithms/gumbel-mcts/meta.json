@@ -1,0 +1,24 @@
+{
+	"description": "Gumbel MCTS chooses the root move by *sequential halving* with Gumbel noise, so it improves the policy even with very few simulations. Each root move gets noise `g`; the search considers the moves with the highest `g + log prior`, spends its simulations on them in rounds, and after each round keeps the better half by `g + log prior + σ(Q)`, where `σ` rescales the Q-values. Below the root, each simulation takes the child whose visit share lags most behind the improved policy `softmax(log prior + σ(Q))`, with no exploration constant. It returns the move that survived the halving and the improved policy, which replaces the visit counts as the training target; a noise scale of 0 makes it deterministic, for evaluating a trained policy. Use it in self-play with a policy network and a small simulation budget, where PUCT with root noise needs many simulations to improve on the prior.",
+	"papers": [
+		{
+			"authors": "Ivo Danihelka, Arthur Guez, Julian Schrittwieser, David Silver",
+			"title": "Policy improvement by planning with Gumbel",
+			"year": 2022,
+			"venue": "International Conference on Learning Representations (ICLR 2022)",
+			"doi": null,
+			"arxiv": null,
+			"url": null,
+			"role": "introduces"
+		}
+	],
+	"lineage": [
+		{
+			"slug": "monte-carlo-tree-search",
+			"name": null,
+			"relation": "builds-on",
+			"source": "game-tree-search, src/mcts/gumbel.rs: \"sequential halving with Gumbel noise at the root, and a deterministic selection towards the improved policy below it\""
+		}
+	],
+	"trace": null
+}

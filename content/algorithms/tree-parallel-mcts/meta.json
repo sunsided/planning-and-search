@@ -1,0 +1,24 @@
+{
+	"description": "Tree-parallel MCTS lets several threads grow one tree. Each thread, under the tree's lock, descends to a new leaf and marks its path as waiting, which other threads' selection counts as a loss (*virtual loss*), so they spread over different lines; outside the lock it values the leaf with its own evaluator and generator; under the lock again it backs the value up. The result is that of one search with more simulations, not a sum of trees as in root parallelism, and which thread reaches which leaf depends on scheduling, so a seed does not reproduce it. It pays off only when valuing a leaf costs far more than selecting it: with leaves of about a microsecond every added thread made it slower, as the threads queue for the lock, while with evaluations of about 30 microseconds eight threads beat root parallelism. Here it is `search_shared`, behind the `parallel` feature; use it with a costly evaluator such as a network, and root parallelism otherwise.",
+	"papers": [
+		{
+			"authors": "Guillaume M. J.-B. Chaslot, Mark H. M. Winands, H. Jaap van den Herik",
+			"title": "Parallel Monte-Carlo Tree Search",
+			"year": 2008,
+			"venue": "Computers and Games (CG 2008), Lecture Notes in Computer Science",
+			"doi": "10.1007/978-3-540-87608-3_6",
+			"arxiv": null,
+			"url": null,
+			"role": "introduces"
+		}
+	],
+	"lineage": [
+		{
+			"slug": "batched-mcts-virtual-loss",
+			"name": null,
+			"relation": "combines",
+			"source": "game-tree-search, src/mcts/shared.rs: \"several threads grow one tree, selecting and backing up under one lock and evaluating outside it, with virtual loss spreading them over different lines\""
+		}
+	],
+	"trace": null
+}

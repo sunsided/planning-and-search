@@ -1,0 +1,24 @@
+{
+	"description": "A lockless transposition table lets several threads probe and store entries without locks. Each entry is packed into one 64-bit word, and the slot holds that word next to a second word, the word XOR-ed with the position's key; a probe reads both and takes the entry only if XOR-ing them gives the key back. If another thread wrote the slot in between, the check fails and the probe misses instead of returning a torn entry. The packing has limits: move and score must fit 48 bits together, entries deeper than 62 plies are not stored, and the slot checks 64 bits of the key. Here it is `PackedTable`, behind the `parallel` feature; use it for Lazy SMP when moves and scores are small, and the locked `SharedTable` otherwise.",
+	"papers": [
+		{
+			"authors": "Robert M. Hyatt, Timothy Mann",
+			"title": "A lockless transposition-table implementation for parallel search",
+			"year": 2002,
+			"venue": "ICGA Journal",
+			"doi": "10.3233/icg-2002-25104",
+			"arxiv": null,
+			"url": null,
+			"role": "introduces"
+		}
+	],
+	"lineage": [
+		{
+			"slug": "transposition-table",
+			"name": null,
+			"relation": "builds-on",
+			"source": "game-tree-search, src/table/packed.rs: \"A transposition table several threads search with at once, without locks: each entry is packed into one 64-bit word, stored next to that word XOR-ed with the key (Hyatt and Mann's lockless hashing).\""
+		}
+	],
+	"trace": null
+}

@@ -219,6 +219,21 @@
 		]
 	},
 	{
+		"slug": "alphazero-self-play",
+		"name": "AlphaZero self-play targets",
+		"aliases": ["Self-play training targets", "Root Dirichlet noise"],
+		"kind": "adversarial",
+		"refs": ["Silver et al. 2017", "Silver et al. 2018"],
+		"implementations": [
+			{
+				"crate": "game-tree-search",
+				"items": ["RootNoise", "policy"],
+				"feature": null,
+				"summary": "Dirichlet noise on the root's priors, the visit distribution π and root value as the training target, and move choice by temperature."
+			}
+		]
+	},
+	{
 		"slug": "ana-star",
 		"name": "ANA*",
 		"aliases": ["Anytime Nonparametric A*"],
@@ -311,6 +326,21 @@
 				"items": ["Bae"],
 				"feature": null,
 				"summary": "Heuristic-guided Bidirectional A* with Error over the grounded task."
+			}
+		]
+	},
+	{
+		"slug": "batched-mcts-virtual-loss",
+		"name": "Batched MCTS with virtual loss",
+		"aliases": ["Virtual loss", "Batched leaf evaluation"],
+		"kind": "adversarial",
+		"refs": ["Chaslot, Winands and van den Herik 2008", "Silver et al. 2017"],
+		"implementations": [
+			{
+				"crate": "game-tree-search",
+				"items": ["search_batched", "BatchEvaluator"],
+				"feature": null,
+				"summary": "New leaves wait under virtual loss until an evaluator values them together, as a neural network on a GPU wants to; the batch's values are backed up and its priors set."
 			}
 		]
 	},
@@ -1604,6 +1634,21 @@
 		]
 	},
 	{
+		"slug": "gumbel-mcts",
+		"name": "Gumbel MCTS",
+		"aliases": ["Gumbel MuZero root selection", "Sequential halving with Gumbel"],
+		"kind": "adversarial",
+		"refs": ["Danihelka et al. 2022"],
+		"implementations": [
+			{
+				"crate": "game-tree-search",
+				"items": ["search_gumbel", "Gumbel"],
+				"feature": null,
+				"summary": "Sequential halving with Gumbel noise at the root and deterministic selection towards the improved policy below it, ported from mctx; returns the improved policy as the training target."
+			}
+		]
+	},
+	{
 		"slug": "h-1-landmarks",
 		"name": "h^1 landmarks",
 		"aliases": ["delete-relaxation fact landmarks", "h^m landmarks"],
@@ -2124,6 +2169,21 @@
 		]
 	},
 	{
+		"slug": "lazy-smp",
+		"name": "Lazy SMP",
+		"aliases": ["Shared hash table parallel search"],
+		"kind": "adversarial",
+		"refs": [],
+		"implementations": [
+			{
+				"crate": "game-tree-search",
+				"items": ["deepen_shared", "deepen_shared_with", "SharedTable"],
+				"feature": "parallel",
+				"summary": "Several threads deepen the same root through one shared transposition table (SharedTable or the lockless PackedTable); helpers keep the game's first move and rotate the rest, and the furthest thread's result wins."
+			}
+		]
+	},
+	{
 		"slug": "lazy-theta-star",
 		"name": "Lazy Theta*",
 		"aliases": ["Lazy Theta star"],
@@ -2231,6 +2291,21 @@
 				"items": ["LmCut"],
 				"feature": null,
 				"summary": "Admissible landmark-cut heuristic with axioms and conditional effects by context splitting."
+			}
+		]
+	},
+	{
+		"slug": "lockless-transposition-table",
+		"name": "Lockless transposition table",
+		"aliases": ["Lockless hashing", "XOR-keyed transposition table"],
+		"kind": "adversarial",
+		"refs": ["Hyatt and Mann 2002"],
+		"implementations": [
+			{
+				"crate": "game-tree-search",
+				"items": ["PackedTable", "Packed"],
+				"feature": "parallel",
+				"summary": "Entries packed into one 64-bit word stored next to that word XOR-ed with the key, so threads probe and store without locks and a torn entry reads as a miss."
 			}
 		]
 	},
@@ -4002,6 +4077,21 @@
 				"items": ["Hashed", "SlotTable"],
 				"feature": null,
 				"summary": "Remembers scores, bounds and best moves by position key, so a position reached by another move order is answered instead of searched; SlotTable is fixed-size, MapTable (feature hashbrown) grows."
+			}
+		]
+	},
+	{
+		"slug": "tree-parallel-mcts",
+		"name": "Tree-parallel MCTS",
+		"aliases": ["Tree parallelization", "Global-mutex tree parallelism"],
+		"kind": "adversarial",
+		"refs": ["Chaslot, Winands and van den Herik 2008"],
+		"implementations": [
+			{
+				"crate": "game-tree-search",
+				"items": ["search_shared"],
+				"feature": "parallel",
+				"summary": "Several threads grow one tree, selecting and backing up under one lock and evaluating outside it, spread over different lines by virtual loss."
 			}
 		]
 	},
