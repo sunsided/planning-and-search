@@ -105,6 +105,14 @@ export const CATEGORIES: Category[] = [
 		crates: ['connector-routing']
 	},
 	{
+		slug: 'quantum',
+		title: 'Quantum & QUBO',
+		blurb:
+			'Planning problems as QUBO and Ising models, for annealers, QAOA and classical samplers, and quantum search on a simulator, measured in oracle queries.',
+		hue: 270,
+		crates: ['planning-qubo', 'quantum-planning']
+	},
+	{
 		slug: 'pddl',
 		title: 'PDDL tooling',
 		blurb: 'Reading PDDL into typed Rust, and checking plans against PDDL domains and problems.',

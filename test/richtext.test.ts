@@ -36,6 +36,8 @@ test('blocks: paragraphs, lists, continuation lines', () => {
 test('lint flags schedule wording but not motion-planning roadmaps', () => {
 	assert.deepEqual(lint('See the roadmap. Not yet stable.'), ['roadmap', 'Not yet']);
 	assert.deepEqual(lint('a probabilistic roadmap, a roadmap\ngraph'), []);
+	assert.deepEqual(lint('Export is planned. QAOA (planned).'), ['is planned', '(planned)']);
+	assert.deepEqual(lint('a planned path, motion planning'), []);
 });
 
 test('scripts: a one-letter base with ^ or _, never inside code or longer words', () => {

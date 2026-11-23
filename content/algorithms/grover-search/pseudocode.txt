@@ -1,0 +1,19 @@
+algorithm Grover-Search(oracle, n, M)
+  input: phase oracle over N = 2ⁿ basis states, n ≤ 24 qubits, qubit 0 the lowest index bit
+  input: the number M of marked states
+  output: a marked index, or nil
+  if M = 0 or M ≥ N then
+    k ← 0                                         ▷ iterations cannot help
+  else
+    θ ← arcsin √(M / N)
+    k ← ⌊π / (4θ)⌋                                ▷ success probability sin²((2k + 1)θ)
+  amplify(oracle, k)
+  i ← sample(measure all qubits)
+  if check(oracle, i) then                        ▷ one classical query
+    return i
+  return nil                                      ▷ probability at most M / N; run again
+procedure amplify(oracle, k)
+  ψ ← H on every qubit of |0…0⟩                   ▷ the even superposition
+  for t in 1, …, k do
+    negate every basis state that oracle marks    ▷ one quantum query
+    apply H, X, MCZ, X, H to all qubits           ▷ diffusion, up to a global phase of −1

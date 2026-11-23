@@ -1,0 +1,24 @@
+{
+	"description": "Simulated annealing looks for a low-energy assignment of a QUBO model by flipping one bit at a time. It starts from uniform random bits; each *sweep* visits every variable once, in index order, and the Metropolis rule accepts a flip that does not raise the energy, and a rise `Δ` with probability `exp(−β·Δ)`. The inverse temperature `β` grows geometrically from a hot to a cold value over the sweeps: either given, or derived from the model so that the largest possible flip is accepted half the time at the start and the smallest nonzero coefficient once in a hundred times at the end. It returns the lowest-energy assignment it visited, not the last one, and a budget of flip attempts can pause a run that later resumes with the same result. It gives no optimality guarantee; use it when a model has too many variables to enumerate and a good assignment is enough.",
+	"papers": [
+		{
+			"authors": "S. Kirkpatrick, C. D. Gelatt, M. P. Vecchi",
+			"title": "Optimization by Simulated Annealing",
+			"year": 1983,
+			"venue": "Science",
+			"doi": "10.1126/science.220.4598.671",
+			"arxiv": null,
+			"url": null,
+			"role": "introduces"
+		}
+	],
+	"lineage": [
+		{
+			"slug": null,
+			"name": "Metropolis algorithm",
+			"relation": "builds-on",
+			"source": "planning-qubo, src/sampler/annealing.rs: \"Simulated annealing with single-bit Metropolis flips and a geometric schedule.\""
+		}
+	],
+	"trace": null
+}

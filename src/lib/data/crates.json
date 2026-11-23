@@ -714,6 +714,38 @@
 		"about": "who"
 	},
 	{
+		"name": "planning-qubo",
+		"version": "0.1.0",
+		"repo": "sunsided/planning-qubo",
+		"description": "Planning, scheduling and constraint problems as QUBO and Ising models: encoders, decoders, penalty tuning, classical samplers and export for quantum annealers and QAOA",
+		"license": "MIT OR Apache-2.0",
+		"msrv": "1.85",
+		"keywords": ["qubo", "ising", "planning", "annealing", "quantum"],
+		"deps": [
+			{
+				"name": "search-core",
+				"kind": "normal"
+			}
+		],
+		"siblings": [],
+		"audience": [
+			{
+				"kind": "ul",
+				"items": [
+					"**People with access to a quantum annealer or a QAOA setup** who need planning, scheduling or assignment problems as QUBO or Ising models. The penalty builder turns named variables and constraints (exactly-one, at-most-one, linear with slack bits) into a model, and the decoders map a sample back to a plan and name each violated constraint. The assignment problem has a ready encoder; other problems are built from the same constraints.",
+					"**Researchers comparing samplers on the same model**: the exhaustive sampler gives the exact optimum of small models, and simulated annealing, with a seeded RNG and a configurable schedule, shows how close a heuristic gets. Both stop on a work budget and resume later, so runs can be time-sliced and measured by the work they did.",
+					"**Exact experiments and teaching**: `i64` models keep every penalty and every QUBO-to-Ising conversion exact, so results can be checked against brute force."
+				]
+			},
+			{
+				"kind": "p",
+				"text": "It is not for solving these problems fast on a classical machine. A direct solver beats a QUBO encoding there: see [task-allocation](https://github.com/sunsided/task-allocation) for assignment, [constraint-search](https://github.com/sunsided/constraint-search) for constraint satisfaction, [mapf-search](https://github.com/sunsided/mapf-search) for multi-agent path finding and [heuristic-search](https://github.com/sunsided/heuristic-search) for pathfinding."
+			}
+		],
+		"algorithms": ["qubo-penalty-encoding", "simulated-annealing"],
+		"about": "who"
+	},
+	{
 		"name": "polyzonotope",
 		"version": "0.4.2",
 		"repo": "sunsided/polyzonotope",
@@ -783,6 +815,33 @@
 			"conservative-polynomialization",
 			"linear-system-reachability"
 		],
+		"about": "who"
+	},
+	{
+		"name": "quantum-planning",
+		"version": "0.1.0",
+		"repo": "sunsided/quantum-planning",
+		"description": "Quantum algorithms for planning and search, on simulators: Grover search, quantum backtracking, amplitude estimation, quantum walks on game trees and QAOA",
+		"license": "MIT OR Apache-2.0",
+		"msrv": "1.85",
+		"keywords": ["quantum", "grover", "planning", "search", "qaoa"],
+		"deps": [],
+		"siblings": [],
+		"audience": [
+			{
+				"kind": "ul",
+				"items": [
+					"**Researchers, students and teachers of quantum speedups for search**: exact Grover search with a known number of solutions and BBHT exponential search with an unknown number, on a state-vector simulator. The oracle is an ordinary validity check on a candidate, such as \"is this plan valid\", so the same predicate serves a classical and a quantum search.",
+					"**Honest query-count comparisons**: every phase-oracle application and every classical check of a measured candidate counts as one query. Put these counts next to a classical scan over the same oracle, and the `√N` against `N` gap shows on real instances, not only in the formula.",
+					"**`no_std` demos**: the crate needs only `alloc`, so it runs in WebAssembly, for example in a browser page that shows the amplitudes change from one Grover iteration to the next."
+				]
+			},
+			{
+				"kind": "p",
+				"text": "It is a simulator: its memory doubles with each qubit and stops at 24 qubits, so it finds no solution faster than a classical search does. To solve plans, use [heuristic-search](https://github.com/sunsided/heuristic-search) for state-space search, [constraint-search](https://github.com/sunsided/constraint-search) for constraint problems and [game-tree-search](https://github.com/sunsided/game-tree-search) for two-player games."
+			}
+		],
+		"algorithms": ["bbht", "grover-search"],
 		"about": "who"
 	},
 	{
@@ -933,7 +992,7 @@
 	},
 	{
 		"name": "search-core",
-		"version": "0.3.1",
+		"version": "0.3.2",
 		"repo": "sunsided/search-core",
 		"description": "Shared cost, heuristic, goal and budget traits for search and planning crates, with exact no_std cost types",
 		"license": "MIT OR Apache-2.0",

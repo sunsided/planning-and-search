@@ -27,9 +27,9 @@
 		<p class="lead">
 			Heuristic and multi-objective graph search, classical planning with its heuristics,
 			multi-agent pathfinding and task allocation, planning under uncertainty, adversarial game-tree
-			search, constraint satisfaction, motion planning, reachability and onboard scheduling. Each
-			crate does one job, shares the same core traits where it makes sense, and documents the
-			algorithms it implements.
+			search, constraint satisfaction, motion planning, reachability, QUBO models and quantum
+			search, and onboard scheduling. Each crate does one job, shares the same core traits where it
+			makes sense, and documents the algorithms it implements.
 		</p>
 		<nav aria-label="Categories">
 			<ul class="toc">

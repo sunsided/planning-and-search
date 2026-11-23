@@ -17,7 +17,7 @@ export function GET() {
 	const out: string[] = [
 		`# ${SITE_NAME}`,
 		'',
-		`> ${CRATES.length} Rust crates by ${AUTHOR} for search and planning: heuristic and multi-objective graph search, classical planning and its heuristics, multi-agent pathfinding and task allocation, planning under uncertainty, adversarial game-tree search, constraint satisfaction, motion planning, reachability, onboard scheduling and PDDL tooling. Each crate is on crates.io with documentation on docs.rs; this site explains which crate does what and every algorithm they implement.`,
+		`> ${CRATES.length} Rust crates by ${AUTHOR} for search and planning: heuristic and multi-objective graph search, classical planning and its heuristics, multi-agent pathfinding and task allocation, planning under uncertainty, adversarial game-tree search, constraint satisfaction, motion planning, reachability, QUBO models and quantum search on a simulator, onboard scheduling and PDDL tooling. Each crate is on crates.io with documentation on docs.rs; this site explains which crate does what and every algorithm they implement.`,
 		'',
 		'Each crate page links to the repository, crates.io and docs.rs, says who the crate is for, and lists its algorithms. Each algorithm page gives a description, pseudocode, the papers that introduced it, its lineage and the crates and public items that implement it. Add any crate below with `cargo add <name>`.',
 		''

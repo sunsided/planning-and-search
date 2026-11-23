@@ -1,0 +1,22 @@
+algorithm Simulated-Annealing(Q, S, budget)
+  input: QUBO model Q over n variables, S sweeps, an optional range β-hot to β-cold
+  input: budget of flip attempts
+  output: the lowest-energy assignment visited, with its energy
+  x ← n uniform random bits
+  E ← energy(Q, x)
+  best, E-best ← x, E
+  if no β range is given then
+    β-hot ← ln 2 / max over i of (|aᵢ| + Σⱼ |bᵢⱼ|)    ▷ the largest flip is accepted with probability ½
+    β-cold ← ln 100 / smallest nonzero coefficient magnitude    ▷ the smallest with probability 1/100
+  for t in 0, …, S − 1 do
+    β ← β-hot · (β-cold / β-hot)^(t / (S − 1))       ▷ geometric; a single sweep runs at β-cold
+    for i in 0, …, n − 1 do                          ▷ index order
+      if exhausted(budget) then
+        return best, E-best                          ▷ resume continues at this variable, sweep and RNG state
+      Δ ← flip-delta(Q, x, i)
+      if Δ ≤ 0 or uniform(0, 1) < exp(−β · Δ) then   ▷ Metropolis rule
+        x[i] ← ¬x[i]
+        E ← E + Δ
+        if E < E-best then
+          best, E-best ← x, E
+  return best, E-best

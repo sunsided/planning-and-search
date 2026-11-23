@@ -1,0 +1,24 @@
+{
+	"description": "BBHT runs Grover search when the number of marked states is not known. Each round picks an iteration count `j` uniformly below a bound `m`, applies `j` Grover iterations, measures and checks the measured candidate, for `j + 1` queries. After a failed round the bound grows by a factor of `6/5`, inside the paper's `1 < λ < 4/3`, from 1 up to `√N`. The search stops at the first candidate that passes the check, or when the call has spent its query budget, cutting the last round short to fit; a returned index is always marked, but no result can also mean that the budget was too small. The expected cost is `O(√(N/M))` queries for `M` of `N` states marked, and a budget of `9·(⌊√N⌋ + 1)` makes a miss rare; use it when you do not know how many solutions exist.",
+	"papers": [
+		{
+			"authors": "Michel Boyer, Gilles Brassard, Peter Høyer, Alain Tapp",
+			"title": "Tight Bounds on Quantum Searching",
+			"year": 1998,
+			"venue": "Fortschritte der Physik",
+			"doi": "10.1002/(SICI)1521-3978(199806)46:4/5<493::AID-PROP493>3.0.CO;2-P",
+			"arxiv": "quant-ph/9605034",
+			"url": null,
+			"role": "introduces"
+		}
+	],
+	"lineage": [
+		{
+			"slug": "grover-search",
+			"name": null,
+			"relation": "builds-on",
+			"source": "quantum-planning, src/grover/bbht.rs: \"Runs Grover search without a known marked count and returns a verified index.\""
+		}
+	],
+	"trace": null
+}

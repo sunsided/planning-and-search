@@ -1,0 +1,33 @@
+algorithm QUBO-Penalty-Encoding(objective, constraints)
+  input: objective terms over named binary variables, constraints, each with a weight P
+  output: QUBO model Q, and the constraints kept for the decoder
+  Q ← the objective terms
+  for each constraint c with weight P do
+    if c is exactly-one(x₁, …, x_k) then
+      add-squared(Q, P, ⟨(x₁, 1), …, (x_k, 1)⟩, 1)      ▷ P · (1 − Σ xᵢ)²
+    else if c is at-most-one(x₁, …, x_k) then
+      for each pair i < j do
+        Q ← Q + P · xᵢ · xⱼ
+    else
+      T ← the terms (xᵢ, aᵢ) of c                       ▷ rhs − slack-max ≤ Σ aᵢ · xᵢ ≤ rhs
+      for each w in slack-weights(slack-max) do
+        append(T, (new variable, w))                    ▷ named "c.slack0", "c.slack1", …
+      add-squared(Q, P, T, rhs)                         ▷ P · (Σ aᵢ · xᵢ + s − rhs)²
+  return Q, constraints
+procedure add-squared(Q, P, T, r)
+  Q ← Q + P · r²
+  for each (y, a) in T do
+    Q ← Q + P · (a − 2r) · a · y                        ▷ y · y = y
+    for each (z, b) after (y, a) in T do
+      Q ← Q + 2P · a · b · y · z
+function slack-weights(m)
+  W ← ⟨⟩
+  w ← 1
+  while sum(W) < m do
+    append(W, min(w, m − sum(W)))                       ▷ 1, 2, 4, …, then the remainder
+    w ← 2w
+  return W                                              ▷ every value in 0, …, m is a subset sum
+function to-ising(Q)
+  substitute xᵢ ← (1 + sᵢ) / 2 in 4 · E(x)
+  divide every coefficient by 4 / scale                 ▷ scale 4 for integers keeps it exact; 1 for floats
+  return the Ising model and its scale                  ▷ to-qubo divides the scale out again
