@@ -93,7 +93,7 @@ export function parseBlocks(md: string): Block[] {
 /** Wording the site never shows: everything reads as it does on release day. A roadmap graph
  * or a probabilistic roadmap is motion planning, not a schedule. */
 const BANNED =
-	/\b((?<!probabilistic\s+)roadmaps?(?!\s+graph)|not yet|pre-release|work in progress|WIP|TODO|placeholder|coming soon|API may change|milestone)\b/gi;
+	/\b((?<!probabilistic\s+)roadmaps?(?!\s+graph)|not yet|pre-release|work in progress|WIP|TODO|placeholder|coming soon|API may change|milestone|(?:is|are) planned)\b|\(planned\)/gi;
 
 export function lint(text: string): string[] {
 	return [...new Set([...text.matchAll(BANNED)].map((m) => m[0]))];
