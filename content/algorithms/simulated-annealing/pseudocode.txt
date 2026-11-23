@@ -9,7 +9,10 @@ algorithm Simulated-Annealing(Q, S, budget)
     β-hot ← ln 2 / max over i of (|aᵢ| + Σⱼ |bᵢⱼ|)    ▷ the largest flip is accepted with probability ½
     β-cold ← ln 100 / smallest nonzero coefficient magnitude    ▷ the smallest with probability 1/100
   for t in 0, …, S − 1 do
-    β ← β-hot · (β-cold / β-hot)^(t / (S − 1))       ▷ geometric; a single sweep runs at β-cold
+    if S = 1 then
+      β ← β-cold                                     ▷ a single sweep runs cold
+    else
+      β ← β-hot · (β-cold / β-hot)^(t / (S − 1))     ▷ geometric
     for i in 0, …, n − 1 do                          ▷ index order
       if exhausted(budget) then
         return best, E-best                          ▷ resume continues at this variable, sweep and RNG state
