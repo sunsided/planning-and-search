@@ -1,0 +1,15 @@
+algorithm BBHT(oracle, N, max-queries)
+  input: phase oracle over N basis states, query budget max-queries for this call
+  output: a marked index, or nil
+  m ← 1
+  q ← 0                                            ▷ queries spent by this call
+  while q < max-queries do
+    j ← uniform integer in 0, …, ⌈m⌉ − 1
+    j ← min(j, max-queries − q − 1)                ▷ the last round fits the budget
+    amplify(oracle, j)                             ▷ j quantum queries
+    i ← sample(measure all qubits)
+    q ← q + j + 1
+    if check(oracle, i) then                       ▷ one classical query
+      return i
+    m ← min(6/5 · m, √N)                           ▷ λ = 6/5
+  return nil                                       ▷ no marked state, or the budget was too small

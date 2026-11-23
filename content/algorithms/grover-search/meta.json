@@ -1,0 +1,27 @@
+{
+	"description": "Grover search finds a marked candidate among `N = 2^n` basis states with about `√N` oracle queries, where a classical scan needs about `N`. It prepares the even superposition and repeats a *Grover iteration*: a phase oracle flips the sign of every state whose candidate passes the validity check, and the diffusion `H, X, MCZ, X, H` reflects the state about the even superposition. With `M` marked states and `sin²θ = M/N`, `search_known` runs `k = ⌊π/(4θ)⌋` iterations (none when `M = 0` or `M ≥ N`), measures once and checks the measured candidate classically, so it returns only a valid index and returns nothing with probability at most `M/N`. Each oracle application and each check counts as one query, so a run costs `k + 1`; the simulator's work per basis state does not count, and it holds at most 24 qubits, with qubit 0 as the least significant bit of the index. Use it when you know how many solutions exist and want to compare query counts with a classical scan; for an unknown count, use BBHT.",
+	"papers": [
+		{
+			"authors": "Lov K. Grover",
+			"title": "A fast quantum mechanical algorithm for database search",
+			"year": 1996,
+			"venue": "Proceedings of the 28th Annual ACM Symposium on Theory of Computing (STOC 1996)",
+			"doi": "10.1145/237814.237866",
+			"arxiv": "quant-ph/9605043",
+			"url": null,
+			"role": "introduces"
+		},
+		{
+			"authors": "Michel Boyer, Gilles Brassard, Peter Høyer, Alain Tapp",
+			"title": "Tight Bounds on Quantum Searching",
+			"year": 1998,
+			"venue": "Fortschritte der Physik",
+			"doi": "10.1002/(SICI)1521-3978(199806)46:4/5<493::AID-PROP493>3.0.CO;2-P",
+			"arxiv": "quant-ph/9605034",
+			"url": null,
+			"role": "analyses"
+		}
+	],
+	"lineage": [],
+	"trace": null
+}

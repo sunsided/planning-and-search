@@ -345,6 +345,21 @@
 		]
 	},
 	{
+		"slug": "bbht",
+		"name": "BBHT exponential search",
+		"aliases": ["Grover search with an unknown number of solutions", "Exponential searching"],
+		"kind": "quantum",
+		"refs": ["Boyer, Brassard, Høyer and Tapp 1998"],
+		"implementations": [
+			{
+				"crate": "quantum-planning",
+				"items": ["search_unknown"],
+				"feature": null,
+				"summary": "Grover search when the number of solutions is unknown: random iteration counts from a growing range, until a measured candidate passes the check."
+			}
+		]
+	},
+	{
 		"slug": "bdda-star",
 		"name": "BDDA*",
 		"aliases": ["symbolic A*"],
@@ -1630,6 +1645,21 @@
 				"items": ["schedule"],
 				"feature": "alloc",
 				"summary": "Places activities in priority order at their earliest feasible start, never moving or backtracking."
+			}
+		]
+	},
+	{
+		"slug": "grover-search",
+		"name": "Grover search",
+		"aliases": ["Grover's algorithm", "Amplitude amplification"],
+		"kind": "quantum",
+		"refs": ["Grover 1996", "Boyer, Brassard, Høyer and Tapp 1998"],
+		"implementations": [
+			{
+				"crate": "quantum-planning",
+				"items": ["search_known", "amplify"],
+				"feature": null,
+				"summary": "Amplitude amplification with a phase oracle built from a validity check, run on the state-vector simulator for a known number of solutions, counting oracle queries."
 			}
 		]
 	},
@@ -3252,6 +3282,21 @@
 		]
 	},
 	{
+		"slug": "qubo-penalty-encoding",
+		"name": "QUBO penalty encoding",
+		"aliases": ["Penalty method for QUBO", "Ising formulation"],
+		"kind": "other",
+		"refs": ["Lucas 2014", "Glover, Kochenberger and Du 2019"],
+		"implementations": [
+			{
+				"crate": "planning-qubo",
+				"items": ["Builder", "ConstraintKind"],
+				"feature": null,
+				"summary": "Constraints become quadratic penalty terms on named binary variables (exactly-one, at-most-one, linear constraints with slack bits), added to the objective; QUBO and Ising models convert exactly."
+			}
+		]
+	},
+	{
 		"slug": "quiescence-search",
 		"name": "Quiescence search",
 		"aliases": ["Stand pat", "Capture search"],
@@ -3728,6 +3773,21 @@
 				"items": ["sequential"],
 				"feature": null,
 				"summary": "An auctioneer offers tasks one at a time in a fixed order; each agent bids its marginal gain given what it already won, and the highest bid wins."
+			}
+		]
+	},
+	{
+		"slug": "simulated-annealing",
+		"name": "Simulated annealing",
+		"aliases": ["SA"],
+		"kind": "optimization",
+		"refs": ["Kirkpatrick, Gelatt and Vecchi 1983"],
+		"implementations": [
+			{
+				"crate": "planning-qubo",
+				"items": ["SimulatedAnnealing", "Schedule"],
+				"feature": null,
+				"summary": "Single-bit-flip simulated annealing over a QUBO under a configurable temperature schedule and a resumable budget; warm calls allocate nothing."
 			}
 		]
 	},

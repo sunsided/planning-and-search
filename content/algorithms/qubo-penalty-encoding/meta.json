@@ -1,0 +1,27 @@
+{
+	"description": "The penalty encoding turns a constrained problem over binary variables into a QUBO model, an energy `offset + Σ aᵢ·xᵢ + Σ bᵢⱼ·xᵢ·xⱼ` with no side conditions. Each constraint adds a quadratic penalty with a weight `P` that the caller picks: `P·(1 − Σ xᵢ)²` for *exactly one*, `P·xᵢ·xⱼ` per pair for *at most one*, and `P·(Σ aᵢ·xᵢ + s − rhs)²` for a linear constraint, whose slack `s` gets new bits weighted 1, 2, 4, … and a remainder, so it reaches exactly its maximum. With integer coefficients a penalty is 0 when its constraint holds and at least `P` otherwise; the builder does not tune `P`, and the decoder checks the constraints on the original variables. The model converts exactly to an Ising model over spins `s = 2x − 1` and back: integer models scale every energy by 4 so the halves and quarters stay whole, and float models keep a scale of 1. Use it to hand a planning problem, such as assigning tasks to agents with capacities, to a QUBO sampler or an annealer.",
+	"papers": [
+		{
+			"authors": "Andrew Lucas",
+			"title": "Ising formulations of many NP problems",
+			"year": 2014,
+			"venue": "Frontiers in Physics",
+			"doi": "10.3389/fphy.2014.00005",
+			"arxiv": "1302.5843",
+			"url": null,
+			"role": "surveys"
+		},
+		{
+			"authors": "Fred Glover, Gary Kochenberger, Yu Du",
+			"title": "Quantum Bridge Analytics I: a tutorial on formulating and using QUBO models",
+			"year": 2019,
+			"venue": "4OR",
+			"doi": "10.1007/s10288-019-00424-y",
+			"arxiv": null,
+			"url": null,
+			"role": "surveys"
+		}
+	],
+	"lineage": [],
+	"trace": null
+}
