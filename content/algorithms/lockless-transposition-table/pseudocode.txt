@@ -1,0 +1,12 @@
+algorithm Store(TT, key, entry)
+  input: table TT, the position's key, the entry to store
+  w ← pack(entry)                              ▷ fails if too deep to store
+  s ← TT[low bits of key]
+  s.data ← w
+  s.check ← w ⊕ key                            ▷ two separate atomic writes
+function Probe(TT, key)
+  s ← TT[low bits of key]
+  w, c ← s.data, s.check                       ▷ two separate atomic reads, no lock
+  if w ⊕ c ≠ key then
+    return nil                                 ▷ empty, another position, or a torn write
+  return unpack(w)

@@ -1634,6 +1634,21 @@
 		]
 	},
 	{
+		"slug": "gumbel-mcts",
+		"name": "Gumbel MCTS",
+		"aliases": ["Gumbel MuZero root selection", "Sequential halving with Gumbel"],
+		"kind": "adversarial",
+		"refs": ["Danihelka et al. 2022"],
+		"implementations": [
+			{
+				"crate": "game-tree-search",
+				"items": ["search_gumbel", "Gumbel"],
+				"feature": null,
+				"summary": "Sequential halving with Gumbel noise at the root and deterministic selection towards the improved policy below it, ported from mctx; returns the improved policy as the training target."
+			}
+		]
+	},
+	{
 		"slug": "h-1-landmarks",
 		"name": "h^1 landmarks",
 		"aliases": ["delete-relaxation fact landmarks", "h^m landmarks"],
@@ -2162,9 +2177,9 @@
 		"implementations": [
 			{
 				"crate": "game-tree-search",
-				"items": ["deepen_shared", "SharedTable"],
+				"items": ["deepen_shared", "deepen_shared_with", "SharedTable"],
 				"feature": "parallel",
-				"summary": "Several threads deepen the same root through one sharded, locked transposition table; every other helper starts a ply ahead, and the main thread's budget and result decide."
+				"summary": "Several threads deepen the same root through one shared transposition table (SharedTable or the lockless PackedTable); helpers keep the game's first move and rotate the rest, and the furthest thread's result wins."
 			}
 		]
 	},
@@ -2276,6 +2291,21 @@
 				"items": ["LmCut"],
 				"feature": null,
 				"summary": "Admissible landmark-cut heuristic with axioms and conditional effects by context splitting."
+			}
+		]
+	},
+	{
+		"slug": "lockless-transposition-table",
+		"name": "Lockless transposition table",
+		"aliases": ["Lockless hashing", "XOR-keyed transposition table"],
+		"kind": "adversarial",
+		"refs": ["Hyatt and Mann 2002"],
+		"implementations": [
+			{
+				"crate": "game-tree-search",
+				"items": ["PackedTable", "Packed"],
+				"feature": "parallel",
+				"summary": "Entries packed into one 64-bit word stored next to that word XOR-ed with the key, so threads probe and store without locks and a torn entry reads as a miss."
 			}
 		]
 	},
@@ -4047,6 +4077,21 @@
 				"items": ["Hashed", "SlotTable"],
 				"feature": null,
 				"summary": "Remembers scores, bounds and best moves by position key, so a position reached by another move order is answered instead of searched; SlotTable is fixed-size, MapTable (feature hashbrown) grows."
+			}
+		]
+	},
+	{
+		"slug": "tree-parallel-mcts",
+		"name": "Tree-parallel MCTS",
+		"aliases": ["Tree parallelization", "Global-mutex tree parallelism"],
+		"kind": "adversarial",
+		"refs": ["Chaslot, Winands and van den Herik 2008"],
+		"implementations": [
+			{
+				"crate": "game-tree-search",
+				"items": ["search_shared"],
+				"feature": "parallel",
+				"summary": "Several threads grow one tree, selecting and backing up under one lock and evaluating outside it, spread over different lines by virtual loss."
 			}
 		]
 	},

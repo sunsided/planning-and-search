@@ -1,0 +1,18 @@
+algorithm Tree-parallel-MCTS(p₀, k, budget)
+  input: root position p₀, threads k, budget of simulations
+  output: as MCTS, from the one shared tree
+  for i in 1, …, k in parallel do
+    rng_i ← new generator seeded from the searcher's
+    while true do
+      lock the tree
+      if exhausted(budget), counting running simulations then
+        unlock the tree
+        break
+      path ← select a new leaf, as in MCTS     ▷ waiting paths count as losses
+      add a virtual loss along path
+      unlock the tree
+      v ← evaluate(leaf of path) with rng_i    ▷ outside the lock: the costly part
+      lock the tree
+      remove the virtual loss along path, and back up v along it
+      unlock the tree
+  return the most visited root move, and every root move's visits and mean

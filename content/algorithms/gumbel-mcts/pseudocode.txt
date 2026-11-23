@@ -1,0 +1,14 @@
+algorithm Gumbel-MCTS(p₀, n, m)
+  input: root position p₀, simulations n, considered moves m (16 by default)
+  output: the move that survived the halving, and the improved policy π′ as the training target
+  g(a) ~ Gumbel(0, 1) · scale for each root move a
+  A ← the m root moves with the highest g(a) + log P(a)
+  for each round of sequential halving, until n simulations are spent do
+    simulate every move in A equally often      ▷ below the root: select-towards(π′)
+    A ← the better half of A by g(a) + log P(a) + σ(Q(a))
+  π′ ← softmax(log P + σ(Q)) over the root moves
+  return the move left in A, and π′
+function select-towards(π′, n)
+  return the child a of n with the highest π′(a) − N(a) / (1 + Σ N)   ▷ no exploration constant
+function σ(Q)
+  return Q rescaled to [0, 1] over the children, times (visit-offset + most visits) · value-scale
