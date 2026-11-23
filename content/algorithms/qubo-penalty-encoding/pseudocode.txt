@@ -16,9 +16,11 @@ algorithm QUBO-Penalty-Encoding(objective, constraints)
   return Q, constraints
 procedure add-squared(Q, P, T, r)
   Q ← Q + P · r²
-  for each (y, a) in T do
+  for i in 1, …, |T| do
+    (y, a) ← T[i]
     Q ← Q + P · (a − 2r) · a · y                        ▷ y · y = y
-    for each (z, b) after (y, a) in T do
+    for j in i + 1, …, |T| do                           ▷ each pair once
+      (z, b) ← T[j]
       Q ← Q + 2P · a · b · y · z
 function slack-weights(m)
   W ← ⟨⟩
