@@ -1,0 +1,30 @@
+algorithm Parallel-Tempering(Q, S, R, budget)
+  input: QUBO model Q over n variables, S rounds, R ≥ 1 replicas
+  input: an optional range β-hot to β-cold, derived as in simulated annealing when absent
+  input: budget of flip attempts
+  output: the lowest-energy assignment any replica visited, with its energy
+  for k in 0, …, R − 1 do
+    xₖ ← n uniform random bits
+    Eₖ ← energy(Q, xₖ)
+    if R = 1 then
+      βₖ ← β-cold                                    ▷ a single replica runs cold, without swaps
+    else
+      βₖ ← β-hot · (β-cold / β-hot)^(k / (R − 1))    ▷ geometric, hottest first
+  best, E-best ← the xₖ of least Eₖ, with its energy
+  for r in 0, …, S − 1 do
+    for k in 0, …, R − 1 do                          ▷ ladder positions, hottest first
+      for i in 0, …, n − 1 do
+        if exhausted(budget) then
+          return best, E-best                        ▷ resume continues at this replica and variable
+        Δ ← flip-delta(Q, xₖ, i)
+        if Δ ≤ 0 or uniform(0, 1) < exp(−βₖ · Δ) then
+          xₖ[i] ← ¬xₖ[i]
+          Eₖ ← Eₖ + Δ
+          if Eₖ < E-best then
+            best, E-best ← xₖ, Eₖ
+    k ← r mod 2                                      ▷ even pairs in even rounds, odd pairs in odd ones
+    while k + 1 < R do
+      if uniform(0, 1) < exp((βₖ − βₖ₊₁) · (Eₖ − Eₖ₊₁)) then
+        swap ⟨xₖ, Eₖ⟩ and ⟨xₖ₊₁, Eₖ₊₁⟩                ▷ always when the exponent is ≥ 0
+      k ← k + 2
+  return best, E-best

@@ -1,0 +1,22 @@
+algorithm Tabu-Search(Q, M, tenure, budget)
+  input: QUBO model Q over n ≥ 1 variables, M moves, a tenure
+  input: budget of moves
+  output: the lowest-energy assignment visited, with its energy
+  x ← n uniform random bits
+  E ← energy(Q, x)
+  for i in 0, …, n − 1 do
+    Δ[i] ← flip-delta(Q, x, i)
+  free[i] ← 0 for every i                          ▷ the first move at which i is not tabu
+  best, E-best ← x, E
+  t̄ ← min(tenure, n − 1)                          ▷ leaves some variable allowed
+  for m in 0, …, M − 1 do
+    if exhausted(budget) then
+      return best, E-best                          ▷ resume continues at move m
+    i ← the lowest-index i of least Δ[i] among those with free[i] ≤ m or E + Δ[i] < E-best
+    E ← E + Δ[i]                                   ▷ uphill moves are taken too
+    x[i] ← ¬x[i]
+    update Δ[i] and Δ[j] for each neighbor j of i
+    free[i] ← m + 1 + t̄
+    if E < E-best then
+      best, E-best ← x, E
+  return best, E-best

@@ -1,0 +1,34 @@
+{
+	"description": "Parallel tempering, also called replica exchange, runs several copies of a Metropolis sampler on a QUBO model at fixed inverse temperatures `β` and lets neighboring copies trade states. The hot replicas wander across energy barriers, the cold ones settle into minima, and a swap hands a good state found hot down the ladder to be refined. The ladder is geometric between the hot and the cold `β` of a simulated-annealing schedule, given or derived from the model, and the schedule's sweep count is the number of rounds. A round sweeps every replica once, hottest first, then proposes swaps between ladder neighbors, the even pairs in even rounds and the odd pairs in odd ones, accepting a swap with probability `min(1, exp((βₖ − βₖ₊₁)·(Eₖ − Eₖ₊₁)))`. The replicas are interleaved on one thread. It returns the lowest-energy assignment any replica visited, and a budget of flip attempts can pause a run that later resumes with the same result. It gives no optimality guarantee.",
+	"papers": [
+		{
+			"authors": "R. H. Swendsen, J.-S. Wang",
+			"title": "Replica Monte Carlo Simulation of Spin-Glasses",
+			"year": 1986,
+			"venue": "Physical Review Letters",
+			"doi": "10.1103/PhysRevLett.57.2607",
+			"arxiv": null,
+			"url": null,
+			"role": "introduces"
+		},
+		{
+			"authors": "K. Hukushima, K. Nemoto",
+			"title": "Exchange Monte Carlo Method and Application to Spin Glass Simulations",
+			"year": 1996,
+			"venue": "Journal of the Physical Society of Japan",
+			"doi": "10.1143/JPSJ.65.1604",
+			"arxiv": null,
+			"url": null,
+			"role": "introduces"
+		}
+	],
+	"lineage": [
+		{
+			"slug": null,
+			"name": "Metropolis algorithm",
+			"relation": "builds-on",
+			"source": "planning-qubo, src/sampler/tempering.rs: \"A round sweeps every replica once with Metropolis flips, hottest first, and then proposes swaps between neighbors on the ladder\""
+		}
+	],
+	"trace": null
+}

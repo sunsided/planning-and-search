@@ -1,0 +1,37 @@
+{
+	"description": "Tabu search looks for a low-energy assignment of a QUBO model by flipping one bit per move, always the bit with the lowest flip delta, even when that raises the energy. Taking uphill moves lets it leave a local minimum; a short-term memory keeps it from walking straight back: a flipped variable is *tabu* for the next `tenure` moves, unless flipping it would give a new best energy (the aspiration rule). It starts from uniform random bits, keeps every flip delta up to date so a move costs `O(n + degree)`, and breaks ties by the lowest index, so the random source picks only the start. The tenure is clamped to one less than the variable count, so some move is always allowed. It returns the lowest-energy assignment it visited, and a budget of moves can pause a run that later resumes with the same result. It gives no optimality guarantee.",
+	"papers": [
+		{
+			"authors": "F. Glover",
+			"title": "Future paths for integer programming and links to artificial intelligence",
+			"year": 1986,
+			"venue": "Computers & Operations Research",
+			"doi": "10.1016/0305-0548(86)90048-1",
+			"arxiv": null,
+			"url": null,
+			"role": "introduces"
+		},
+		{
+			"authors": "F. Glover",
+			"title": "Tabu Search—Part I",
+			"year": 1989,
+			"venue": "ORSA Journal on Computing",
+			"doi": "10.1287/ijoc.1.3.190",
+			"arxiv": null,
+			"url": null,
+			"role": "extends"
+		},
+		{
+			"authors": "F. Glover, G. A. Kochenberger, B. Alidaee",
+			"title": "Adaptive Memory Tabu Search for Binary Quadratic Programs",
+			"year": 1998,
+			"venue": "Management Science",
+			"doi": "10.1287/mnsc.44.3.336",
+			"arxiv": null,
+			"url": null,
+			"role": "applies"
+		}
+	],
+	"lineage": [],
+	"trace": null
+}

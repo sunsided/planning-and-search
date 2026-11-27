@@ -3085,6 +3085,21 @@
 		]
 	},
 	{
+		"slug": "parallel-tempering",
+		"name": "Parallel tempering",
+		"aliases": ["Replica exchange Monte Carlo", "Exchange Monte Carlo"],
+		"kind": "optimization",
+		"refs": ["Swendsen and Wang 1986", "Hukushima and Nemoto 1996"],
+		"implementations": [
+			{
+				"crate": "planning-qubo",
+				"items": ["ParallelTempering"],
+				"feature": null,
+				"summary": "Replicas of a QUBO on a geometric inverse-temperature ladder, swept with Metropolis flips and swapped between ladder neighbors; resumable under a budget of flip attempts."
+			}
+		]
+	},
+	{
 		"slug": "path-shortcutting",
 		"name": "Path shortcutting",
 		"aliases": ["shortcutting"],
@@ -4156,6 +4171,21 @@
 				"items": ["pdb"],
 				"feature": null,
 				"summary": "Pattern database heuristics computed symbolically and stored as one BDD per h value."
+			}
+		]
+	},
+	{
+		"slug": "tabu-search",
+		"name": "Tabu search",
+		"aliases": [],
+		"kind": "optimization",
+		"refs": ["Glover 1986", "Glover 1989"],
+		"implementations": [
+			{
+				"crate": "planning-qubo",
+				"items": ["TabuSearch"],
+				"feature": null,
+				"summary": "Single-bit-flip tabu search over a QUBO with a fixed tenure and the aspiration rule; resumable under a budget of moves."
 			}
 		]
 	},
