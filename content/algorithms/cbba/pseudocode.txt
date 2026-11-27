@@ -1,6 +1,7 @@
 algorithm CBBA(i, V, L)
   input: agent i, its valuation V, capacity L, replanning mode (Keep, Last(k) or Full)
-  input: bundle budget a ≥ 1 (∞ for none; below L only if the replan releases fewer than a)
+  input: bundle budget a ≥ 1, tasks added per bundle phase (∞ for none)
+  input: a < L is accepted only with Keep, or Last(k) with k < a
   input: bid warping w, refresh r ≥ 1 (1 as published, ∞ for none), settle span s ≥ 1
   output: a bundle for agent i; the team agrees on one winner per task
   B ← ⟨⟩                                       ▷ tasks in the order i added them, each with a path position
