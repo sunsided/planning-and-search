@@ -1,0 +1,24 @@
+{
+	"description": "Bid-warped task consensus (BW-TC) is the consensus of bid-warped CBBA: agents bid as in CBBA, but exchange only what changed, and announce every bid they withdraw as a *drop bid*. Each agent stamps its entries with a clock all agents share, counted in half ticks so that a drop at tick `t` (`2t + 1`) comes before a bid of the same round (`2t + 2`), and keeps the latest bid and time of every bidder on every task; a receiver takes an entry only when it is newer than what it has seen of that bidder on that task, so a withdrawn bid never comes back from a stale copy, and it passes a new best bid on or answers with the best one it knows. Bid warping is what the paper pairs it with for gains that do not diminish: an agent still ranks tasks by their true marginal gain but bids `min(gain, last bid in its bundle)`, so shared bids never grow along a bundle; in this crate warping is the `with_bid_warping` option of `cbba::Agent`, while `bwtc::Agent` does not warp and needs diminishing gains, as CBBA does. It is experimental: the paper proves convergence only for synchronous, reliable rounds, nothing is ever repeated, so a lost message is lost for good, and where the paper keeps only the best bid per task, an agent here keeps every bidder's latest one, so the runner-up takes over when the best bid is dropped. Use it on networks that deliver every message, when full-state broadcasts cost too much; on lossy links, use CBBA, with bid warping for gains that do not diminish.",
+	"papers": [
+		{
+			"authors": "Luke B. Johnson, Han-Lim Choi, Sameera S. Ponda, Jonathan P. How",
+			"title": "Decentralized Task Allocation Using Local Information Consistency Assumptions",
+			"year": 2017,
+			"venue": "Journal of Aerospace Information Systems",
+			"doi": "10.2514/1.i010461",
+			"arxiv": null,
+			"url": null,
+			"role": "introduces"
+		}
+	],
+	"lineage": [
+		{
+			"slug": "cbba",
+			"name": null,
+			"relation": "builds-on",
+			"source": "task-allocation, src/bwtc.rs: \"The task consensus of bid-warped CBBA (BW-TC): agents bid as in CBBA, but exchange only what changed, and announce every bid they withdraw.\""
+		}
+	],
+	"trace": null
+}

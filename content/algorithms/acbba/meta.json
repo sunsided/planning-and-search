@@ -1,0 +1,44 @@
+{
+	"description": "Asynchronous CBBA (ACBBA) lets each agent run CBBA's bundle phase on its own schedule and exchange one task at a time: the winner it believes in, the winning bid, and the time that bid was made on a clock all agents share. For each arriving entry, a deconfliction table by Johnson, Ponda, Choi and How decides whether the receiver updates, resets or leaves its own entry, and whether it rebroadcasts its own entry, the sender's, an empty bid or nothing, so agents only pass on what is new; an agent outbid on a task releases it and every task added after it, and announces the later ones as empty bids. `Rules` picks one of the three published tables: `Gnc2010` from AIAA GNC 2010, `Infotech2011` from AIAA Infotech@Aerospace 2011, the default, which settles most often in simulation, and `Thesis2012` from Johnson's 2012 MIT thesis, which pushes the winning bid's time past the losing one's. It is experimental and does not settle reliably: no table settles every run, even on a network that loses nothing, and with the 2011 table about 1 in 1,000 simulated runs on sparse networks never goes quiet, as a bid an agent released outlives the release on a distant agent; `announce_every`, which is not part of the published algorithm, re-announces each agent's view at a fixed interval, which helps against lost messages and stale claims without guaranteeing agreement. Use it to study asynchronous deconfliction; for dependable results, use CBBA, which also tolerates delayed, lost and reordered messages.",
+	"papers": [
+		{
+			"authors": "Luke Johnson, Sameera Ponda, Han-Lim Choi, Jonathan How",
+			"title": "Improving the Efficiency of a Decentralized Tasking Algorithm for UAV Teams with Asynchronous Communications",
+			"year": 2010,
+			"venue": "AIAA Guidance, Navigation, and Control Conference",
+			"doi": "10.2514/6.2010-8421",
+			"arxiv": null,
+			"url": null,
+			"role": "introduces"
+		},
+		{
+			"authors": "Luke Johnson, Sameera Ponda, Han-Lim Choi, Jonathan How",
+			"title": "Asynchronous Decentralized Task Allocation for Dynamic Environments",
+			"year": 2011,
+			"venue": "Infotech@Aerospace 2011",
+			"doi": "10.2514/6.2011-1441",
+			"arxiv": null,
+			"url": null,
+			"role": "extends"
+		},
+		{
+			"authors": "Luke B. Johnson",
+			"title": "Decentralized task allocation for dynamic environments",
+			"year": 2012,
+			"venue": "MIT, master's thesis",
+			"doi": null,
+			"arxiv": null,
+			"url": "https://dspace.mit.edu/handle/1721.1/71458",
+			"role": "extends"
+		}
+	],
+	"lineage": [
+		{
+			"slug": "cbba",
+			"name": null,
+			"relation": "builds-on",
+			"source": "task-allocation, src/acbba.rs: \"Asynchronous CBBA (ACBBA): agents build bundles and resolve conflicts on their own schedule, exchanging one task at a time, and only pass on what is new.\""
+		}
+	],
+	"trace": null
+}

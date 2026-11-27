@@ -1,0 +1,64 @@
+algorithm BW-TC(i, V, L)
+  input: agent i, its valuation V with diminishing gains, capacity L
+  output: a bundle for agent i; the team agrees if every message is delivered
+  B ← ⟨⟩                                       ▷ tasks with i's bids, in the order i added them
+  A ← ⟨⟩                                       ▷ B as last announced
+  Q ← ⟨⟩                                       ▷ entries for the next broadcast
+  for each agent k and task j do
+    bid[k, j], stamp[k, j] ← nil, 0            ▷ k's latest bid on j, and its time in half ticks
+  repeat
+    t ← the current tick of the clock all agents share
+    build-bundle(t)
+    if Q ≠ ⟨⟩ then
+      broadcast ⟨i, Q⟩
+      Q ← ⟨⟩
+    for each packet ⟨k, E⟩ that arrives do
+      receive(k, E)
+  until the team settles
+procedure build-bundle(t)
+  while |B| < L do
+    WIN ← {j ∉ B : g_j ← gain(V, B, j) > 0 and outbids(⟨i, g_j⟩, best(j))}
+    if WIN = ∅ then
+      break
+    j ← argmax over j ∈ WIN of g_j             ▷ ties to the first task
+    add ⟨j, g_j⟩ to B, at its best position in the path
+  for each ⟨j, g⟩ in A do
+    if ⟨j, g⟩ ∉ B then
+      stamp[i, j] ← 2t + 1
+      if j is not in B then
+        bid[i, j] ← nil
+        queue-best(j)                          ▷ a runner-up may take over
+      append the drop ⟨j, i, 2t + 1⟩ to Q
+  for each ⟨j, g⟩ in B do
+    bid[i, j] ← g
+    if ⟨j, g⟩ ∉ A then
+      stamp[i, j] ← 2t + 2                     ▷ after a drop of the same round
+      append the bid ⟨j, ⟨i, g⟩, 2t + 2⟩ to Q
+  A ← B
+procedure receive(k, E)
+  if k = i then
+    return
+  for each drop ⟨j, b, τ⟩ in E do              ▷ entries about unknown tasks or agents are skipped
+    if τ > stamp[b, j] then
+      stamp[b, j], bid[b, j] ← τ, nil
+      append the drop ⟨j, b, τ⟩ to Q
+      queue-best(j)
+  for each bid ⟨j, ⟨b, g⟩, τ⟩ in E do
+    if τ > stamp[b, j] then
+      stamp[b, j], bid[b, j] ← τ, g
+      queue-best(j)                            ▷ the new bid if it is best, else the better one
+  if some task of B has a best bid not by i then
+    n ← position of the first such task in B
+    for each ⟨j, g⟩ in B from position n on do
+      bid[i, j] ← nil                          ▷ the next bundle phase announces the drops
+    B ← the first n − 1 tasks of B
+procedure queue-best(j)
+  ⟨b, g⟩ ← best(j)
+  if b ≠ nil then
+    append the bid ⟨j, ⟨b, g⟩, stamp[b, j]⟩ to Q
+function best(j)
+  if no agent k has bid[k, j] ≠ nil then
+    return ⟨nil, 0⟩
+  return the ⟨k, bid[k, j]⟩ with bid[k, j] ≠ nil that outbids every other
+function outbids(⟨a, x⟩, ⟨b, y⟩)
+  return b = nil or x > y or (x = y and a < b) ▷ ties go to the smaller id

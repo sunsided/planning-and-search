@@ -1,0 +1,43 @@
+algorithm ACBBA(i, V, L, R, ε)
+  input: agent i, its valuation V, capacity L, decision table R (Gnc2010, Infotech2011 or Thesis2012)
+  input: time tolerance ε ≥ 1: times closer than ε count as equal
+  output: a bundle for agent i; experimental: the team may never go quiet
+  B ← ⟨⟩                                       ▷ tasks in the order i added them
+  for each task j do
+    claim[j] ← ⟨nil, 0, 0⟩                     ▷ winner, bid, time of the bid
+  repeat
+    t ← the current tick of the clock all agents share
+    OUT ← ⟨⟩
+    for each message ⟨k, j, c⟩ that arrives do
+      append receive(k, j, c, t) to OUT
+    append build-bundle(t) to OUT
+    broadcast the last message of OUT for each task  ▷ batched: older answers are dropped
+  until nothing new is left to send            ▷ may never happen
+function build-bundle(t)
+  OUT ← ⟨⟩
+  while |B| < L do
+    WIN ← {j ∉ B : g_j ← gain(V, B, j) > 0 and outbids(⟨i, g_j⟩, claim[j])}
+    if WIN = ∅ then
+      break
+    j ← argmax over j ∈ WIN of g_j             ▷ marginal gain, an integer; ties to the first task
+    add j to B, at its best position in the path
+    claim[j] ← ⟨i, g_j, t⟩
+    append ⟨i, j, claim[j]⟩ to OUT             ▷ each new bid is announced
+  return OUT
+function receive(k, j, c, t)
+  if k = i or j is not a known task then
+    return ⟨⟩
+  ⟨change, reply⟩ ← the row of R that matches c and claim[j], given i, k and ε
+  apply change to claim[j]: update, update time, reset to ⟨nil, 0, t⟩, or leave
+  ▷ Gnc2010 resets to ⟨nil, 0, 0⟩; Thesis2012 also pushes the winner's time ε past the loser's
+  OUT ← the reply: ⟨i, j, claim[j]⟩, ⟨i, j, c⟩, ⟨i, j, ⟨nil, 0, t⟩⟩, or ⟨⟩
+  if some task of B is no longer won by i then
+    n ← position of the first such task in B
+    for each task j′ in B after position n do
+      if claim[j′].winner = i then
+        claim[j′] ← ⟨nil, 0, t⟩
+        append ⟨i, j′, claim[j′]⟩ to OUT       ▷ an empty bid, so others stop believing i wins it
+    B ← the first n − 1 tasks of B
+  return OUT
+function outbids(⟨a, x⟩, ⟨b, y, τ⟩)
+  return b = nil or x > y or (x = y and a < b) ▷ ties go to the smaller id
