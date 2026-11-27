@@ -1,0 +1,24 @@
+{
+	"description": "π-IW is Rollout IW(1) with rollouts guided by a policy. When it expands a node, the policy gives each successor a weight, such as the action probabilities of a learned network, and a rollout moves to an unsolved child with probability proportional to its weight. It picks children of weight 0, uniformly, only when every unsolved sibling has weight 0, so π-IW explores the same tree as Rollout IW in another order and still reaches every goal of width 1. The paper also learns the policy from the planner's choices and acts within a time budget; here the caller owns that loop, and the search stops at the first goal. Use it when a policy, learned or written by hand, can steer rollouts towards a goal in a wide state space.",
+	"papers": [
+		{
+			"authors": "Miquel Junyent, Anders Jonsson, Vicenç Gómez",
+			"title": "Deep Policies for Width-Based Planning in Pixel Domains",
+			"year": 2019,
+			"venue": "Proceedings of the International Conference on Automated Planning and Scheduling (ICAPS 2019)",
+			"doi": "10.1609/icaps.v29i1.3554",
+			"arxiv": "1904.07091",
+			"url": null,
+			"role": "introduces"
+		}
+	],
+	"lineage": [
+		{
+			"slug": "rollout-iw",
+			"name": null,
+			"relation": "builds-on",
+			"source": "width-search, src/rollout.rs: \"π-IW (Junyent, Jonsson & Gómez, ICAPS 2019): [`rollout_iw`] with rollouts guided by a policy.\""
+		}
+	],
+	"trace": null
+}

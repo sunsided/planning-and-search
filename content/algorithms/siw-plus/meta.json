@@ -1,0 +1,24 @@
+{
+	"description": "SIW+ is SIW with IW+ in place of IW: it reaches the goal one drop in the goal count `#g` at a time, running IW(1), IW(2), … up to `max_k` for each step. At the root of each IW run it computes a relaxed plan once, and the `#r` of a node counts the plan's facts, not true at that root, that its path has reached. IW+ keeps one novelty table per value of `#r`, so it prunes a state only if it brings nothing new among states with the same `#r`, and it often reaches a subgoal at width 1 where SIW needs width 2. Unlike LAPKT's SIW+, this version does not keep the goals it reached, skip duplicate states or stop widening early, so plans and node counts differ. Use it when a relaxed-plan oracle is at hand and SIW needs too large a width.",
+	"papers": [
+		{
+			"authors": "Nir Lipovetzky, Hector Geffner",
+			"title": "Width-based Algorithms for Classical Planning: New Results",
+			"year": 2014,
+			"venue": "ECAI 2014 (Frontiers in Artificial Intelligence and Applications)",
+			"doi": "10.3233/978-1-61499-419-0-1059",
+			"arxiv": null,
+			"url": null,
+			"role": "introduces"
+		}
+	],
+	"lineage": [
+		{
+			"slug": "siw",
+			"name": null,
+			"relation": "builds-on",
+			"source": "width-search, src/siw.rs: \"SIW+ (Lipovetzky & Geffner, ECAI 2014): [`siw`] with IW+ in place of IW.\""
+		}
+	],
+	"trace": null
+}

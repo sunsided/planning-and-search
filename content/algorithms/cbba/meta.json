@@ -1,5 +1,5 @@
 {
-	"description": "The consensus-based bundle algorithm (CBBA) lets a team of agents split tasks among themselves without a central planner. Each agent alternates two phases: in the *bundle phase* it greedily adds the task with the highest marginal gain it can still win, bidding that gain as an integer `u64` score, with ties going to the smaller agent id; in the *consensus phase* it merges each neighbour's winner table, task by task, with the published conflict-resolution table. When it learns it was outbid on a task, it drops that task and every task it added after it, since their bids assumed the lost one. Messages carry the sender's whole state with logical clocks, so they may be delayed, lost, duplicated or reordered, and a message older than what the receiver knows of its sender is ignored. With `Replan::Keep` an agent only adds to its bundle, as published in 2009, while `Replan::Full` rebuilds it every round and, with diminishing gains and every task known from the start, settles on a sequential greedy assignment up to tied gains; use CBBA when agents can only talk to whoever they reach, with no auctioneer or central planner.",
+	"description": "The consensus-based bundle algorithm (CBBA) lets a team of agents split tasks among themselves without a central planner. Each agent alternates two phases: in the *bundle phase* it greedily adds the task with the highest marginal gain it can still win, bidding that gain as an integer `u64` score, with ties going to the smaller agent id, at most `with_bundle_budget` tasks per phase if a budget is set, and, with `with_bid_warping`, never more than its previous bid, for gains that do not diminish; in the *consensus phase* it merges each neighbour's winner table, task by task, with the published conflict-resolution table. When it learns it was outbid on a task, it drops that task and every task it added after it, since their bids assumed the lost one; a running team can also add tasks, retire done or cancelled ones and forget agents that leave, keeping every bundle the change does not touch. Messages carry the sender's whole state with logical clocks, so they may be delayed, lost, duplicated or reordered, and a message older than what the receiver knows of its sender is ignored; with `Cadence::OnChange` an agent broadcasts only after its winners or bids changed, with an optional refresh for lossy or partitioned networks. With `Replan::Keep` an agent only adds to its bundle, as published in 2009, while `Replan::Full` rebuilds it every round and, with diminishing gains and every task known from the start, settles on a sequential greedy assignment up to tied gains; `is_locally_settled` lets a deployed agent guess from its own quiet rounds that the team has settled, a heuristic a lost message can fool; use CBBA when agents can only talk to whoever they reach, with no auctioneer or central planner.",
 	"papers": [
 		{
 			"authors": "Han-Lim Choi, L. Brunet, J. P. How",
@@ -28,6 +28,26 @@
 			"venue": "AIAA Scitech 2019 Forum",
 			"doi": "10.2514/6.2019-0915",
 			"arxiv": "1806.04836",
+			"url": null,
+			"role": "extends"
+		},
+		{
+			"authors": "Luke B. Johnson, Han-Lim Choi, Sameera S. Ponda, Jonathan P. How",
+			"title": "Decentralized Task Allocation Using Local Information Consistency Assumptions",
+			"year": 2017,
+			"venue": "Journal of Aerospace Information Systems",
+			"doi": "10.2514/1.i010461",
+			"arxiv": null,
+			"url": null,
+			"role": "extends"
+		},
+		{
+			"authors": "Vinita Sao, Tu Dac Ho, Sujoy Bhore, P. B. Sujit",
+			"title": "Event Driven CBBA with Reduced Communication",
+			"year": 2025,
+			"venue": null,
+			"doi": null,
+			"arxiv": "2509.06481",
 			"url": null,
 			"role": "extends"
 		}

@@ -1,0 +1,48 @@
+algorithm HIW(s₀, φ, w-high, w-low)
+  input: initial state s₀, high-level features φ(s), widths w-high and w-low
+  output: a plan to a goal state, or failure
+  HIGH ← empty novelty table of width w-high       ▷ shared by all low-level searches
+  evaluate-and-insert(HIGH, φ(s₀))
+  if goal(s₀) then
+    return empty plan
+  OPEN ← queue ⟨low-search(s₀)⟩
+  while OPEN ≠ ∅ do
+    L ← pop-front(OPEN)
+    x ← next-high(L)
+    if x = nil then
+      continue                       ▷ L is exhausted
+    if goal(x) then
+      return plan-to(x)
+    push-back(OPEN, low-search(x))   ▷ the new high-level node, then L again
+    push-back(OPEN, L)
+  return failure
+function low-search(n)
+  input: the state n of a high-level node
+  output: a paused IW(w-low) search from n
+  L ← a new low-level search
+  L.h ← φ(n)
+  L.LOW ← empty novelty table of width w-low
+  evaluate-and-insert(L.LOW, features(n))
+  L.OPEN ← queue ⟨n⟩
+  L.PENDING ← empty queue
+  return L
+function next-high(L)
+  input: a paused low-level search L
+  output: a goal or a new high-level node, or nil once L is exhausted
+  while L.OPEN ≠ ∅ or L.PENDING ≠ ∅ do
+    if L.PENDING = ∅ then
+      m ← pop-front(L.OPEN)
+      L.PENDING ← queue of (m, a, s′) for each (a, s′) in successors(m)
+    else
+      m, a, s′ ← pop-front(L.PENDING)
+      if goal(s′) then
+        parent[s′] ← (m, a)
+        return s′
+      if φ(s′) ≠ L.h then
+        if evaluate-and-insert(HIGH, φ(s′)) ≠ nil then
+          parent[s′] ← (m, a)
+          return s′                  ▷ L pauses here and resumes later
+      else if evaluate-and-insert(L.LOW, features(s′)) ≠ nil then
+        parent[s′] ← (m, a)
+        push-back(L.OPEN, s′)
+  return nil

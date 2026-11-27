@@ -1,0 +1,24 @@
+{
+	"description": "Incremental HIW, IHIW(`w_high`, `w_low`), is HIW that finds its own high-level features. It starts with none, so its first search is IW(`w_low`); after each failed search it adds the pruned states to a pool and draws from it at random until one yields candidates. The candidates of a pruned state are the features true in it and its parent but in no state above the parent, like a key just picked up; IHIW promotes one of them at random and searches again. It gives up when the pool holds no new candidates, and unlike the paper it starts each search afresh instead of reusing the last tree, which costs nodes but finds the same plans. Use it when IW(1) fails, IW(2) is too slow, and you have no high-level features at hand.",
+	"papers": [
+		{
+			"authors": "Miquel Junyent, Vicenç Gómez, Anders Jonsson",
+			"title": "Hierarchical Width-Based Planning and Learning",
+			"year": 2021,
+			"venue": "Proceedings of the International Conference on Automated Planning and Scheduling (ICAPS 2021)",
+			"doi": "10.1609/icaps.v31i1.15999",
+			"arxiv": "2101.06177",
+			"url": null,
+			"role": "introduces"
+		}
+	],
+	"lineage": [
+		{
+			"slug": "hiw",
+			"name": null,
+			"relation": "builds-on",
+			"source": "Hierarchical Width-Based Planning and Learning (section \"Incremental Hierarchical IW\"): \"Incremental HIW (Algorithm 2), that runs a series of HIW searches\""
+		}
+	],
+	"trace": null
+}

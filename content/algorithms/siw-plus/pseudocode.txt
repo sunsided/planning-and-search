@@ -1,0 +1,39 @@
+algorithm SIW+(s₀, k-max)
+  input: initial state s₀, largest width k-max
+  output: a plan to a goal state, or failure
+  s ← s₀
+  π ← empty plan
+  while not goal(s) do
+    g ← unsatisfied-goals(s)
+    π′, s′ ← failure, nil
+    for k in 1, …, k-max do
+      π′, s′ ← iw-plus(s, k, g)
+      if π′ ≠ failure then
+        break
+    if π′ = failure then
+      return failure                 ▷ no subgoal within width k-max
+    π ← π · π′
+    s ← s′
+  return π
+function iw-plus(r, k, g)
+  input: root state r, width bound k, goal count g of r
+  output: a plan from r to a subgoal and the subgoal, or failure and nil
+  R ← relaxed-plan-features(r) ∖ features(r)     ▷ once per run
+  TABLE[i] ← empty novelty table of width k, for each i in 0, …, |R|
+  reached[r] ← ∅
+  evaluate-and-insert(TABLE[0], features(r))
+  OPEN ← queue ⟨r⟩
+  while OPEN ≠ ∅ do
+    n ← pop-front(OPEN)
+    for each (a, n′) in successors(n) do
+      ρ ← reached[n] ∪ (features(n′) ∩ R)       ▷ relaxed-plan facts reached on the path
+      w ← evaluate-and-insert(TABLE[|ρ|], features(n′))   ▷ nil when not novel
+      sub ← goal(n′) or unsatisfied-goals(n′) < g
+      if w = nil and not sub then
+        continue                     ▷ nothing new among states that reached as many facts
+      parent[n′] ← (n, a)
+      reached[n′] ← ρ
+      if sub then
+        return plan-from(r, n′), n′
+      push-back(OPEN, n′)
+  return failure, nil

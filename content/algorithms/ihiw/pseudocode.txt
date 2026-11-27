@@ -1,0 +1,31 @@
+algorithm IHIW(s₀, w-high, w-low)
+  input: initial state s₀, widths w-high and w-low
+  output: a plan to a goal state, or failure
+  H ← ∅                              ▷ features promoted to high level
+  POOL ← ∅
+  C ← ∅
+  while true do
+    π, PRUNED ← HIW(s₀, features ∩ H, w-high, w-low)   ▷ PRUNED: pairs (state, parent)
+    if π ≠ failure then
+      return π
+    POOL ← POOL ∪ PRUNED
+    C ← C ∖ H
+    while C = ∅ and POOL ≠ ∅ do
+      n, p ← remove-random(POOL)
+      C ← candidates(n, p) ∖ H
+    if C = ∅ then
+      return failure                 ▷ no pruned state has a new candidate
+    f ← remove-random(C)
+    H ← H ∪ {f}
+function candidates(n, p)
+  input: a pruned state n and its parent p
+  output: the features that changed once, just before n was pruned
+  if p is the root then
+    return ∅
+  F ← features(n) ∩ features(p)
+  if F = features(n) then
+    return ∅                         ▷ n has no feature that p lacks
+  A ← ∅
+  for each m in ancestors(p) do      ▷ the root included
+    A ← A ∪ features(m)
+  return F ∖ A

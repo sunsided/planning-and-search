@@ -1,0 +1,29 @@
+algorithm SIW_R(s₀, R, φ, k-max)
+  input: initial state s₀, sketch rules R, sketch feature values φ(s), largest width k-max
+  output: a plan to a goal state, or failure
+  s ← s₀
+  π ← empty plan
+  PASSED ← {s₀}
+  while not goal(s) do
+    v ← φ(s)
+    π′, s′ ← failure, nil
+    for k in 1, …, k-max do         ▷ each run starts with an empty novelty table
+      π′, s′ ← iw-from(s, k, subgoal: goal(x) or (x ≠ s and compatible(R, v, φ(x))))
+      if π′ ≠ failure then
+        break
+    if π′ = failure then
+      return failure                 ▷ no subgoal within width k-max
+    if s′ ∈ PASSED then
+      return failure                 ▷ the sketch cycles
+    PASSED ← PASSED ∪ {s′}
+    π ← π · π′
+    s ← s′
+  return π
+function compatible(R, v, v′)
+  input: sketch rules R, feature values v at the start and v′ at a candidate
+  output: whether some rule C ↦ E allows the change from v to v′
+  for each (C, E) in R do
+    if every condition of C holds in v then
+      if every effect of E holds for (v, v′) and v′[i] = v[i] for each i no effect of E names then
+        return true
+  return false

@@ -1,0 +1,30 @@
+{
+	"description": "π-HIW(1, 1) is hierarchical IW with count-based Rollout IW at the high level and π-IW at the low level. Each high-level node owns a π-IW tree whose rollouts stop at states with other high-level features and hand them up. The high level draws an open node with probability proportional to `exp(1 / (tau · (c + 1)))`, where `c` counts rollouts from nodes with the same high-level features, and it keeps a handed-up state only if the state reaches some high-level feature at a smaller high-level depth than before. Unlike the paper's agent, it stops at the first goal and has no rewards, value function or node budget, and the caller learns the policy. Use it for large problems with distant goals, such as grid worlds with keys and doors, where a few coarse features mark real progress.",
+	"papers": [
+		{
+			"authors": "Miquel Junyent, Vicenç Gómez, Anders Jonsson",
+			"title": "Hierarchical Width-Based Planning and Learning",
+			"year": 2021,
+			"venue": "Proceedings of the International Conference on Automated Planning and Scheduling (ICAPS 2021)",
+			"doi": "10.1609/icaps.v31i1.15999",
+			"arxiv": "2101.06177",
+			"url": null,
+			"role": "introduces"
+		}
+	],
+	"lineage": [
+		{
+			"slug": "hiw",
+			"name": null,
+			"relation": "combines",
+			"source": "width-search, src/hiw/policy.rs: \"hierarchical IW with count-based Rollout IW at the high level and π-IW at the low level.\""
+		},
+		{
+			"slug": "pi-iw",
+			"name": null,
+			"relation": "combines",
+			"source": "width-search, src/hiw/policy.rs: \"hierarchical IW with count-based Rollout IW at the high level and π-IW at the low level.\""
+		}
+	],
+	"trace": null
+}

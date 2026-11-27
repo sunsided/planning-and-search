@@ -1,0 +1,24 @@
+{
+	"description": "Hierarchical IW, HIW(`w_high`, `w_low`), plans on two levels: an IW(`w_high`) over a few high-level features, and below each high-level node its own IW(`w_low`) over the problem's features. A low-level search prunes states with the node's high-level features by low-level novelty, and hands up a state with other high-level features as a new high-level node if those features are novel at width `w_high`. Low-level searches pause at each new high-level node and resume round-robin, so a goal under an early high-level successor is found before the rest of its parent's search runs; the order is not breadth-first. If every high-level feature splits the state space into connected parts, like holding a key or not, HIW solves problems of width `w_high + w_low` while it expands at most `O(n_high^w_high · n_low^w_low)` states. Use it when you know a few such features and IW with a larger width would be too slow.",
+	"papers": [
+		{
+			"authors": "Miquel Junyent, Vicenç Gómez, Anders Jonsson",
+			"title": "Hierarchical Width-Based Planning and Learning",
+			"year": 2021,
+			"venue": "Proceedings of the International Conference on Automated Planning and Scheduling (ICAPS 2021)",
+			"doi": "10.1609/icaps.v31i1.15999",
+			"arxiv": "2101.06177",
+			"url": null,
+			"role": "introduces"
+		}
+	],
+	"lineage": [
+		{
+			"slug": "iw",
+			"name": null,
+			"relation": "generalizes",
+			"source": "width-search, src/hiw.rs: \"Without high-level features, HIW(`w_high`, `w_low`) is IW(`w_low`).\""
+		}
+	],
+	"trace": null
+}

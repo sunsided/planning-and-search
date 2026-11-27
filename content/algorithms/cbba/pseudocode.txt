@@ -1,32 +1,55 @@
 algorithm CBBA(i, V, L)
   input: agent i, its valuation V, capacity L, replanning mode (Keep, Last(k) or Full)
+  input: bundle budget a ≥ 1, tasks added per bundle phase (∞ for none)
+  input: a < L is accepted only with Keep, or Last(k) with k < a
+  input: bid warping w, refresh r ≥ 1 (1 as published, ∞ for none), settle span s ≥ 1
   output: a bundle for agent i; the team agrees on one winner per task
   B ← ⟨⟩                                       ▷ tasks in the order i added them, each with a path position
   for each task j do
-    winner[j], bid[j] ← nil, 0
-  seen[k] ← 0 for every agent k                ▷ logical clocks
+    winner[j], bid[j], retired[j] ← nil, 0, false
+  seen[k], departed[k] ← 0, false for every agent k  ▷ logical clocks
+  sent, silent ← nil, 0                        ▷ the tables of i's last message
   repeat
     build-bundle()
-    seen[i] ← seen[i] + 1
-    broadcast ⟨i, winner, bid, seen⟩           ▷ the whole state
+    if ⟨winner, bid⟩ ≠ sent or silent + 1 ≥ r then
+      seen[i] ← seen[i] + 1
+      broadcast ⟨i, winner, bid, seen⟩         ▷ the whole state
+      sent, silent ← ⟨winner, bid⟩, 0
+    else
+      silent ← silent + 1                      ▷ nothing changed since the last message
     for each message m that arrives do
       receive(m)
-  until the team settles
+  until the team settles                       ▷ locally: winners and bids unchanged for s bundle phases
 procedure build-bundle()
   release the tasks the replanning mode says, forgetting i's own bids on them
-  while |B| < L do
-    WIN ← {j ∉ B : g_j ← gain(V, B, j) > 0 and outbids(⟨i, g_j⟩, ⟨winner[j], bid[j]⟩)}
+  n ← min(L, |B| + a)                          ▷ the budget counts additions after the release
+  while |B| < n do
+    c ← the bid on the last task of B if w and B ≠ ⟨⟩, else ∞  ▷ warping: bids never grow along B
+    WIN ← {j ∉ B : not retired[j] and g_j ← gain(V, B, j) > 0 and outbids(⟨i, min(g_j, c)⟩, ⟨winner[j], bid[j]⟩)}
     if WIN = ∅ then
       break
-    j ← argmax over j ∈ WIN of g_j             ▷ marginal gain, an integer; ties to the first task
+    j ← argmax over j ∈ WIN of g_j             ▷ true marginal gain, an integer; ties to the first task
     add j to B, at its best position in the path
-    winner[j], bid[j] ← i, g_j
+    winner[j], bid[j] ← i, min(g_j, c)
 procedure receive(m)
-  if m.seen[m.sender] < seen[m.sender] then
+  if departed[m.sender] or m.seen[m.sender] < seen[m.sender] then
     return                                     ▷ stale: older than what i knows of the sender
-  for each task j do
+  for each task j that both i and m know do
     update, reset or leave ⟨winner[j], bid[j]⟩ by the conflict table, given m and seen
   seen[k] ← max(seen[k], m.seen[k]) for every agent k
+  release-lost()
+procedure change-team(e)                       ▷ every agent applies the same changes, in the same order
+  if e adds a task j then
+    winner[j], bid[j], retired[j] ← nil, 0, false
+  if e retires a task j then
+    retired[j] ← true                          ▷ done or cancelled
+  if e removes an agent k ≠ i then
+    departed[k] ← true                         ▷ k itself empties B, sets L ← 0 and falls silent
+  release-lost()
+procedure release-lost()
+  for each task j do
+    if retired[j] or (winner[j] ≠ nil and departed[winner[j]]) then
+      winner[j], bid[j] ← nil, 0               ▷ void, however the claim arrives
   if some task of B is no longer won by i then
     n ← position of the first such task in B
     for each task j after position n in B do
