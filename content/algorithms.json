@@ -279,6 +279,21 @@
 		]
 	},
 	{
+		"slug": "acbba",
+		"name": "Asynchronous CBBA",
+		"aliases": ["ACBBA"],
+		"kind": "allocation",
+		"refs": ["Johnson et al. 2010", "Johnson et al. 2011", "Johnson 2012"],
+		"implementations": [
+			{
+				"crate": "task-allocation",
+				"items": ["acbba::Agent", "Rules"],
+				"feature": null,
+				"summary": "Experimental: CBBA on each agent's own schedule, exchanging one task at a time with one of three published deconfliction tables (2011 by default) that also decides what to rebroadcast; does not settle reliably, so use CBBA for dependable results."
+			}
+		]
+	},
+	{
 		"slug": "backbone-and-marginals",
 		"name": "Backbone and solution marginals",
 		"aliases": ["Backbone", "Solution sampling"],
@@ -461,6 +476,21 @@
 				"items": ["bfws_r"],
 				"feature": null,
 				"summary": "BFWS(⟨w_{#g,#r}, #g⟩), where #r counts relaxed-plan facts reached, recomputed whenever the goal count drops."
+			}
+		]
+	},
+	{
+		"slug": "bw-tc",
+		"name": "Bid-warped task consensus",
+		"aliases": ["BW-TC"],
+		"kind": "allocation",
+		"refs": ["Johnson, Choi, Ponda and How 2017"],
+		"implementations": [
+			{
+				"crate": "task-allocation",
+				"items": ["bwtc::Agent", "Packet"],
+				"feature": null,
+				"summary": "Experimental: the task consensus of bid-warped CBBA, exchanging only changed bids and announcing every withdrawn one, on networks that deliver every message; it does not warp bids itself, so gains must diminish, and warping is a CBBA option."
 			}
 		]
 	},
@@ -780,13 +810,19 @@
 		"name": "Consensus-based bundle algorithm",
 		"aliases": ["CBBA"],
 		"kind": "allocation",
-		"refs": ["Choi, Brunet and How 2009", "Johnson et al. 2011", "Buckman, Choi and How 2019"],
+		"refs": [
+			"Choi, Brunet and How 2009",
+			"Johnson et al. 2011",
+			"Buckman, Choi and How 2019",
+			"Johnson, Choi, Ponda and How 2017",
+			"Sao, Ho, Bhore and Sujit 2025"
+		],
 		"implementations": [
 			{
 				"crate": "task-allocation",
 				"items": ["cbba::Agent"],
 				"feature": null,
-				"summary": "Each agent builds a bundle greedily from marginal gains and merges its neighbours' winner tables by the published conflict rules, over delayed, lossy and changing links; bundle replanning frees blocked slots."
+				"summary": "Each agent builds a bundle greedily from marginal gains and merges its neighbours' winner tables by the published conflict rules, over delayed, lossy and changing links; bundle replanning frees blocked slots, and a running team can add and retire tasks and lose agents, with an optional per-phase budget, bid warping, broadcasts only after changes, and local settle detection."
 			}
 		]
 	},
@@ -1805,6 +1841,21 @@
 		]
 	},
 	{
+		"slug": "hiw",
+		"name": "Hierarchical IW",
+		"aliases": ["HIW", "HIW(w_high, w_low)"],
+		"kind": "search",
+		"refs": ["Junyent, Gómez and Jonsson 2021"],
+		"implementations": [
+			{
+				"crate": "width-search",
+				"items": ["hiw"],
+				"feature": null,
+				"summary": "Width-based search over high-level states whose successors are found by low-level IW searches, resumed lazily."
+			}
+		]
+	},
+	{
 		"slug": "hygleam",
 		"name": "HyGLEAM",
 		"aliases": ["Hybrid GLEAM"],
@@ -1938,6 +1989,21 @@
 				"items": ["incident_arcs"],
 				"feature": null,
 				"summary": "Strict-star factoring strategy by incident causal-graph arcs."
+			}
+		]
+	},
+	{
+		"slug": "ihiw",
+		"name": "Incremental hierarchical IW",
+		"aliases": ["IHIW"],
+		"kind": "search",
+		"refs": ["Junyent, Gómez and Jonsson 2021"],
+		"implementations": [
+			{
+				"crate": "width-search",
+				"items": ["ihiw"],
+				"feature": null,
+				"summary": "Hierarchical IW that discovers its own high-level features during the search."
 			}
 		]
 	},
@@ -3824,6 +3890,36 @@
 		]
 	},
 	{
+		"slug": "siw-plus",
+		"name": "SIW+",
+		"aliases": ["Serialized IW+"],
+		"kind": "search",
+		"refs": ["Lipovetzky and Geffner 2014"],
+		"implementations": [
+			{
+				"crate": "width-search",
+				"items": ["siw_plus"],
+				"feature": null,
+				"summary": "Serialized IW whose novelty is partitioned by the number of goal atoms reached, counting only facts not already true at the run's root."
+			}
+		]
+	},
+	{
+		"slug": "siw-r",
+		"name": "SIW-R",
+		"aliases": ["Serialized IW with sketches", "SIW_R"],
+		"kind": "search",
+		"refs": ["Bonet and Geffner 2021", "Drexler, Seipp and Geffner 2021"],
+		"implementations": [
+			{
+				"crate": "width-search",
+				"items": ["siw_r", "Rule"],
+				"feature": null,
+				"summary": "Serialized IW whose subgoals come from sketch rules over state features instead of from the goal atoms."
+			}
+		]
+	},
+	{
 		"slug": "sleeve-routing",
 		"name": "Sleeve routing",
 		"aliases": [],
@@ -4272,6 +4368,36 @@
 				"items": ["x_shape"],
 				"feature": null,
 				"summary": "Factors the task into an X-shape with both fork and inverted-fork leaves."
+			}
+		]
+	},
+	{
+		"slug": "pi-hiw",
+		"name": "π-HIW",
+		"aliases": ["Policy-guided hierarchical IW", "pi-HIW"],
+		"kind": "search",
+		"refs": ["Junyent, Gómez and Jonsson 2021"],
+		"implementations": [
+			{
+				"crate": "width-search",
+				"items": ["pi_hiw"],
+				"feature": null,
+				"summary": "Rollout IW over high-level states with count-based exploration."
+			}
+		]
+	},
+	{
+		"slug": "pi-iw",
+		"name": "π-IW",
+		"aliases": ["Policy-guided Rollout IW", "pi-IW"],
+		"kind": "search",
+		"refs": ["Junyent, Jonsson and Gómez 2019"],
+		"implementations": [
+			{
+				"crate": "width-search",
+				"items": ["pi_iw"],
+				"feature": null,
+				"summary": "Rollout IW that picks actions by a policy instead of uniformly, as used with a learned policy."
 			}
 		]
 	}

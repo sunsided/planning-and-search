@@ -1,0 +1,43 @@
+algorithm π-IW(s₀, π)
+  input: initial state s₀, policy π that weighs each successor of a state with a finite w ≥ 0
+  output: a plan to a goal state, or failure
+  if goal(s₀) then
+    return empty plan
+  d[f] ← ∞ for each feature f, and 0 for each f ∈ features(s₀)
+  depth[s₀] ← 0
+  while not solved(s₀) do
+    n ← s₀
+    while true do                    ▷ one rollout
+      if children[n] = nil then
+        children[n] ← successors(n), each at depth[n] + 1
+        weight[c] ← π(n, c) for each child c of n
+        if some child c of n is a goal then
+          return plan-to(c)
+      if every child of n is solved then
+        solve(n)
+        break
+      n ← pick-child(n)
+      if not novel(n) then
+        solve(n)
+        break
+  return failure
+function pick-child(n)
+  U ← {c ∈ children[n] : c is not solved}       ▷ not empty here
+  P ← {c ∈ U : weight[c] > 0}
+  if P = ∅ then
+    return a uniformly random element of U
+  t ← ∑ weight[c] over c ∈ P                   ▷ t > 0, since P ≠ ∅
+  return c ∈ P drawn with probability weight[c] / t
+function novel(n)
+  if visited[n] then                 ▷ keep it only if no shallower node took its features
+    return ∃ f ∈ features(n) with d[f] = depth[n]
+  visited[n] ← true
+  F ← {f ∈ features(n) : depth[n] < d[f]}
+  for each f in F do
+    d[f] ← depth[n]
+  return F ≠ ∅
+procedure solve(n)
+  label n solved
+  while n has a parent p and every child of p is solved do
+    label p solved
+    n ← p

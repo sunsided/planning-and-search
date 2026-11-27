@@ -1,0 +1,50 @@
+algorithm π-HIW(s₀, φ, π, τ)
+  input: initial state s₀, high-level features φ(s), policy π, temperature τ > 0
+  output: a plan to a goal state, or failure
+  if goal(s₀) then
+    return empty plan
+  d[f] ← ∞ and owner[f] ← nil for each high-level feature f
+  count[h] ← 0 for each set h of high-level features
+  r ← new-node(s₀, 0)
+  T[r] ← φ(s₀)                       ▷ the features a node still reaches first
+  for each f in φ(s₀) do
+    d[f] ← 0
+    owner[f] ← r
+  OPEN ← {r}
+  while OPEN ≠ ∅ do
+    e[o] ← 1 / (τ · (count[φ(o)] + 1)) for each o ∈ OPEN   ▷ τ > 0, so e[o] is finite
+    e-max ← the largest e[o] over o ∈ OPEN
+    n ← a node o of OPEN drawn with probability proportional to exp(e[o] − e-max)   ▷ no overflow for small τ
+    while true do                    ▷ one high-level rollout
+      count[φ(n)] ← count[φ(n)] + 1
+      x ← next-boundary(tree[n])     ▷ π-IW rollouts until a goal or a boundary state
+      if x = nil then
+        OPEN ← OPEN ∖ {n}            ▷ tree[n] is exhausted
+        break
+      if goal(x) then
+        return plan-to(x)
+      N ← {f ∈ φ(x) : depth[n] + 1 < d[f]}
+      if N = ∅ then
+        break                        ▷ x is pruned
+      m ← new-node(x, depth[n] + 1)
+      parent[m] ← n
+      T[m] ← N
+      OPEN ← OPEN ∪ {m}
+      for each f in N do
+        o ← owner[f]
+        d[f] ← depth[m]
+        owner[f] ← m
+        if o ≠ nil then
+          T[o] ← T[o] ∖ {f}
+          if T[o] = ∅ and o ≠ r then
+            OPEN ← OPEN ∖ ({o} ∪ descendants(o))
+      n ← m
+  return failure
+function new-node(x, k)
+  input: a state x and its high-level depth k
+  output: a high-level node with an empty π-IW tree rooted at x
+  m ← a new high-level node for x, with φ(m) ← φ(x)
+  depth[m] ← k
+  T[m] ← ∅
+  tree[m] ← π-IW tree from x guided by π that stops at every state s with φ(s) ≠ φ(x)
+  return m

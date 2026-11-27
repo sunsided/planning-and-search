@@ -1,0 +1,34 @@
+{
+	"description": "SIW-R is serialized IW whose subgoals come from a *policy sketch* instead of the goal count. A sketch is a set of rules `C ↦ E` over Boolean and numerical state features: from a state that meets the conditions `C`, any other state whose features changed as the effects `E` allow is a subgoal, and every feature that no effect names must keep its value. From the current state, IW(1), IW(2), … up to `max_k` run until they reach a goal or such a subgoal; the single rule `{#g > 0} ↦ {#g↓}` gives SIW. SIW-R gives up when no subgoal is within width `max_k`, and when it reaches a subgoal state it passed before, since the sketch then cycles. Use it when you can write down how a domain splits into steps of low width, such as \"pick up a key, then open the door\".",
+	"papers": [
+		{
+			"authors": "Blai Bonet, Hector Geffner",
+			"title": "General Policies, Representations, and Planning Width",
+			"year": 2021,
+			"venue": "Proceedings of the AAAI Conference on Artificial Intelligence",
+			"doi": "10.1609/aaai.v35i13.17398",
+			"arxiv": null,
+			"url": null,
+			"role": "introduces"
+		},
+		{
+			"authors": "Dominik Drexler, Jendrik Seipp, Hector Geffner",
+			"title": "Expressing and Exploiting the Common Subgoal Structure of Classical Planning Domains Using Sketches",
+			"year": 2021,
+			"venue": "KR 2021",
+			"doi": "10.24963/kr.2021/25",
+			"arxiv": null,
+			"url": null,
+			"role": "analyses"
+		}
+	],
+	"lineage": [
+		{
+			"slug": "siw",
+			"name": null,
+			"relation": "generalizes",
+			"source": "width-search, src/sketch.rs: \"With one numerical feature `#g` (unsatisfied goals) and the single rule `{#g > 0} ↦ {#g↓}`, this is [`siw`](fn@crate::siw).\""
+		}
+	],
+	"trace": null
+}
