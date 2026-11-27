@@ -1,16 +1,21 @@
-<!-- planning-qubo 0.1.0's README section says export "is planned" and QAOA "is planned in quantum-planning"; this is the section without those two sentences. Remove once a release drops them. -->
+<!-- planning-qubo 0.2.1's README section ends with "QAOA … is planned in quantum-planning"; this is the section without that sentence. Remove once a release drops it. -->
 
-- **People with access to a quantum annealer or a QAOA setup** who need planning,
-  scheduling or assignment problems as QUBO or Ising models. The penalty builder turns
-  named variables and constraints (exactly-one, at-most-one, linear with slack bits) into
-  a model, and the decoders map a sample back to a plan and name each violated
-  constraint. The assignment problem has a ready encoder; other problems are built from
-  the same constraints.
-- **Researchers comparing samplers on the same model**: the exhaustive sampler gives the
-  exact optimum of small models, and simulated annealing, with a seeded RNG and a
-  configurable schedule, shows how close a heuristic gets. Both stop on a work budget and
-  resume later, so runs can be time-sliced and measured by the work they did.
-- **Exact experiments and teaching**: `i64` models keep every penalty and every
+- **Anyone who wants a planning problem as a QUBO or Ising model.** Encoders turn
+  assignment, constraint satisfaction, time-indexed scheduling, multi-agent path finding
+  and routing problems into models, and decoders map a sample back to a plan and name
+  each violated constraint. The penalty builder covers other problems with the same
+  constraints (exactly-one, at-most-one, linear with slack bits), and `penalty` picks the
+  weights. The models feed any QUBO solver: the samplers here, quantum-inspired
+  hardware, or a quantum annealer.
+- **Researchers comparing samplers on the same model.** The exhaustive sampler gives the
+  exact optimum of small models. Simulated annealing, tabu search and parallel tempering,
+  each with a seeded RNG, show how close a heuristic gets. All of them stop on a work
+  budget and resume later, so runs can be time-sliced and measured by the work they did.
+  `sample_parallel` runs several at once.
+- **People with access to a D-Wave annealer.** The `dwave` module writes models in the
+  Solver API's format and reads the returned samples back for the decoders. Submitting
+  them over the network is left to a separate adapter.
+- **Exact experiments and teaching.** `i64` models keep every penalty and every
   QUBO-to-Ising conversion exact, so results can be checked against brute force.
 
 It is not for solving these problems fast on a classical machine. A direct solver beats a
