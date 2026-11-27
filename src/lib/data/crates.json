@@ -295,7 +295,7 @@
 	},
 	{
 		"name": "heuristic-search",
-		"version": "0.3.0",
+		"version": "0.4.0",
 		"repo": "sunsided/heuristic-search",
 		"description": "Explicit-state heuristic graph search: A*, weighted and anytime, bounded-suboptimal, bidirectional, incremental and real-time search",
 		"license": "MIT OR Apache-2.0",

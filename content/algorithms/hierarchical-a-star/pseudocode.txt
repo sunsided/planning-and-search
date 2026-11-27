@@ -1,7 +1,7 @@
 algorithm Hierarchical-A*(G, H, STARTS, t, d, budget)
   input: graph G, hierarchy H built from G, start states STARTS, goal state t
   input: admissible pairwise estimate d(a, b), used as the heuristic of every search
-  input: budget for connecting and the abstract search
+  input: budget for the whole query, refinement included
   output: a cheapest path over the abstract graph, or failure, or limit reached
   if t ∈ STARTS then
     return the zero-cost path ⟨t⟩
@@ -21,7 +21,10 @@ algorithm Hierarchical-A*(G, H, STARTS, t, d, budget)
   path ← ⟨⟩
   for each abstract edge (a, b) on P do           ▷ in order; across threads in the parallel variant
     if region(a) = region(b) then
-      append(path, A*(G restricted to region(a), a, b, h(n) = d(n, b)))    ▷ not budgeted
+      r ← A*(G restricted to region(a), a, b, h(n) = d(n, b)) within budget
+      if r is limit reached then
+        return limit reached                      ▷ the partial path is dropped
+      append(path, r)
     else
       append(path, the cheapest edge of G from a to b)
   return path                                     ▷ its cost is the sum of the segments

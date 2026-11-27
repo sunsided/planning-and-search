@@ -1923,7 +1923,7 @@
 				"crate": "heuristic-search",
 				"items": ["hierarchical_a_star_par", "hierarchical_a_star_par_multi"],
 				"feature": "parallel",
-				"summary": "The same query with the refinements split across scoped threads when their estimated work pays for it; same result as the sequential query."
+				"summary": "The same query with the refinements split across scoped threads when their estimated work pays for it, sharing the budget; same result as the sequential query unless the budget runs out."
 			}
 		]
 	},
