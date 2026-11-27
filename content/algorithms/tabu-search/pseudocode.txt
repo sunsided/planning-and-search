@@ -6,7 +6,7 @@ algorithm Tabu-Search(Q, M, tenure, budget)
   E ← energy(Q, x)
   for i in 0, …, n − 1 do
     Δ[i] ← flip-delta(Q, x, i)
-  free[i] ← 0 for every i                          ▷ the first move at which i is not tabu
+    free[i] ← 0                                    ▷ the first move at which i is not tabu
   best, E-best ← x, E
   t̄ ← min(tenure, n − 1)                          ▷ leaves some variable allowed
   for m in 0, …, M − 1 do
