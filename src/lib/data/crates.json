@@ -715,7 +715,7 @@
 	},
 	{
 		"name": "planning-qubo",
-		"version": "0.1.0",
+		"version": "0.2.0",
 		"repo": "sunsided/planning-qubo",
 		"description": "Planning, scheduling and constraint problems as QUBO and Ising models: encoders, decoders, penalty tuning, classical samplers and export for quantum annealers and QAOA",
 		"license": "MIT OR Apache-2.0",
@@ -1105,7 +1105,7 @@
 	},
 	{
 		"name": "task-allocation",
-		"version": "0.1.2",
+		"version": "0.2.0",
 		"repo": "sunsided/task-allocation",
 		"description": "Decentralized multi-agent task allocation: consensus-based bundle algorithm (CBBA) and auctions that converge to conflict-free assignments over delayed, intermittent communication",
 		"license": "MIT OR Apache-2.0",
@@ -1142,6 +1142,8 @@
 			}
 		],
 		"algorithms": [
+			"acbba",
+			"bw-tc",
 			"cbba",
 			"ccbba",
 			"combinatorial-auction",
@@ -1188,9 +1190,9 @@
 	},
 	{
 		"name": "width-search",
-		"version": "0.3.1",
+		"version": "0.4.0",
 		"repo": "sunsided/width-search",
-		"description": "Width-based search without heuristics: novelty tables, Iterated Width (IW), Serialized IW, BFWS and Rollout IW for planning and games",
+		"description": "Width-based search without heuristics: novelty tables, Iterated Width (IW), hierarchical IW, IHIW, π-HIW, Serialized IW, SIW+, SIW-R with sketches, BFWS, Rollout IW and π-IW for planning and games",
 		"license": "MIT OR Apache-2.0",
 		"msrv": "1.86",
 		"keywords": ["planning", "width-based-search", "novelty", "iterated-width", "bfws"],
@@ -1212,7 +1214,21 @@
 				]
 			}
 		],
-		"algorithms": ["bfws", "bfws-f5", "h-add", "iw", "novelty-pruning", "rollout-iw", "siw"],
+		"algorithms": [
+			"bfws",
+			"bfws-f5",
+			"h-add",
+			"hiw",
+			"ihiw",
+			"iw",
+			"novelty-pruning",
+			"pi-hiw",
+			"pi-iw",
+			"rollout-iw",
+			"siw",
+			"siw-plus",
+			"siw-r"
+		],
 		"about": "who"
 	}
 ]
