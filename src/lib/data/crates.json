@@ -516,7 +516,7 @@
 	},
 	{
 		"name": "multiobjective-search",
-		"version": "0.1.1",
+		"version": "0.1.2",
 		"repo": "sunsided/multiobjective-search",
 		"description": "Multi-objective shortest paths over Pareto frontiers: BOA*, BOBA*, EMOA*, NAMOA*dr, A*pex and their approximate, anytime and parallel variants",
 		"license": "MIT OR Apache-2.0",

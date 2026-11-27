@@ -1247,7 +1247,7 @@
 				"crate": "multiobjective-search",
 				"items": ["DynamicSearch"],
 				"feature": null,
-				"summary": "Incremental repair of labels after edge additions, cost changes and removals."
+				"summary": "Incremental repair of labels after edge additions, cost changes and removals, guided by an admissible heuristic with goal-front pruning."
 			}
 		]
 	},

@@ -1,27 +1,53 @@
 algorithm Dynamic-search-repair(e)
   input: a changed edge e = (u, v): added, re-costed or removed
   input: live labels L[s] per state, the Pareto set of path costs from the start
-  output: L equal again to the Pareto sets of a new search
-  ▷ the first search is the label-correcting loop below, started from the start label
+  input: admissible heuristic h on every graph the search sees; h(s) = nil proves s a dead end
+  input: DEFERRED, the labels pruned so far
+  output: L equal again to the Pareto sets of a new search, as far as the goal front needs
+  ▷ the first search is propagate, started from the start label
   AFFECTED ← {v}
+  lost-goal ← false
   for each label l whose last edge is e do
-    for each label m in the subtree of l do    ▷ the labels built on e
+    for each live label m in the subtree of l do    ▷ the labels built on e
       kill(m)
       AFFECTED ← AFFECTED ∪ {state(m)}
-  QUEUE ← []
+      if goal(state(m)) then
+        lost-goal ← true
+  OPEN ← ∅                                     ▷ ordered by f, lexicographically, then by age
   for each s in AFFECTED do                    ▷ re-seed from the predecessors
     for each edge (p, s, c) into s with not goal(p) do
-      for each l in L[p] do
-        QUEUE ← QUEUE ∪ insert(s, cost(l) + c, l)
-  while QUEUE ≠ [] do                          ▷ label correcting from there
-    l ← pop-front(QUEUE)
-    if alive(l) and not goal(state(l)) then
-      for each (s′, c) in successors(state(l)) do
-        QUEUE ← QUEUE ∪ insert(s′, cost(l) + c, l)
+      for each expanded l in L[p] do
+        enqueue(insert(s, cost(l) + c, l))
+  if lost-goal then                            ▷ the front got worse: pruned labels may count again
+    for each live l in DEFERRED do
+      enqueue(l)
+    DEFERRED ← ∅
+  propagate()
+procedure propagate()
+  while OPEN ≠ ∅ do
+    l ← extract-min(OPEN)
+    if alive(l) and not expanded(l) and not goal(state(l)) then
+      if the cost of some live goal label weakly dominates f(l) then
+        DEFERRED ← DEFERRED ∪ {l}              ▷ pruned: kept in L, not expanded
+      else
+        expanded(l) ← true
+        for each (s′, c) in successors(state(l)) do
+          enqueue(insert(s′, cost(l) + c, l))
+procedure enqueue(l)
+  if l = nil then
+    skip
+  else if f(l) = nil then
+    DEFERRED ← DEFERRED ∪ {l}                  ▷ a dead end
+  else
+    insert(OPEN, l)
 function insert(s, g, parent)
   if the cost of some l in L[s] weakly dominates g then
-    return []                                  ▷ no new label
-  remove from L[s] the labels whose cost g weakly dominates
-  l ← new label ⟨s, g, parent⟩
+    return nil                                 ▷ no new label
+  remove from L[s] the labels whose cost g weakly dominates    ▷ what they built stays
+  if h(s) = nil then
+    f ← nil
+  else
+    f ← g + h(s)                               ▷ estimated once, kept for the label's lifetime
+  l ← new label ⟨s, g, f, parent⟩
   L[s] ← L[s] ∪ {l}
-  return [l]
+  return l
