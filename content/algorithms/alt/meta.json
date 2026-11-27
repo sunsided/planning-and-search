@@ -1,0 +1,27 @@
+{
+	"description": "ALT (A*, landmarks, triangle inequality) gives A* and the other heuristic searches lower bounds for many queries on one graph. It picks a few *landmark* states and computes, once, the exact distance from each landmark to every state and from every state to it, by one forward and one backward exhaustive Dijkstra per landmark. For a landmark `l`, the triangle inequality bounds the distance from `v` to `t` by `d(l, t) − d(l, v)` and by `d(v, l) − d(t, l)`; the heuristic is the largest of these over all landmarks, and it is admissible and consistent on directed graphs. A landmark that misses a distance gives no bound for that pair, except that when it reaches `v` but not `t`, or `t` reaches it but `v` does not, `v` cannot reach `t` and the estimate proves a dead end. Landmarks are picked farthest-first by round-trip distance, or by avoidance, which descends the start's shortest-path tree into the subtree whose bounds are weakest. Restricting a heuristic to the few landmarks that bound one query best makes each estimate cheaper without losing consistency.",
+	"papers": [
+		{
+			"authors": "A. V. Goldberg, C. Harrelson",
+			"title": "Computing the shortest path: A* search meets graph theory",
+			"year": 2005,
+			"venue": "ACM-SIAM Symposium on Discrete Algorithms (SODA 2005)",
+			"doi": null,
+			"arxiv": null,
+			"url": null,
+			"role": "introduces"
+		},
+		{
+			"authors": "A. V. Goldberg, R. F. Werneck",
+			"title": "Computing point-to-point shortest paths from external memory",
+			"year": 2005,
+			"venue": "Workshop on Algorithm Engineering and Experiments (ALENEX 2005)",
+			"doi": null,
+			"arxiv": null,
+			"url": null,
+			"role": "extends"
+		}
+	],
+	"lineage": [],
+	"trace": null
+}

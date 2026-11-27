@@ -1,0 +1,47 @@
+algorithm HDA*(G, STARTS, goal, h, t, budget)
+  input: graph G, start states STARTS, goal test, heuristic h, t ≥ 1 threads (0 counts as 1)
+  input: budget, shared by the threads
+  output: a cheapest path to a goal, or failure, or limit reached
+  if some s ∈ STARTS is a goal then
+    return the zero-cost path ⟨s⟩                  ▷ no thread is started
+  if STARTS = ∅ then
+    return failure
+  owner(s) ← hash(s) mod t                         ▷ every state has one owner thread
+  for each s ∈ STARTS do
+    record(owner(s), s, 0, nil)
+  U ← ∞                                            ▷ the incumbent's cost
+  work ← t                                         ▷ busy threads plus messages in flight
+  in parallel do
+    for each thread k in 0, …, t − 1 do
+      while not stopped do
+        record every message waiting for k, then work ← work − their number
+        n ← the open node of k with least f = g + h, if its f < U
+        if there is no such n then
+          work ← work − 1                          ▷ k goes idle
+          if work = 0 then
+            stop every thread                      ▷ idle everywhere, nothing in flight
+          else
+            wait for a message and record it       ▷ counting k back in cancels the message
+        else if goal(n) then
+          if g(n) < U then
+            U, incumbent ← g(n), n                ▷ a popped goal is not expanded
+        else if k has made a multiple of 64 expansions and exhausted(budget) then
+          limit reached, stop every thread
+        else
+          close n
+          work ← work + |succ(n)|                  ▷ counted before any is sent
+          for each (n′, c) in succ(n) do
+            send ⟨n′, g(n) + c, n⟩ to owner(n′)    ▷ kept at once if k owns n′
+          work ← work − the successors k kept
+  if limit reached then
+    return limit reached
+  if U = ∞ then
+    return failure
+  return the path to incumbent, read along parent links across every thread's table
+procedure record(k, s, g, parent)
+  if s is new to thread k then
+    add s with g, parent and h(s) to the table of k
+    open s unless h(s) proves it a dead end
+  else if g < g(s) then
+    g(s) ← g, parent(s) ← parent
+    reopen s unless h(s) proves it a dead end      ▷ also when s is closed

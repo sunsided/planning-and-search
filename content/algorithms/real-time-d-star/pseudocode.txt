@@ -1,0 +1,19 @@
+algorithm Real-Time-D*-Step(s, goal, E, ρ)
+  input: the agent at s, a fixed goal, E ≥ 1 expansions for this move, a local share ρ ≤ 1
+  input: D* Lite's state from the goal and the learned table h, both kept across steps
+  output: the vertex the agent moves to, or s when it arrives or waits
+  if s = goal then
+    return s                                        ▷ arrived
+  L ← max(1, ⌊ρ · E⌋)                               ▷ the local share
+  reached ← repair(D* Lite, E − L)                  ▷ at most E − L expansions; resumes where it stopped
+  if reached then
+    s′ ← the first successor of least c(s, s′) + g(s′) among those with g(s′) < ∞   ▷ fully informed
+  else
+    if an edge changed since the last lookahead then
+      forget the dead ends learned in h
+    LSS-LRTA* lookahead of L expansions from s, with h in front of heuristic(·, goal), and its update of h
+    s′ ← the vertex after s on the A* path to the frontier state LSS-LRTA* chose   ▷ partially informed
+  if there is no s′ then
+    return s                                        ▷ waiting: no goal reachable now; edges may change
+  km ← km + heuristic(s, s′)                        ▷ D* Lite's key offset absorbs the move
+  return s′

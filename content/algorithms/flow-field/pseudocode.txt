@@ -1,0 +1,21 @@
+algorithm Flow-Field(G, goals, budget)
+  input: graph G that lists the predecessors of a state, a set of goal states
+  input: budget of expansions
+  output: each settled state’s cost to the nearest goal and next step, and whether the field is complete
+  cost ← ∞ at every state
+  OPEN ← ∅                                          ▷ ordered by cost
+  for each g in goals do
+    cost[g] ← 0                                     ▷ repeated goals count once
+    insert(OPEN, g)
+  CLOSED ← ∅
+  while OPEN ≠ ∅ do
+    if exhausted(budget) then
+      return cost, next on CLOSED, incomplete       ▷ settled values are final
+    v ← extract-min(OPEN)
+    CLOSED ← CLOSED ∪ {v}
+    for each (u, a, c) in predecessors(G, v) do     ▷ the forward edge u → v, action a, cost c
+      if cost[v] + c < cost[u] then
+        cost[u] ← cost[v] + c
+        next[u] ← ⟨a, v, c⟩                         ▷ a goal keeps no next step
+        insert-or-update(OPEN, u)
+  return cost, next on CLOSED, complete             ▷ an unsettled state reaches no goal

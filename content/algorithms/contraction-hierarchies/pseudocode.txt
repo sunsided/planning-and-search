@@ -1,0 +1,63 @@
+algorithm CH-Build(G, hops, settled)
+  input: the states reachable from the seeds, with their edges; witness limits hops and settled
+  output: a rank for every state, and the upward edges with shortcuts
+  drop self loops, and of parallel edges keep the cheapest, the first on a tie
+  Q ← every state v, keyed by importance(v), then by index
+  r ← 0
+  while Q ≠ ∅ do
+    v ← extract-min(Q)
+    p ← importance(v)                          ▷ recomputed: lazy updates
+    if Q ≠ ∅ and p > min-key(Q) then
+      insert(Q, v, p)
+    else
+      rank[v] ← r
+      r ← r + 1
+      S ← shortcuts(v)
+      move the edges of v to its upward edges, and remove v from the graph
+      for each edge between v and a state x do
+        contracted[x] ← contracted[x] + 1
+        depth[x] ← max(depth[x], depth[v] + 1)
+      for each (u → w, c) in S do
+        add edge u → w with cost c, unless one at most as cheap exists; a dearer one is replaced
+function importance(v)
+  return |shortcuts(v)| − |edges of v| + contracted[v] + depth[v]
+function shortcuts(v)
+  S ← ⟨⟩
+  for each edge u → v of cost a do
+    limit ← the largest a + b over the edges v → w of cost b with w ≠ u
+    d ← witness(u, v, limit)
+    for each edge v → w of cost b with w ≠ u do
+      if d[w] > a + b then                   ▷ d[w] = ∞ when the witness never reached w
+        append(S, (u → w, a + b))
+  return S
+function witness(u, v, limit)                ▷ under the witness limits hops and settled
+  d[u] ← 0
+  n ← 0
+  while some state is open do
+    x ← extract-min(OPEN)
+    if d[x] > limit or n ≥ settled then
+      break
+    n ← n + 1
+    if x was reached over fewer than hops edges then
+      for each edge x → y of cost c with y ≠ v do
+        if d[x] + c < d[y] then
+          d[y] ← d[x] + c                      ▷ and y is open, one edge more than x
+  return d
+algorithm CH-Query(s, t)
+  input: start s and goal t
+  output: a cheapest path from s to t with every shortcut unpacked, or failure
+  if s = t then
+    return the path without edges
+  dF[s] ← 0
+  dB[t] ← 0
+  μ ← ∞
+  while some side has a state cheaper than μ do
+    if the forward minimum ≤ the backward minimum then  ▷ a side without one counts as ∞
+      settle the forward minimum x, relaxing the upward edges out of x
+    else
+      settle the backward minimum x, relaxing the upward edges into x
+    for each state y whose label improved do
+      μ ← min(μ, dF[y] + dB[y])                 ▷ when both sides have reached y
+  if μ = ∞ then
+    return failure
+  return the meeting's path, each shortcut replaced by its two edges, recursively

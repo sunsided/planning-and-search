@@ -1,0 +1,41 @@
+algorithm ALT-Build(s₀, k, selection)
+  input: a state s₀ to search from, at most k landmarks, farthest-first or avoidance
+  output: for each landmark l and each state v it connects to, d(l, v) and d(v, l)
+  L ← ⟨⟩
+  near[v] ← d(s₀, v) + d(v, s₀) for each state v found both ways from s₀, else ∞
+  while |L| < k do
+    if selection is avoidance then
+      l ← avoidance-pick(s₀, L)
+    if selection is farthest-first or l = nil then
+      l ← the non-landmark v of largest near[v]  ▷ the first found on a tie
+    if l = nil then
+      break                                    ▷ fewer states than k were found
+    run Dijkstra from l forwards and backwards, recording d(l, ·) and d(·, l)
+    near[v] ← min(near[v], d(l, v) + d(v, l)) for each v    ▷ only round trips to l on the first landmark
+    append(L, l)
+  return L with its distances
+function ALT-Bound(v, t, L)
+  b ← 0
+  for each l in L do
+    if d(l, v) and d(l, t) are known then
+      b ← max(b, d(l, t) − d(l, v))
+    else if d(l, v) is known then
+      return nil                               ▷ l reaches v but not t: no path from v to t
+    if d(v, l) and d(t, l) are known then
+      b ← max(b, d(v, l) − d(t, l))
+    else if d(t, l) is known then
+      return nil                               ▷ t reaches l but v does not
+  return b
+function avoidance-pick(s₀, L)
+  T ← the forward shortest-path tree of s₀
+  for each node u of T, children before parents do
+    if the subtree of u holds a landmark then
+      size[u] ← 0
+    else
+      size[u] ← d(s₀, u) − ALT-Bound(s₀, u, L) + Σ size of the children of u    ▷ the bound counts 0 when it is nil
+  u ← the node of largest size, the first found on a tie
+  if size[u] = 0 then
+    return nil                                 ▷ every bound in the tree is exact
+  while u has a child in T do
+    u ← its child of largest size, the one settled last on a tie
+  return u

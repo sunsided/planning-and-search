@@ -1,0 +1,33 @@
+algorithm MM(s₀, GOALS, hF, hB, budget)
+  input: start s₀, goal states GOALS, admissible heuristics hF (to a goal) and hB (from s₀)
+  input: budget of expansions
+  output: a cheapest path from s₀ to a goal, or failure
+  gF[s₀] ← 0
+  OPEN-F ← {s₀}                                ▷ ordered by prF = max(gF + hF, 2 gF), then larger gF
+  gB[t] ← 0 for each t in GOALS
+  OPEN-B ← GOALS                               ▷ ordered by prB = max(gB + hB, 2 gB), then larger gB
+  μ ← ∞
+  while OPEN-F ≠ ∅ and OPEN-B ≠ ∅ do
+    C ← min(min-pr(OPEN-F), min-pr(OPEN-B))
+    if μ ≤ max(C, min-f(OPEN-F), min-f(OPEN-B), min-g(OPEN-F) + min-g(OPEN-B)) then
+      break                                    ▷ ε, the smallest edge cost, taken as 0
+    if exhausted(budget) then
+      return failure                           ▷ undecided: the budget ran out
+    if min-pr(OPEN-F) ≤ min-pr(OPEN-B) then
+      expand(OPEN-F, successors, gF, gB, hF)
+    else
+      expand(OPEN-B, predecessors, gB, gF, hB)
+  if μ = ∞ then
+    return failure
+  return join(path from s₀ to m, path from m to a goal)
+procedure expand(OPEN, next, g, g-other, h)
+  s ← extract-min(OPEN)
+  for each (s′, c) in next(s) do
+    if g[s] + c < g[s′] then                   ▷ reopens closed states
+      g[s′] ← g[s] + c
+      parent[s′] ← s
+      if g[s′] + g-other[s′] < μ then
+        μ ← g[s′] + g-other[s′]
+        m ← s′
+      if h(s′) ≠ nil then                      ▷ a state without an estimate is a dead end
+        insert-or-update(OPEN, s′, max(g[s′] + h(s′), 2 g[s′]))

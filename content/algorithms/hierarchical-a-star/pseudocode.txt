@@ -1,0 +1,47 @@
+algorithm Hierarchical-A*(G, H, STARTS, t, d, budget)
+  input: graph G, hierarchy H built from G, start states STARTS, goal state t
+  input: admissible pairwise estimate d(a, b), used as the heuristic of every search
+  input: budget for connecting and the abstract search
+  output: a cheapest path over the abstract graph, or failure, or limit reached
+  if t ∈ STARTS then
+    return the zero-cost path ⟨t⟩
+  A ← the abstract graph of H, with every s ∈ STARTS and t added as nodes
+  for each s ∈ STARTS do
+    for each entrance e of region(s) do
+      connect(A, s, e)                            ▷ A* inside region(s)
+    if region(s) = region(t) then
+      connect(A, s, t)
+  for each entrance e of region(t) do
+    connect(A, e, t)
+  P ← A*(A, STARTS, t, h(n) = d(n, t)) within budget    ▷ every start at cost 0
+  if P is limit reached then
+    return limit reached
+  if P is failure then
+    return failure
+  path ← ⟨⟩
+  for each abstract edge (a, b) on P do           ▷ in order; across threads in the parallel variant
+    if region(a) = region(b) then
+      append(path, A*(G restricted to region(a), a, b, h(n) = d(n, b)))    ▷ not budgeted
+    else
+      append(path, the cheapest edge of G from a to b)
+  return path                                     ▷ its cost is the sum of the segments
+procedure connect(A, a, b)
+  r ← A*(G restricted to region(a), a, b, h(n) = d(n, b)) within budget
+  if r is limit reached then
+    stop the query with limit reached
+  if r is a path then
+    add edge (a, b) to A at the cost of r
+procedure build(G, R, STATES, d)
+  E ← ⟨⟩
+  for each s ∈ STATES do
+    for each (s′, c) in succ(s) do
+      if R(s′) ≠ R(s) then
+        append(E, s′)
+    if some s′ was appended then
+      append(E, s)                                ▷ every border state is an entrance
+  for each entrance e do
+    for each (e′, c) in succ(e) do
+      if R(e′) ≠ R(e) and e′ is an entrance then
+        add abstract edge (e, e′) at cost c
+    for each other entrance e′ of R(e) do
+      add abstract edge (e, e′) at the cost of A*(G restricted to R(e), e, e′), if it reaches e′

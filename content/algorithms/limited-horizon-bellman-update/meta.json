@@ -1,5 +1,5 @@
 {
-	"description": "The limited-horizon Bellman update (LHB) improves a learned heuristic table with a short search, not with a single step. A *single-step Bellman update* sets a state's value to the best edge cost plus the neighbour's value; LHB looks further. It runs A* from a state for at most a fixed number of expansions, which gives a search graph of the generated states and edges, whose *leaves* are the states without children. Every other state gets the minimum, over the leaves it can reach, of the cheapest path cost to the leaf plus the leaf's old value, and goal states get 0. The crate computes this with one backward run of Dijkstra's algorithm from the leaves, offline (`lhb_update`) or as the learning step of the LSS-LRTA* agent (`lhb_lrta_star`), and from an admissible table the values stay admissible.",
+	"description": "The limited-horizon Bellman update (LHB) improves a learned heuristic table with a short search, not with a single step. A *single-step Bellman update* sets a state's value to the best edge cost plus the neighbour's value; LHB looks further. It runs A* from a state for at most a fixed number of expansions, which gives a search graph of the generated states and edges, whose *leaves* are the states without children. Every other state gets the minimum, over the leaves it can reach, of the cheapest path cost to the leaf plus the leaf's old value, and goal states get 0. The crate computes this with one backward run of Dijkstra's algorithm from the leaves, offline (`lhb_update`) or as the learning step of a real-time agent that then moves towards the frontier and plans again. The agent can build the search graph with A* (`lhb_lrta_star`, LSS-LRTA*’s lookahead), with greedy best-first search (`lhb_gbfs`), which reaches deeper with the same number of expansions, or with batch weighted A* (`lhb_bwa_star`), which orders by `g + w·h` and takes a batch of the best open states at once before expanding them. A batch that contains a goal ends the search before any of it is expanded. The update does not depend on the search phase: from an admissible table the values stay admissible, and from a consistent one consistent. Only the moves differ: with GBFS or BWAS a trial that learns nothing need not follow a cheapest path.",
 	"papers": [
 		{
 			"authors": "Gal Hadar, Forest Agostinelli, Shahaf S. Shperberg",
@@ -18,6 +18,18 @@
 			"name": null,
 			"relation": "builds-on",
 			"source": "heuristic-search, src/real_time/lookahead.rs: lhb_lrta_star is \"One trial of LSS-LRTA*'s agent with the limited-horizon Bellman update\"; \"The lookahead and the moves are those of lss_lrta_star\""
+		},
+		{
+			"slug": "greedy-best-first-search",
+			"name": null,
+			"relation": "combines",
+			"source": "heuristic-search, src/real_time/lookahead.rs: lhb_gbfs is \"One trial of the limited-horizon Bellman update (LHB) of Hadar et al. 2025 with greedy best-first search (GBFS) as its search phase\""
+		},
+		{
+			"slug": null,
+			"name": "Batch weighted A* (BWAS)",
+			"relation": "combines",
+			"source": "heuristic-search, src/real_time/lookahead.rs: lhb_bwa_star is \"One trial of the limited-horizon Bellman update (LHB) of Hadar et al. 2025 with batch weighted A* (BWAS, Agostinelli et al. 2019) as its search phase\""
 		}
 	],
 	"trace": null

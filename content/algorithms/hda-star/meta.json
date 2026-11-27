@@ -1,0 +1,44 @@
+{
+	"description": "Hash-distributed A* (HDA*) runs one A* search on several threads without a shared open list or a shared table. Every state has an owner thread, chosen by a hash of the state; each thread keeps the open list and the table of the states it owns, expands its cheapest open state, and sends every successor to the successor's owner, which keeps it if the path is new or cheaper, reopening a closed state. Goals are tested when popped: a popped goal becomes the incumbent if it is cheaper, and no thread expands a state whose `f = g + h` is not below the incumbent's cost `U`. The search ends when every thread is idle and no message is in flight, which one shared counter of busy threads plus unrecorded messages detects. With an admissible heuristic, even an inconsistent one, the result costs the same as A*'s; which of several cheapest paths comes back depends on thread timing, as do the expansion counts. The budget is shared and asked every 64 expansions of each thread, so it can overrun by about 64 expansions per thread.",
+	"papers": [
+		{
+			"authors": "A. Kishimoto, A. Fukunaga, A. Botea",
+			"title": "Scalable, Parallel Best-First Search for Optimal Sequential Planning",
+			"year": 2009,
+			"venue": "Proceedings of the International Conference on Automated Planning and Scheduling",
+			"doi": "10.1609/icaps.v19i1.13350",
+			"arxiv": null,
+			"url": null,
+			"role": "introduces"
+		},
+		{
+			"authors": "A. Kishimoto, A. Fukunaga, A. Botea",
+			"title": "Evaluation of a simple, scalable, parallel best-first search strategy",
+			"year": 2013,
+			"venue": "Artificial Intelligence",
+			"doi": "10.1016/j.artint.2012.10.007",
+			"arxiv": null,
+			"url": null,
+			"role": "analyses"
+		},
+		{
+			"authors": "A. Fukunaga, A. Botea, Y. Jinnai, A. Kishimoto",
+			"title": "A Survey of Parallel A*",
+			"year": 2017,
+			"venue": null,
+			"doi": null,
+			"arxiv": "1708.05296",
+			"url": null,
+			"role": "surveys"
+		}
+	],
+	"lineage": [
+		{
+			"slug": "a-star",
+			"name": null,
+			"relation": "builds-on",
+			"source": "heuristic-search, src/hda.rs: \"Hash-distributed A* ([`hda_star`]): one A* search spread over several threads.\""
+		}
+	],
+	"trace": null
+}

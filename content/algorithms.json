@@ -234,6 +234,21 @@
 		]
 	},
 	{
+		"slug": "alt",
+		"name": "ALT",
+		"aliases": ["A*, landmarks, triangle inequality", "Landmark heuristic"],
+		"kind": "heuristic",
+		"refs": ["Goldberg and Harrelson 2005", "Goldberg and Werneck 2005"],
+		"implementations": [
+			{
+				"crate": "heuristic-search",
+				"items": ["Landmarks", "LandmarkHeuristic", "LandmarkSelection"],
+				"feature": null,
+				"summary": "Admissible, consistent lower bounds from precomputed distances to and from landmark states, picked farthest-first or by avoidance, for many queries on one graph."
+			}
+		]
+	},
+	{
 		"slug": "ana-star",
 		"name": "ANA*",
 		"aliases": ["Anytime Nonparametric A*"],
@@ -887,6 +902,21 @@
 		]
 	},
 	{
+		"slug": "contraction-hierarchies",
+		"name": "Contraction hierarchies",
+		"aliases": ["CH"],
+		"kind": "search",
+		"refs": ["Geisberger, Sanders, Schultes and Delling 2008"],
+		"implementations": [
+			{
+				"crate": "heuristic-search",
+				"items": ["ContractionHierarchy", "WitnessLimits"],
+				"feature": null,
+				"summary": "Contracts the states of a static graph least important first with bounded witness searches, then answers exact queries by upward bidirectional Dijkstra and shortcut unpacking."
+			}
+		]
+	},
+	{
 		"slug": "inference-rules",
 		"name": "Cost-ordered inference rules",
 		"aliases": ["Human-style solving", "Naked and hidden subsets", "Locked candidates"],
@@ -1355,6 +1385,21 @@
 				"items": ["FieldDStar"],
 				"feature": "float",
 				"summary": "D* Lite over the corners of a cost grid with per-cell costs, interpolated any-angle paths through cell edges, cell-change repair and a moving start."
+			}
+		]
+	},
+	{
+		"slug": "flow-field",
+		"name": "Flow field",
+		"aliases": ["Distance field", "Goal-set Dijkstra"],
+		"kind": "search",
+		"refs": ["Emerson 2013"],
+		"implementations": [
+			{
+				"crate": "heuristic-search",
+				"items": ["FlowField"],
+				"feature": null,
+				"summary": "One backward Dijkstra search from a goal set that settles the cheapest cost and the next step for every state, shared by every agent heading there."
 			}
 		]
 	},
@@ -1837,6 +1882,48 @@
 				"items": ["HSetAdd"],
 				"feature": null,
 				"summary": "Set-additive heuristic: like h_add, but each fact carries a set of operators."
+			}
+		]
+	},
+	{
+		"slug": "hda-star",
+		"name": "HDA*",
+		"aliases": ["Hash-distributed A*"],
+		"kind": "search",
+		"refs": ["Kishimoto, Fukunaga and Botea 2009"],
+		"implementations": [
+			{
+				"crate": "heuristic-search",
+				"items": ["hda_star", "hda_star_multi"],
+				"feature": "parallel",
+				"summary": "A* spread over scoped threads that own states by hash and exchange successors over channels; same cost as A*, shared budget checked every 64 expansions per thread."
+			}
+		]
+	},
+	{
+		"slug": "hierarchical-a-star",
+		"name": "Hierarchical A*",
+		"aliases": ["HPA*", "Hierarchical path-finding A*"],
+		"kind": "search",
+		"refs": ["Botea, Müller and Schaeffer 2004"],
+		"implementations": [
+			{
+				"crate": "heuristic-search",
+				"items": [
+					"hierarchical_a_star",
+					"hierarchical_a_star_multi",
+					"Hierarchy",
+					"GridClusters",
+					"Regions"
+				],
+				"feature": null,
+				"summary": "A* over a prebuilt region graph of entrances, each abstract edge refined by A* inside its region; optimal over user regions, complete but not optimal over HPA* grid clusters."
+			},
+			{
+				"crate": "heuristic-search",
+				"items": ["hierarchical_a_star_par", "hierarchical_a_star_par_multi"],
+				"feature": "parallel",
+				"summary": "The same query with the refinements split across scoped threads when their estimated work pays for it; same result as the sequential query."
 			}
 		]
 	},
@@ -2333,9 +2420,9 @@
 		"implementations": [
 			{
 				"crate": "heuristic-search",
-				"items": ["lhb_update", "lhb_lrta_star"],
+				"items": ["lhb_update", "lhb_lrta_star", "lhb_gbfs", "lhb_bwa_star"],
 				"feature": null,
-				"summary": "The limited-horizon Bellman update, offline or inside the LSS-LRTA* agent."
+				"summary": "The limited-horizon Bellman update, offline or inside a real-time agent whose search phase is A*, GBFS or batch weighted A*."
 			}
 		]
 	},
@@ -2621,6 +2708,21 @@
 				"items": ["minsum_maxmin", "minsum_maxmin_multi"],
 				"feature": null,
 				"summary": "Paths with one additive cost to minimize and one bottleneck capacity to maximize, also with several of each."
+			}
+		]
+	},
+	{
+		"slug": "mm",
+		"name": "MM",
+		"aliases": ["Meet in the middle", "MM0"],
+		"kind": "search",
+		"refs": ["Holte, Felner, Sharon and Sturtevant 2016"],
+		"implementations": [
+			{
+				"crate": "heuristic-search",
+				"items": ["mm", "mm_meet", "mm_multi"],
+				"feature": null,
+				"summary": "Bidirectional search ordered by max(f, 2g) on each side, so neither side expands past half the optimal cost; optimal with admissible heuristics."
 			}
 		]
 	},
@@ -3449,6 +3551,21 @@
 				"items": ["ReachSearch"],
 				"feature": null,
 				"summary": "A* over reachable-set nodes along motion primitives on a lattice of nominal states, keeping only edges proven safe and returning the first node whose whole set is proven inside the goal."
+			}
+		]
+	},
+	{
+		"slug": "real-time-d-star",
+		"name": "Real-time D*",
+		"aliases": ["RTD*"],
+		"kind": "search",
+		"refs": ["Bond, Widger, Ruml and Sun 2010"],
+		"implementations": [
+			{
+				"crate": "heuristic-search",
+				"items": ["RealTimeDStar"],
+				"feature": null,
+				"summary": "D* Lite from the goal and LSS-LRTA* around the agent under a fixed number of expansions per move, with edge changes reported between steps."
 			}
 		]
 	},

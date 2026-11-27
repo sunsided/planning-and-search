@@ -2,6 +2,7 @@ algorithm LHB-Update(s, h, k)
   input: sample state s, learned heuristic table h, expansion limit k
   output: the table h with new values around s
   G ← the search graph of A* from s with heuristic h   ▷ at most k expansions, stops at a goal
+  ▷ the agents lhb_gbfs and lhb_bwa_star build G with GBFS or batch weighted A* instead
   Q ← ∅                                        ▷ ordered by v
   for each n in G do
     if n has no children in G then

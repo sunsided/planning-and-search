@@ -1,0 +1,34 @@
+{
+	"description": "Contraction hierarchies preprocess a finite graph with static edge costs once, and then answer exact cheapest-path queries with a small bidirectional search. Preprocessing contracts the states one at a time, least important first: removing a state `v` adds a shortcut `u → w` for each pair of edges `u → v → w` unless a *witness search*, a Dijkstra that avoids `v`, finds another path at most as cheap. The importance of a state is the number of shortcuts it would add minus the edges it removes, plus its contracted neighbours and the depth of the hierarchy below it; it is recomputed when the state reaches the front of the queue, and the state goes back if it grew past the next one. The contraction order is the rank. A query runs Dijkstra forwards from the start and backwards from the goal, both along edges towards higher ranks only, stops once neither side has a state cheaper than the best meeting, and unpacks the shortcuts of that meeting into the graph's own edges. A witness search that hits its hop or settled-state limit gives up and the shortcut is added, so smaller limits build faster and keep queries exact. A changed edge cost needs a new hierarchy.",
+	"papers": [
+		{
+			"authors": "R. Geisberger, P. Sanders, D. Schultes, D. Delling",
+			"title": "Contraction Hierarchies: Faster and Simpler Hierarchical Routing in Road Networks",
+			"year": 2008,
+			"venue": "Experimental Algorithms (WEA 2008)",
+			"doi": "10.1007/978-3-540-68552-4_24",
+			"arxiv": null,
+			"url": null,
+			"role": "introduces"
+		},
+		{
+			"authors": "R. Geisberger, P. Sanders, D. Schultes, C. Vetter",
+			"title": "Exact Routing in Large Road Networks Using Contraction Hierarchies",
+			"year": 2012,
+			"venue": "Transportation Science",
+			"doi": "10.1287/trsc.1110.0401",
+			"arxiv": null,
+			"url": null,
+			"role": "extends"
+		}
+	],
+	"lineage": [
+		{
+			"slug": "bidirectional-dijkstra",
+			"name": null,
+			"relation": "builds-on",
+			"source": "heuristic-search, src/contraction/query.rs: \"Queries on a [`ContractionHierarchy`]: bidirectional Dijkstra over upward edges, and shortcut unpacking.\""
+		}
+	],
+	"trace": null
+}

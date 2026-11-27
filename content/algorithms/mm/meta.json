@@ -1,0 +1,27 @@
+{
+	"description": "MM searches from the start and from the goals at the same time, and finds a cheapest path with admissible heuristics. Each side orders its states by the priority `pr = max(f, 2g)` with `f = g + h`; the `2g` term keeps either side from expanding a state whose `g` exceeds half the optimal cost, so the frontiers are guaranteed to meet in the middle. The side whose smallest `pr` is smaller expands next, the forward side on a tie, and within a side a state with larger `g` goes first. With `C` the smaller of the two sides' smallest `pr`, the search stops once the cheapest meet `μ` is at most `max(C, f_min_F, f_min_B, g_min_F + g_min_B + ε)`; each term is a lower bound on the optimal cost. The smallest edge cost `ε` is taken as zero, which is correct for every cost type but can expand more states than a positive one would. With a zero heuristic on both sides it is MM0, a blind bidirectional search with the same guarantee.",
+	"papers": [
+		{
+			"authors": "R. C. Holte, A. Felner, G. Sharon, N. R. Sturtevant",
+			"title": "Bidirectional Search That Is Guaranteed to Meet in the Middle",
+			"year": 2016,
+			"venue": "AAAI Conference on Artificial Intelligence",
+			"doi": "10.1609/aaai.v30i1.10436",
+			"arxiv": null,
+			"url": null,
+			"role": "introduces"
+		},
+		{
+			"authors": "R. C. Holte, A. Felner, G. Sharon, N. R. Sturtevant, J. Chen",
+			"title": "MM: A bidirectional search algorithm that is guaranteed to meet in the middle",
+			"year": 2017,
+			"venue": "Artificial Intelligence",
+			"doi": "10.1016/j.artint.2017.05.004",
+			"arxiv": null,
+			"url": null,
+			"role": "extends"
+		}
+	],
+	"lineage": [],
+	"trace": null
+}

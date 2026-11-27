@@ -1,0 +1,30 @@
+{
+	"description": "Real-time D* (RTD*) moves an agent towards a fixed goal while edge costs change, and spends at most a fixed number of expansions before each move. It runs two searches: D* Lite backwards from the goal (the *global* search) and LSS-LRTA* forwards from the agent (the *local* search). Each step splits its expansions: the local search keeps a fixed share, rounded down and at least one, and the global search gets the rest. If the global search reaches the agent within its share, the step is *fully informed*: the agent moves to the successor with the smallest `c + g`, along a cheapest path for the current costs. Otherwise LSS-LRTA* looks ahead with its share, updates its learned values, and the agent takes the first edge towards the frontier state it chose. Either way the agent moves one edge, and the global search resumes where it stopped. Learned values can overestimate after costs fall, which the global search corrects once it reaches the agent, and learned dead ends are forgotten after every reported edge change. In a static finite graph whose goal is reachable, a large enough global share eventually makes every step fully informed; in changing graphs there is no such guarantee.",
+	"papers": [
+		{
+			"authors": "David Bond, Niels Widger, Wheeler Ruml, Xiaoxun Sun",
+			"title": "Real-Time Search in Dynamic Worlds",
+			"year": 2010,
+			"venue": "Proceedings of the International Symposium on Combinatorial Search (SoCS)",
+			"doi": "10.1609/socs.v1i1.18174",
+			"arxiv": null,
+			"url": null,
+			"role": "introduces"
+		}
+	],
+	"lineage": [
+		{
+			"slug": "d-star-lite",
+			"name": null,
+			"relation": "combines",
+			"source": "heuristic-search, src/real_time/d_star.rs: \"RTD* runs D* Lite backwards from the goal (the global search) and LSS-LRTA* forwards from the agent (the local search).\""
+		},
+		{
+			"slug": "lss-lrta-star",
+			"name": null,
+			"relation": "combines",
+			"source": "heuristic-search, src/real_time/d_star.rs: \"RTD* runs D* Lite backwards from the goal (the global search) and LSS-LRTA* forwards from the agent (the local search).\""
+		}
+	],
+	"trace": null
+}

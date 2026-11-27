@@ -1,0 +1,24 @@
+{
+	"description": "Hierarchical A*, after HPA*, answers many path queries on one graph by planning on a small abstract graph and refining the result locally. The graph is split into regions, such as the rooms of a floor plan or square clusters of a grid. A hierarchy is built once: its nodes are *entrances*, states with an edge into another region and the targets of those edges, and its edges are the graph edges between regions plus, for every two entrances of one region, the cost of the cheapest path between them that stays inside the region. A query adds the start and goal, connects each to the entrances of its region (and to each other when they share one) by A* inside the region, runs A* on the abstract graph with a caller-given pairwise estimate as heuristic, and replaces every abstract edge by its path: A* inside the region, or the cheapest graph edge between two regions. A hierarchy that keeps every border state gives cheapest paths; the grid builder keeps a few entrance cells per border run (the middle cell, or both ends of a run of six or more), which finds a path whenever one exists but may cost more. The budget covers connecting and the abstract search; refinement is not budgeted, since each search stays in one region and is known to succeed. The parallel variant refines the edges across threads only when their estimated work fills two threads of a thousand expansions, and returns the same result. The HPA* smoothing pass is not implemented.",
+	"papers": [
+		{
+			"authors": "A. Botea, M. Müller, J. Schaeffer",
+			"title": "Near Optimal Hierarchical Path-Finding",
+			"year": 2004,
+			"venue": "Journal of Game Development",
+			"doi": null,
+			"arxiv": null,
+			"url": null,
+			"role": "introduces"
+		}
+	],
+	"lineage": [
+		{
+			"slug": "a-star",
+			"name": null,
+			"relation": "builds-on",
+			"source": "heuristic-search, src/hierarchical.rs: \"plans on the small abstract graph and refines each abstract edge with A* inside one region.\""
+		}
+	],
+	"trace": null
+}

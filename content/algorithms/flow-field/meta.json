@@ -1,0 +1,24 @@
+{
+	"description": "A flow field answers \"which way to the goal, and how far?\" for every state at once, so any number of agents heading to the same goals share one search. It runs Dijkstra's algorithm backwards from the goal set, over the graph's predecessors, with every goal at cost 0, until no state is left. Each settled state then holds its cheapest cost to a goal and its parent link, which is a forward edge: the first step of a cheapest path. Following the steps from any state reaches a goal along a cheapest path, with no further search. A budget can stop the search early; the field then answers only for the states it settled, which are those cheapest to reach the goals, and their costs and steps are final. A completed field also proves that no goal is reachable from the states it does not answer for.",
+	"papers": [
+		{
+			"authors": "Elijah Emerson",
+			"title": "Crowd Pathfinding and Steering Using Flow Field Tiles",
+			"year": 2013,
+			"venue": "Game AI Pro",
+			"doi": "10.1201/b16725-29",
+			"arxiv": null,
+			"url": null,
+			"role": "applies"
+		}
+	],
+	"lineage": [
+		{
+			"slug": "dijkstras-algorithm",
+			"name": null,
+			"relation": "builds-on",
+			"source": "heuristic-search, src/flow.rs: \"one backward Dijkstra search from a goal set that settles the cheapest cost to the goals and the next step for every state it reaches\""
+		}
+	],
+	"trace": null
+}
