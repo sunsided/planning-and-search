@@ -1,0 +1,34 @@
+{
+	"description": "NAND-tree evaluation decides who wins a two-player game tree with a continuous-time quantum walk. The player to move wins when some move leaves the opponent in a lost position, so a node's value is the NAND of its children's values, and the leaves are the inputs. The walk graph is the balanced tree with one extra leaf below every `true` input and one extra node `r′` above the root, joined to it with weight `N^(−1/4)` for `N` leaves; its weighted adjacency matrix is the Hamiltonian `H`. `H` has an eigenvalue-0 eigenvector with weight on `r′` exactly when the root is `true`, and a gap around 0 of order `1/√N` seen from `r′` when it is `false`. Phase estimation of `e^(iHτ)` from `r′`, with `τ = π / (fan-out + 1)` and `K` outcomes, `K` the next power of two of `16·√N`, measures outcome `0` with probability at least about `0.35` for a `true` root and at most about `0.05` for a `false` one; the evaluation reports `true` when more than a fifth of the runs see outcome `0`. The inputs sit in `H`, so evolution time plays the part of queries: one run costs `(K − 1)·τ`, against `Θ(N^0.753)` leaf reads for randomized classical evaluation of a binary tree, but the constants put the crossover between about 300 and 1200 leaves. The simulator applies `e^(iHτ)` by its Taylor series, computes the outcome-0 probability exactly and samples the runs from it.",
+	"papers": [
+		{
+			"authors": "Edward Farhi, Jeffrey Goldstone, Sam Gutmann",
+			"title": "A Quantum Algorithm for the Hamiltonian NAND Tree",
+			"year": 2008,
+			"venue": "Theory of Computing",
+			"doi": "10.4086/toc.2008.v004a008",
+			"arxiv": "quant-ph/0702144",
+			"url": null,
+			"role": "introduces"
+		},
+		{
+			"authors": "Andrew M. Childs, Richard Cleve, Stephen P. Jordan, David Yonge-Mallo",
+			"title": "Discrete-query quantum algorithm for NAND trees",
+			"year": 2009,
+			"venue": "Theory of Computing",
+			"doi": "10.4086/toc.2009.v005a005",
+			"arxiv": "quant-ph/0702160",
+			"url": null,
+			"role": "extends"
+		}
+	],
+	"lineage": [
+		{
+			"slug": null,
+			"name": "Quantum phase estimation",
+			"relation": "builds-on",
+			"source": "quantum-planning, src/nand_tree.rs: \"Phase estimation of `e^(iHτ)` from `|r'⟩` with `K` outcomes tells the two apart in outcome `0`.\""
+		}
+	],
+	"trace": null
+}

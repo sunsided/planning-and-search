@@ -249,6 +249,21 @@
 		]
 	},
 	{
+		"slug": "amplitude-estimation",
+		"name": "Amplitude estimation",
+		"aliases": ["Quantum amplitude estimation", "QAE"],
+		"kind": "quantum",
+		"refs": ["Brassard, Høyer, Mosca and Tapp 2002"],
+		"implementations": [
+			{
+				"crate": "quantum-planning",
+				"items": ["estimate", "outcomes"],
+				"feature": null,
+				"summary": "Canonical amplitude estimation of the mean of Monte Carlo rollout values, such as those of MCTS, with an exact phase-estimation distribution and a classical Monte Carlo baseline, counting rollout calls."
+			}
+		]
+	},
+	{
 		"slug": "ana-star",
 		"name": "ANA*",
 		"aliases": ["Anytime Nonparametric A*"],
@@ -2937,6 +2952,21 @@
 		]
 	},
 	{
+		"slug": "nand-tree-evaluation",
+		"name": "NAND-tree evaluation",
+		"aliases": ["Hamiltonian NAND tree", "Quantum game-tree evaluation"],
+		"kind": "quantum",
+		"refs": ["Farhi, Goldstone and Gutmann 2008", "Childs, Cleve, Jordan and Yonge-Mallo 2009"],
+		"implementations": [
+			{
+				"crate": "quantum-planning",
+				"items": ["NandTree", "evaluate"],
+				"feature": null,
+				"summary": "Evaluation of a balanced NAND game tree by a continuous-time quantum walk and phase estimation, reporting evolution time against classical leaf reads."
+			}
+		]
+	},
+	{
 		"slug": "nbs",
 		"name": "NBS",
 		"aliases": ["Near-Optimal Bidirectional Search"],
@@ -3461,6 +3491,36 @@
 				"items": ["Puct"],
 				"feature": null,
 				"summary": "MCTS selection by mean plus c_puct · prior · √(parent visits) / (1 + child visits), with move priors from the evaluator; uniform priors without them."
+			}
+		]
+	},
+	{
+		"slug": "qaoa",
+		"name": "QAOA",
+		"aliases": ["Quantum approximate optimization algorithm"],
+		"kind": "quantum",
+		"refs": ["Farhi, Goldstone and Gutmann 2014"],
+		"implementations": [
+			{
+				"crate": "quantum-planning",
+				"items": ["Qaoa"],
+				"feature": "qubo",
+				"summary": "QAOA on planning-qubo models on the state-vector simulator: angles tuned by coordinate descent from random starts, the best of a number of shots kept, and the circuit exported as OpenQASM 3."
+			}
+		]
+	},
+	{
+		"slug": "quantum-backtracking",
+		"name": "Quantum backtracking",
+		"aliases": ["Montanaro's backtracking walk", "Quantum walk on backtracking trees"],
+		"kind": "quantum",
+		"refs": ["Montanaro 2018"],
+		"implementations": [
+			{
+				"crate": "quantum-planning",
+				"items": ["SearchTree", "detect", "find"],
+				"feature": null,
+				"summary": "Montanaro's quantum walk on a backtracking tree: detection by phase estimation from the root, and finding by descending into a child that detects a solution, counting walk steps and checks as queries."
 			}
 		]
 	},

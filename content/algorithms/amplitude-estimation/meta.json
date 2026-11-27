@@ -1,0 +1,24 @@
+{
+	"description": "Amplitude estimation estimates the mean `a` of a Monte Carlo value, such as the mean rollout value of a game state in MCTS, with a quadratic saving in rollout calls. A rollout maps a seed `i` to a value `v(i)` in `[0, 1]`; the state preparation `A` puts the `n` seed qubits in even superposition and rotates a value qubit by `asin(√v(i))`, so the value qubit reads 1 with probability `a`. The Grover operator `Q = −A·S₀·A⁻¹·S₁` has the eigenvalues `e^(±2iθ)` with `sin²θ = a`, and phase estimation of `Q` with `K = 2^m` outcomes measures some `y`, giving the estimate `sin²(π·y/K)`. With probability at least `8/π²` the error is at most `2π·√(a(1−a))/K + π²/K²`, for `2K − 1` rollout calls, against the `σ/√S` error of `S` classical rollouts. The simulator computes the outcome distribution exactly from the powers `Qᵏ·A|0⟩`, without simulating the `m` control qubits, though they still count toward the 24-qubit limit; a value outside `[0, 1]` is an error. The constants favour classical Monte Carlo at small budgets.",
+	"papers": [
+		{
+			"authors": "Gilles Brassard, Peter Høyer, Michele Mosca, Alain Tapp",
+			"title": "Quantum amplitude amplification and estimation",
+			"year": 2002,
+			"venue": "Contemporary Mathematics",
+			"doi": "10.1090/conm/305/05215",
+			"arxiv": "quant-ph/0005055",
+			"url": null,
+			"role": "introduces"
+		}
+	],
+	"lineage": [
+		{
+			"slug": "grover-search",
+			"name": null,
+			"relation": "builds-on",
+			"source": "quantum-planning, src/amplitude_estimation.rs: \"The Grover operator `Q = −A·S₀·A⁻¹·S₁` (`S₁` flips the sign where the value qubit is `1`, `S₀` where the whole register is `|0⟩`) has the eigenvalues `e^(±2iθ)` with `sin²θ = a`.\""
+		}
+	],
+	"trace": null
+}

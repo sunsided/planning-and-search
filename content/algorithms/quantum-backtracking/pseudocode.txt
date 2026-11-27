@@ -1,0 +1,35 @@
+algorithm Quantum-Backtracking-Find(tree, runs)
+  input: a search tree with root, children(x) and is-solution(x); runs ≥ 1 per detection
+  output: a solution, or nil, with the queries spent
+  x ← root
+  q ← 0
+  while true do
+    q ← q + 1                                      ▷ one classical check
+    if is-solution(x) then
+      return x, q
+    next ← nil
+    for each child y of x do                       ▷ in the tree's order
+      found, cost ← detect(subtree below y, runs)
+      q ← q + cost
+      if found then
+        next ← y
+        break
+    if next = nil then
+      return nil, q                                ▷ no child detects a solution
+    x ← next
+function detect(S, runs)
+  T, n ← the node count and depth of S             ▷ listing S is not counted
+  K ← next power of two of ⌈2 · √(T · max(n, 1))⌉
+  W ← walk-step(S)                                 ▷ one step is one query
+  p ← the probability that phase estimation of W from |root⟩ with K outcomes gives 0
+  accepted ← 0
+  for r in 1, …, runs do
+    if uniform(0, 1) < p then                      ▷ one run, sampled
+      accepted ← accepted + 1
+  return 8 · accepted > 3 · runs, runs · (K − 1)
+function walk-step(S)
+  ▷ D_x = I − 2|ψ_x⟩⟨ψ_x| on the star of x, with |ψ_x⟩ ∝ |x⟩ + w · Σ over children y of |y⟩
+  ▷ w = √n at the root and 1 elsewhere; D_x = I for a solution x
+  R-A ← the product of D_x over the nodes x at even depth
+  R-B ← the product of D_x over the nodes x at odd depth
+  return R-B · R-A

@@ -1,0 +1,17 @@
+{
+	"description": "The quantum approximate optimization algorithm (QAOA) looks for a low-energy assignment of a QUBO model, such as a planning problem encoded by planning-qubo. With `p` layers it prepares `|γ, β⟩ = U_B(β_p)·U_C(γ_p) ⋯ U_B(β₁)·U_C(γ₁)·H^⊗n|0⟩`, where `U_C(γ) = e^(−iγ·E)` gives each assignment a phase from its energy and the mixer `U_B(β) = e^(−iβ·Σ X_q)` rotates every qubit. A classical loop tunes the `2p` angles to lower the expected energy: from several random starts, with `γ` drawn below `π` over the energy spread and `β` below `π/2`, coordinate descent tries a step up and down on each angle, halves the step when nothing improves, and stops below a thousandth of the range. Then it samples assignments from the tuned state and keeps the lowest-energy one. The simulator computes every one of the `2ⁿ` energies, so it stops at 24 variables; the same angles also give a circuit of `rz`, `cx` and `rx` gates, from the Ising form of the model, for export as OpenQASM 3. The optimizer counts expectation values and sampling counts shots; the exhaustive baseline evaluates all `2ⁿ` energies. It gives no optimality guarantee.",
+	"papers": [
+		{
+			"authors": "Edward Farhi, Jeffrey Goldstone, Sam Gutmann",
+			"title": "A Quantum Approximate Optimization Algorithm",
+			"year": 2014,
+			"venue": "arXiv",
+			"doi": null,
+			"arxiv": "1411.4028",
+			"url": null,
+			"role": "introduces"
+		}
+	],
+	"lineage": [],
+	"trace": null
+}

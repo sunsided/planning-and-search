@@ -1,0 +1,20 @@
+algorithm Amplitude-Estimation(v, n, m)
+  input: rollout value v(i) in [0, 1] for each seed i < N = 2ⁿ, m precision bits
+  input: n + 1 + m ≤ 24, the simulator's qubit limit
+  output: an estimate of a = (1/N) · Σ v(i), and the 2K − 1 rollout calls it cost
+  K ← 2^m
+  for i in 0, …, N − 1 do
+    if v(i) is not a number in [0, 1] then
+      error "invalid value"
+    θᵢ ← asin(√v(i))
+  ψ ← A |0…0⟩                                    ▷ H on the seeds, then RY(2θᵢ) on the value qubit where the seeds read i
+  for y in 0, …, K − 1 do
+    P[y] ← ‖(1/K) · Σ over k < K of e^(−2πi · y · k / K) · Qᵏ ψ‖²    ▷ exact phase estimation of Q
+  y ← sample from P
+  return sin²(π · y / K), 2K − 1
+procedure Q(ψ)                                    ▷ Q = −A · S₀ · A⁻¹ · S₁, one A and one A⁻¹
+  negate the amplitudes of ψ where the value qubit is 1    ▷ S₁
+  ψ ← A⁻¹ ψ
+  negate the amplitude of |0…0⟩                    ▷ S₀
+  ψ ← A ψ
+  ψ ← −ψ

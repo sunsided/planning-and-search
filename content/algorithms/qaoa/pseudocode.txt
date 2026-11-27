@@ -1,0 +1,38 @@
+algorithm QAOA(Q, p, restarts, shots)
+  input: QUBO model Q over n ≤ 24 variables, p layers, restarts ≥ 1, shots ≥ 1
+  output: the lowest-energy sampled assignment, its energy and the angles used
+  E(i) ← energy(Q, i) for every basis state i < 2ⁿ    ▷ bit q of i is variable q
+  s ← max E − min E, or 1 if all energies are equal
+  r-γ, r-β ← π / s, π / 2
+  best ← nil
+  for k in 1, …, restarts do
+    γ ← p uniform draws in [0, r-γ)
+    β ← p uniform draws in [0, r-β)
+    F ← expectation(γ, β)
+    step ← 1/4
+    while step > 10⁻³ do
+      improved ← false
+      for each angle θ in γ₁, …, γ_p, β₁, …, β_p, with range r of its kind do
+        for each d in +1, −1 do
+          θ ← θ + d · step · r
+          if expectation(γ, β) < F then
+            F ← expectation(γ, β)
+            improved ← true
+          else
+            θ ← θ − d · step · r                     ▷ undo the trial
+      if not improved then
+        step ← step / 2
+    if best = nil or F < F-best then                  ▷ the first of equal ones stays
+      best, F-best ← ⟨γ, β⟩, F
+  ψ ← prepare(best)
+  x ← the first of the least-energy states among shots samples of ψ
+  return x, E(x), best
+function prepare(γ, β)
+  ψ ← H^⊗n |0⟩
+  for ℓ in 1, …, p do
+    ψ[i] ← e^(−i · γ_ℓ · E(i)) · ψ[i] for every i    ▷ U_C, one phase per basis state
+    ψ ← rx(2 β_ℓ) on every qubit of ψ               ▷ U_B
+  return ψ
+function expectation(γ, β)
+  ψ ← prepare(γ, β)
+  return Σ over i of |ψ[i]|² · E(i)

@@ -1,0 +1,17 @@
+algorithm NAND-Tree-Evaluate(tree, inputs, runs)
+  input: a balanced tree with fan-out d ≥ 2 and N leaves, one boolean input per leaf
+  input: runs ≥ 1
+  output: the value of the root, and the evolution time spent
+  G ← the tree, every edge of weight 1
+  for each leaf ℓ with inputs[ℓ] = true do
+    add a new leaf below ℓ to G, with weight 1
+  add a node r′ above the root to G, with weight N^(−1/4)
+  H ← the weighted adjacency matrix of G
+  τ ← π / (d + 1)                                  ▷ keeps ‖Hτ‖ ≤ π
+  K ← next power of two of ⌈16 · √N⌉
+  p ← the probability that phase estimation of e^(iHτ) from |r′⟩ with K outcomes gives 0
+  accepted ← 0
+  for r in 1, …, runs do
+    if uniform(0, 1) < p then                      ▷ one run, sampled
+      accepted ← accepted + 1
+  return 5 · accepted > runs, runs · (K − 1) · τ

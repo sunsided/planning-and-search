@@ -108,7 +108,7 @@ export const CATEGORIES: Category[] = [
 		slug: 'quantum',
 		title: 'Quantum & QUBO',
 		blurb:
-			'Planning problems as QUBO and Ising models, for annealers and classical samplers, and quantum search on a simulator, measured in oracle queries.',
+			'Planning problems as QUBO and Ising models, for annealers, QAOA and classical samplers, and quantum search on a simulator, measured in oracle queries.',
 		hue: 270,
 		crates: ['planning-qubo', 'quantum-planning']
 	},

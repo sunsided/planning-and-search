@@ -832,20 +832,26 @@
 	},
 	{
 		"name": "quantum-planning",
-		"version": "0.1.0",
+		"version": "0.1.1",
 		"repo": "sunsided/quantum-planning",
 		"description": "Quantum algorithms for planning and search, on simulators: Grover search, quantum backtracking, amplitude estimation, quantum walks on game trees and QAOA",
 		"license": "MIT OR Apache-2.0",
 		"msrv": "1.85",
 		"keywords": ["quantum", "grover", "planning", "search", "qaoa"],
-		"deps": [],
+		"deps": [
+			{
+				"name": "planning-qubo",
+				"kind": "optional"
+			}
+		],
 		"siblings": [],
 		"audience": [
 			{
 				"kind": "ul",
 				"items": [
-					"**Researchers, students and teachers of quantum speedups for search**: exact Grover search with a known number of solutions and BBHT exponential search with an unknown number, on a state-vector simulator. The oracle is an ordinary validity check on a candidate, such as \"is this plan valid\", so the same predicate serves a classical and a quantum search.",
-					"**Honest query-count comparisons**: every phase-oracle application and every classical check of a measured candidate counts as one query. Put these counts next to a classical scan over the same oracle, and the `√N` against `N` gap shows on real instances, not only in the formula.",
+					"**Researchers, students and teachers of quantum speedups for search**: exact Grover search with a known number of solutions and BBHT exponential search with an unknown number, on a state-vector simulator. The oracle is an ordinary validity check on a candidate, such as \"is this plan valid\", so the same predicate serves a classical and a quantum search. Montanaro's backtracking walk, amplitude estimation of rollout values, NAND-tree evaluation of game trees and QAOA on QUBO models run on the same simulator.",
+					"**Honest query-count comparisons**: every phase-oracle application and every classical check of a measured candidate counts as one query. Put these counts next to a classical scan over the same oracle, and the `√N` against `N` gap shows on real instances, not only in the formula. The other algorithms report walk steps, rollout calls or evolution time next to their classical baselines, including where the classical side still wins.",
+					"**Hardware experiments**: Grover and QAOA circuits export as OpenQASM 3 for IBM Quantum, Amazon Braket or Azure Quantum, with depth and two-qubit gate counts to judge what a noisy device can run, and measured counts map back to candidates.",
 					"**`no_std` demos**: the crate needs only `alloc`, so it runs in WebAssembly, for example in a browser page that shows the amplitudes change from one Grover iteration to the next."
 				]
 			},
@@ -854,7 +860,14 @@
 				"text": "It is a simulator: its memory doubles with each qubit and stops at 24 qubits, so it finds no solution faster than a classical search does. To solve plans, use [heuristic-search](https://github.com/sunsided/heuristic-search) for state-space search, [constraint-search](https://github.com/sunsided/constraint-search) for constraint problems and [game-tree-search](https://github.com/sunsided/game-tree-search) for two-player games."
 			}
 		],
-		"algorithms": ["bbht", "grover-search"],
+		"algorithms": [
+			"amplitude-estimation",
+			"bbht",
+			"grover-search",
+			"nand-tree-evaluation",
+			"qaoa",
+			"quantum-backtracking"
+		],
 		"about": "who"
 	},
 	{

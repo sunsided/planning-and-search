@@ -1,0 +1,24 @@
+{
+	"description": "Quantum backtracking, after Montanaro, decides whether a backtracking tree holds a solution with a quantum walk on the tree instead of a depth-first scan. A predicate accepts a node as a solution, rejects it, or lets it branch into children. Nodes at even depth form one set and nodes at odd depth the other; for each unsolved node the walk reflects about the star of that node and its children, with the root's children weighted by `√n` for the depth bound `n`, and a solution's reflection is the identity. One walk step reflects first the even, then the odd set. A solution gives the walk an eigenvalue-1 eigenvector with weight at least `1/2` on the root, so phase estimation from the root with `K` outcomes, `K` the next power of two of `2·√(T·n)` for `T` nodes, measures outcome `0` with probability at least `1/2`, and at most about `1/4` without one. Detection repeats the run and reports a solution when more than `3/8` of the runs see outcome `0`; finding descends from the root into the first child whose subtree detects one, checking each node on the way classically, so a returned node is always a solution. One walk step and one classical check each count as one query: a detection run costs `K − 1`, against up to `T` for classical backtracking. The simulator lists the tree once to build the walk, uncounted, and uses the exact `T` and `n`; it computes the outcome-0 probability exactly and samples the runs from it.",
+	"papers": [
+		{
+			"authors": "Ashley Montanaro",
+			"title": "Quantum-Walk Speedup of Backtracking Algorithms",
+			"year": 2018,
+			"venue": "Theory of Computing",
+			"doi": "10.4086/toc.2018.v014a015",
+			"arxiv": "1509.02374",
+			"url": null,
+			"role": "introduces"
+		}
+	],
+	"lineage": [
+		{
+			"slug": null,
+			"name": "Quantum phase estimation",
+			"relation": "builds-on",
+			"source": "quantum-planning, src/backtracking.rs: \"Phase estimation from `|r⟩` with [`phase_outcomes`] outcomes sees the difference in outcome `0`.\""
+		}
+	],
+	"trace": null
+}
