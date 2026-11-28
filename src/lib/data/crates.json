@@ -877,7 +877,7 @@
 	},
 	{
 		"name": "resource-timeline",
-		"version": "0.1.1",
+		"version": "0.2.0",
 		"repo": "sunsided/resource-timeline",
 		"description": "Resource timelines for onboard scheduling: energy, memory, thermal and communication budgets with explained violations, envelopes and allocation-free storage",
 		"license": "MIT OR Apache-2.0",
@@ -898,11 +898,19 @@
 					"Developers of onboard or embedded schedulers that need checked arithmetic, explicit budgets and no heap.",
 					"Planners and replanners that want a violation explained (the tick, the level and the activities involved) instead of a bare \"infeasible\".",
 					"Game AI and simulation developers whose agents spend stamina, ammunition, storage or build capacity over game ticks, as in colony, strategy and survival games. Earliest-start search answers when an agent can afford an action, interval claims model shared workstations and cooldowns, end-state targets check a build order against a scouted attack, and the allocation-free variants keep checks off the heap inside a frame. See [`examples/colony.rs`](https://github.com/sunsided/resource-timeline/blob/main/examples/colony.rs) and [`examples/rush.rs`](https://github.com/sunsided/resource-timeline/blob/main/examples/rush.rs).",
+					"Multi-agent and multi-robot systems whose agents share a resource (relay bandwidth, power at a shared station, a work site) but cannot see each other's use between contacts: budget shares let each agent check only its own part onboard. See [`examples/relay.rs`](https://github.com/sunsided/resource-timeline/blob/main/examples/relay.rs).",
+					"Construction and production schedulers with spatially exclusive workspaces: zones turn an overlap graph between tasks into unary resources, with conflicts that name the zone and both tasks. See [`examples/site.rs`](https://github.com/sunsided/resource-timeline/blob/main/examples/site.rs).",
 					"For the timing side of the same schedule (whether its temporal constraints can be met under uncertain durations, and executing it), use [temporal-control](https://github.com/sunsided/temporal-control). The two crates share only a convention (`i64` ticks, half-open intervals) and no dependency, because temporal controllability does not imply resource safety and both checks have to run."
 				]
 			}
 		],
-		"algorithms": ["earliest-start-search", "greedy-priority-scheduling", "resource-envelopes"],
+		"algorithms": [
+			"budget-decoupling",
+			"earliest-start-search",
+			"greedy-priority-scheduling",
+			"resource-envelopes",
+			"zone-resources"
+		],
 		"about": "who"
 	},
 	{

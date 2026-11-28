@@ -1,0 +1,22 @@
+algorithm Zone-Resources(P, EDGES)
+  input: plan P, overlap edges between tasks whose workspaces intersect
+  output: one zone per edge, or invalid overlap
+  for each (a, b) in EDGES do
+    if a = b or (a, b) or (b, a) appears earlier in EDGES then
+      return invalid overlap
+  for each e in EDGES do
+    zone[e] ← add a claimable timeline with capacity 1 to P   ▷ all or nothing
+  return zone
+function Demands(task, from, until)
+  input: a task and the part of its own duration it works in its zones
+  output: the task's demands
+  return a claim of 1 on zone[e] from from to until, for each edge e that contains task
+function Conflict(P, v)
+  input: plan P and its first violation v
+  output: the zone, the tick and both tasks, or nil
+  if v is not a level violation, or its timeline is no zone, or it is not below 0 then
+    return nil
+  if v has fewer than two contributors then
+    return nil   ▷ an activity placed twice over itself
+  (first, second) ← the two smallest contributing ids
+  return (timeline(v), tick(v), first, second)

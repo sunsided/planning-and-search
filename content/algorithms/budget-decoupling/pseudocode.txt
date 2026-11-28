@@ -1,0 +1,23 @@
+algorithm Budget-Decoupling(pool, margin, NEEDS)
+  input: the capacity to split, a margin per agent, the need of each of n agents
+  output: one share per agent, adding up to pool, or oversubscribed
+  if pool, margin or a need is negative then
+    return negative amount
+  total ← Σ (need + margin) over NEEDS
+  if total > pool then
+    return oversubscribed   ▷ nothing is clipped
+  slack ← pool − total
+  even ← ⌊slack / max(n, 1)⌋
+  rest ← slack mod max(n, 1)
+  for i ← 1 to n do
+    share[i] ← NEEDS[i] + margin + even
+    if i ≤ rest then
+      share[i] ← share[i] + 1   ▷ the remainder goes to the first agents
+  return share
+function Reallocate(CONTACT, t, margin)
+  input: the agents in contact at tick t, each with its share and share timeline
+  output: their new shares
+  pool ← Σ share[a] over CONTACT   ▷ never the full capacity: the others keep theirs
+  for each a in CONTACT do
+    need[a] ← share[a] − lowest-from(timeline[a], t)   ▷ peak use from t on
+  return Budget-Decoupling(pool, margin, need)

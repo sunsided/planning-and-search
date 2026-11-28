@@ -716,6 +716,21 @@
 		]
 	},
 	{
+		"slug": "budget-decoupling",
+		"name": "Budget decoupling",
+		"aliases": ["budget shares", "resource shares"],
+		"kind": "scheduling",
+		"refs": [],
+		"implementations": [
+			{
+				"crate": "resource-timeline",
+				"items": ["split"],
+				"feature": null,
+				"summary": "Splits a shared resource into per-agent shares of need plus margin and an even part of the slack, adding up to the pool, so agents out of contact check only their own share."
+			}
+		]
+	},
+	{
 		"slug": "bypass",
 		"name": "Bypass",
 		"aliases": ["BP", "Conflict bypass"],
@@ -4656,6 +4671,21 @@
 				"items": ["x_shape"],
 				"feature": null,
 				"summary": "Factors the task into an X-shape with both fork and inverted-fork leaves."
+			}
+		]
+	},
+	{
+		"slug": "zone-resources",
+		"name": "Zone resources",
+		"aliases": ["spatially exclusive workspaces", "overlap graph zones"],
+		"kind": "scheduling",
+		"refs": [],
+		"implementations": [
+			{
+				"crate": "resource-timeline",
+				"items": ["Overlaps", "Conflict", "occupy"],
+				"feature": null,
+				"summary": "Models spatially exclusive workspaces as unary timelines, one per edge of an overlap graph, and names the zone and both tasks of a conflict."
 			}
 		]
 	},

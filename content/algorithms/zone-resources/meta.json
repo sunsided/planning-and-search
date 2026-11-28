@@ -1,0 +1,13 @@
+{
+	"description": "Zone resources keep tasks that share floor space, such as construction crews or mobile robots, out of the same workspace at the same time. A zone is a unary resource: a claimable timeline with capacity one, which a task occupies with a claim of one unit for as long as it works there. A task may occupy several zones at once. Models that state spatial exclusion as an undirected overlap graph get one zone per edge, occupied by exactly the two tasks of that edge, so two tasks exclude each other exactly when they share an edge. A clique cover of the graph would need fewer zones and is left to the caller. Two overlapping occupations break the zone's lower bound, and that violation reads back as a conflict that names the zone, the first tick and both tasks. Placement, earliest-start search and envelopes apply to zones unchanged.",
+	"papers": [],
+	"lineage": [
+		{
+			"slug": "earliest-start-search",
+			"name": null,
+			"relation": "builds-on",
+			"source": "resource-timeline, src/zone.rs: \"Every check, search and envelope of the crate applies to zones unchanged\""
+		}
+	],
+	"trace": null
+}

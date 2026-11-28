@@ -1,0 +1,13 @@
+{
+	"description": "Budget decoupling splits a resource that several agents share, such as relay bandwidth or power at a shared station, into one share per agent. Each agent gets its need plus a margin, and whatever is left of the pool is spread evenly, the remainder going to the first agents. The shares add up to exactly the pool, so an agent that stays within its own share can never oversubscribe the resource, whatever the others do. When the needs and margins do not fit, the split fails instead of clipping, and the caller decides who gives way. Onboard, each agent keeps a timeline at full capacity and reserves the others' part with one claim, so every check, search and envelope respects the share. Agents that meet re-split only the sum of their own current shares, by their peak use from the meeting tick on, because the agents out of contact may be using theirs.",
+	"papers": [],
+	"lineage": [
+		{
+			"slug": "resource-envelopes",
+			"name": null,
+			"relation": "builds-on",
+			"source": "resource-timeline, src/share.rs: \"or under uncertain demand `share - Envelope::lowest_from(t)`, the worst case over every schedule its start windows and durations admit\""
+		}
+	],
+	"trace": null
+}
