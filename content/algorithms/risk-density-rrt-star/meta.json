@@ -1,0 +1,24 @@
+{
+	"description": "Risk Density RRT* plans among obstacles whose positions are uncertain. Each uncertain obstacle is a Gaussian density over its position, combining the obstacle's and the robot's uncertainty. The risk of a motion is the line integral of these densities along it, a first-order approximation of the probability of colliding on the way. A line integral adds up over the edges of a path, so RRT*'s choose-parent and rewiring steps work unchanged with this cost. For a straight motion the integral has a closed form in terms of the error function. A small weight on path length is added to the risk. It keeps paths from making arbitrarily long detours around low-risk regions, and it bounds the informed set, so with a zero weight informed sampling is off. Obstacles with known positions stay with the validity checker. The cost is not a metric, because a straight edge through high risk can cost more than a detour, so RRT*'s asymptotic optimality is not guaranteed; the paper makes the same caveat.",
+	"papers": [
+		{
+			"authors": "Lorenzo Paiola, Giorgio Grioli, Antonio Bicchi",
+			"title": "Risk Density RRT*: Planning in the Space of Probability",
+			"year": 2026,
+			"venue": "arXiv preprint",
+			"doi": null,
+			"arxiv": "2611.22654",
+			"url": null,
+			"role": "introduces"
+		}
+	],
+	"lineage": [
+		{
+			"slug": "rrt-star",
+			"name": null,
+			"relation": "builds-on",
+			"source": "sampling-planning, src/objective.rs: \"Line integrals add up over edges, so the objective decomposes as RRT*'s rewiring needs (their eqs. 27 and 28).\""
+		}
+	],
+	"trace": null
+}

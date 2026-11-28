@@ -1,0 +1,23 @@
+algorithm Risk-Density-RRT*(x₀, n, γ, OBSTACLES, λ)
+  input: start state x₀, iterations n, radius constant γ, Gaussian obstacles, length weight λ
+  output: the least risky path to the goal region found, or failure
+  return RRT*(x₀, n, γ) with motion cost c(x, y) = risk(x, y) + λ · d(x, y)
+  ▷ informed sampling uses the bound c-best / λ, and is off for λ = 0
+function risk(x, y)
+  r ← 0
+  for each (μ, Σ, s) in OBSTACLES do
+    r ← r + segment-risk(x, y, μ, Σ, s)
+  return r
+function segment-risk(x, y, μ, Σ, s)
+  ▷ s · ∫₀¹ N(x + t (y − x); μ, Σ) · ‖y − x‖ dt, in closed form
+  P ← Σ⁻¹
+  δ ← y − x
+  α ← (x − μ)ᵀ P (x − μ)
+  β ← (x − μ)ᵀ P δ
+  κ ← δᵀ P δ
+  if κ ≤ 0 or ‖δ‖ ≤ 0 then
+    return 0
+  I ← exp(−(α − β² / κ) / 2) · √(π / (2κ)) · (erf(√(κ/2) · (1 + β/κ)) − erf(√(κ/2) · β/κ))
+  if I is not a number then
+    return ∞   ▷ never mistaken for a safe segment
+  return s / √((2π)ᴺ det Σ) · ‖δ‖ · max(I, 0)

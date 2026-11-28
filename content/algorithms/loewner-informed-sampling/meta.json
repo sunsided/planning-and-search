@@ -1,0 +1,24 @@
+{
+	"description": "Informed sampling draws new samples only from the *informed set*, the states that could lie on a path cheaper than the best one found so far. For path length in a Euclidean space that set is a prolate hyperspheroid, which can be sampled directly. Under a configuration-dependent Riemannian metric `G(q)`, such as a robot arm's mass matrix, the set has no such shape. Kyaw and Kelly bound the metric from below by one constant matrix `L Lᵀ` in the Loewner order, so that `G(q) − L Lᵀ` is positive semidefinite. Every path is then at least as long as `‖Lᵀ(b − a)‖`, and in the coordinates `Lᵀq` the informed set lies inside a prolate hyperspheroid. Samples are drawn from that hyperspheroid, mapped back, and rejected when they fall outside the space's own informed set, so they stay uniform over it. Each new metric evaluation lowers the bound just enough to lie below it, keeping a maximal lower bound of the evaluations seen. The bound is admissible only at the configurations it has seen. `sampling-planning` leaves choosing them to the caller, while the paper searches for the configuration that violates the bound most.",
+	"papers": [
+		{
+			"authors": "Phone Thiha Kyaw, Jonathan Kelly",
+			"title": "Direct Informed Sampling on Riemannian Manifolds via Loewner Order Lower Bounds",
+			"year": 2026,
+			"venue": "IEEE Robotics and Automation Letters",
+			"doi": "10.1109/LRA.2026.3746117",
+			"arxiv": "2606.02879",
+			"url": null,
+			"role": "introduces"
+		}
+	],
+	"lineage": [
+		{
+			"slug": "informed-rrt-star",
+			"name": null,
+			"relation": "generalizes",
+			"source": "sampling-planning, src/sampler/loewner.rs: \"turns the informed set of a Riemannian path-length problem into a superset that is a prolate hyperspheroid\""
+		}
+	],
+	"trace": null
+}

@@ -129,6 +129,21 @@
 		]
 	},
 	{
+		"slug": "abit-star",
+		"name": "ABIT*",
+		"aliases": ["Advanced BIT*"],
+		"kind": "sampling",
+		"refs": ["Strub & Gammell 2020"],
+		"implementations": [
+			{
+				"crate": "sampling-planning",
+				"items": ["AbitStar"],
+				"feature": null,
+				"summary": "BIT* batches with an inflated first search per batch, a final search with a deflated heuristic, truncation, cascading rewirings and remembered invalid edges."
+			}
+		]
+	},
+	{
 		"slug": "ad-star",
 		"name": "AD*",
 		"aliases": ["Anytime Dynamic A*"],
@@ -1378,6 +1393,21 @@
 		]
 	},
 	{
+		"slug": "eit-star",
+		"name": "EIT*",
+		"aliases": ["Effort Informed Trees"],
+		"kind": "sampling",
+		"refs": ["Strub & Gammell 2022"],
+		"implementations": [
+			{
+				"crate": "sampling-planning",
+				"items": ["EitStar"],
+				"feature": null,
+				"summary": "Asymmetric bidirectional search whose sparsely checking reverse search estimates cost-to-go and effort-to-go, so the forward search checks the cheapest edges first."
+			}
+		]
+	},
+	{
 		"slug": "embarrassingly-parallel-search",
 		"name": "Embarrassingly parallel search",
 		"aliases": ["EPS", "Parallel portfolio"],
@@ -2336,7 +2366,7 @@
 				"crate": "sampling-planning",
 				"items": ["Kpiece"],
 				"feature": null,
-				"summary": "Single-level KPIECE that explores a grid over a user projection of the state space using a forward-simulation Propagator."
+				"summary": "KPIECE over a user projection of the state space with one or several grid levels, using a forward-simulation Propagator."
 			}
 		]
 	},
@@ -2570,6 +2600,21 @@
 				"items": ["PackedTable", "Packed"],
 				"feature": "parallel",
 				"summary": "Entries packed into one 64-bit word stored next to that word XOR-ed with the key, so threads probe and store without locks and a torn entry reads as a miss."
+			}
+		]
+	},
+	{
+		"slug": "loewner-informed-sampling",
+		"name": "Loewner-bound informed sampling",
+		"aliases": ["direct informed sampling on Riemannian manifolds"],
+		"kind": "sampling",
+		"refs": ["Kyaw & Kelly 2026"],
+		"implementations": [
+			{
+				"crate": "sampling-planning",
+				"items": ["LoewnerBound", "Riemannian"],
+				"feature": null,
+				"summary": "Samples the informed set under a configuration-dependent metric directly, through a constant lower bound of the metric tensor in the Loewner order."
 			}
 		]
 	},
@@ -3831,6 +3876,21 @@
 		]
 	},
 	{
+		"slug": "risk-density-rrt-star",
+		"name": "Risk Density RRT*",
+		"aliases": [],
+		"kind": "sampling",
+		"refs": ["Paiola, Grioli & Bicchi 2026"],
+		"implementations": [
+			{
+				"crate": "sampling-planning",
+				"items": ["RiskDensity", "GaussianObstacle"],
+				"feature": null,
+				"summary": "RRT* that minimizes the risk of colliding with Gaussian uncertain obstacles, a closed-form line integral per edge, plus a weighted path length."
+			}
+		]
+	},
+	{
 		"slug": "rmhc",
 		"name": "RMHC",
 		"aliases": ["Random-Mutation Hill Climbing"],
@@ -3961,7 +4021,13 @@
 				"crate": "sampling-planning",
 				"items": ["RrtStar"],
 				"feature": null,
-				"summary": "Asymptotically optimal RRT with choose-parent and rewiring over a shrinking radius or k-nearest neighborhood."
+				"summary": "Asymptotically optimal RRT with choose-parent and rewiring over a shrinking radius or k-nearest neighborhood, minimizing path length or another cost objective."
+			},
+			{
+				"crate": "sampling-planning",
+				"items": ["grow_forest"],
+				"feature": "parallel",
+				"summary": "Grows one RRT* tree per thread from its own random stream, then merges them into the first; the result does not depend on thread scheduling."
 			}
 		]
 	},

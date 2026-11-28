@@ -1,0 +1,24 @@
+{
+	"description": "EIT* (Effort Informed Trees) searches each batch of random samples twice, like AIT*: a reverse search from the goal states computes a cost-to-go estimate `h` over the batch's *random geometric graph*, and a forward search from the start grows the tree. EIT*'s reverse search also estimates *effort*, the number of state checks still needed to reach the goal. It accepts an edge only if a few evenly spaced states on it pass a check, so its `h` already avoids the obstacles those sparse checks find. The forward search pops the edge with the least effort among those whose lower bound `g + c_hat + h` lies within a suboptimality factor of the smallest bound, so it finds a first solution with few collision checks. When the forward search finds that an edge of the reverse tree is invalid, the sparse checks per edge grow from `k` to `2k + 1` and the reverse search starts over. EIT* is anytime and almost-surely asymptotically optimal.",
+	"papers": [
+		{
+			"authors": "Marlin P. Strub, Jonathan D. Gammell",
+			"title": "Adaptively Informed Trees (AIT*) and Effort Informed Trees (EIT*): Asymmetric bidirectional sampling-based path planning",
+			"year": 2022,
+			"venue": "The International Journal of Robotics Research",
+			"doi": "10.1177/02783649211069572",
+			"arxiv": "2111.01877",
+			"url": null,
+			"role": "introduces"
+		}
+	],
+	"lineage": [
+		{
+			"slug": "ait-star",
+			"name": null,
+			"relation": "builds-on",
+			"source": "sampling-planning, src/informed/eit_star.rs: \"EIT* searches each batch's random geometric graph twice, like [`AitStar`](super::AitStar), but its reverse search also estimates **effort**: how many state checks it still takes to reach the goal\""
+		}
+	],
+	"trace": null
+}

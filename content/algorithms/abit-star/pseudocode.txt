@@ -1,0 +1,47 @@
+algorithm ABIT*(x₀, X-goal, m, ε₀, λ, τ₀)
+  input: start state x₀, goal region X-goal, batch size m, initial inflation ε₀, scalings λ and τ₀
+  output: an improving sequence of paths to the goal region (anytime)
+  T ← tree with root x₀
+  X-sample ← {goal center}
+  c-best ← ∞
+  final ← true
+  truncated ← false
+  repeat
+    if truncated or (Q-V = ∅ and Q-E = ∅) then
+      if c-best < ∞ and not final then
+        q ← |V(T)| + |X-sample|
+        ε ← 1 + λ / q                           ▷ the final search on the same batch
+        re-key(Q-V, Q-E, ε)                     ▷ both queues carry over
+        final ← true
+        truncated ← false
+      else
+        Q-V, Q-E ← ∅, ∅
+        ε ← ε₀                                  ▷ the inflated, greedy first search
+        final ← false
+        if c-best < ∞ then
+          prune(T, X-sample, c-best)
+        X-sample ← X-sample ∪ sample-informed(m, c-best)
+        r ← radius(|V(T)| + |X-sample|)
+        Q-V ← V(T)                              ▷ ordered by g + ε h-hat
+        τ ← 1 + τ₀ / (|V(T)| + |X-sample|)
+    while best-value(Q-V) ≤ best-value(Q-E) do
+      expand-next-vertex(Q-V, Q-E, r)           ▷ every expansion may rewire
+    (v, x) ← extract-min(Q-E)                   ▷ ordered by g[v] + c-hat(v, x) + ε h-hat(x)
+    if τ · (g[v] + c-hat(v, x) + h-hat(x)) ≥ c-best then
+      if final then
+        Q-V, Q-E ← ∅, ∅
+      else
+        insert(Q-E, (v, x))                     ▷ kept for the final search
+        truncated ← true
+    else if g[v] + c-hat(v, x) < g[x] and (v, x) ∉ INVALID then
+      if motion-valid(v, x) then
+        if x ∈ V(T) then
+          reparent(T, x, v)
+        else
+          add(T, x, parent: v)
+          X-sample ← X-sample ∖ {x}
+          insert(Q-V, x)
+        c-best ← min over goal vertices x_g of T of g[x_g]
+      else
+        INVALID ← INVALID ∪ {(v, x)}            ▷ never checked twice
+  until stopped

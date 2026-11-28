@@ -1,0 +1,18 @@
+algorithm Loewner-Informed-Sample(a, b, c, L)
+  input: start a, goal b, best cost c, Cholesky factor L of the bound L Lᵀ ≤ G(q)
+  output: a state of the informed set {x : d(a, x) + d(x, b) ≤ c}, or nil
+  E ← prolate hyperspheroid with foci Lᵀa and Lᵀb and transverse diameter c
+  if E is degenerate or volume(E) / det L ≥ volume of the sampling box then
+    return nil   ▷ plain sampling from the box accepts more often
+  repeat
+    x ← L⁻ᵀ · (uniform sample of E)
+    if x is in the box and d(a, x) + d(x, b) ≤ c then
+      return x   ▷ d: the Riemannian length, at least ‖Lᵀ(x − a)‖
+  until 64 samples were rejected
+  return nil
+function Meet(L, G)
+  ▷ lowers the bound L Lᵀ just enough to lie below one more metric evaluation G
+  V diag(λ) Vᵀ ← eigendecomposition of L⁻¹ G L⁻ᵀ
+  if every λᵢ ≥ 1 then
+    return L   ▷ already below G
+  return cholesky(L V diag(min(λ, 1)) Vᵀ Lᵀ)

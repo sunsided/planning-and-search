@@ -1,0 +1,30 @@
+{
+	"description": "ABIT* (Advanced BIT*) runs the batches of BIT* with two techniques from graph search. *Inflation* weights the heuristic in the queues, `g + ε h_hat` for vertices and `g + c_hat + ε h_hat` for edges. The first search on a batch uses a very large `ε`, so it heads for the goal like a best-first search and finds some path quickly. Once a solution exists, a second, final search continues on the same batch from the first one's tree and queues with a much smaller `ε`. *Truncation* ends a search at the first edge whose estimate, scaled by a factor `τ`, cannot beat the current solution, and leaves the remaining improvement to denser batches. Both factors shrink toward one as the number of states grows, so ABIT* stays almost-surely asymptotically optimal like BIT*. It also rewires from every expansion of a vertex, not only from the first, and never checks an edge twice once it has failed.",
+	"papers": [
+		{
+			"authors": "Marlin P. Strub, Jonathan D. Gammell",
+			"title": "Advanced BIT* (ABIT*): Sampling-Based Planning with Advanced Graph-Search Techniques",
+			"year": 2020,
+			"venue": "IEEE International Conference on Robotics and Automation (ICRA)",
+			"doi": "10.1109/ICRA40945.2020.9196580",
+			"arxiv": "2002.06589",
+			"url": null,
+			"role": "introduces"
+		}
+	],
+	"lineage": [
+		{
+			"slug": "bit-star",
+			"name": null,
+			"relation": "builds-on",
+			"source": "sampling-planning, src/informed/abit_star.rs: \"ABIT* runs BIT*'s batches with two graph-search techniques from the search literature\""
+		},
+		{
+			"slug": "weighted-a-star",
+			"name": null,
+			"relation": "combines",
+			"source": "sampling-planning, src/informed/abit_star.rs: \"the queues order vertices by `g + epsilon h_hat` and edges by `g + c_hat + epsilon h_hat`\""
+		}
+	],
+	"trace": null
+}

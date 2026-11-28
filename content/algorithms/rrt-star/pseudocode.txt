@@ -12,11 +12,22 @@ algorithm RRT*(x₀, n, γ)
       X-NEAR ← nodes of T within r of x-new
       x-parent ← x-near                          ▷ choose the cheapest parent
       for each x in X-NEAR do
-        if cost[x] + d(x, x-new) < cost[x-parent] + d(x-parent, x-new) and motion-valid(x, x-new) then
+        if cost[x] + c(x, x-new) < cost[x-parent] + c(x-parent, x-new) and motion-valid(x, x-new) then
           x-parent ← x
       add(T, x-new, parent: x-parent)
-      cost[x-new] ← cost[x-parent] + d(x-parent, x-new)
+      cost[x-new] ← cost[x-parent] + c(x-parent, x-new)   ▷ c: the objective's motion cost, d by default
       for each x in X-NEAR do                    ▷ rewire through x-new
-        if cost[x-new] + d(x-new, x) < cost[x] and motion-valid(x-new, x) then
+        if cost[x-new] + c(x-new, x) < cost[x] and motion-valid(x-new, x) then
           reparent(T, x, x-new)                  ▷ updates the costs below x
   return path-to(cheapest goal node of T), or failure if there is none
+function Grow-Forest(x₀, n, γ, RNGS)
+  ▷ feature parallel: one tree per random stream, merged into the first
+  in parallel do
+    for each ρ in RNGS do
+      T[ρ] ← RRT*(x₀, n, γ) with random stream ρ
+  T ← T[first of RNGS]
+  for each T′ in the other trees, in the order of RNGS do
+    for each x in the nodes of T′, parents before children do
+      X-NEAR ← nodes of T within r of x, and x's parent from T′   ▷ that edge T′ already checked
+      add x under the cheapest valid candidate of X-NEAR, then rewire through x
+  return T

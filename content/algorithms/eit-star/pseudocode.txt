@@ -1,0 +1,83 @@
+algorithm EIT*(x₀, X-goal, m, k₀, w)
+  input: start state x₀, goal region X-goal, batch size m, initial sparse checks k₀, suboptimality w ≥ 1
+  output: an improving sequence of paths to the goal region (anytime)
+  T ← tree with root x₀
+  X-sample ← {goal center}
+  c-best ← ∞
+  repeat
+    if Q-R ≠ ∅ and reverse-needed() then
+      reverse-step()
+    else if Q-F ≠ ∅ and min bound of Q-F < c-best then
+      forward-step()
+    else
+      start-batch()
+  until stopped
+procedure start-batch()
+  if c-best < ∞ then
+    prune(T, X-sample, c-best)                  ▷ drop states with g-hat + h-hat ≥ c-best
+  X-sample ← X-sample ∪ sample-informed(m, c-best)
+  r ← radius(|V(T)| + |X-sample|)
+  k ← k₀
+  Q-F ← ∅
+  restart-reverse()
+  insert(Q-F, edges from x₀ to its neighbours)
+procedure restart-reverse()
+  Q-R ← ∅
+  reopen every state
+  h[s], effort[s], reverse-parent[s] ← ∞, ∞, nil for every state s
+  for each goal state s_g do                    ▷ the goal center and the samples in X-goal
+    h[s_g], effort[s_g] ← 0, 0
+    expand-reverse(s_g)
+  re-key(Q-F)                                   ▷ every cost-to-go changed
+procedure expand-reverse(s)
+  for each neighbour t of s do
+    if c-best = ∞ or h[s] + c-hat(t, s) + g-hat(t) ≤ c-best then
+      insert(Q-R, (s, t))                       ▷ keyed (h[s] + c-hat + g-hat(t), h[s] + c-hat, effort)
+procedure reverse-step()
+  (s, t) ← extract-min(Q-R)                     ▷ s is the state nearer the goal
+  close(s)
+  if reverse-parent[t] = s then
+    expand-reverse(t)
+  else if t is not closed then
+    ok ← k evenly spaced states on (t, s) pass check-state, in bisection order
+    re-key(Q-F) for the edges (s, t) and (t, s)   ▷ the sparse checks changed their effort
+    if ok and h[s] + c-hat(t, s) < h[t] then
+      h[t] ← h[s] + c-hat(t, s)
+      effort[t] ← min(effort[t], effort[s] + remaining-checks(t, s))
+      reverse-parent[t] ← s
+      re-key(Q-F) for the edges into t
+      expand-reverse(t)
+function next-forward()
+  b ← min bound of Q-F                          ▷ bound g[v] + c-hat(v, x) + h[x]
+  (v, x) ← the edge of Q-F with least effort remaining-checks(v, x) + effort[x] among bounds ≤ w · b
+  if (v, x) exists and its bound < w · b then
+    return (v, x)
+  return the edge of Q-F with bound b
+procedure forward-step()
+  (v, x) ← next-forward()
+  remove (v, x) from Q-F
+  if parent[x] = v then
+    if x ∉ X-goal then
+      insert(Q-F, edges from x to its neighbours)
+  else if g[v] + c-hat(v, x) < g[x] then
+    if not motion-valid(v, x) then
+      if (v, x) is an edge of the reverse tree then
+        k ← 2k + 1                              ▷ the new points interleave the old ones
+        restart-reverse()
+    else if g[v] + c-hat(v, x) + h[x] < c-best then
+      add or reparent x in T with parent v and g[x] ← g[v] + c-hat(v, x)
+      update the costs below x
+      if x ∉ X-goal then
+        insert(Q-F, edges from x to its neighbours except v)
+      c-best ← min over goal vertices x_g of T of g[x_g]
+function reverse-needed()
+  if Q-F = ∅ then
+    return true
+  (v, x) ← next-forward()
+  if x is closed and min bound of Q-F < best key of Q-R then
+    return false
+  if every edge of Q-F leads to a closed state then
+    return false
+  if w = ∞ and h[x] < ∞ then
+    return false
+  return true
