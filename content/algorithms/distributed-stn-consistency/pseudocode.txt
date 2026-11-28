@@ -1,0 +1,25 @@
+algorithm Distributed-STN-Consistency(GROUP)
+  input: the agents in contact, each with local constraints, proposals and cuts
+  output: consistent with new cuts for every member, or the conflicting shared constraints and agents
+  for each agent a in GROUP do
+    S[a] ← Summary(a, GROUP)
+    if S[a] is a negative cycle then
+      return S[a]   ▷ a's proposals conflict with its own plan
+  J ← the reference and the points of every S[a], with every bound of every S[a]
+  add the shared constraints among GROUP to J
+  if Bellman-Ford(J) finds a negative cycle C then
+    for each agent a in GROUP do
+      drop the proposals of a   ▷ a keeps its cuts
+    return the shared constraints and agents on C
+  CUTS ← Temporal-Decoupling(J, shared constraints among GROUP)
+  for each agent a in GROUP do
+    adopt the proposals of a as local constraints
+    replace the cuts of a towards GROUP with its side of CUTS   ▷ cuts towards others stay
+  return consistent
+function Summary(a, GROUP)
+  N ← local constraints of a, its proposals and its cuts towards agents outside GROUP
+  M ← minimal network of N
+  if M is a negative cycle then
+    return M
+  I ← the points of a on shared constraints with members of GROUP
+  return bounds of M between every pair of {z} ∪ I, and those shared constraints

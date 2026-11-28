@@ -1273,6 +1273,21 @@
 		]
 	},
 	{
+		"slug": "distributed-stn-consistency",
+		"name": "Distributed STN consistency and re-decoupling",
+		"aliases": ["multi-agent STN summaries", "re-decoupling"],
+		"kind": "scheduling",
+		"refs": ["Boerkoel & Durfee 2013"],
+		"implementations": [
+			{
+				"crate": "temporal-control",
+				"items": ["AgentGroup", "Summary"],
+				"feature": "alloc",
+				"summary": "Checks the joint plan of agents in contact from summaries of their minimal networks on the shared points, without a central solver, and recomputes their cuts so that every member derives the same ones."
+			}
+		]
+	},
+	{
 		"slug": "dominance-pruning",
 		"name": "Dominance pruning",
 		"aliases": ["simulation-based dominance pruning", "effective prices"],
@@ -4525,6 +4540,21 @@
 				"items": ["Table"],
 				"feature": null,
 				"summary": "Complete propagation of a constraint given by its allowed tuples, in one scan of the tuples."
+			}
+		]
+	},
+	{
+		"slug": "temporal-decoupling",
+		"name": "Temporal decoupling",
+		"aliases": ["multi-agent STN decoupling", "temporal decoupling problem"],
+		"kind": "scheduling",
+		"refs": ["Hunsberger 2002"],
+		"implementations": [
+			{
+				"crate": "temporal-control",
+				"items": ["MultiAgentStn", "Cut"],
+				"feature": "alloc",
+				"summary": "Splits a plan shared by several agents into one local network each, cutting every shared constraint at the midpoint of its slack, so that any combination of locally consistent schedules is consistent."
 			}
 		]
 	},

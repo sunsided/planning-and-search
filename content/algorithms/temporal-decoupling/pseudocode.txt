@@ -1,0 +1,18 @@
+algorithm Temporal-Decoupling(N, SHARED)
+  input: STN N with reference z, every other point owned by one agent; its shared constraints
+  output: the cuts of every shared constraint, or the negative cycle of N
+  M ← incremental minimal network of N
+  if some constraint of N is rejected by M then
+    return negative cycle of N   ▷ explained by Bellman-Ford
+  CUTS ← ∅
+  for each shared constraint s in SHARED, in constraint order do
+    for each distance edge (u, v, w) of s do   ▷ t_v − t_u ≤ w
+      lo ← max(lower(M, u), lower(M, v) − w)
+      hi ← min(upper(M, u), upper(M, v) − w)
+      c ← ⌊(lo + hi) / 2⌋   ▷ an unbounded side takes the other, both unbounded give 0
+      add t_u − z ≥ c to M
+      add t_v − z ≤ c + w to M   ▷ neither can be rejected
+      CUTS ← CUTS ∪ {(owner(u), t_u − z ≥ c), (owner(v), t_v − z ≤ c + w)}
+  return CUTS
+function Local-Network(a)
+  return the reference, the points of a, the constraints among them and the cuts of a

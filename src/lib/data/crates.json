@@ -1197,7 +1197,7 @@
 	},
 	{
 		"name": "temporal-control",
-		"version": "0.1.1",
+		"version": "0.1.2",
 		"repo": "sunsided/temporal-control",
 		"description": "Simple temporal networks with uncertainty: dynamic controllability checking, dispatchable networks and a no_std, no-alloc onboard dispatcher",
 		"license": "MIT OR Apache-2.0",
@@ -1210,6 +1210,7 @@
 				"kind": "ul",
 				"items": [
 					"Flight software and robotics engineers who schedule activities with uncertain durations on a spacecraft, rover or robot and need the timing checked before uplink and executed onboard without a heap. The design targets adoption by an existing executive such as F Prime or cFS.",
+					"Teams of vehicles (rovers, landers, orbiters) that share one plan but rarely talk: each gets a part it can execute and change alone, and the parts are merged and rebalanced when they can communicate, without a central solver.",
 					"Planners that emit temporal plans and need to know whether the plan stays executable under duration uncertainty, with an explanation when it does not.",
 					"Researchers comparing dynamic controllability algorithms: Morris 2014, RUL⁻, RUL2021, the labelled closure and a per-label backpropagation run on the same networks and are cross-checked against each other and a brute-force oracle.",
 					"For energy, memory, thermal or communication budgets over the same timeline, [resource-timeline](https://github.com/sunsided/resource-timeline) is the companion crate; for durations with probabilities rather than bounds, [stochastic-search](https://github.com/sunsided/stochastic-search) is the better fit."
@@ -1218,6 +1219,7 @@
 		],
 		"algorithms": [
 			"bellman-ford",
+			"distributed-stn-consistency",
 			"dominated-edge-filtering",
 			"floyd-warshall",
 			"incremental-stn-consistency",
@@ -1227,7 +1229,8 @@
 			"p3c",
 			"per-label-backpropagation",
 			"rul-minus",
-			"rul2021"
+			"rul2021",
+			"temporal-decoupling"
 		],
 		"about": "who"
 	},

@@ -1,0 +1,30 @@
+{
+	"description": "Distributed STN consistency lets agents that share a temporally decoupled plan check and rebalance it when they can communicate, without a central solver and without revealing their private time points. Between contacts, each agent accepts a change that fits inside its cuts on its own and records any other change as a proposal. In a communication window, each agent of the group sends a summary: its minimal network, proposals included and with the cuts towards agents outside the group kept, restricted to the reference and the points of its shared constraints with group members. Because the minimal network of an STN is decomposable, these summaries plus the shared constraints are consistent exactly when the agents' combined networks are. Every member builds the same joint network from the same summaries and runs Bellman-Ford on it; a negative cycle names the shared constraints and the agents involved. Re-decoupling then recomputes the cuts of the group's shared constraints on the joint network with the same midpoint rule as the full decoupling. The new cuts depend only on the summaries, so every member derives the same ones. Each member adopts its proposals, or drops them if the group's plan is inconsistent. The step is safe only if every member adopts its new cuts.",
+	"papers": [
+		{
+			"authors": "James C. Boerkoel Jr., Edmund H. Durfee",
+			"title": "Distributed Reasoning for Multiagent Simple Temporal Problems",
+			"year": 2013,
+			"venue": "Journal of Artificial Intelligence Research",
+			"doi": "10.1613/jair.3840",
+			"arxiv": null,
+			"url": null,
+			"role": "introduces"
+		}
+	],
+	"lineage": [
+		{
+			"slug": "temporal-decoupling",
+			"name": null,
+			"relation": "builds-on",
+			"source": "temporal-control, src/multiagent.rs: \"The new cuts are a pure function of the summaries, so every member derives the same ones; with all agents in the group they equal those of [`MultiAgentStn::decouple`] on the current constraints.\""
+		},
+		{
+			"slug": "bellman-ford",
+			"name": null,
+			"relation": "builds-on",
+			"source": "temporal-control, src/multiagent/group.rs: \"Runs Bellman-Ford on the joint network, `O(p * b)` steps for `p` shared points and `b` bounds.\""
+		}
+	],
+	"trace": null
+}
