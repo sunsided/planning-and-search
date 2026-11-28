@@ -1,0 +1,38 @@
+algorithm Rendezvous(agents, G, COMM, interval, budget)
+  input: agents 0, …, n − 1 with start and goal vertices on graph G
+  input: communication graph COMM on the vertices of G, links in either direction
+  input: interval ≥ 1 steps between two rendezvous, budget of epochs
+  output: a conflict-free plan, or failure, or limit reached
+  if some agent cannot reach its goal in G then
+    return failure                             ▷ unsolvable
+  if not connected(starts) or not connected(goals) then
+    return failure                             ▷ exhausted: the team can never coordinate or finish
+  here ← starts
+  e ← 0
+  while here ≠ goals do
+    if exhausted(budget) then
+      return limit reached
+    PLAN ← every agent waits at here for interval steps
+    for k in 0, …, n − 1 do
+      P ← pass(here, (e + k) mod n)
+      if P ≠ nil and remaining(P) < remaining(PLAN) then
+        PLAN ← P                               ▷ the first pass that brings the team closer
+        break
+    execute PLAN
+    here ← the ends of PLAN
+    e ← e + 1
+  return the executed paths, trailing waits trimmed
+function pass(here, first)
+  PLANNED ← ∅
+  for each agent i in BFS order over the links of here in COMM from first do    ▷ ties by agent id
+    R ← the vertices i can reach from here[i] in interval steps, avoiding PLANNED through the epoch's end
+    ENDS ← the v in R with a path to the goal of i, by distance to that goal, then smaller v
+    v ← the first v in ENDS with connected(the ends of PLANNED ∪ {v})
+    if v = nil then
+      return nil
+    PLANNED ← PLANNED ∪ {a path of i to v in interval steps}
+  return PLANNED
+function remaining(PLAN)
+  return the sum over the agents of the distance from the end of their plan to their goal
+function connected(V)
+  return true if V, joined by the links of COMM, is one component    ▷ union-find

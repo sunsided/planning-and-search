@@ -371,9 +371,9 @@
 	},
 	{
 		"name": "mapf-search",
-		"version": "0.3.0",
+		"version": "0.4.0",
 		"repo": "sunsided/mapf-search",
-		"description": "Multi-agent pathfinding on grids and graphs: CBS with its improvements, CBS-TA, FOCBS, ECBS, ICTS, PBS, PIBT, PIBT*_T, M*, EPEA*, MAPF-LNS2 and multi-objective MO-CBS",
+		"description": "Multi-agent pathfinding on grids and graphs: CBS with its improvements and independence detection, CBS-TA, FOCBS, ECBS, ICTS, PBS, PIBT, PIBT*_T, CA*, WHCA*, ADPP, rendezvous coordination, M*, EPEA*, MAPF-LNS2 and multi-objective MO-CBS",
 		"license": "MIT OR Apache-2.0",
 		"msrv": "1.86",
 		"keywords": ["mapf", "multi-agent", "pathfinding", "cbs", "robotics"],
@@ -405,11 +405,14 @@
 			}
 		],
 		"algorithms": [
+			"adpp",
 			"bypass",
 			"cbs",
+			"cbs-id",
 			"cbs-ta",
 			"cg-heuristic",
 			"conflict-avoidance-table",
+			"cooperative-a-star",
 			"dg-heuristic",
 			"disjoint-splitting",
 			"ecbs",
@@ -423,8 +426,10 @@
 			"pibt",
 			"pibt-star-t",
 			"prioritizing-conflicts",
+			"rendezvous",
 			"space-time-a-star",
-			"wdg-heuristic"
+			"wdg-heuristic",
+			"whca-star"
 		],
 		"about": "who"
 	},

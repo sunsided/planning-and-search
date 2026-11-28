@@ -1,0 +1,24 @@
+{
+	"description": "Windowed hierarchical cooperative A\\* (WHCA\\*) plans many agents in rounds over a reservation table that reaches only a window of `w` steps ahead. Every round, all agents plan from where they stand, one after another, each avoiding the window plans of the agents before it; the first agent rotates (agent `r mod n` in round `r`), so an agent that had to make way goes first in a later round. Beyond the window an agent ignores the others and follows its distance table to the goal. Then every agent executes the first `k` steps of its plan, `1 ≤ k ≤ w` (16 and 8 by default, half the window, as Silver suggests), and the next round replans. The window is also how it handles stale information: the others' plans are trusted only through the window, and the agents sync again before that trust runs out. Within a round the window plans are pairwise conflict-free, so the executed plan is too. The run ends at the first round that starts with every agent at its goal. It has no quality guarantee and is not complete: agents can oscillate forever, so always pass a budget of rounds.",
+	"papers": [
+		{
+			"authors": "David Silver",
+			"title": "Cooperative Pathfinding",
+			"year": 2005,
+			"venue": "Proceedings of the AAAI Conference on Artificial Intelligence and Interactive Digital Entertainment",
+			"doi": "10.1609/aiide.v1i1.18726",
+			"arxiv": null,
+			"url": null,
+			"role": "introduces"
+		}
+	],
+	"lineage": [
+		{
+			"slug": "cooperative-a-star",
+			"name": null,
+			"relation": "builds-on",
+			"source": "mapf-search, src/cooperative.rs: \"Finds a conflict-free plan with windowed hierarchical cooperative A*: rounds of cooperative planning over the next `config.window` steps\""
+		}
+	],
+	"trace": null
+}

@@ -1,0 +1,24 @@
+{
+	"description": "Cooperative A\\* (CA\\*) plans many agents fast by planning them one at a time. Agents take turns in index order; each takes the cheapest path that avoids a shared space-time *reservation table* holding the paths of the agents before it: their vertex at every time, the reverse of each move so no two agents swap, and their goal from their arrival on, for good. The low level is space-time A\\* guided by each agent's true distance to its goal, which Silver's *hierarchical* variant (HCA\\*) computes with reverse resumable A\\*; a distance table per agent gives it here, so this CA\\* is HCA\\* in the paper's terms. The plan has no quality guarantee, and CA\\* is not complete: a finished agent holds its goal forever, so a later agent that must pass it finds no path. Use it as the fast baseline for many agents, or WHCA\\* when agents block each other.",
+	"papers": [
+		{
+			"authors": "David Silver",
+			"title": "Cooperative Pathfinding",
+			"year": 2005,
+			"venue": "Proceedings of the AAAI Conference on Artificial Intelligence and Interactive Digital Entertainment",
+			"doi": "10.1609/aiide.v1i1.18726",
+			"arxiv": null,
+			"url": null,
+			"role": "introduces"
+		}
+	],
+	"lineage": [
+		{
+			"slug": "space-time-a-star",
+			"name": null,
+			"relation": "builds-on",
+			"source": "mapf-search, src/cooperative.rs: \"The low level is space-time A* guided by the true distance to the goal\""
+		}
+	],
+	"trace": null
+}

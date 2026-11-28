@@ -1,0 +1,24 @@
+{
+	"description": "CBS with independence detection solves agents that do not interact as separate, smaller problems. Every agent starts in a group of its own. Each round solves the groups that are new with CBS on a sub-instance of just their agents, writes their paths into the joint plan and looks for conflicts between them. Every pair of groups joined by a conflict merges in the same round, and only the merged groups are solved again; the run ends when no two paths conflict. The plan is optimal for the sum of costs or the makespan: each group's optimum is at most its share of the overall optimum, and the final groups do not conflict. This is Standley's *simple* independence detection: the full version first tries to replan one group around the other's paths before merging them, which is not done here. The limits bound each CBS run on its own, and an unsolvable group makes the whole instance unsolvable. The parallel variant solves the groups of a round on several threads, with the same result and statistics; the rounds stay sequential.",
+	"papers": [
+		{
+			"authors": "Trevor Standley",
+			"title": "Finding Optimal Solutions to Cooperative Pathfinding Problems",
+			"year": 2010,
+			"venue": "AAAI Conference on Artificial Intelligence",
+			"doi": "10.1609/aaai.v24i1.7564",
+			"arxiv": null,
+			"url": null,
+			"role": "introduces"
+		}
+	],
+	"lineage": [
+		{
+			"slug": "cbs",
+			"name": null,
+			"relation": "builds-on",
+			"source": "mapf-search, src/independence.rs: \"Each round solves the groups that are new with CBS, then looks for conflicts between the paths of different groups.\""
+		}
+	],
+	"trace": null
+}

@@ -1,0 +1,34 @@
+algorithm WHCA*(agents, w, k, budget)
+  input: agents 0, …, n − 1 with starts and goals
+  input: a window of w steps, of which k are executed per round, 1 ≤ k ≤ w
+  input: budget of rounds
+  output: a conflict-free plan, or unsolvable, exhausted or limit reached
+  for each agent i do
+    dᵢ ← the distance of every vertex to goal(i)    ▷ the true distance: the heuristic of every search
+    if dᵢ(start(i)) = ∞ then
+      return unsolvable
+    hereᵢ ← start(i)
+    executedᵢ ← ⟨start(i)⟩
+  r ← 0
+  while true do
+    if hereᵢ = goal(i) for every agent i then
+      return executed₀, …, executedₙ₋₁, each without its trailing waits
+    if exhausted(budget) then
+      return limit reached
+    R ← ∅
+    for each i in r mod n, (r + 1) mod n, …, (r + n − 1) mod n do    ▷ the first agent rotates
+      p ← space-time-A*(i from hereᵢ, R, dᵢ)        ▷ past the window nothing is reserved
+      if p = failure then
+        return exhausted
+      windowᵢ ← the positions of p at times 0, …, w    ▷ a path that ends early waits at its end
+      reserve(R, windowᵢ, w)
+    for each agent i do
+      append(executedᵢ, windowᵢ[1], …, windowᵢ[k])
+      hereᵢ ← windowᵢ[k]
+    r ← r + 1
+procedure reserve(R, path, until)
+  for each vertex v that path visits at a time t ≤ until do
+    R ← R ∪ {v at t}
+  for each move u → v that path makes from t to t + 1 ≤ until do
+    R ← R ∪ {v → u at t}                            ▷ no swaps
+  R ← R ∪ {last(path) at every time from its arrival through until}

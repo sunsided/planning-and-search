@@ -1,0 +1,35 @@
+algorithm ADPP(agents, D, seed, budget)
+  input: agents 0, …, n − 1 with starts and goals; agent i has priority over every j > i
+  input: the longest message delay D ≥ 1, in ticks, and a seed for the delays
+  input: budget of delivery ticks
+  output: a conflict-free plan, or unsolvable, exhausted or limit reached
+  IN-FLIGHT ← ∅                                     ▷ messages ⟨arrival, to, from, version⟩
+  for i in 0, …, n − 1 do
+    planᵢ ← space-time-A*(i, ∅, dᵢ)                 ▷ alone; dᵢ is the distance to goal(i)
+    if planᵢ = failure then
+      return unsolvable
+    versionᵢ ← 0
+    broadcast(i, 0)
+  while IN-FLIGHT ≠ ∅ do
+    τ ← the earliest arrival in IN-FLIGHT
+    if exhausted(budget) then
+      return limit reached
+    for each message ⟨τ, j, i, v⟩ in IN-FLIGHT do
+      remove it from IN-FLIGHT
+      known[j, i] ← max(known[j, i], v)             ▷ an older plan that arrives late is dropped
+    for each agent j that received a message at τ, in index order do
+      ABOVE ← the plans known[j, i] of the agents i < j that j has heard from
+      if planⱼ conflicts with some plan in ABOVE then
+        R ← the reservations of ABOVE, each last vertex held for good
+        p ← space-time-A*(j, R, dⱼ)
+        if p = failure then
+          return exhausted                          ▷ the agents above j block it
+        if p ≠ planⱼ then
+          planⱼ ← p
+          versionⱼ ← versionⱼ + 1
+          broadcast(j, τ)
+  return plan₀, …, planₙ₋₁, each without its trailing waits    ▷ quiescence: pairwise conflict-free
+procedure broadcast(i, τ)
+  for j in i + 1, …, n − 1 do
+    δ ← a delay in 1, …, D drawn from the seed
+    IN-FLIGHT ← IN-FLIGHT ∪ {⟨τ + δ, j, i, versionᵢ⟩}

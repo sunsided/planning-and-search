@@ -1,0 +1,19 @@
+algorithm CBS-ID(agents, config, limits)
+  input: agents 0, …, n − 1 with start and goal vertices, a CBS configuration and its objective
+  input: limits on each CBS run
+  output: an optimal conflict-free plan, or failure, or limit reached
+  GROUPS ← ⟨{0}, {1}, …, {n − 1}⟩
+  NEW ← every group
+  while true do
+    for each group g in NEW do                 ▷ in parallel in the parallel variant
+      r ← CBS(the agents of g, config) within limits
+      if r is failure or limit reached then
+        return r                               ▷ one unsolvable group makes the instance unsolvable
+      paths[a] ← the path of a in r, for each agent a of g
+    C ← every conflict between paths
+    if C = ∅ then
+      return paths
+    for each conflict in C between agents a and b do
+      union(group(a), group(b))                ▷ union-find: every conflicting pair merges this round
+    GROUPS ← the unions, each sorted, ordered by their first agent
+    NEW ← the groups that merged two or more groups

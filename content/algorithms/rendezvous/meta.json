@@ -1,0 +1,27 @@
+{
+	"description": "Rendezvous coordination plans for agents that can exchange plans only while they are connected in a *communication graph* on the same vertices, such as radio range or line of sight. A configuration is connected if the agents' vertices, joined by communication links in either direction, form one component, so agents relay for each other. The team starts connected and must be connected again every `interval` steps; at each of these rendezvous it agrees on a joint plan for the next epoch and then executes it without communicating. An epoch plans the agents one after another in a *pass*, breadth-first along the team's current links from a first agent: each agent takes the reachable end that is closest to its goal, linked to the ends of the agents planned before it, along a path that avoids their plans. It ignores the agents not planned yet, which plan around it, so two agents can swap places. Epoch `e` tries passes from agent `e mod n` on and keeps the first that brings the team strictly closer to its goals, summed over the agents; if none does, everyone stays put. Each epoch is conflict-free and ends connected, so every rendezvous finds the team connected. This pass and its safety argument adapt Hollinger and Singh's periodic connectivity to MAPF: the paper plans by coordinate ascent from staying put, checking the whole team's connectivity per move, which stalls a column of agents. The plan has no quality guarantee and the method is not complete: an agent never steps off its goal to let another pass, so the team can wait forever, and a budget on the number of epochs is required.",
+	"papers": [
+		{
+			"authors": "Geoffrey Hollinger, Sanjiv Singh",
+			"title": "Multi-robot coordination with periodic connectivity",
+			"year": 2010,
+			"venue": "IEEE International Conference on Robotics and Automation (ICRA)",
+			"doi": "10.1109/robot.2010.5509175",
+			"arxiv": null,
+			"url": null,
+			"role": "introduces"
+		},
+		{
+			"authors": "Geoffrey A. Hollinger, Sanjiv Singh",
+			"title": "Multirobot Coordination With Periodic Connectivity: Theory and Experiments",
+			"year": 2012,
+			"venue": "IEEE Transactions on Robotics",
+			"doi": "10.1109/tro.2012.2190178",
+			"arxiv": null,
+			"url": null,
+			"role": "extends"
+		}
+	],
+	"lineage": [],
+	"trace": null
+}

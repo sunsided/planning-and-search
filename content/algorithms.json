@@ -159,6 +159,21 @@
 		]
 	},
 	{
+		"slug": "adpp",
+		"name": "ADPP",
+		"aliases": ["Asynchronous decentralized prioritized planning", "SD-PP"],
+		"kind": "search",
+		"refs": ["Čáp, Novák, Vokřínek and Pěchouček 2012", "Čáp, Novák, Kleiner and Selecký 2015"],
+		"implementations": [
+			{
+				"crate": "mapf-search",
+				"items": ["adpp", "AdppConfig"],
+				"feature": null,
+				"summary": "A deterministic simulation of the protocol: agents repair their plans against the newest plans of higher agents as those arrive after seeded delays."
+			}
+		]
+	},
+	{
 		"slug": "ait-star",
 		"name": "AIT*",
 		"aliases": ["Adaptively Informed Trees"],
@@ -746,6 +761,27 @@
 		]
 	},
 	{
+		"slug": "cbs-id",
+		"name": "CBS with independence detection",
+		"aliases": ["CBS-ID", "Simple independence detection", "SID"],
+		"kind": "search",
+		"refs": ["Standley 2010"],
+		"implementations": [
+			{
+				"crate": "mapf-search",
+				"items": ["cbs_id"],
+				"feature": null,
+				"summary": "Simple independence detection over CBS: groups start with one agent each, conflicting groups merge and are solved again; optimal for sum of costs or makespan."
+			},
+			{
+				"crate": "mapf-search",
+				"items": ["cbs_id_par"],
+				"feature": "parallel",
+				"summary": "The same search with the new groups of each round solved on several threads; same result and statistics."
+			}
+		]
+	},
+	{
 		"slug": "cbs-ta",
 		"name": "CBS-TA",
 		"aliases": ["Conflict-Based Search with Task Assignment"],
@@ -928,6 +964,21 @@
 				"items": ["ContractionHierarchy", "WitnessLimits"],
 				"feature": null,
 				"summary": "Contracts the states of a static graph least important first with bounded witness searches, then answers exact queries by upward bidirectional Dijkstra and shortcut unpacking."
+			}
+		]
+	},
+	{
+		"slug": "cooperative-a-star",
+		"name": "Cooperative A*",
+		"aliases": ["CA*", "HCA*", "Hierarchical cooperative A*"],
+		"kind": "search",
+		"refs": ["Silver 2005"],
+		"implementations": [
+			{
+				"crate": "mapf-search",
+				"items": ["ca_star"],
+				"feature": null,
+				"summary": "Agents planned once each, in index order, by space-time A* over a reservation table that holds finished agents at their goals for good."
 			}
 		]
 	},
@@ -3690,6 +3741,21 @@
 		]
 	},
 	{
+		"slug": "rendezvous",
+		"name": "Rendezvous coordination",
+		"aliases": ["Periodic connectivity"],
+		"kind": "search",
+		"refs": ["Hollinger and Singh 2010"],
+		"implementations": [
+			{
+				"crate": "mapf-search",
+				"items": ["rendezvous"],
+				"feature": null,
+				"summary": "Agents that exchange plans only while connected in a communication graph plan in epochs that end with the team connected again; neither optimal nor complete."
+			}
+		]
+	},
+	{
 		"slug": "resource-envelopes",
 		"name": "Resource envelopes",
 		"aliases": ["level envelopes"],
@@ -4560,6 +4626,21 @@
 				"items": ["weighted_a_star"],
 				"feature": null,
 				"summary": "A* ordered by g + w * h with a rational weight, trading solution quality for speed within factor w."
+			}
+		]
+	},
+	{
+		"slug": "whca-star",
+		"name": "WHCA*",
+		"aliases": ["Windowed hierarchical cooperative A*"],
+		"kind": "search",
+		"refs": ["Silver 2005"],
+		"implementations": [
+			{
+				"crate": "mapf-search",
+				"items": ["whca_star", "WhcaConfig"],
+				"feature": null,
+				"summary": "Rounds of cooperative planning over a reservation window, executing the first steps of each plan, with the first agent rotating per round."
 			}
 		]
 	},

@@ -1,0 +1,26 @@
+algorithm CA*(agents, budget)
+  input: agents 0, …, n − 1 with starts and goals, planned in index order
+  input: budget of single-agent searches
+  output: a conflict-free plan, or unsolvable, exhausted or limit reached
+  for each agent i do
+    dᵢ ← the distance of every vertex to goal(i)    ▷ the true distance: the heuristic of every search
+    if dᵢ(start(i)) = ∞ then
+      return unsolvable                             ▷ i cannot reach its goal even alone
+  R ← ∅                                             ▷ the reservation table
+  for i in 0, …, n − 1 do
+    if exhausted(budget) then
+      return limit reached
+    pathᵢ ← space-time-A*(i, R, dᵢ)                 ▷ the cheapest path that avoids R
+    if pathᵢ = failure then
+      return exhausted                              ▷ the agents before i block it
+    reserve(R, pathᵢ, ∞)
+  return path₀, …, pathₙ₋₁, each without its trailing waits
+procedure reserve(R, path, until)
+  for each vertex v that path visits at a time t ≤ until do
+    R ← R ∪ {v at t}
+  for each move u → v that path makes from t to t + 1 ≤ until do
+    R ← R ∪ {v → u at t}                            ▷ no swaps
+  if until = ∞ then
+    R ← R ∪ {last(path) from its arrival on}        ▷ a finished agent holds its goal for good
+  else
+    R ← R ∪ {last(path) at every time from its arrival through until}

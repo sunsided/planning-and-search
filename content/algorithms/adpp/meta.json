@@ -1,0 +1,34 @@
+{
+	"description": "Asynchronous decentralized prioritized planning (ADPP) coordinates many agents without a central solver: every agent plans for itself and repairs its plan when it learns of a conflicting plan of an agent above it. Agent `i` has priority over every agent `j > i`. At the start each agent plans alone and broadcasts its plan to the agents below it; each message arrives after its own delay of 1 to `D` ticks (3 by default), drawn from a seed, so messages overtake each other. A recipient keeps the newest plan it has received from each agent above it and drops older ones that arrive late. When a tick delivers it anything, it checks its plan against those plans and, if one conflicts, replans under their reservations, each last vertex held for good, and broadcasts the new plan if it changed. With `D = 1` every message arrives in the next tick: the synchronized variant, SD-PP. The run is a deterministic simulation of the protocol and ends when no message is in flight; then every agent holds the current plans above it and avoids them, so the plans are pairwise conflict-free. It always ends, since agent 0 never replans. Like every prioritized planner it is incomplete and has no quality guarantee: an agent can find no path around the agents above it.",
+	"papers": [
+		{
+			"authors": "Michal Čáp, Peter Novák, Jiří Vokřínek, Michal Pěchouček",
+			"title": "Asynchronous Decentralized Algorithm for Space-Time Cooperative Pathfinding",
+			"year": 2012,
+			"venue": "arXiv",
+			"doi": null,
+			"arxiv": "1210.6855",
+			"url": null,
+			"role": "introduces"
+		},
+		{
+			"authors": "Michal Čáp, Peter Novák, Alexander Kleiner, Martin Selecký",
+			"title": "Prioritized Planning Algorithms for Trajectory Coordination of Multiple Mobile Robots",
+			"year": 2015,
+			"venue": "IEEE Transactions on Automation Science and Engineering",
+			"doi": "10.1109/TASE.2015.2445780",
+			"arxiv": "1409.2399",
+			"url": null,
+			"role": "extends"
+		}
+	],
+	"lineage": [
+		{
+			"slug": "space-time-a-star",
+			"name": null,
+			"relation": "builds-on",
+			"source": "mapf-search, docs/design.md: \"it replans with the plain low level under their reservations held for good\""
+		}
+	],
+	"trace": null
+}
